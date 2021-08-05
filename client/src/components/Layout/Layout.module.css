@@ -1,0 +1,18 @@
+.Background {
+    background-color: #F0F0F3;
+    width: 100%;
+    min-height: 800px;
+    max-height: 1980px;
+    /* position: fixed; */
+    left: 0;
+    top: 0;
+}
+
+.Content {
+    padding: 100px 200px 200px 200px;
+}
+
+/* .Scroll {
+    overflow-y: scroll;
+    height: 2000px;
+} */
