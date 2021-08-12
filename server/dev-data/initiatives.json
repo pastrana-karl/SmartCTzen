@@ -1,0 +1,79 @@
+[
+    {
+        "user": "Kevin Gojocco",
+        "title": "Basic Javascript",
+        "description": "Teach basic javascript to citizens",
+        "date": "2022-06-30",
+        "location": "Antipolo, Rizal",
+        "coverImage": "javascript.jpeg",
+        "upvote": 30,
+        "downvote": 9,
+        "status": "approved"
+    },
+    {
+        "user": "Ivann Calandria",
+        "title": "Anger Management",
+        "description": "Anger management training to barangay officials",
+        "date": "2022-09-23",
+        "location": "Antipolo, Rizal",
+        "coverImage": "anger.jpeg",
+        "upvote": 50,
+        "downvote": 20,
+        "status": "approved"
+    },
+    {
+        "user": "Karl Pastrana",
+        "title": "Covid-19 Vaccination",
+        "description": "Vaccination program for all citizens",
+        "date": "2022-09-23",
+        "location": "City of Manila",
+        "coverImage": "vaccination.jpeg",
+        "upvote": 100,
+        "downvote": 0,
+        "status": "pending"
+    },
+    {
+        "user": "Joshua Saps",
+        "title": "Hackathon for Mental Health",
+        "description": "Hackathon to develop mental health apps",
+        "date": "2022-04-23",
+        "location": "City of Manila",
+        "coverImage": "hackathon.jpeg",
+        "upvote": 80,
+        "downvote": 10,
+        "status": "approved"
+    },
+    {
+        "user": "Seo Dalmi",
+        "title": "How to be a great CEO",
+        "description": "Webinar on being a CEO",
+        "date": "2022-04-23",
+        "location": "Bonifacio Global City, Taguig",
+        "coverImage": "ceo.jpeg",
+        "upvote": 80,
+        "downvote": 10,
+        "status": "approved"
+    },
+    {
+        "user": "Han Ji-pyeong",
+        "title": "Be a better Investor",
+        "description": "Webinar on being a Venture Capitalist",
+        "date": "2022-03-23",
+        "location": "Bonifacio Global City, Taguig",
+        "coverImage": "investor.jpeg",
+        "upvote": 120,
+        "downvote": 10,
+        "status": "approved"
+    },
+    {
+        "user": "Nam Do-san",
+        "title": "Building AI Apps",
+        "description": "Workshop on developing Artificial Intelligence",
+        "date": "2022-02-07",
+        "location": "Bonifacio Global City, Taguig",
+        "coverImage": "ai.jpeg",
+        "upvote": 90,
+        "downvote": 10,
+        "status": "rejected"
+    }
+]

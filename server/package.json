@@ -1,0 +1,25 @@
+{
+  "name": "smartctzen-restapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon server.js",
+    "start:prod": "cross-env NODE_ENV=production nodemon server.js"
+  },
+  "author": "Cross-Section Developers",
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.5",
+    "morgan": "^1.10.0",
+    "slugify": "^1.6.0"
+  },
+  "devDependencies": {
+    "ndb": "^1.1.5",
+    "nodemon": "^2.0.12"
+  }
+}
