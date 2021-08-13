@@ -7,6 +7,9 @@ const initiativesRoutes = require("./routes/initiativesRoutes");
 const projectsRoutes = require("./routes/projectsRoutes");
 const reportsRoutes = require("./routes/reportsRoutes");
 const featuresRoutes = require("./routes/featuresRoutes");
+const citizenRoutes = require("./routes/citizenRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const superAdminRoutes = require("./routes/superAdminRoutes");
 
 const app = express();
 
@@ -32,6 +35,9 @@ app.use('/api', initiativesRoutes);
 app.use('/api', projectsRoutes);
 app.use('/api', reportsRoutes);
 app.use('/api', featuresRoutes);
+app.use('/api/citizen', citizenRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/superAdmin', superAdminRoutes);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on the server`, 404));

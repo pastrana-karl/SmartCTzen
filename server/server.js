@@ -16,9 +16,10 @@ const DB = process.env.DATABASE.replace(
 );
 
 mongoose.connect(DB, {
-    userNewUrlParser: true,
+    useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
 }).then(con => {
     console.log(con.connections);
     console.log('DB connection successfully');
