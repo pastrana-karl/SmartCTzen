@@ -4,6 +4,13 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const bcrypt = require("bcrypt");
 
+/**
+ * 
+ * The catchAsync() function will be our error handler so you don't
+ * have to use the try-catch block
+ * 
+ * */
+
 //Register
 exports.registerCitizen = catchAsync(async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
