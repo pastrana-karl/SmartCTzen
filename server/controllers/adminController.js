@@ -5,7 +5,7 @@ const catchAsync = require('../utils/catchAsync');
 const bcrypt = require("bcrypt");
 
 //Register
-exports.registerAdmin = catchAsync((req, res, next) => {
+exports.registerAdmin = catchAsync(async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(req.body.password, salt);
     const newAdmin = new Admin({
@@ -18,7 +18,7 @@ exports.registerAdmin = catchAsync((req, res, next) => {
 });
 
 //Login
-exports.loginAdmin = catchAsync((req, res, next) => {
+exports.loginAdmin = catchAsync(async (req, res, next) => {
     const admin = await Admin.findOne({ username: req.body.username });
 
     if(!admin)
