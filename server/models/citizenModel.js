@@ -2,29 +2,29 @@ const mongoose = require("mongoose");
 
 const citizenSchema = new mongoose.Schema({
     username:{
-        type:String,
-        unique:true,
+        type: String,
+        unique: true,
     },
     email:{
-        type:String,
-        unique:true,
+        type: String,
+        unique: true,
     },
     password:{
-        type:String,
+        type: String,
         required:true,
     },
 
     resetToken:{
-        type:String,
+        type: String,
     },
 
     expireToken:{
-        type:Date,
+        type: Date,
     },
 
     profilePic:{
-        type:String,
-        default:"",
+        type: String,
+        default: "",
     },
 }, 
 { timestamps: true }
