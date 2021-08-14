@@ -1,5 +1,4 @@
 const router = require("express").Router();
-
 const adminController = require("../controllers/adminController");
 
 //REGISTER
@@ -7,9 +6,20 @@ router
     .route("/register")
     .post(adminController.registerAdmin);
 
+//LOGIN    
 router
     .route("/login")
     .post(adminController.loginAdmin);
+
+//FORGOT PASSWORD    
+router
+    .route("/reset-password")
+    .post(adminController.forgotAdmin);
+
+//CHANGE PASSWORD    
+router
+    .route("/new-password")
+    .post(adminController.changeAdminPassword);
 
 
 // router.post("/register", async (req, res) => {

@@ -16,7 +16,19 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(req.body.password, salt);
     const newCitizen = new Citizen({
-        username: req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        middlename: req.body.middlename,
+        suffix: req.body.suffix,
+        sex: req.body.sex,
+        fathername: req.body.fathername,
+        mothername: req.body.mothername,
+        street: req.body.street,
+        barangay: req.body.barangay,
+        city: req.body.city,
+        province: req.body.province,
+        zipcode: req.body.zipcode,
+        region: req.body.region,
         email: req.body.email,
         password: hashedPass,
     })
@@ -33,7 +45,7 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
 
 //Login
 exports.loginCitizen = catchAsync(async (req, res, next) => {
-    const citizen = await Citizen.findOne({ username: req.body.username });
+    const citizen = await Citizen.findOne({ email: req.body.email });
 
     if(!citizen)
     {
