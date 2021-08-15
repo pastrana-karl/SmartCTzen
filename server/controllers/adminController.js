@@ -7,13 +7,7 @@ const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
 
-//sendgrid api-key: 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
-
-const transporter = nodemailer.createTransport(sendgridTransport({
-    auth:{
-        api_key:"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"
-    }
-}))
+//Sendgrid key
 
 //Register
 exports.registerAdmin = catchAsync(async (req, res, next) => {
@@ -69,7 +63,7 @@ exports.forgotAdmin = (req, res, next) => {
             admin.save().then((result) => {
                 transporter.sendMail({
                     to:admin.email,
-                    from:"sct.zen.management@gmail.com",
+                    from:"smartct.management@gmail.com",
                     subject:"Password Reset",
                     html:`
                     <p>You requested for password reset</p>
