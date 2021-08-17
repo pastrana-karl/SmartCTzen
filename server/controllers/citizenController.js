@@ -60,5 +60,6 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
     }
 
     const { password, ...others } = citizen._doc;
+    console.log()
     res.status(200).json(others);
 });
