@@ -9,7 +9,9 @@ const FirstStep = (props) => {
     const { register, handleSubmit, errors } = useForm({
     defaultValues: {
         firstname: citizen.firstname,
-        lastname: citizen.lastname
+        lastname: citizen.lastname,
+        middlename: citizen.middlename,
+        suffix: citizen.suffix
     }
     });
 
@@ -61,6 +63,48 @@ const FirstStep = (props) => {
           {errors.lastname && (
             <p className="errorMsg">{errors.lastname.message}</p>
           )}
+        </Form.Group>
+
+        <Form.Group controlId="middlename">
+          <Form.Label>Middle Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="middlename"
+            placeholder="Enter your middle name"
+            autoComplete="off"
+            ref={register({
+              required: 'Middle name is required.',
+              pattern: {
+                value: /^[a-zA-Z]+$/,
+                message: 'Middle name should contain only characters.'
+              }
+            })}
+            className={`${errors.middlename ? 'input-error' : ''}`}
+          />
+          {errors.middlename && (
+            <p className="errorMsg">{errors.middlename.message}</p>
+          )}
+        </Form.Group>
+
+        <Form.Group controlId="suffix">
+          <Form.Label>Suffix</Form.Label>
+          <Form.Control
+            type="text"
+            name="suffix"
+            placeholder="Enter your suffix"
+            autoComplete="off"
+            // ref={register({
+            //   required: 'Middle name is required.',
+            //   pattern: {
+            //     value: /^[a-zA-Z]+$/,
+            //     message: 'Middle name should contain only characters.'
+            //   }
+            // })}
+            // className={`${errors.middlename ? 'input-error' : ''}`}
+          />
+          {/* {errors.middlename && (
+            <p className="errorMsg">{errors.middlename.message}</p>
+          )} */}
         </Form.Group>
 
         <Button variant="primary" type="submit">
