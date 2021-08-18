@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 import CardForm from '../../../UI/Cards/CardForm/CardForm';
+import Input from '../../../UI/Input/Input';
+import LoginButton from '../../../UI/Buttons/LoginButton';
 import classes from './LoginForm.module.css';
 
 const LoginForm = () => {
@@ -15,7 +17,7 @@ const LoginForm = () => {
           <div>SmartCT Logo</div>
           <div className={classes.LoginCredentials}>
             {/* <label>Email address</label> */}
-            <input
+            <Input
               type="email"
               placeholder="Email address"
               className={classes.Input}
@@ -29,7 +31,7 @@ const LoginForm = () => {
           </div>
           <div className={classes.LoginCredentials}>
             {/* <label>Password</label> */}
-            <input
+            <Input
               type="password"
               placeholder="Password"
               className={classes.Input}
@@ -41,7 +43,7 @@ const LoginForm = () => {
             />
           </div>
           <div className={classes.ButtonDiv}>
-            <button className={classes.Button}>Login</button>
+            <LoginButton className={classes.Button}>Login</LoginButton>
           </div>
           <div className={classes.HyperlinkDiv}>
             <a href="/forgot-password" className={classes.Hyperlink}>
