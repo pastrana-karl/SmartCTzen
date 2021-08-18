@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import CardForm from '../../../UI/Cards/CardForm/CardForm';
 import classes from './LoginForm.module.css';
 
 const LoginForm = () => {
@@ -10,7 +11,7 @@ const LoginForm = () => {
 
     return (
       <React.Fragment>
-        <form className={classes.LoginForm}>
+        <CardForm>
           <div>SmartCT Logo</div>
           <div className={classes.LoginCredentials}>
             {/* <label>Email address</label> */}
@@ -52,9 +53,9 @@ const LoginForm = () => {
               Register
             </a>
           </div>
-        </form>
+        </CardForm>
       </React.Fragment>
     );
 }
 
-export default LoginForm;
+export default LoginForm; 
