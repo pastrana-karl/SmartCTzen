@@ -3,8 +3,10 @@ import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
 import Features from './components/Landing/Features/Features';
 import Home from './components/Landing/Home/Home';
 import Login from './components/Landing/Login/Login';
-import FirstStep from './components/Landing/Register/FirstStep';
+import Register from './components/Landing/Register/Register';
 import SecondStep from './components/Landing/Register/SecondStep';
+import ThirdStep from './components/Landing/Register/ThirdStep';
+import FourthStep from './components/Landing/Register/FourthStep';
 import Progress from './components/Landing/Register/Progress';
 import NavBarHandle from './components/Navigation/NavBar/NavBarHandle'
 
@@ -39,9 +41,9 @@ const App = () => {
 
           <Route
              render={(props) => (
-              <FirstStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+              <Register {...props} citizen={citizen} updateCitizen={updateCitizen} />
             )}
-            path="/first"
+            path="/Register"
              exact={true}
           />
 
@@ -50,6 +52,20 @@ const App = () => {
               <SecondStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
             )}
             path="/second"
+          />
+
+          <Route
+            render={(props) => (
+              <ThirdStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+            )}
+            path="/third"
+          />
+
+          <Route
+            render={(props) => (
+              <ThirdStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+            )}
+            path="/fourth"
           />
 
           <Route render={() => <Redirect to="/" />} />

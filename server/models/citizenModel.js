@@ -21,6 +21,10 @@ const citizenSchema = new mongoose.Schema({
         type: String,
     },
 
+    birthdate:{
+        type: String,
+    },
+
     fathername:{
         type: String,
     },

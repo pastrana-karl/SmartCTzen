@@ -1,28 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css"
 import './Register.css';
 
-const FirstStep = (props) => {
+const Register = (props) => {
+    const [startDate, setStartDate] = useState(new Date());
     const { citizen } = props;
     const { register, handleSubmit, errors } = useForm({
     defaultValues: {
         firstname: citizen.firstname,
         lastname: citizen.lastname,
         middlename: citizen.middlename,
-        suffix: citizen.suffix
+        suffix: citizen.suffix,
+        sex: citizen.sex,
+        birthdate: citizen.birthdate
     }
     });
 
   const onSubmit = (data) => {
     props.updateCitizen(data);
+    // console.log(data.birthdate)
     props.history.push('/second');
   };
 
   return (
     <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
       <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
+      <h2 style={{textAlign: "center", marginBottom: '15px'}}>Personal Information</h2>
         <Form.Group controlId="firstname">
           <Form.Label>First Name</Form.Label>
           <Form.Control
@@ -93,19 +100,58 @@ const FirstStep = (props) => {
             name="suffix"
             placeholder="Enter your suffix"
             autoComplete="off"
-            // ref={register({
-            //   required: 'Middle name is required.',
-            //   pattern: {
-            //     value: /^[a-zA-Z]+$/,
-            //     message: 'Middle name should contain only characters.'
-            //   }
-            // })}
-            // className={`${errors.middlename ? 'input-error' : ''}`}
+            ref={register({})}
           />
-          {/* {errors.middlename && (
-            <p className="errorMsg">{errors.middlename.message}</p>
-          )} */}
         </Form.Group>
+
+        <Form.Group controlId="sex">
+          <div><Form.Label>Sex</Form.Label></div>
+            <Form.Check
+              name="sex"
+              type="radio" 
+              label="Male"
+              value="Male"
+              inline
+              ref={register({
+                required: 'Selecting Gender is required.',
+              })}
+            />
+            <Form.Check 
+              name="sex"
+              type="radio" 
+              label="Female"
+              value="Female"
+              inline
+              ref={register({
+                required: 'Selecting Gender is required.',
+              })}
+            />
+             {errors.sex && (
+            <p className="errorMsg">{errors.sex.message}</p>
+          )}
+        </Form.Group>
+
+        <Form.Group controlId="birthdate">
+          <Form.Label>Birth Date</Form.Label>
+          <div style={{display: 'none'}}>
+            <Form.Control
+              name="birthdate"
+              value={startDate.toDateString()}
+              onChange={date => setStartDate(date)} 
+              ref={register({
+                required: 'Birth input is required.',
+              })}
+            />
+          </div>
+          <DatePicker
+              selected={startDate} 
+              onChange={date => setStartDate(date)}
+          />
+           {errors.birthdate && (
+            <p className="errorMsg">{errors.birthdate.message}</p>
+          )}
+        </Form.Group>
+       
 
         <Button variant="primary" type="submit">
           Next
@@ -115,4 +161,4 @@ const FirstStep = (props) => {
   );
 };
 
-export default FirstStep;
+export default Register;

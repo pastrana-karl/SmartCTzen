@@ -21,6 +21,7 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         middlename: req.body.middlename,
         suffix: req.body.suffix,
         sex: req.body.sex,
+        birthdate: req.body.birthdate,
         fathername: req.body.fathername,
         mothername: req.body.mothername,
         street: req.body.street,

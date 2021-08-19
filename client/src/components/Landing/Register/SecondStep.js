@@ -1,83 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import axios from 'axios'
+import "react-datepicker/dist/react-datepicker.css"
+
 const SecondStep = (props) => {
     const { citizen } = props;
     const { register, handleSubmit, errors } = useForm({
-      defaultValues: {
-        firstname: citizen.firstname,
-        lastname: citizen.lastname,
-        email: citizen.email,
-        password: citizen.password
-      }
+    defaultValues: {
+        fathername: citizen.fathername,
+        mothername: citizen.mothername
+    }
     });
 
-  const onSubmit = async (data) => {
-    const updatedData = {
-      firstname: citizen.firstname,
-      lastname: citizen.lastname
-    };
-
-    // console.log(citizen) Testing for data passing...
+  const onSubmit = (data) => {
     props.updateCitizen(data);
-    // props.history.push('/third');
-
-    await axios.post('/api/citizen/register', {
-      ...data,
-      ...updatedData
-    });
+    // console.log(data.birthdate)
+    props.history.push('/third');
   };
-  
 
   return (
     <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
       <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
-        <Form.Group controlId="first_name">
-          <Form.Label>Email</Form.Label>
+      <h2 style={{textAlign: "center", marginBottom: '15px'}}>Personal Information</h2>
+        <Form.Group controlId="fathername">
+          <Form.Label>Father Name</Form.Label>
           <Form.Control
-            type="email"
-            name="email"
-            placeholder="Enter your email address"
+            type="text"
+            name="fathername"
+            placeholder="Enter your Father's Full name"
             autoComplete="off"
             ref={register({
-              required: 'Email is required.',
               pattern: {
-                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                message: 'Email is not valid.'
+                value: /^[a-zA-Z]+$/,
+                message: 'Father\'s name should contain only characters.'
               }
             })}
-            className={`${errors.email ? 'input-error' : ''}`}
+            className={`${errors.fathername ? 'input-error' : ''}`}
           />
-          {errors.email && (
-            <p className="errorMsg">{errors.email.message}</p>
+          {errors.fathername && (
+            <p className="errorMsg">{errors.fathername.message}</p>
           )}
         </Form.Group>
 
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+        <Form.Group controlId="mothername">
+          <Form.Label>Mother Name</Form.Label>
           <Form.Control
-            type="password"
-            name="password"
-            placeholder="Choose a password"
+            type="text"
+            name="mothername"
+            placeholder="Enter your Mother's Full name"
             autoComplete="off"
             ref={register({
-              required: 'Password is required.',
-              minLength: {
-                value: 6,
-                message: 'Password should have at-least 6 characters.'
+              pattern: {
+                value: /^[a-zA-Z]+$/,
+                message: 'Mother\'s name should contain only characters.'
               }
             })}
-            className={`${errors.password ? 'input-error' : ''}`}
+            className={`${errors.mothername ? 'input-error' : ''}`}
           />
-          {errors.password && (
-            <p className="errorMsg">{errors.password.message}</p>
+          {errors.mothername && (
+            <p className="errorMsg">{errors.mothername.message}</p>
           )}
         </Form.Group>
 
+      
         <Button variant="primary" type="submit">
-          Submit
+          Next
         </Button>
       </motion.div>
     </Form>
