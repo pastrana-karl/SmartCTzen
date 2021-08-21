@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css"
+import DatePicker from 'react-modern-calendar-datepicker';
+import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import { utils } from 'react-modern-calendar-datepicker';
 import './Register.css';
 
 const Register = (props) => {
-    const [startDate, setStartDate] = useState(new Date());
+    const Today = utils().getToday();
+    const [startDate, setStartDate] = useState(Today);
+    const Bday = `${startDate.month}.${startDate.day}.${startDate.year}`;
     const { citizen } = props;
     const { register, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -20,10 +23,15 @@ const Register = (props) => {
     }
     });
 
+    const formatInputValue = () => {
+      if (!startDate) return '';
+      return  Bday;
+    };
+
   const onSubmit = (data) => {
     props.updateCitizen(data);
-    // console.log(data.birthdate)
-    props.history.push('/second');
+    console.log(data.birthdate)
+    // props.history.push('/second');
   };
 
   return (
@@ -136,17 +144,19 @@ const Register = (props) => {
           <div style={{display: 'none'}}>
             <Form.Control
               name="birthdate"
-              value={startDate.toDateString()}
-              onChange={date => setStartDate(date)} 
+              value={Bday}
+              onChange={setStartDate} 
               ref={register({
                 required: 'Birth input is required.',
               })}
             />
           </div>
-          <div className="date">
+          <div>
             <DatePicker
-                selected={startDate} 
-                onChange={date => setStartDate(date)}
+              selected={startDate} 
+              onChange={setStartDate}
+              formatInputText={formatInputValue}
+              shouldHighlightWeekends
             />
           </div>
            {errors.birthdate && (

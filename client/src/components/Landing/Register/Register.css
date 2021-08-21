@@ -35,19 +35,18 @@ button.btn.btn-danger:hover{
 .steps {
   display: flex;
   justify-content: center;
-  letter-spacing: 1px;
   margin-top: 1.5rem;
 }
 .steps .step {
-  margin: 0.5rem 3rem;
+  margin: 0.5rem 1rem;
   display: flex;
-  color: #ccc;
+  color: #fe5139;
 }
 .steps .step a {
   color: #fe5139;
 }
 .steps .step div:first-of-type {
-  border: 1px solid #ccc;
+  border: 1px solid #fe5139;
   padding: 5px;
   border-radius: 50%;
   margin-right: 0.5rem;
@@ -66,7 +65,7 @@ button.btn.btn-danger:hover{
   color: #fff;
 }
 .steps .step.active div:last-of-type {
-  color: #fe5139;
+  color: #fff;
 }
 .input-form {
   width: 60%;
@@ -109,76 +108,84 @@ div.col-md-6 {
 
 .writeIcon
 {
-    width: 25px;
-    height: 25px;
-    font-size: 30px;
-    cursor: pointer;
+  width: 25px;
+  height: 25px;
+  font-size: 30px;
+  cursor: pointer;
+  vertical-align: middle;
 }
 
 .writeImg
 {
-    text-align: center;
-    object-fit: cover;
-    margin-bottom: 20px;  
+  text-align: center;
+  object-fit: cover;
+  margin-bottom: 20px;  
 }
 
 .writeImg img
 {
-    width: 25vw;
-    height: 55vh;
-    border-radius: 10px;
-    object-fit: cover;
+  width: 25vw;
+  height: 55vh;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
-.uploadIcon
+.uploadIcons
 {
-    text-align: center;
+  text-align: center;
 }
 
-.react-datepicker__input-container input
+.DatePicker__input
 {
   border: 1px solid lightgray;
   width: 100%;
   text-align: center;
-  font-size: 20px;
+  font-size: 14px;
   color: #949494;
   border-radius: 5px;
   background-color: white;
 }
 
-/* .react-datepicker__month-container
+.helpIcon
 {
-  
-} */
+  display: inline;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.helpIcon .fas
+{
+  color: grey;
+}
 
 @media screen and (max-width: 1200px) {
   .input-form {
-    width: 90%;
+    width: 100%;
  }
+  .writeImg img {
+    width: 40vw;
+  }
 }
 @media screen and (max-width: 900px) {
+  .input-form {
+    width: 100%;
+ }
   .steps .step {
     margin: 0.5rem 2rem;
  }
 }
 @media screen and (max-width: 600px) {
+  div.col-md-6 {
+    border: none;
+  }
+  .steps {
+    display: none;
+  }
   h1 {
     font-size: 2rem;
  }
-  .steps .step {
-    margin: 0.5rem 1rem;
-    font-size: 0.9rem;
- }
-  .steps .step div:first-of-type {
-    padding-top: 9%;
- }
-}
-@media screen and (max-width: 400px) {
-  .steps {
-    flex-direction: column;
-    align-items: center;
- }
-  .steps .step {
-    align-items: center;
- }
+  .writeImg img {
+    width: 80vw;
+  }
 }
