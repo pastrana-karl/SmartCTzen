@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import DatePicker from 'react-modern-calendar-datepicker';
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import { utils } from 'react-modern-calendar-datepicker';
+import '@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css';
+import DatePicker, { utils } from '@hassanmojab/react-modern-calendar-datepicker';
 import './Register.css';
 
 const Register = (props) => {
-    const Today = utils().getToday();
-    const [startDate, setStartDate] = useState(Today);
+    const dateToday = utils().getToday();
+    const [startDate, setStartDate] = useState(dateToday);
     const Bday = `${startDate.month}.${startDate.day}.${startDate.year}`;
     const { citizen } = props;
     const { register, handleSubmit, errors } = useForm({
@@ -22,9 +21,9 @@ const Register = (props) => {
         birthdate: citizen.birthdate
     }
     });
-
+    
     const formatInputValue = () => {
-      if (!startDate) return '';
+      if (!startDate) return null;
       return  Bday;
     };
 

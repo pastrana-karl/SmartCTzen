@@ -71,19 +71,19 @@ const NavBar = () => {
             
             <li className="nav-item active">
               <NavLink className="nav-link" to="/" exact>
-              <i class="fas fa-home"></i>Home
+              <i className="fas fa-home"></i>Home
               </NavLink>
             </li>
 
             <li className="nav-item">
               <NavLink className="nav-link" to="/smartctzens-features" exact>
-              <i class="fas fa-clipboard-list"></i>Features
+              <i className="fas fa-clipboard-list"></i>Features
               </NavLink> 
             </li>
 
             <li className="nav-item">
               <NavLink className="nav-link" to="/smartctzens-login" exact>
-                <i class="fas fa-sign-in-alt"></i>Login
+                <i className="fas fa-sign-in-alt"></i>Login
               </NavLink>
             </li>
         </ul>

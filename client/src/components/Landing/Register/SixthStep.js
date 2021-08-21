@@ -47,7 +47,7 @@ const SixthStep = (props) => {
                 disableFocusListener
                 disableHoverListener
                 disableTouchListener title="Upload required photo.. ( Max of 3 photos )">
-                  <div className="helpIcon"><i class="fas fa-info-circle" onClick={handleTooltipOpen}></i></div>
+                  <div className="helpIcon"><i className="fas fa-info-circle" onClick={handleTooltipOpen}></i></div>
               </Tooltip>
             </ClickAwayListener>
           </div>
