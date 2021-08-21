@@ -3,13 +3,10 @@ import React from 'react';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import classes from './Toolbar.module.css';
 
-const toolbar = (props) => (
+const Toolbar = (props) => (
     <header className={classes.Toolbar}>
-        {/* <div>MENU</div> */}
-        <nav className={classes.DesktopOnly}>
-            <NavigationItems />
-        </nav>
+        {props.children}
     </header>
 );
 
-export default toolbar;
+export default Toolbar;

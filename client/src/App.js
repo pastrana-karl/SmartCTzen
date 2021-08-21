@@ -3,6 +3,8 @@ import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
 import Features from './components/Landing/Features/Features';
 import Home from './components/Landing/Home/Home';
 import Login from './components/Landing/Login/Login';
+import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
+import AllAdminsLogin from './components/AllAdmin/AllAdminLogin';
 import Register from './components/Landing/Register/Register';
 import SecondStep from './components/Landing/Register/SecondStep';
 import ThirdStep from './components/Landing/Register/ThirdStep';
@@ -67,6 +69,16 @@ const App = () => {
             )}
             path="/fourth"
           />
+
+          {/* SUPER ADMIN and ADMIN Login */}
+          <Route path="/admin-login">
+            <AllAdminsLogin />
+          </Route>
+
+          {/* ADMIN Routes */}
+          <Route path="/admin-profile">
+            <AdminProfile />
+          </Route>
 
           <Route render={() => <Redirect to="/" />} />
          </Switch>

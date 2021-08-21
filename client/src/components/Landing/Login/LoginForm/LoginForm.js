@@ -16,21 +16,17 @@ const LoginForm = () => {
         <CardForm>
           <div>SmartCT Logo</div>
           <div className={classes.LoginCredentials}>
-            {/* <label>Email address</label> */}
             <Input
               type="email"
               placeholder="Email address"
-              className={classes.Input}
               id="email"
               value={inputEmail}
               onChange={(event) => {
                 setInputEmail(event.target.value);
               }}
             />
-            {/* <input type="password" placeholder="Password" /> */}
           </div>
           <div className={classes.LoginCredentials}>
-            {/* <label>Password</label> */}
             <Input
               type="password"
               placeholder="Password"
