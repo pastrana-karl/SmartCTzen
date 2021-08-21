@@ -3,16 +3,15 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 const NavBarHandle = ({ location: { pathname } }) => {
-    const isFirstStep = pathname === '/Register';
-    const isSecondStep = pathname === '/second';
-    const isThirdStep = pathname === '/third';
-    const isFourthStep = pathname === '/fourth';
+    const isHome = pathname === '/';
+    const isFeatures = pathname === '/smartctzens-features';
+    const isLogin = pathname === '/smartctzens-login';
   
     return (
       <React.Fragment>
-        {isFirstStep || isSecondStep || isThirdStep || isFourthStep ? ( 
-           <div></div>
-       ) : ( <NavBar /> )}
+        {isHome || isFeatures || isLogin ? ( 
+           <NavBar />
+       ) : ( <div></div> )}
       </React.Fragment>
     );
   };

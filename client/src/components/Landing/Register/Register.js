@@ -143,17 +143,18 @@ const Register = (props) => {
               })}
             />
           </div>
-          <DatePicker
-              selected={startDate} 
-              onChange={date => setStartDate(date)}
-          />
+          <div className="date">
+            <DatePicker
+                selected={startDate} 
+                onChange={date => setStartDate(date)}
+            />
+          </div>
            {errors.birthdate && (
             <p className="errorMsg">{errors.birthdate.message}</p>
           )}
         </Form.Group>
        
-
-        <Button variant="primary" type="submit">
+        <Button variant="danger" type="submit">
           Next
         </Button>
       </motion.div>

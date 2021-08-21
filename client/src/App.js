@@ -9,6 +9,9 @@ import Register from './components/Landing/Register/Register';
 import SecondStep from './components/Landing/Register/SecondStep';
 import ThirdStep from './components/Landing/Register/ThirdStep';
 import FourthStep from './components/Landing/Register/FourthStep';
+import FifthStep from './components/Landing/Register/FifthStep';
+import SixthStep from './components/Landing/Register/SixthStep';
+import SeventhStep from './components/Landing/Register/SeventhStep';
 import Progress from './components/Landing/Register/Progress';
 import NavBarHandle from './components/Navigation/NavBar/NavBarHandle'
 
@@ -65,10 +68,33 @@ const App = () => {
 
           <Route
             render={(props) => (
-              <ThirdStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+              <FourthStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
             )}
             path="/fourth"
           />
+
+          <Route
+            render={(props) => (
+              <FifthStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+            )}
+            path="/fifth"
+          />
+
+          <Route
+            render={(props) => (
+              <SixthStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+            )}
+            path="/sixth"
+          />
+
+          <Route
+            render={(props) => (
+              <SeventhStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+            )}
+            path="/seventh"
+          />
+
+          <Route render={() => <Redirect to="/" />} />
 
           {/* SUPER ADMIN and ADMIN Login */}
           <Route path="/admin-login">
@@ -79,8 +105,7 @@ const App = () => {
           <Route path="/admin-profile">
             <AdminProfile />
           </Route>
-
-          <Route render={() => <Redirect to="/" />} />
+          
          </Switch>
     </BrowserRouter>
   );

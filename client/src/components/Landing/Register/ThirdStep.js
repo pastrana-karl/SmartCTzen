@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import "react-datepicker/dist/react-datepicker.css"
 
 const SecondStep = (props) => {
     const { citizen } = props;
@@ -150,7 +149,7 @@ const SecondStep = (props) => {
         </Form.Group>
 
       
-        <Button variant="primary" type="submit">
+        <Button variant="danger" type="submit">
           Next
         </Button>
       </motion.div>

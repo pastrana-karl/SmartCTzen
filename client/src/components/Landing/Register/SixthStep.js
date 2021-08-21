@@ -3,24 +3,24 @@ import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 
-const FourthStep = (props) => {
+const SixthStep = (props) => {
     const { citizen } = props;
     const { register, handleSubmit, errors } = useForm({
     defaultValues: {
-        validIDPic: citizen.validIDPic
+        birthCertPic: citizen.birthCertPic
     }
     });
 
   const onSubmit = (data) => {
     props.updateCitizen(data);
     // console.log(data.birthdate)
-    props.history.push('/fifth');
+    props.history.push('/seventh');
   };
 
   return (
     <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
       <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
-      <h2 style={{textAlign: "center", marginBottom: '15px'}}>Upload Photo of Valid ID</h2>
+      <h2 style={{textAlign: "center", marginBottom: '15px'}}>Upload Birth Certificate (Optional)</h2>
       <div className="writeImg"><img src="https://images.pexels.com/photos/3170437/pexels-photo-3170437.jpeg" alt="" ></img></div>
         <Form.Group>
           <div className="uploadIcon">
@@ -47,4 +47,4 @@ const FourthStep = (props) => {
   );
 };
 
-export default FourthStep;
+export default SixthStep;
