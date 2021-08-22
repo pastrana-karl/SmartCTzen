@@ -1,0 +1,32 @@
+.Content {
+    padding: 50px 100px 200px 100px;
+}
+
+.AdminProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AdminProfileForm {
+    padding-left: 70px;
+    display: grid;
+    row-gap: 25px;
+    width: 500px;
+    margin-top: 40px;
+    margin-bottom: 70px;
+}
+
+.FormDiv {
+    display: grid;
+    row-gap: 10px;
+}
+
+.ButtonDiv {
+    width: 50%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}

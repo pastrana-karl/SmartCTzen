@@ -1,9 +1,8 @@
 import React from 'react';
-import layoutStyle from '../../Layout/Layout.module.css';
 
 const Features = () => {
     return (
-        <div className={layoutStyle.Background}>
+        <div>
             <div>Features</div>
         </div>
     );

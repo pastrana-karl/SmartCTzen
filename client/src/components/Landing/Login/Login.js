@@ -1,11 +1,11 @@
 import React from 'react';
-import layoutStyle from '../../Layout/Layout.module.css';
+
 import LoginForm from './LoginForm/LoginForm';
 import classes from './Login.module.css';
 
 const Login = () => {
     return (
-        <div className={layoutStyle.Background}>
+        <div>
             <React.Fragment>
                 <div className={classes.Content}>
                     <div>

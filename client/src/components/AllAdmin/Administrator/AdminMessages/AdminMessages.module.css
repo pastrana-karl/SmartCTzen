@@ -1,0 +1,10 @@
+.AdminMessages {
+    display: flex;
+    justify-content: center;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}

@@ -1,0 +1,12 @@
+.AdminProfileButton {
+    border: hidden;
+    background-color: #F0F0F3;
+    color: #FF5039;
+    height: 80px;
+    width: 190px;
+    background: #F0F0F3;
+    box-shadow: -10px -10px 30px #FFFFFF, 10px 10px 30px rgba(174, 174, 192, 0.4);
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
