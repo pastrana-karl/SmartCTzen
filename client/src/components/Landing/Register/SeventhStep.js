@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import axios from 'axios'
+import Swal from 'sweetalert2';
 
 const SeventhStep = (props) => {
     const { citizen } = props;
@@ -13,24 +14,38 @@ const SeventhStep = (props) => {
       }
     });
 
-  const onSubmit = async (data) => {
-    const updatedData = {
-      firstname: citizen.firstname,
-      lastname: citizen.lastname,
-      middlename: citizen.middlename,
-      suffix: citizen.suffix,
-      sex: citizen.sex,
-      birthdate: citizen.birthdate
-    };
+  const onSubmit = async () => {
+    try {
+      const updatedData = {
+        email: citizen.email,
+        password: citizen.password
+      };
+  
+      // console.log(citizen) Testing for data passing...
+      // console.log(updatedData)
+  
+      await axios.post('/api/citizen/register', {
+        ...citizen,
+        ...updatedData
+      });
 
-    // console.log(citizen) Testing for data passing...
-    props.updateCitizen(data);
-    // props.history.push('/third');
-
-    await axios.post('/api/citizen/register', {
-      ...data,
-      ...updatedData
-    });
+      Swal.fire('Awesome!', "You're successfully registered!", 'success').then(
+        (result) => {
+          if (result.isConfirmed || result.isDismissed) {
+            props.resetCitizen();
+            props.history.push('/Register');
+          }
+        });
+    } catch (err) {
+        if (err.response) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data
+          });
+        }
+    }
+  
   };
   
 

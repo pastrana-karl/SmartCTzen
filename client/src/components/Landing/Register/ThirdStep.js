@@ -35,6 +35,10 @@ const SecondStep = (props) => {
             autoComplete="off"
             ref={register({
               required: 'Blk/Lot/Street is required.',
+              pattern: {
+                value: /[a-zA-Z.\s]+$/,
+                message: 'Input should contain only Blk/Lot/Street number, characters, and period.'
+              }
             })}
             className={`${errors.street ? 'input-error' : ''}`}
           />
@@ -53,8 +57,8 @@ const SecondStep = (props) => {
             ref={register({
               required: 'Barangay is required.',
               pattern: {
-                value: /^[a-zA-Z]+$/,
-                message: 'Barangay\'s name should contain only characters.'
+                value: /[a-zA-Z.\0-9\s]+$/,
+                message: 'Barangay\'s name should contain only characters and number.'
               }
             })}
             className={`${errors.barangay ? 'input-error' : ''}`}
@@ -74,7 +78,7 @@ const SecondStep = (props) => {
             ref={register({
               required: 'City is required.',
               pattern: {
-                value: /^[a-zA-Z]+$/,
+                value: /^[a-zA-Z\s]+$/,
                 message: 'City\'s name should contain only characters.'
               }
             })}
@@ -95,7 +99,7 @@ const SecondStep = (props) => {
             ref={register({
               required: 'Province is required.',
               pattern: {
-                value: /^[a-zA-Z]+$/,
+                value: /^[a-zA-Z\s]+$/,
                 message: 'Province\'s name should contain only characters.'
               }
             })}
@@ -112,13 +116,14 @@ const SecondStep = (props) => {
             type="text"
             name="zipcode"
             placeholder="Zipcode ..."
+            maxLength="4"
             autoComplete="off"
             ref={register({
               required: 'Zipcode is required.',
-            //   pattern: {
-            //     value: /^[a-zA-Z]+$/,
-            //     message: 'Zipcode\'s name should contain only characters.'
-            //   }
+              pattern: {
+                value: /^[0-9]+$/,
+                message: 'Zipcode\'s name should contain only numbers.'
+              }
             })}
             className={`${errors.zipcode ? 'input-error' : ''}`}
           />

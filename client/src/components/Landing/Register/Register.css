@@ -44,6 +44,13 @@ button.btn.btn-danger:hover{
 }
 .steps .step a {
   color: #fe5139;
+  vertical-align: middle;
+}
+.steps .step p {
+  vertical-align: middle;
+}
+.steps .step.active p {
+  vertical-align: middle;
 }
 .steps .step div:first-of-type {
   border: 1px solid #fe5139;
@@ -69,7 +76,7 @@ button.btn.btn-danger:hover{
 }
 .input-form {
   width: 60%;
-  margin: 3rem auto;
+  margin: 1.3rem auto;
 }
 div.col-md-6 {
   border: 5px inset #babdbe;

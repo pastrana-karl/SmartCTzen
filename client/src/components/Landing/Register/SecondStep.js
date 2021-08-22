@@ -31,7 +31,7 @@ const SecondStep = (props) => {
             autoComplete="off"
             ref={register({
               pattern: {
-                value: /^[a-zA-Z]+$/,
+                value: /^[a-zA-Z,.\s]+$/,
                 message: 'Father\'s name should contain only characters.'
               }
             })}
@@ -51,7 +51,7 @@ const SecondStep = (props) => {
             autoComplete="off"
             ref={register({
               pattern: {
-                value: /^[a-zA-Z]+$/,
+                value: /^[a-zA-Z,.\s]+$/,
                 message: 'Mother\'s name should contain only characters.'
               }
             })}

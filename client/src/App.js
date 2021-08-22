@@ -99,7 +99,7 @@ const App = () => {
 
           <Route
             render={(props) => (
-              <SeventhStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+              <SeventhStep {...props} citizen={citizen} updateCitizen={updateCitizen} resetCitizen={resetCitizen} />
             )}
             path="/seventh"
           />
