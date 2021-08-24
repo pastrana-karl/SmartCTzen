@@ -76,13 +76,13 @@ const NavBar = () => {
             </li>
 
             <li className="nav-item">
-              <NavLink className="nav-link" to="/smartctzens-features" exact>
+              <NavLink className="nav-link" to="/features" exact>
               <i className="fas fa-clipboard-list"></i>Features
               </NavLink> 
             </li>
 
             <li className="nav-item">
-              <NavLink className="nav-link" to="/smartctzens-login" exact>
+              <NavLink className="nav-link" to="/login" exact>
                 <i className="fas fa-sign-in-alt"></i>Login
               </NavLink>
             </li>

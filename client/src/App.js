@@ -46,11 +46,11 @@ const App = () => {
             <Home />
           </Route>
 
-          <Route path="/smartctzens-features">
+          <Route path="/features">
             <Features />
           </Route>
 
-          <Route path="/smartctzens-login">
+          <Route path="/login">
             <Login />
           </Route>
 
@@ -58,7 +58,7 @@ const App = () => {
              render={(props) => (
               <Register {...props} citizen={citizen} updateCitizen={updateCitizen} />
             )}
-            path="/Register"
+            path="/create-account"
              exact={true}
           />
 
