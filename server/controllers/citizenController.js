@@ -13,8 +13,8 @@ const bcrypt = require("bcrypt");
 
 //Register
 exports.registerCitizen = catchAsync(async (req, res, next) => {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPass = await bcrypt.hash(req.body.password, salt);
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPass = await bcrypt.hash(req.body.password, salt);
     const newCitizen = new Citizen({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -30,8 +30,9 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         province: req.body.province,
         zipcode: req.body.zipcode,
         region: req.body.region,
+        validIDPic: req.body.validIDPic,
         email: req.body.email,
-        password: hashedPass,
+        password: req.body.password,
     })
 
     const citizen = await newCitizen.save();

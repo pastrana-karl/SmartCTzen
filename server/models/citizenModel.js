@@ -57,20 +57,20 @@ const citizenSchema = new mongoose.Schema({
         type: String,
     },
 
-    validIDPic:{
-        type: String,
-        default: "",
-    },
+    validIDPic:[{
+        type:String,
+        default:"",
+    }],
     
-    residencyPic:{
-        type: String,
-        default: "",
-    },
+    residencyPic:[{
+        type:String,
+        default:"",
+    }],
     
-    birthCertPic:{
-        type: String,
-        default: "",
-    },
+    birthCertPic:[{
+        type:String,
+        default:"",
+    }],
 
     email:{
         type: String,
@@ -79,7 +79,6 @@ const citizenSchema = new mongoose.Schema({
 
     password:{
         type: String,
-        required:true,
     },
 
     resetToken:{

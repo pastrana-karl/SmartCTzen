@@ -14,36 +14,57 @@ const SeventhStep = (props) => {
       }
     });
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
-      const updatedData = {
-        email: citizen.email,
-        password: citizen.password
-      };
-  
+
+    console.log(citizen)
+
+    const photo1 = citizen.validIDPic[0];
+    const photo2 = citizen.validIDPic[1];
+    const images = [photo1, photo2];
+    console.log(images)
+    const formData = new FormData();
+    images.forEach(images => formData.append("image", images));
+    try {
+            const res = await axios.post("/api/upload-images", formData);
+            const img1 = res.data.data[0].url;
+            const img2 = res.data.data[1].url;
+            const img = [img1, img2];
+            console.log(img)
+            citizen.validIDPic = img
+        } catch (err) {
+            console.log(err);
+        }
+
+    const updatedData = {
+      email: data.email,
+      password: data.password,
+      validIDPic: citizen.validIDPic,
+    };
+    
       // console.log(citizen) Testing for data passing...
-      // console.log(updatedData)
+      console.log(updatedData)
   
       await axios.post('/api/citizen/register', {
         ...citizen,
-        ...updatedData
+        ...updatedData,
       });
 
-      Swal.fire('Awesome!', "You're successfully registered!", 'success').then(
-        (result) => {
-          if (result.isConfirmed || result.isDismissed) {
-            props.resetCitizen();
-            props.history.push('/Register');
-          }
-        });
+      // Swal.fire('Awesome!', "You're successfully registered!", 'success').then(
+      //   (result) => {
+      //     if (result.isConfirmed || result.isDismissed) {
+      //       props.resetCitizen();
+      //       props.history.push('/Register');
+      //     }
+      //   });
     } catch (err) {
-        if (err.response) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: err.response.data
-          });
-        }
+        // if (err.response) {
+        //   Swal.fire({
+        //     icon: 'error',
+        //     title: 'Oops...',
+        //     text: err.response.data
+        //   });
+        // }
     }
   
   };

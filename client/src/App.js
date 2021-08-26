@@ -144,7 +144,7 @@ const App = () => {
 
           <Route render={() => <Redirect to="/" />} />
 
-         </Switch>
+        </Switch>
     </BrowserRouter>
   );
 }
