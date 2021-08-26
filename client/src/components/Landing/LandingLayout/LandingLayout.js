@@ -14,9 +14,7 @@ const LandingLayout = ( props ) => (
                 <NavigationItem link="/features" >Features</NavigationItem>
                 <NavigationItem link="/login" >Login</NavigationItem>
             </NavigationItems>
-        </Toolbar>
-
-        <main className={classes.Content} >{props.children}</main>
+        </Toolbar>        
     </React.Fragment>
 );
 
