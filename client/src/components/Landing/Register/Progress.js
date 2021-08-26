@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 const Progress = ({ location: { pathname } }) => {
-    const isRegisterStep = pathname === '/Register';
+    const isRegisterStep = pathname === '/create-account';
     const isSecondStep = pathname === '/second';
     const isThirdStep = pathname === '/third';
     const isFourthStep = pathname === '/fourth';
