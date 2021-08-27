@@ -31,6 +31,8 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         zipcode: req.body.zipcode,
         region: req.body.region,
         validIDPic: req.body.validIDPic,
+        residencyPic: req.body.residencyPic,
+        birthCertPic: req.body.birthCertPic,
         email: req.body.email,
         password: req.body.password,
     })
