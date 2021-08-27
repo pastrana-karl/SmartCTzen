@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import ReactTooltip from "react-tooltip";
-import axios from "axios";
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 
@@ -17,30 +16,14 @@ const FourthStep = (props) => {
     });
 
   const onSubmit = async (data) => {
-    // const photo1 = file[0];
-    // const photo2 = file[1];
-    // const images = [photo1, photo2];
-    // const formData = new FormData();
-    // images.forEach(images => formData.append("image", images));
-    // console.log(file)
-    // try {
-    //         const res = await axios.post("/api/upload-images", formData);
-    //         const img1 = res.data.data[0].url;
-    //         const img2 = res.data.data[1].url;
-    //         const img = [img1, img2];
-    //         console.log(img)
-    //         citizen.validIDPic = img
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
 
-    // const updatedData = {
-    //   validIDPic: citizen.validIDPic,
-    // };
+    const updatedData = {
+      validIDPic: data.validIDPic,
+    };
 
     // console.log(updatedData);
-    props.updateCitizen(file);
-    props.history.push('/seventh');
+    props.updateCitizen(updatedData);
+    props.history.push('/fifth');
   };
 
   return (
@@ -89,7 +72,7 @@ const FourthStep = (props) => {
         <Button variant="danger" type="submit">
           Next
         </Button>
-        </Form>
+      </Form>
       </motion.div>
     </div>
   );

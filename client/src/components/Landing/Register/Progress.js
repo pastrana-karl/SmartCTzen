@@ -16,7 +16,7 @@ const Progress = ({ location: { pathname } }) => {
            <div className="steps">
            <div className={`${isRegisterStep ? 'step active' : 'step'}`}>
              {isSecondStep || isThirdStep || isFourthStep || isFifthStep || isSixthStep || isSeventhStep ? (
-                 <div><Link to="/Register">1</Link></div>
+                 <div><Link to="/create-account">1</Link></div>
                ) : (
                 <div><p>1</p></div>
                )}

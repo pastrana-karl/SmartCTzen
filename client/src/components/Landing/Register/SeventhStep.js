@@ -17,56 +17,93 @@ const SeventhStep = (props) => {
   const onSubmit = async (data) => {
     try {
 
-    console.log(citizen)
+      const validPhoto1 = citizen.validIDPic[0];
+      const validPhoto2 = citizen.validIDPic[1];
+      const validImage = [validPhoto1, validPhoto2];
 
-    const photo1 = citizen.validIDPic[0];
-    const photo2 = citizen.validIDPic[1];
-    const images = [photo1, photo2];
-    console.log(images)
-    const formData = new FormData();
-    images.forEach(images => formData.append("image", images));
-    try {
-            const res = await axios.post("/api/upload-images", formData);
-            const img1 = res.data.data[0].url;
-            const img2 = res.data.data[1].url;
-            const img = [img1, img2];
-            console.log(img)
-            citizen.validIDPic = img
-        } catch (err) {
-            console.log(err);
-        }
+      const residencyPhoto1 = citizen.residencyPic[0];
+      const residencyPhoto2 = citizen.residencyPic[1];
+      const residencyImage = [residencyPhoto1, residencyPhoto2];
 
-    const updatedData = {
-      email: data.email,
-      password: data.password,
-      validIDPic: citizen.validIDPic,
-    };
-    
+      const birthPhoto1 = citizen.birthCertPic[0];
+      const birthPhoto2 = citizen.birthCertPic[1];
+      const birthImage = [birthPhoto1, birthPhoto2];
+
+      console.log(validImage)
+      console.log(residencyImage)
+      console.log(birthImage)
+
+      const formData_1 = new FormData();
+      validImage.forEach(validImage => formData_1.append("image", validImage));
+      try {
+              const res = await axios.post("/api/upload-images", formData_1);
+              const img1 = res.data.data[0].url;
+              const img2 = res.data.data[1].url;
+              const img = [img1, img2];
+              console.log(img)
+              citizen.validIDPic = img
+          } catch (err) {
+              console.log(err);
+          }
+      
+      const formData_2 = new FormData();
+      residencyImage.forEach(residencyImage => formData_2.append("image", residencyImage));
+      try {
+              const res = await axios.post("/api/upload-images", formData_2);
+              const pic1 = res.data.data[0].url;
+              const pic2 = res.data.data[1].url;
+              const pic = [pic1, pic2];
+              console.log(pic)
+              citizen.residencyPic = pic
+          } catch (err) {
+              console.log(err);
+          }
+      
+      const formData_3 = new FormData();
+      birthImage.forEach(birthImage => formData_3.append("image", birthImage));
+      try {
+              const res = await axios.post("/api/upload-images", formData_3);
+              const pho1 = res.data.data[0].url;
+              const pho2 = res.data.data[1].url;
+              const pho = [pho1, pho2];
+              console.log(pho)
+              citizen.birthCertPic = pho
+          } catch (err) {
+              console.log(err);
+          }
+
+      const updatedData = {
+        email: data.email,
+        password: data.password,
+        validIDPic: citizen.validIDPic,
+        residencyPic: citizen.residencyPic,
+        birthCertPic: citizen.birthCertPic,
+      };
+      
       // console.log(citizen) Testing for data passing...
       console.log(updatedData)
-  
+    
       await axios.post('/api/citizen/register', {
         ...citizen,
         ...updatedData,
       });
 
-      // Swal.fire('Awesome!', "You're successfully registered!", 'success').then(
-      //   (result) => {
-      //     if (result.isConfirmed || result.isDismissed) {
-      //       props.resetCitizen();
-      //       props.history.push('/Register');
-      //     }
-      //   });
+      Swal.fire('Awesome!', "You're successfully registered!", 'success').then(
+        (result) => {
+          if (result.isConfirmed || result.isDismissed) {
+            props.resetCitizen();
+            props.history.push('/create-account');
+           }
+        });
     } catch (err) {
-        // if (err.response) {
-        //   Swal.fire({
-        //     icon: 'error',
-        //     title: 'Oops...',
-        //     text: err.response.data
-        //   });
-        // }
+        if (err.response) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data
+          });
+        }
     }
-  
   };
   
 
