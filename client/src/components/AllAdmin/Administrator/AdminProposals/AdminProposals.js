@@ -10,25 +10,43 @@ import classes from './AdminProposals.module.css';
 import { PROPOSALS } from './AdminProposalsTable/AdminProposalsHeader';
 
 const AdminProposals = () => {
+    //Without AXIOS
     const [proposals, setProposals] = useState();
-
-    const proposalsCol = useMemo(() => PROPOSALS, []);
-    const data = useMemo(() => proposals, []);
-
+    
     useEffect(() => {
         const sendRequest = async () => {
-            const response = axios.get('http://localhost:8080/api/initiatives');
-            const proposalsData = await response.json();
+            const response = await fetch('/api/initiatives');
+            
+            const responseData = await response.json();
 
-            setProposals(proposalsData.data);
+            setProposals(responseData.data.initiatives);
         };
         sendRequest();
     }, []);
 
-    const tableInstance = useTable({
-        columns: PROPOSALS,
-        data: setProposals
-    });
+    //With AXIOS
+    // const [proposals, setProposals] = useState({ data: {} });
+
+    // const proposalsCol = useMemo(() => PROPOSALS, []);
+    // // const proposalsData = useMemo(() => proposals, []);
+
+    // const proposalsData = useEffect(() => {
+    //     const getProposals = async () => {
+    //         const res = await axios.get('/api/initiatives');
+    //         const responseData = await res.data;
+
+    //         setProposals({ data: responseData.data.initiatives });
+    //     };
+    //     getProposals();
+    // }, []);
+
+    // const { 
+    //     getTableProps, 
+    //     getTableBodyProps, 
+    //     headerGroups, 
+    //     rows, 
+    //     prepareRow 
+    // } = tableInstance;
 
     return (
         <React.Fragment>
@@ -40,14 +58,28 @@ const AdminProposals = () => {
                 </div>
                 <Tables>
                     <thead>
-                        <tr>
-                            <th></th>
+                        <tr>            
+                            <th>ID</th>  
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Upvote</th>
+                            <th>Downvote</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
+                        {proposals && proposals.map((proposal) => (
+                        <tr key={proposal._id}>
+                            <td>{proposal._id}</td>
+                            <td>{proposal.title}</td>
+                            <td>{proposal.date}</td>
+                            <td>{proposal.location}</td>
+                            <td>{proposal.upvote}</td>
+                            <td>{proposal.downvote}</td>
+                            <td>{proposal.status}</td>
                         </tr>
+                        ))}
                     </tbody>
                 </Tables>
             </AdminLayout>
