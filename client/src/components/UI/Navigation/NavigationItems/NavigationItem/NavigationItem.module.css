@@ -13,6 +13,7 @@
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
+    text-decoration: none;
     color: orangered;
 }
 

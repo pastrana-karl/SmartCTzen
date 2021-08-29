@@ -35,6 +35,7 @@ const AdminProjects = ( props ) => {
                             <th>Project Title</th>
                             <th>Date</th>
                             <th>Time</th>
+                            <th>Location</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -42,8 +43,10 @@ const AdminProjects = ( props ) => {
                         {projects && projects.map(project => (
                         <tr key={project._id}>
                             <td>{project._id}</td>
+                            <td>{project.title}</td>
                             <td>{project.date}</td>
                             <td>Time</td>
+                            <td>{project.location}</td>
                             <td>{project.status}</td>
                         </tr>
                         ))}
