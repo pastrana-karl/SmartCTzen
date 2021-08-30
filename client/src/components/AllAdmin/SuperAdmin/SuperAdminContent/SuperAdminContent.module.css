@@ -1,5 +1,6 @@
-.SuperAdminDiv {
-    display: flex;
+.SuperAdminForm {
+    display: grid;
+    row-gap: 30px;
 }
 
 .SuperAdminContainerDiv {
@@ -19,4 +20,10 @@
 
 .SuperAdminTextArea:focus {
     outline: none;
+}
+
+.SuperAdminButtonDiv {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
 }

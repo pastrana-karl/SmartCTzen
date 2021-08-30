@@ -1,0 +1,21 @@
+.SuperAdminForm {
+    display: grid;
+    row-gap: 30px;
+}
+
+.SuperAdminContainerDiv {
+    display: grid;
+    row-gap: 10px;
+}
+
+.SuperAdminButtonDiv {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}

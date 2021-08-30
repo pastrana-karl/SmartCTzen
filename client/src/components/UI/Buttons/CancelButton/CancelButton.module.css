@@ -1,0 +1,10 @@
+.CancelButton {
+    border: hidden;
+    background-color: #F0F0F3;
+    color: #FF5039;
+    box-shadow: -10px -10px 30px rgba(255, 255, 255, 0.7), 10px 10px 30px rgba(174, 174, 192, 0.4);
+    border-radius: 50px;
+    height: 50px;
+    width: 200px;
+    font-size: 16px;
+}
