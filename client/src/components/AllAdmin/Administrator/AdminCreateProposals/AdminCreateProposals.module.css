@@ -1,0 +1,31 @@
+.AdminCreateProposalsHeader {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 200px;
+}
+
+.AdminCreateProposalsContentDiv {
+    margin: 0px 100px 50px 100px;
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 100px;
+}
+
+.AdminCreateProposalsFormInput {
+    display: grid;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}
+
+.QuoteDiv {
+    box-sizing: border-box;
+}
+
+.Quote {
+    width: 200px;
+    text-orientation: upright;
+}
