@@ -22,7 +22,8 @@
     "react-table": "7.6.3",
     "react-tooltip": "^4.2.21",
     "sweetalert2": "^11.1.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

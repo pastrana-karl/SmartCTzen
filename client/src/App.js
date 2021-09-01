@@ -29,6 +29,7 @@ import SuperAdminContent from './components/AllAdmin/SuperAdmin/SuperAdminConten
 import SuperAdminManageAdmins from './components/AllAdmin/SuperAdmin/SuperAdminManageAdmins/SuperAdminManageAdmins';
 import SuperAdminAccountSettings from './components/AllAdmin/SuperAdmin/SuperAdminAccountSettings/SuperAdminAccountSettings';
 import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
+import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
 
 const App = () => {
 
@@ -138,6 +139,10 @@ const App = () => {
 
           <Route path="/admin-projects">
             <AdminProjects />
+          </Route>
+
+          <Route path="/admin-create-projects">
+            <AdminCreateProjects />
           </Route>
 
           <Route path="/admin-users">

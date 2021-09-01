@@ -19,3 +19,8 @@
     justify-content: center;
     color: #FF5039;
 }
+
+.InputValidation {
+    margin-top: 10px;
+    color: red;
+}

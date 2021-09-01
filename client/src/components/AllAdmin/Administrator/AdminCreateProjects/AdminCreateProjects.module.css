@@ -1,0 +1,53 @@
+.AdminCreateProjectsHeader {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 200px;
+}
+
+.AdminCreateProjectsForm {
+    display: grid;
+    row-gap: 100px;
+}
+
+.AdminCreateProjectsFormDiv {
+    display: grid;
+    row-gap: 30px;
+}
+
+.AdminCreateProjectsFormInput {
+    display: grid;
+}
+
+.AdminCreateProjectsContentDiv {
+    margin: 0px 100px 50px 100px;
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 100px;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}
+
+.QuoteDiv {
+    box-sizing: border-box;
+}
+
+.Quote {
+    width: 200px;
+    text-orientation: upright;
+}
+
+.ButtonDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+.InputValidation {
+    margin-top: 10px;
+    color: red;
+}

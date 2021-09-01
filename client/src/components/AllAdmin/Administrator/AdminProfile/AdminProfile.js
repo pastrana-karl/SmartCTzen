@@ -10,31 +10,23 @@ import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
 
 import classes from './AdminProfile.module.css';
 
+const initialValues = {
+    city_municipality: '',
+    region: '',
+    email: '',
+    password: ''
+}
+
+const onSubmit = values => {
+    console.log('Form data', values)
+};
+
 const AdminProfile = () => {
     const formik = useFormik({
-        initialValues: {
-            city_municipality: '',
-            region: '',
-            email: '',
-            password: ''
-        },
+        initialValues,
         onSubmit: values => {
             console.log('Form values', values)
         }
-        // validate: values => {
-            
-        //     let errors = {}
-
-        //     if (!values.email) {
-        //         errors.email = 'Required'
-        //     }
-
-        //     if (!values.password) {
-        //         errors.password = 'Required'
-        //     }
-
-        //     return errors;
-        // }
     });
 
 
