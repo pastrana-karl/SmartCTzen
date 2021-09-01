@@ -4,6 +4,16 @@
     margin-bottom: 200px;
 }
 
+.AdminCreateProposalFormDiv {
+    display: grid;
+    row-gap: 30px;
+}
+
+.AdminCreateProposalForm {
+    display: grid;
+    row-gap: 100px;
+}
+
 .AdminCreateProposalsContentDiv {
     margin: 0px 100px 50px 100px;
     display: grid;
@@ -28,4 +38,16 @@
 .Quote {
     width: 200px;
     text-orientation: upright;
+}
+
+.ButtonDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+.InputValidation {
+    margin-top: 10px;
+    color: red;
 }
