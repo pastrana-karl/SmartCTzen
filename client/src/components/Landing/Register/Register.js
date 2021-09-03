@@ -110,10 +110,10 @@ const Register = (props) => {
            break;
       }
 
-      if (birth == dateToday){
+      if (birth === dateToday){
         citizen.birthdate = '';
         return ''
-      }else if(`${startDate.month} ${startDate.day}, ${startDate.year}` == `${present.month} ${present.day}, ${present.year}`){
+      }else if(`${startDate.month} ${startDate.day}, ${startDate.year}` === `${present.month} ${present.day}, ${present.year}`){
         citizen.birthdate = '';
         return ''
       }else{
