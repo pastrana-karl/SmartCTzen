@@ -1,14 +1,16 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import Input from '../../../UI/Input/Input';
+import FormikInput from '../../../UI/Input/FormikInput/FormikInput';
 import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
 
 import classes from './AdminCreateProjects.module.css';
+import axios from 'axios';
 
 
 const initialValues = {
@@ -18,8 +20,14 @@ const initialValues = {
     location: ''
 };
 
-const onSubmit = values => {
+const onSubmit = async (values) => {
     console.log('Form values', values);
+
+    const {...data} = values;
+    const res = await axios.post('/api/projects', data)
+        .catch(err => {
+            console.log('Error: ', err.res.data);
+        });
 };
 
 // const validate = values => {
@@ -41,11 +49,11 @@ const validationSchema = Yup.object({
 });
 
 const AdminCreateProjects = ( props ) => {
-    const formik = useFormik({
-        initialValues,
-        onSubmit,
-        validationSchema
-    });
+    // const formik = useFormik({
+    //     initialValues,
+    //     onSubmit,
+    //     validationSchema
+    // });
 
     return (
         <AdminLayout>
@@ -55,58 +63,76 @@ const AdminCreateProjects = ( props ) => {
                 </CardHeader>
             </div>
             <div className={classes.AdminCreateProjectsContentDiv}>
-                <form className={classes.AdminCreateProjectsForm}>
-                    <div className={classes.AdminCreateProjectsFormDiv}>
-                        <div className={classes.AdminCreateProjectsFormInput}>
-                            <label>Project Title</label>
-                            <Input 
-                                type="text"
-                                placeholder="Project Title"
-                                id="title"
-                                name="title"
-                                {...formik.getFieldProps('title')}
-                            />
-                            {formik.touched.title && formik.errors.title ? <div className={classes.InputValidation}>{formik.errors.title}</div> : null}
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
+                >
+                    <Form className={classes.AdminCreateProjectsForm}>
+                        <div className={classes.AdminCreateProjectsFormDiv}>
+                            <div className={classes.AdminCreateProjectsFormInput}>
+                                <label>Project Title</label>
+                                <FormikInput 
+                                    type="text"
+                                    placeholder="Project Title"
+                                    id="title"
+                                    name="title"
+                                />
+                                <ErrorMessage name="title">
+                                    {
+                                        errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                    }
+                                </ErrorMessage>
+                            </div>
+                            <div className={classes.AdminCreateProjectsFormInput}>
+                                <label>Project Description</label>
+                                <FormikInput
+                                    type="text"
+                                    placeholder="Project Description"
+                                    id="description"
+                                    name="description"
+                                />
+                                <ErrorMessage name="description">
+                                    {
+                                        errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                    }
+                                </ErrorMessage>
+                            </div>
+                            <div className={classes.AdminCreateProjectsFormInput}>
+                                <label>When</label>
+                                <FormikInput 
+                                    type="text"
+                                    placeholder="Date"
+                                    id="date"
+                                    name="date"
+                                />
+                                <ErrorMessage name="date">
+                                    {
+                                        errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                    }
+                                </ErrorMessage>
+                            </div>
+                            <div className={classes.AdminCreateProjectsFormInput}>
+                                <label>Where</label>
+                                <FormikInput 
+                                    type="text"
+                                    placeholder="Location"
+                                    id="location"
+                                    name="location"
+                                />
+                                <ErrorMessage name="location">
+                                    {
+                                        errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                    }
+                                </ErrorMessage>
+                            </div>
                         </div>
-                        <div className={classes.AdminCreateProjectsFormInput}>
-                            <label>Project Description</label>
-                            <Input
-                                type="text"
-                                placeholder="Project Description"
-                                id="description"
-                                name="description"
-                                {...formik.getFieldProps('description')}
-                            />
-                            {formik.touched.description && formik.errors.description ? <div className={classes.InputValidation}>{formik.errors.description}</div> : null}
+                        <div className={classes.ButtonDiv}>
+                            <SubmitButton />
+                            <CancelButton />
                         </div>
-                        <div className={classes.AdminCreateProjectsFormInput}>
-                            <label>When</label>
-                            <Input 
-                                type="text"
-                                placeholder="Date"
-                                id="date"
-                                name="date"
-                                {...formik.getFieldProps('date')}
-                            />
-                            {formik.touched.date && formik.errors.date ? <div className={classes.InputValidation}>{formik.errors.date}</div> : null}
-                        </div>
-                        <div className={classes.AdminCreateProjectsFormInput}>
-                            <label>Where</label>
-                            <Input 
-                                type="text"
-                                placeholder="Location"
-                                id="location"
-                                name="location"
-                                {...formik.getFieldProps('location')}
-                            />
-                            {formik.touched.location && formik.errors.location ? <div className={classes.InputValidation}>{formik.errors.location}</div> : null}
-                        </div>
-                    </div>
-                    <div className={classes.ButtonDiv}>
-                        <SubmitButton />
-                        <CancelButton />
-                    </div>
-                </form>
+                    </Form>
+                </Formik>
             </div>
             
         </AdminLayout>

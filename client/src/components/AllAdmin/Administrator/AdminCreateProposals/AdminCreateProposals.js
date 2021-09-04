@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import Input from '../../../UI/Input/Input';
 import FormikInput from '../../../UI/Input/FormikInput/FormikInput';
-
-import classes from './AdminCreateProposals.module.css';
 import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
+
+import classes from './AdminCreateProposals.module.css';
+
 
 const initialValues = {
     title: '',
@@ -18,8 +20,26 @@ const initialValues = {
     location: ''
 };
 
-const onSubmit = values => {
+const onSubmit = async (values) => {
     console.log('Form values', values);
+
+    // await fetch('/api/initiatives', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         values
+    //     })
+    // });
+    const {...data} = values;
+
+    console.log(data);
+    const res = await axios.post('/api/initiatives', data)
+        .catch(err => {
+            console.log('Error: ', err.res.data);
+        });
+    
 };
 
 // const validate = values => {
