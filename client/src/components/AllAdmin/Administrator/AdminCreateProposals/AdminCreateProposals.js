@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useFormik } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import Input from '../../../UI/Input/Input';
+import FormikInput from '../../../UI/Input/FormikInput/FormikInput';
 
 import classes from './AdminCreateProposals.module.css';
 import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
@@ -46,11 +47,11 @@ const AdminCreateProposals = ( props ) => {
     // const [inputProposalLocation, setInputProposalLocation] = useState();
     // const [inputProposalPhoto, serInputProposalPhoto] = useState();
 
-    const formik = useFormik({
-        initialValues,
-        onSubmit,
-        validationSchema
-    });
+    // const formik = useFormik({
+    //     initialValues,
+    //     onSubmit,
+    //     validationSchema
+    // });
 
     return (
         <React.Fragment>
@@ -61,59 +62,81 @@ const AdminCreateProposals = ( props ) => {
                     </CardHeader>
                 </div>
                 <div className={classes.AdminCreateProposalsContentDiv}>
-                        <form className={classes.AdminCreateProposalForm}>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={onSubmit}
+                    >
+                        <Form className={classes.AdminCreateProposalForm}>
                             <div className={classes.AdminCreateProposalFormDiv}>
                                 <div className={classes.AdminCreateProposalsFormInput}>
                                     <label>Proposal Title</label>
-                                    <Input 
+                                    <FormikInput 
                                         type="text"
                                         placeholder="Proposal Title"
                                         id="title"
                                         name="title"
-                                        {...formik.getFieldProps('title')}
                                     />
-                                    {formik.touched.title && formik.errors.title ? <div className={classes.InputValidation}>{formik.errors.title}</div> : null}
+                                    <ErrorMessage name="title">
+                                        {errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>}
+                                    </ErrorMessage>
                                 </div>
                                 <div className={classes.AdminCreateProposalsFormInput}>
                                     <label>Description</label>
-                                    <Input 
+                                    <FormikInput 
                                         type="text"
                                         placeholder="Description"
                                         id="description"
                                         name="description"
-                                        {...formik.getFieldProps('description')}
+                                        // {...formik.getFieldProps('description')}
                                     />
-                                    {formik.touched.description && formik.errors.description ? <div className={classes.InputValidation}>{formik.errors.description}</div> : null}
+                                    <ErrorMessage name="name">
+                                        {
+                                            errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                        }
+                                    </ErrorMessage>
+                                    {/* {formik.touched.description && formik.errors.description ? <div className={classes.InputValidation}>{formik.errors.description}</div> : null} */}
                                 </div>
                                 <div className={classes.AdminCreateProposalsFormInput}>
                                     <label>When</label>
-                                    <Input 
+                                    <FormikInput 
                                         type="text"
                                         placeholder="When"
                                         id="date"
                                         name="date"
-                                        {...formik.getFieldProps('date')}
+                                        // {...formik.getFieldProps('date')}
                                     />
-                                    {formik.touched.date && formik.errors.date ? <div className={classes.InputValidation}>{formik.errors.date}</div> : null}
+                                    <ErrorMessage name="date">
+                                        {
+                                            errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                        }
+                                    </ErrorMessage>
+                                    {/* {formik.touched.date && formik.errors.date ? <div className={classes.InputValidation}>{formik.errors.date}</div> : null} */}
                                 </div>
                                 <div className={classes.AdminCreateProposalsFormInput}>
                                     <label>Where</label>
-                                    <Input 
+                                    <FormikInput 
                                         type="text"
                                         placeholder="Where"
                                         id="location"
                                         name="location"
-                                        {...formik.getFieldProps('location')}
+                                        // {...formik.getFieldProps('location')}
                                     />
-                                    {formik.touched.location && formik.errors.location ? <div className={classes.InputValidation}>{formik.errors.location}</div> : null}
+                                    <ErrorMessage name="location">
+                                        {
+                                            errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                        }
+                                    </ErrorMessage>
+                                    {/* {formik.touched.location && formik.errors.location ? <div className={classes.InputValidation}>{formik.errors.location}</div> : null} */}
                                 </div>
                             </div>
                             <div className={classes.ButtonDiv}>
                                 <SubmitButton />
                                 <CancelButton />
                             </div>
-                        </form>
-                    </div>
+                        </Form>
+                    </Formik>
+                </div>
             </AdminLayout>
         </React.Fragment>
     );

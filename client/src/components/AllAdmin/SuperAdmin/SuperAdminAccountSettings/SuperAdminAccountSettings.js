@@ -54,6 +54,7 @@ const SuperAdminAccountSettings = ( props ) => {
                             { formik.touched.email_address && formik.errors.email_address ? 
                                 <div className={classes.InputValidation}>{formik.errors.email_address}</div> : null }
                         </div>
+
                         <div className={classes.SuperAdminContainerDiv}>
                             <label>Password</label>
                             <Input 
@@ -66,10 +67,12 @@ const SuperAdminAccountSettings = ( props ) => {
                             { formik.touched.password && formik.errors.password ? 
                                 <div className={classes.InputValidation}>{formik.errors.password}</div> : null }
                         </div>
+
                         <div className={classes.SuperAdminButtonDiv}>
                             <SubmitButton />
                             <CancelButton />
                         </div>
+                        
                     </form>
                 </SuperAdminContainer>
             </SuperAdminLayout>
