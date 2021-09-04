@@ -79,9 +79,12 @@ button.btn.btn-danger:hover{
   margin: 1.3rem auto;
 }
 div.col-md-6 {
-  border: 5px inset #babdbe;
-  border-radius: 20px;
+  box-sizing: border-box;
   padding: 30px;
+  background: #F0F0F3;
+  box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+  border-radius: 20px;
+  row-gap: 20px;
 }
 .errorMsg {
   max-width: 350px;
@@ -144,13 +147,13 @@ div.col-md-6 {
 
 .DatePicker__input
 {
-  border: 1px solid lightgray;
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
-  color: #949494;
-  border-radius: 5px;
-  background-color: white;
+  border: hidden;
+  background: #F0F0F3;
+  color: grey;
+  box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+  border-radius: 20px;
+  padding: 5px;
+  font-size: 18px;
 }
 
 .helpIcon
@@ -164,6 +167,15 @@ div.col-md-6 {
 .helpIcon .fas
 {
   color: grey;
+}
+
+.form-control {
+  border: hidden !important;
+  background: #F0F0F3 !important;
+  box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
+  border-radius: 20px !important;
+  padding: 20px !important;
+  font-size: 18px !important;
 }
 
 @media screen and (max-width: 1200px) {

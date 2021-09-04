@@ -35,10 +35,10 @@ const FourthStep = (props) => {
           <div>
               <Slide easing="ease">
                 <div className="each-slide">
-                    <img className="writeImg" src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
+                    <img src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
                 </div>
                 <div className="each-slide">
-                    <img className="writeImg" src={URL.createObjectURL(file[1])} alt="" onClick={()=> window.open(URL.createObjectURL(file[1]), "_blank")}></img>
+                    <img src={URL.createObjectURL(file[1])} alt="" onClick={()=> window.open(URL.createObjectURL(file[1]), "_blank")}></img>
                 </div>
               </Slide>
           </div>)}
