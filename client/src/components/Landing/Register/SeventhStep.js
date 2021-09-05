@@ -19,65 +19,102 @@ const SeventhStep = (props) => {
 
       const validPhoto1 = citizen.validIDPic[0];
       const validPhoto2 = citizen.validIDPic[1];
-      const validImage = [validPhoto1, validPhoto2];
 
-      const residencyPhoto1 = citizen.residencyPic[0];
-      const residencyPhoto2 = citizen.residencyPic[1];
-      const residencyImage = [residencyPhoto1, residencyPhoto2];
+      if(`${validPhoto1}` === `undefined` && `${validPhoto2}` === `undefined`){
+        const validImage = [];
+        citizen.validIDPic = [];
+        
+        console.log(validImage)
+      }else if(`${validPhoto1}` !== `undefined` && `${validPhoto2}` === `undefined`){
+        const validImage = [validPhoto1];
+        const formData_1 = new FormData();
+        validImage.forEach(validImage => formData_1.append("image", validImage));
+        try {
+                const res = await axios.post("/api/upload-images", formData_1);
+                const img1 = res.data.data[0].url;
+                const img = [img1];
+                console.log(img)
+                citizen.validIDPic = img;
+            } catch (err) {
+                console.log(err);
+            }
+      }else{
+        const validImage = [validPhoto1, validPhoto2];
+        const formData_1 = new FormData();
+        validImage.forEach(validImage => formData_1.append("image", validImage));
+        try {
+                const res = await axios.post("/api/upload-images", formData_1);
+                const img1 = res.data.data[0].url;
+                const img2 = res.data.data[1].url;
+                const img = [img1, img2];
+                console.log(img)
+                citizen.validIDPic = img;
+            } catch (err) {
+                console.log(err);
+            }
+      }
 
-      const birthPhoto1 = citizen.birthCertPic[0];
-      const birthPhoto2 = citizen.birthCertPic[1];
-      const birthImage = [birthPhoto1, birthPhoto2];
+      // const residencyPhoto1 = citizen.residencyPic[0];
+      // const residencyPhoto2 = citizen.residencyPic[1];
+      // const residencyImage = [residencyPhoto1, residencyPhoto2];
 
-      console.log(validImage)
-      console.log(residencyImage)
-      console.log(birthImage)
+      // const birthPhoto1 = citizen.birthCertPic[0];
+      // const birthPhoto2 = citizen.birthCertPic[1];
+      // const birthImage = [birthPhoto1, birthPhoto2];
 
-      const formData_1 = new FormData();
-      validImage.forEach(validImage => formData_1.append("image", validImage));
-      try {
-              const res = await axios.post("/api/upload-images", formData_1);
-              const img1 = res.data.data[0].url;
-              const img2 = res.data.data[1].url;
-              const img = [img1, img2];
-              console.log(img)
-              citizen.validIDPic = img
-          } catch (err) {
-              console.log(err);
-          }
+      // console.log(residencyImage)
+      // console.log(birthImage)
+
+      // const formData_1 = new FormData();
+      // validImage.forEach(validImage => formData_1.append("image", validImage));
+      // try {
+      //         const res = await axios.post("/api/upload-images", formData_1);
+      //         const img1 = res.data.data[0].url;
+      //         const img2 = res.data.data[1].url;
+      //         const img = [img1, img2];
+      //         console.log(img)
+              
+      //         if(`${res.data.data[0]}` != `undefined` && `${res.data.data[1]}` == `undefined` ){
+      //           citizen.validIDPic = img1;
+      //         }else{
+      //           citizen.validIDPic = img;
+      //         }
+      //     } catch (err) {
+      //         console.log(err);
+      //     }
       
-      const formData_2 = new FormData();
-      residencyImage.forEach(residencyImage => formData_2.append("image", residencyImage));
-      try {
-              const res = await axios.post("/api/upload-images", formData_2);
-              const pic1 = res.data.data[0].url;
-              const pic2 = res.data.data[1].url;
-              const pic = [pic1, pic2];
-              console.log(pic)
-              citizen.residencyPic = pic
-          } catch (err) {
-              console.log(err);
-          }
+      // const formData_2 = new FormData();
+      // residencyImage.forEach(residencyImage => formData_2.append("image", residencyImage));
+      // try {
+      //         const res = await axios.post("/api/upload-images", formData_2);
+      //         const pic1 = res.data.data[0].url;
+      //         const pic2 = res.data.data[1].url;
+      //         const pic = [pic1, pic2];
+      //         console.log(pic)
+      //         citizen.residencyPic = pic
+      //     } catch (err) {
+      //         console.log(err);
+      //     }
       
-      const formData_3 = new FormData();
-      birthImage.forEach(birthImage => formData_3.append("image", birthImage));
-      try {
-              const res = await axios.post("/api/upload-images", formData_3);
-              const pho1 = res.data.data[0].url;
-              const pho2 = res.data.data[1].url;
-              const pho = [pho1, pho2];
-              console.log(pho)
-              citizen.birthCertPic = pho
-          } catch (err) {
-              console.log(err);
-          }
+      // const formData_3 = new FormData();
+      // birthImage.forEach(birthImage => formData_3.append("image", birthImage));
+      // try {
+      //         const res = await axios.post("/api/upload-images", formData_3);
+      //         const pho1 = res.data.data[0].url;
+      //         const pho2 = res.data.data[1].url;
+      //         const pho = [pho1, pho2];
+      //         console.log(pho)
+      //         citizen.birthCertPic = pho
+      //     } catch (err) {
+      //         console.log(err);
+      //     }
 
       const updatedData = {
         email: data.email,
         password: data.password,
         validIDPic: citizen.validIDPic,
-        residencyPic: citizen.residencyPic,
-        birthCertPic: citizen.birthCertPic,
+        // residencyPic: citizen.residencyPic,
+        // birthCertPic: citizen.birthCertPic,
       };
       
       // console.log(citizen) Testing for data passing...
@@ -92,7 +129,7 @@ const SeventhStep = (props) => {
         (result) => {
           if (result.isConfirmed || result.isDismissed) {
             props.resetCitizen();
-            props.history.push('/create-account');
+            props.history.push('/fourth');
            }
         });
     } catch (err) {
@@ -100,8 +137,9 @@ const SeventhStep = (props) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: err.response.data
+            text: 'something went wrong!'
           });
+          props.history.push('/create-account');
         }
     }
   };

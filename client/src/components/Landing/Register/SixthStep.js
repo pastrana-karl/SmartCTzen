@@ -31,17 +31,19 @@ const SixthStep = (props) => {
       <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
       <h2 style={{textAlign: "center", marginBottom: '15px'}}>Upload Birth Certificate</h2>
       <div className="writeImg">
-        {file[0] && ( 
+        {file[1] ? ( 
           <div>
-              <Slide easing="ease">
-                <div className="each-slide">
-                    <img className="writeImg" src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
-                </div>
-                <div className="each-slide">
-                    <img className="writeImg" src={URL.createObjectURL(file[1])} alt="" onClick={()=> window.open(URL.createObjectURL(file[1]), "_blank")}></img>
-                </div>
-              </Slide>
-          </div>)}
+            <Slide easing="ease">
+              <div className="each-slide">
+                  <img src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
+              </div>
+              <div className="each-slide">
+                  <img src={URL.createObjectURL(file[1])} alt="" onClick={()=> window.open(URL.createObjectURL(file[1]), "_blank")}></img>
+              </div>
+            </Slide>
+          </div>) : [(file[0] && (
+            <img key = {file} src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
+        ))]}
       </div>
       <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
@@ -59,9 +61,7 @@ const SixthStep = (props) => {
             style={{display:"none"}}
             onChange={(e) => setFile([...e.target.files])}
             multiple
-            ref={register({ 
-              required: 'Photos are Needed'
-            })}
+            ref={register({})}
             className={`${errors.birthCertPic ? 'input-error' : ''}`}
           />
           {errors.birthCertPic && (

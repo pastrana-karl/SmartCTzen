@@ -110,19 +110,31 @@ const Register = (props) => {
            break;
       }
 
+      const yearPresent = present.year;
+      const yearSelected = startDate.year;
+      const yearCheck = yearPresent - yearSelected
+
       if (birth === dateToday){
         citizen.birthdate = '';
         return ''
       }else if(`${startDate.month} ${startDate.day}, ${startDate.year}` === `${present.month} ${present.day}, ${present.year}`){
         citizen.birthdate = '';
         return ''
+      }else if(`${startDate.year}` === `${present.year}`){
+        citizen.birthdate = '';
+        return ''
+      }else if(`${yearCheck}` <= 8){
+        citizen.birthdate = '';
+        return ''
+      }else if(`${startDate.year}` > `${present.year}`){
+        citizen.birthdate = '';
+        return ''
       }else{
         return  `${startDate.month} ${startDate.day}, ${startDate.year}`;
       }
-
     };
 
-    const Bday = formatInputValue();
+  const Bday = formatInputValue();
 
   const onSubmit = (data) => {
     props.updateCitizen(data);

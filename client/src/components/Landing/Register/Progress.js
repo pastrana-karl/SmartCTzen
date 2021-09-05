@@ -40,7 +40,7 @@ const Progress = ({ location: { pathname } }) => {
               <div><p>7</p></div>
               <div></div>
             </div>
-       </div>) : ( <div></div> )}
+       </div>) : ( <></> )}
       </React.Fragment>
     );
   };
