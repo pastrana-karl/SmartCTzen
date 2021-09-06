@@ -23,7 +23,7 @@ const FourthStep = (props) => {
 
     // console.log(updatedData);
     props.updateCitizen(updatedData);
-    props.history.push('/seventh');
+    props.history.push('/fifth');
   };
 
   return (
@@ -62,7 +62,7 @@ const FourthStep = (props) => {
             onChange={(e) => setFile([...e.target.files])}
             multiple
             ref={register({ 
-              // required: 'Photos are Needed'
+              required: 'Photos are Needed'
             })}
             className={`${errors.validIDPic ? 'input-error' : ''}`}
           />

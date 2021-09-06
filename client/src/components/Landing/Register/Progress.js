@@ -43,6 +43,6 @@ const Progress = ({ location: { pathname } }) => {
        </div>) : ( <></> )}
       </React.Fragment>
     );
-  };
+};
 
 export default withRouter(Progress);

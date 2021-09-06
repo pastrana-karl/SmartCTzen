@@ -3,10 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #e67e22;
 }
+
 .form-control:focus {
   outline: none;
   box-shadow: none;
@@ -14,44 +16,54 @@ body {
   background-color: unset;
   border-color: unset;
 }
+
 h1 {
   text-align: center;
   margin-top: 1rem;
   font-size: 2.2rem;
 }
+
 .btn {
   letter-spacing: 1px;
 }
+
 button.btn.btn-danger{
   border-radius: 10px;
   border-color: #fe5139;
   background-color: #fe5139;
   outline: #fe5139;
 }
+
 button.btn.btn-danger:hover{
   background-color: #Dc4733;
   border-color: #Dc4733;
 }
+
 .steps {
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
 }
+
 .steps .step {
   margin: 0.5rem 1rem;
   display: flex;
   color: #fe5139;
 }
+
 .steps .step a {
   color: #fe5139;
   vertical-align: middle;
 }
+
 .steps .step p {
   vertical-align: middle;
 }
+
 .steps .step.active p {
   vertical-align: middle;
 }
+
 .steps .step div:first-of-type {
   border: 1px solid #fe5139;
   padding: 5px;
@@ -63,21 +75,26 @@ button.btn.btn-danger:hover{
   line-height: 100%;
   padding-top: 7%;
 }
+
 .steps .step :last-child {
   margin-top: 3%;
 }
+
 .steps .step.active div:first-of-type {
   background-color: #fe5139;
   border: 1px solid transparent;
   color: #fff;
 }
+
 .steps .step.active div:last-of-type {
   color: #fff;
 }
+
 .input-form {
-  width: 60%;
+  width: 70%;
   margin: 1.3rem auto;
 }
+
 div.col-md-6 {
   box-sizing: border-box;
   padding: 30px;
@@ -86,6 +103,7 @@ div.col-md-6 {
   border-radius: 20px;
   row-gap: 20px;
 }
+
 .errorMsg {
   max-width: 350px;
   color: #f21e08;
@@ -94,18 +112,23 @@ div.col-md-6 {
   font-size: 14px;
   font-weight: 300;
 }
+
 .login-error {
   font-size: 1.1rem;
 }
+
 .successMsg {
   color: #22ac11;
 }
+
 .loading {
   color: #777;
 }
+
 .form-control.input-error {
   border: 2px solid #f21e08;
 }
+
 .user-details {
   color: #22ac11;
   padding: 5px 0;
@@ -178,21 +201,37 @@ div.col-md-6 {
   font-size: 18px !important;
 }
 
+.loading-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;  
+}
+
 @media screen and (max-width: 1200px) {
   .input-form {
     width: 100%;
  }
+
   .writeImg img {
     width: 40vw;
+  }
+
+  .loading-icons{
+    margin-top: 30%;  
   }
 }
 @media screen and (max-width: 900px) {
   .input-form {
     width: 100%;
- }
+  }
+
   .steps .step {
     margin: 0.5rem 2rem;
- }
+  }
+
+ .loading-icons{
+    margin-top: 20%;  
+  }
 }
 @media screen and (max-width: 600px) {
   div.col-md-6 {
@@ -204,13 +243,20 @@ div.col-md-6 {
     border-radius: 20px;
     row-gap: 20px;
   }
+
   .steps {
     display: none;
   }
+
   h1 {
     font-size: 2rem;
- }
+  }
+
   .writeImg img {
     width: 80vw;
+  }
+
+  .loading-icons{
+    margin-top: 50%;  
   }
 }
