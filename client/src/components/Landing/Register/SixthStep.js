@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import ReactTooltip from "react-tooltip";
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
+import { Link } from 'react-router-dom';
 
 const SixthStep = (props) => {
     const { citizen } = props;
@@ -73,6 +74,8 @@ const SixthStep = (props) => {
           Next
         </Button>
       </Form>
+
+      <Link className="register-link" to="/fifth">Back</Link>
       </motion.div>
     </div>
   );

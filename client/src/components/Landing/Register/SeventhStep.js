@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import * as ReactBootStrap from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const SeventhStep = (props) => {
   const { citizen } = props;
@@ -166,8 +167,9 @@ const SeventhStep = (props) => {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'something went wrong!'
+              text: 'something wrong!',
             });
+            props.resetCitizen();
             props.history.push('/create-account');
           }
         }
@@ -225,6 +227,8 @@ const SeventhStep = (props) => {
         <Button variant="danger" type="submit">
           Submit
         </Button>
+
+        <Link className="register-link" to="/sixth">Back</Link>
       </motion.div>
       </Form>
     ) : (

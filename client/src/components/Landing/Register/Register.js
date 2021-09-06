@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import '@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker, { utils } from '@hassanmojab/react-modern-calendar-datepicker';
+import { Link } from 'react-router-dom';
 import './Register.css';
 
 const Register = (props) => {
@@ -276,6 +277,9 @@ const Register = (props) => {
         <Button variant="danger" type="submit">
           Next
         </Button>
+
+        <Link className="firstStep-link" to="/login">Back</Link>
+        <Link className="register-link" to="/login">Back</Link>
       </motion.div>
     </Form>
   );
