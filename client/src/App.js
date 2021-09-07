@@ -4,7 +4,7 @@ import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
 import Features from './components/Landing/Features/Features';
 import Home from './components/Landing/Home/Home';
 import Login from './components/Landing/Login/Login';
-import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
+// import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
 import AllAdminsLogin from './components/AllAdmin/AllAdminLogin';
 import Register from './components/Landing/Register/Register';
 import SecondStep from './components/Landing/Register/SecondStep';
@@ -24,12 +24,15 @@ import AdminProjects from './components/AllAdmin/Administrator/AdminProjects/Adm
 import AdminUsers from './components/AllAdmin/Administrator/AdminUsers/AdminUsers';
 import AdminApplicants from './components/AllAdmin/Administrator/AdminApplicants/AdminApplicants';
 import AdminLogout from './components/AllAdmin/Administrator/AdminLogout/AdminLogout';
-import SuperAdminLayout from './components/AllAdmin/SuperAdmin/SuperAdminLayout';
-import SuperAdminContent from './components/AllAdmin/SuperAdmin/SuperAdminContent/SuperAdminContent';
+// import SuperAdminLayout from './components/AllAdmin/SuperAdmin/SuperAdminLayout';
+// import SuperAdminContent from './components/AllAdmin/SuperAdmin/SuperAdminContent/SuperAdminContent';
 import SuperAdminManageAdmins from './components/AllAdmin/SuperAdmin/SuperAdminManageAdmins/SuperAdminManageAdmins';
-import SuperAdminAccountSettings from './components/AllAdmin/SuperAdmin/SuperAdminAccountSettings/SuperAdminAccountSettings';
-import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
-import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
+// import SuperAdminAccountSettings from './components/AllAdmin/SuperAdmin/SuperAdminAccountSettings/SuperAdminAccountSettings';
+// import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
+// import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
+
+//**************** import citizen profile ***************************
+import CitizenProfile from './components/Citizen/Profile/CitizenProfile';
 
 const App = () => {
 
@@ -110,23 +113,28 @@ const App = () => {
             path="/seventh"
           />
 
+          {/**************************** Citizen Routes ****************************/}
+          <Route path="/citizen-profile">
+            <CitizenProfile />
+          </Route>
+
           {/**************************** SUPER ADMIN and ADMIN Login ****************************/}
           <Route path="/admin-login">
             <AllAdminsLogin />
           </Route>
 
           {/**************************** ADMIN Routes ****************************/}
-          <Route path="/admin-profile">
+          {/* <Route path="/admin-profile">
             <AdminProfile />
-          </Route>
+          </Route> */}
           
           <Route path="/admin-proposals">
             <AdminProposals />
           </Route>
 
-          <Route path="/admin-create-proposals">
+          {/* <Route path="/admin-create-proposals">
             <AdminCreateProposals />
-          </Route>
+          </Route> */}
 
 
           <Route path="/admin-reports">
@@ -141,9 +149,9 @@ const App = () => {
             <AdminProjects />
           </Route>
 
-          <Route path="/admin-create-projects">
+          {/* <Route path="/admin-create-projects">
             <AdminCreateProjects />
-          </Route>
+          </Route> */}
 
           <Route path="/admin-users">
             <AdminUsers />
@@ -162,17 +170,17 @@ const App = () => {
               <SuperAdminLayout />
           </Route> */}
 
-          <Route path="/super-admin/content">
+          {/* <Route path="/super-admin/content">
             <SuperAdminContent />
-          </Route>
+          </Route> */}
 
           <Route path="/super-admin/manage-admins">
             <SuperAdminManageAdmins />
           </Route>
 
-          <Route path="/super-admin/account-settings">
+          {/* <Route path="/super-admin/account-settings">
             <SuperAdminAccountSettings />
-          </Route>
+          </Route> */}
 
           <Route render={() => <Redirect to="/" />} />
 

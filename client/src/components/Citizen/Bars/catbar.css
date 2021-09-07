@@ -1,0 +1,25 @@
+.category {
+    margin-top: 10px;
+    height: 100px;
+    flex: 10;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.categoryList {
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 10px;
+    padding: 10px;
+    list-style: none;
+}
+
+.categoryItem {
+    margin-right: 20px;
+    font-size: 18px;
+    font-weight: 300;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}

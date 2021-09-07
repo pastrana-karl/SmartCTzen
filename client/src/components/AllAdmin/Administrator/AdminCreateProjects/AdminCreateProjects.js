@@ -48,95 +48,95 @@ const validationSchema = Yup.object({
     location: Yup.string().required('Required')
 });
 
-const AdminCreateProjects = ( props ) => {
-    // const formik = useFormik({
-    //     initialValues,
-    //     onSubmit,
-    //     validationSchema
-    // });
+// const AdminCreateProjects = ( props ) => {
+//     // const formik = useFormik({
+//     //     initialValues,
+//     //     onSubmit,
+//     //     validationSchema
+//     // });
 
-    return (
-        <AdminLayout>
-            <div className={classes.AdminCreateProjectsHeader}>
-                <CardHeader>
-                    <h2 className={classes.Text}>Projects</h2>
-                </CardHeader>
-            </div>
-            <div className={classes.AdminCreateProjectsContentDiv}>
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={onSubmit}
-                >
-                    <Form className={classes.AdminCreateProjectsForm}>
-                        <div className={classes.AdminCreateProjectsFormDiv}>
-                            <div className={classes.AdminCreateProjectsFormInput}>
-                                <label>Project Title</label>
-                                <FormikInput 
-                                    type="text"
-                                    placeholder="Project Title"
-                                    id="title"
-                                    name="title"
-                                />
-                                <ErrorMessage name="title">
-                                    {
-                                        errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-                                    }
-                                </ErrorMessage>
-                            </div>
-                            <div className={classes.AdminCreateProjectsFormInput}>
-                                <label>Project Description</label>
-                                <FormikInput
-                                    type="text"
-                                    placeholder="Project Description"
-                                    id="description"
-                                    name="description"
-                                />
-                                <ErrorMessage name="description">
-                                    {
-                                        errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-                                    }
-                                </ErrorMessage>
-                            </div>
-                            <div className={classes.AdminCreateProjectsFormInput}>
-                                <label>When</label>
-                                <FormikInput 
-                                    type="text"
-                                    placeholder="Date"
-                                    id="date"
-                                    name="date"
-                                />
-                                <ErrorMessage name="date">
-                                    {
-                                        errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-                                    }
-                                </ErrorMessage>
-                            </div>
-                            <div className={classes.AdminCreateProjectsFormInput}>
-                                <label>Where</label>
-                                <FormikInput 
-                                    type="text"
-                                    placeholder="Location"
-                                    id="location"
-                                    name="location"
-                                />
-                                <ErrorMessage name="location">
-                                    {
-                                        errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-                                    }
-                                </ErrorMessage>
-                            </div>
-                        </div>
-                        <div className={classes.ButtonDiv}>
-                            <SubmitButton />
-                            <CancelButton />
-                        </div>
-                    </Form>
-                </Formik>
-            </div>
+//     return (
+//         <AdminLayout>
+//             <div className={classes.AdminCreateProjectsHeader}>
+//                 <CardHeader>
+//                     <h2 className={classes.Text}>Projects</h2>
+//                 </CardHeader>
+//             </div>
+//             <div className={classes.AdminCreateProjectsContentDiv}>
+//                 <Formik
+//                     initialValues={initialValues}
+//                     validationSchema={validationSchema}
+//                     onSubmit={onSubmit}
+//                 >
+//                     <Form className={classes.AdminCreateProjectsForm}>
+//                         <div className={classes.AdminCreateProjectsFormDiv}>
+//                             <div className={classes.AdminCreateProjectsFormInput}>
+//                                 <label>Project Title</label>
+//                                 <FormikInput 
+//                                     type="text"
+//                                     placeholder="Project Title"
+//                                     id="title"
+//                                     name="title"
+//                                 />
+//                                 <ErrorMessage name="title">
+//                                     {
+//                                         errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+//                                     }
+//                                 </ErrorMessage>
+//                             </div>
+//                             <div className={classes.AdminCreateProjectsFormInput}>
+//                                 <label>Project Description</label>
+//                                 <FormikInput
+//                                     type="text"
+//                                     placeholder="Project Description"
+//                                     id="description"
+//                                     name="description"
+//                                 />
+//                                 <ErrorMessage name="description">
+//                                     {
+//                                         errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+//                                     }
+//                                 </ErrorMessage>
+//                             </div>
+//                             <div className={classes.AdminCreateProjectsFormInput}>
+//                                 <label>When</label>
+//                                 <FormikInput 
+//                                     type="text"
+//                                     placeholder="Date"
+//                                     id="date"
+//                                     name="date"
+//                                 />
+//                                 <ErrorMessage name="date">
+//                                     {
+//                                         errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+//                                     }
+//                                 </ErrorMessage>
+//                             </div>
+//                             <div className={classes.AdminCreateProjectsFormInput}>
+//                                 <label>Where</label>
+//                                 <FormikInput 
+//                                     type="text"
+//                                     placeholder="Location"
+//                                     id="location"
+//                                     name="location"
+//                                 />
+//                                 <ErrorMessage name="location">
+//                                     {
+//                                         errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+//                                     }
+//                                 </ErrorMessage>
+//                             </div>
+//                         </div>
+//                         <div className={classes.ButtonDiv}>
+//                             <SubmitButton />
+//                             <CancelButton />
+//                         </div>
+//                     </Form>
+//                 </Formik>
+//             </div>
             
-        </AdminLayout>
-    );
-};
+//         </AdminLayout>
+//     );
+// };
 
-export default AdminCreateProjects;
+// export default AdminCreateProjects;

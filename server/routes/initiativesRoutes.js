@@ -1,6 +1,6 @@
 const express = require('express');
 
-const initiativesController = require("../controllers/initiativesController");
+const initiativesController = require("../controllers/inititativesController");
 
 const initiativesRouter = express.Router();
 

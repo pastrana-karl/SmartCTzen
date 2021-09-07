@@ -1,4 +1,4 @@
-const Initiatives = require('../models/initiativesModel');
+const Initiatives = require('../models/inititativesModel');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
