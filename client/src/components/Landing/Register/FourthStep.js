@@ -34,17 +34,17 @@ const FourthStep = (props) => {
       <div className="writeImg">
         {file[1] ? ( 
           <div>
-              <Slide easing="ease">
-                <div className="each-slide">
-                    <img src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
-                </div>
-                <div className="each-slide">
-                    <img src={URL.createObjectURL(file[1])} alt="" onClick={()=> window.open(URL.createObjectURL(file[1]), "_blank")}></img>
-                </div>
-              </Slide>
+            <Slide easing="ease">
+              <div className="each-slide">
+                  <img src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
+              </div>
+              <div className="each-slide">
+                  <img src={URL.createObjectURL(file[1])} alt="" onClick={()=> window.open(URL.createObjectURL(file[1]), "_blank")}></img>
+              </div>
+            </Slide>
           </div>) : [(file[0] && (
             <img key = {file} src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
-          ))]}
+        ))]}
       </div>
       <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>

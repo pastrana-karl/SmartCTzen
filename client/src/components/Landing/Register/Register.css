@@ -228,6 +228,9 @@ div.col-md-6 button {
 }
 
 @media screen and (max-width: 1200px) {
+  .errorMsg-photo {
+    max-width: 100%;
+  }
   .input-form {
     width: 100%;
  }
