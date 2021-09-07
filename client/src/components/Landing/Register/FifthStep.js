@@ -68,7 +68,7 @@ const FifthStep = (props) => {
             className={`${errors.residencyPic ? 'input-error' : ''}`}
           />
           {errors.residencyPic && (
-            <p className="errorMsg">{errors.residencyPic.message}</p>
+            <p className="errorMsg-photo">{errors.residencyPic.message}</p>
           )}
         </Form.Group>
       

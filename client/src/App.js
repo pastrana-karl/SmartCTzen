@@ -6,7 +6,7 @@ import Home from './components/Landing/Home/Home';
 import Login from './components/Landing/Login/Login';
 import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
 import AllAdminsLogin from './components/AllAdmin/AllAdminLogin';
-import Register from './components/Landing/Register/Register';
+import FirstStep from './components/Landing/Register/FirstStep';
 import SecondStep from './components/Landing/Register/SecondStep';
 import ThirdStep from './components/Landing/Register/ThirdStep';
 import FourthStep from './components/Landing/Register/FourthStep';
@@ -62,7 +62,7 @@ const App = () => {
 
           <Route
              render={(props) => (
-              <Register {...props} citizen={citizen} updateCitizen={updateCitizen} />
+              <FirstStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
             )}
             path="/create-account"
              exact={true}

@@ -117,26 +117,27 @@ div.col-md-6 button {
   font-weight: 300;
 }
 
-.login-error {
-  font-size: 1.1rem;
-}
-
-.successMsg {
-  color: #22ac11;
+.errorMsg-photo {
+  text-align: center;
+  max-width: 350px;
+  color: #f21e08;
+  padding: 2px 0;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 .loading {
   color: #777;
+  text-align: center;
+}
+
+.loading h2 {
+  margin-top: 10%;
 }
 
 .form-control.input-error {
   border: 2px solid #f21e08;
-}
-
-.user-details {
-  color: #22ac11;
-  padding: 5px 0;
-  margin-bottom: 1rem;
 }
 
 .radioButton {
@@ -208,7 +209,6 @@ div.col-md-6 button {
 .loading-icons {
   display: flex;
   justify-content: center;
-  margin-top: 10%;  
 }
 
 .register-link {
@@ -236,8 +236,8 @@ div.col-md-6 button {
     width: 40vw;
   }
 
-  .loading-icons{
-    margin-top: 30%;  
+  .loading {
+    margin-top: 20%;  
   }
 }
 @media screen and (max-width: 900px) {
@@ -247,10 +247,6 @@ div.col-md-6 button {
 
   .steps .step {
     margin: 0.5rem 2rem;
-  }
-
- .loading-icons{
-    margin-top: 20%;  
   }
 }
 @media screen and (max-width: 600px) {
@@ -276,14 +272,14 @@ div.col-md-6 button {
     width: 80vw;
   }
 
-  .loading-icons{
-    margin-top: 50%;  
+  .loading {
+    margin-top: 60%;  
   }
 
   .register-link {
     display: flex;
     justify-content: center;
-    margin-top: 10%;
+    margin-top: 5%;
     text-align: center;
     color: #fe5139;
   }

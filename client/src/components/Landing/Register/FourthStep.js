@@ -60,15 +60,15 @@ const FourthStep = (props) => {
             name="validIDPic" 
             id="fileInput" 
             style={{display:"none"}}
-            onChange={(e) => setFile([...e.target.files])}
             multiple
+            onChange={(e) => setFile([...e.target.files])}
             ref={register({ 
               required: 'Photos are Needed'
             })}
             className={`${errors.validIDPic ? 'input-error' : ''}`}
           />
           {errors.validIDPic && (
-            <p className="errorMsg">{errors.validIDPic.message}</p>
+            <p className="errorMsg-photo">{errors.validIDPic.message}</p>
           )}
         </Form.Group>
       

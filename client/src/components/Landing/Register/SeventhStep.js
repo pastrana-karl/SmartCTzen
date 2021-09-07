@@ -232,15 +232,20 @@ const SeventhStep = (props) => {
       </motion.div>
       </Form>
     ) : (
-      <div className = 'loading-icons'>
-        <ReactBootStrap.Spinner animation="grow" variant="primary" />
-        <ReactBootStrap.Spinner animation="grow" variant="secondary" />
-        <ReactBootStrap.Spinner animation="grow" variant="success" />
-        <ReactBootStrap.Spinner animation="grow" variant="danger" />
-        <ReactBootStrap.Spinner animation="grow" variant="warning" />
-        <ReactBootStrap.Spinner animation="grow" variant="info" />
-        <ReactBootStrap.Spinner animation="grow" variant="light" />
-        <ReactBootStrap.Spinner animation="grow" variant="dark" />
+      <div className = 'loading'>
+        <div className = 'loading-title'>
+          <h2>Processing Please Wait</h2>
+        </div>
+        <div className = 'loading-icons'>
+          <ReactBootStrap.Spinner animation="grow" variant="primary" />
+          <ReactBootStrap.Spinner animation="grow" variant="secondary" />
+          <ReactBootStrap.Spinner animation="grow" variant="success" />
+          <ReactBootStrap.Spinner animation="grow" variant="danger" />
+          <ReactBootStrap.Spinner animation="grow" variant="warning" />
+          <ReactBootStrap.Spinner animation="grow" variant="info" />
+          <ReactBootStrap.Spinner animation="grow" variant="light" />
+          <ReactBootStrap.Spinner animation="grow" variant="dark" />
+        </div>
       </div>
     )}
     </>

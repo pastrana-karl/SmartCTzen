@@ -7,7 +7,7 @@ import DatePicker, { utils } from '@hassanmojab/react-modern-calendar-datepicker
 import { Link } from 'react-router-dom';
 import './Register.css';
 
-const Register = (props) => {
+const FirstStep = (props) => {
     const dateToday = utils().getToday();
     const present =  utils().getToday();
     const [startDate, setStartDate] = useState(dateToday);
@@ -285,4 +285,4 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+export default FirstStep;
