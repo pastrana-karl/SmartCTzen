@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const SecondStep = (props) => {
     const { citizen } = props;
@@ -157,6 +158,8 @@ const SecondStep = (props) => {
         <Button variant="danger" type="submit">
           Next
         </Button>
+
+        <Link className="register-link" to="/second">Back</Link>
       </motion.div>
     </Form>
   );

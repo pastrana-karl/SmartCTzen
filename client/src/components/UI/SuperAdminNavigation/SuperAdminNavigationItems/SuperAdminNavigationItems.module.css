@@ -1,0 +1,14 @@
+.SuperAdminNavigationItems {
+    list-style: none;
+    margin-top: 0;
+}
+
+@media (min-width: 500px) {
+    .SuperAdminNavigationItems {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0;
+    }
+}

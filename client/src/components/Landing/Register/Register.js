@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import '@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker, { utils } from '@hassanmojab/react-modern-calendar-datepicker';
+import { Link } from 'react-router-dom';
 import './Register.css';
 
 const Register = (props) => {
@@ -110,19 +111,31 @@ const Register = (props) => {
            break;
       }
 
-      if (birth == dateToday){
+      const yearPresent = present.year;
+      const yearSelected = startDate.year;
+      const yearCheck = yearPresent - yearSelected
+
+      if (birth === dateToday){
         citizen.birthdate = '';
         return ''
-      }else if(`${startDate.month} ${startDate.day}, ${startDate.year}` == `${present.month} ${present.day}, ${present.year}`){
+      }else if(`${startDate.month} ${startDate.day}, ${startDate.year}` === `${present.month} ${present.day}, ${present.year}`){
+        citizen.birthdate = '';
+        return ''
+      }else if(`${startDate.year}` === `${present.year}`){
+        citizen.birthdate = '';
+        return ''
+      }else if(`${yearCheck}` <= 8){
+        citizen.birthdate = '';
+        return ''
+      }else if(`${startDate.year}` > `${present.year}`){
         citizen.birthdate = '';
         return ''
       }else{
         return  `${startDate.month} ${startDate.day}, ${startDate.year}`;
       }
-
     };
 
-    const Bday = formatInputValue();
+  const Bday = formatInputValue();
 
   const onSubmit = (data) => {
     props.updateCitizen(data);
@@ -264,6 +277,9 @@ const Register = (props) => {
         <Button variant="danger" type="submit">
           Next
         </Button>
+
+        <Link className="firstStep-link" to="/login">Back</Link>
+        <Link className="register-link" to="/login">Back</Link>
       </motion.div>
     </Form>
   );

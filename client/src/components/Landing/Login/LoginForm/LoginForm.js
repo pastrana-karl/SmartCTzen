@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import CardForm from '../../../UI/Cards/CardForm/CardForm';
 import Input from '../../../UI/Input/Input';
-import LoginButton from '../../../UI/Buttons/LoginButton';
+import LoginButton from '../../../UI/Buttons/LoginButton/LoginButton';
 import classes from './LoginForm.module.css';
 
 const LoginForm = () => {

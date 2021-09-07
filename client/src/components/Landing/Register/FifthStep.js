@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import ReactTooltip from "react-tooltip";
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
+import { Link } from 'react-router-dom';
 
 const FifthStep = (props) => {
     const { citizen } = props;
@@ -31,17 +32,19 @@ const FifthStep = (props) => {
       <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
       <h2 style={{textAlign: "center", marginBottom: '15px'}}>Upload Photo of Residency</h2>
       <div className="writeImg">
-        {file[0] && ( 
+        {file[1] ? ( 
           <div>
-              <Slide easing="ease">
-                <div className="each-slide">
-                    <img className="writeImg" src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
-                </div>
-                <div className="each-slide">
-                    <img className="writeImg" src={URL.createObjectURL(file[1])} alt="" onClick={()=> window.open(URL.createObjectURL(file[1]), "_blank")}></img>
-                </div>
-              </Slide>
-          </div>)}
+            <Slide easing="ease">
+              <div className="each-slide">
+                  <img src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
+              </div>
+              <div className="each-slide">
+                  <img src={URL.createObjectURL(file[1])} alt="" onClick={()=> window.open(URL.createObjectURL(file[1]), "_blank")}></img>
+              </div>
+            </Slide>
+          </div>) : [(file[0] && (
+            <img key = {file} src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
+        ))]}
       </div>
       <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
@@ -73,6 +76,8 @@ const FifthStep = (props) => {
           Next
         </Button>
       </Form>
+
+      <Link className="register-link" to="/fourth">Back</Link>
       </motion.div>
     </div>
   );

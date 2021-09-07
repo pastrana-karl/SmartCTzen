@@ -31,13 +31,25 @@ const AdminProjects = ( props ) => {
                 <Tables>
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Project ID</th>
+                            <th>Project Title</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Location</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
+                        {projects && projects.map(project => (
+                        <tr key={project._id}>
+                            <td>{project._id}</td>
+                            <td>{project.title}</td>
+                            <td>{project.date}</td>
+                            <td>Time</td>
+                            <td>{project.location}</td>
+                            <td>{project.status}</td>
                         </tr>
+                        ))}
                     </tbody>
                 </Tables>
             </AdminLayout>

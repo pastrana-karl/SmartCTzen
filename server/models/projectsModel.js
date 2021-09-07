@@ -22,7 +22,7 @@ const projectsSchema = new mongoose.Schema({
     },
     coverImage: {
         type: String,
-        required: [true, 'This field is required']
+        // required: [true, 'This field is required']
     }
 });
 

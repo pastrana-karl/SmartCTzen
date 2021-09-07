@@ -24,6 +24,12 @@ import AdminProjects from './components/AllAdmin/Administrator/AdminProjects/Adm
 import AdminUsers from './components/AllAdmin/Administrator/AdminUsers/AdminUsers';
 import AdminApplicants from './components/AllAdmin/Administrator/AdminApplicants/AdminApplicants';
 import AdminLogout from './components/AllAdmin/Administrator/AdminLogout/AdminLogout';
+import SuperAdminLayout from './components/AllAdmin/SuperAdmin/SuperAdminLayout';
+import SuperAdminContent from './components/AllAdmin/SuperAdmin/SuperAdminContent/SuperAdminContent';
+import SuperAdminManageAdmins from './components/AllAdmin/SuperAdmin/SuperAdminManageAdmins/SuperAdminManageAdmins';
+import SuperAdminAccountSettings from './components/AllAdmin/SuperAdmin/SuperAdminAccountSettings/SuperAdminAccountSettings';
+import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
+import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
 
 const App = () => {
 
@@ -104,12 +110,12 @@ const App = () => {
             path="/seventh"
           />
 
-          {/* SUPER ADMIN and ADMIN Login */}
+          {/**************************** SUPER ADMIN and ADMIN Login ****************************/}
           <Route path="/admin-login">
             <AllAdminsLogin />
           </Route>
 
-          {/* ADMIN Routes */}
+          {/**************************** ADMIN Routes ****************************/}
           <Route path="/admin-profile">
             <AdminProfile />
           </Route>
@@ -117,6 +123,11 @@ const App = () => {
           <Route path="/admin-proposals">
             <AdminProposals />
           </Route>
+
+          <Route path="/admin-create-proposals">
+            <AdminCreateProposals />
+          </Route>
+
 
           <Route path="/admin-reports">
             <AdminReports />
@@ -128,6 +139,10 @@ const App = () => {
 
           <Route path="/admin-projects">
             <AdminProjects />
+          </Route>
+
+          <Route path="/admin-create-projects">
+            <AdminCreateProjects />
           </Route>
 
           <Route path="/admin-users">
@@ -142,11 +157,28 @@ const App = () => {
             <AdminLogout />
           </Route>
 
+          {/**************************** SUPER ADMIN PANEL ****************************/}
+          {/* <Route path ="/sample-superadmin">
+              <SuperAdminLayout />
+          </Route> */}
+
+          <Route path="/super-admin/content">
+            <SuperAdminContent />
+          </Route>
+
+          <Route path="/super-admin/manage-admins">
+            <SuperAdminManageAdmins />
+          </Route>
+
+          <Route path="/super-admin/account-settings">
+            <SuperAdminAccountSettings />
+          </Route>
+
           <Route render={() => <Redirect to="/" />} />
 
         </Switch>
     </BrowserRouter>
   );
-}
+} 
 
 export default App;

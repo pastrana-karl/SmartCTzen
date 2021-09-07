@@ -1,0 +1,32 @@
+.SuperAdminNavigationItem {
+    box-sizing: border-box;
+}
+
+.SuperAdminNavigationItem a {
+    color: black;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: block;
+    font-size: 18px;
+}
+
+.SuperAdminNavigationItem a:hover,
+.SuperAdminNavigationItem a:active,
+.SuperAdminNavigationItem a.active {
+    text-decoration: none;
+    color: #FF5039;
+}
+
+@media (min-width: 500px) {
+    .SuperAdminNavigationItem {
+        margin: 0;
+        height: 100%;
+    }
+
+    .SuperAdminNavigationItem a {
+        color: black;
+        height: 100%;
+        padding-top: 35px;
+        font-size: 18px;
+    }
+}

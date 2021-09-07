@@ -13,7 +13,8 @@
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    color: orangered;
+    text-decoration: none;
+    color: #FF5039;
 }
 
 @media (min-width: 500px) {

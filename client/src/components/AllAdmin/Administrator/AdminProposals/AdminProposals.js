@@ -1,13 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTable } from 'react-table';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Tables from '../../../UI/Tables/Tables';
 import AdminLayout from '../AdminLayout/AdminLayout';
 
 import classes from './AdminProposals.module.css';
-import { PROPOSALS } from './AdminProposalsTable/AdminProposalsHeader';
 
 const AdminProposals = () => {
     //Without AXIOS
@@ -15,7 +12,7 @@ const AdminProposals = () => {
     
     useEffect(() => {
         const sendRequest = async () => {
-            const response = await fetch('/api/initiatives');
+            const response = await fetch('api/initiatives');
             
             const responseData = await response.json();
 
@@ -23,30 +20,6 @@ const AdminProposals = () => {
         };
         sendRequest();
     }, []);
-
-    //With AXIOS
-    // const [proposals, setProposals] = useState({ data: {} });
-
-    // const proposalsCol = useMemo(() => PROPOSALS, []);
-    // // const proposalsData = useMemo(() => proposals, []);
-
-    // const proposalsData = useEffect(() => {
-    //     const getProposals = async () => {
-    //         const res = await axios.get('/api/initiatives');
-    //         const responseData = await res.data;
-
-    //         setProposals({ data: responseData.data.initiatives });
-    //     };
-    //     getProposals();
-    // }, []);
-
-    // const { 
-    //     getTableProps, 
-    //     getTableBodyProps, 
-    //     headerGroups, 
-    //     rows, 
-    //     prepareRow 
-    // } = tableInstance;
 
     return (
         <React.Fragment>

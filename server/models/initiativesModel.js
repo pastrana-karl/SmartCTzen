@@ -4,7 +4,6 @@ const slugify = require("slugify");
 const initiativesSchema = new mongoose.Schema({
     user: {
         type: String,
-        required: [true, 'This field is required'],
         trim: true
     },
     title: {
@@ -20,7 +19,7 @@ const initiativesSchema = new mongoose.Schema({
         unique: true
     },
     date:  {
-        type: Date,
+        type: String,
         required: [true, 'This field is required'],
     },
     location:  {
@@ -28,10 +27,10 @@ const initiativesSchema = new mongoose.Schema({
         required: [true, 'This field is required'],
         trim: true
     },
-    coverImage: {
-        type: String,
-        required: [true, 'This field is required']
-    },
+    // coverImage: {
+    //     type: String,
+    //     required: [true, 'This field is required']
+    // },
     images: { 
         type: [String],
     },
