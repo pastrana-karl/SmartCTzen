@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import ReactTooltip from "react-tooltip";
-import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css'
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 
 const FourthStep = (props) => {
@@ -15,6 +16,17 @@ const FourthStep = (props) => {
       validIDPic: citizen.validIDPic
     }
   });
+
+  const settings = {
+    dots: true,
+    fade: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    arrows: false,
+    slidesToScroll: 1,
+    className: 'slides'
+  }
 
   const onSubmit = async (data) => {
     const updatedData = {
@@ -38,14 +50,14 @@ const FourthStep = (props) => {
       <div className="writeImg">
         {file[1] ? ( 
           <div>
-            <Slide easing="ease">
-              <div className="each-slide">
+            <Slider {...settings}>
+              <div>
                   <img src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
               </div>
-              <div className="each-slide">
+              <div>
                   <img src={URL.createObjectURL(file[1])} alt="" onClick={()=> window.open(URL.createObjectURL(file[1]), "_blank")}></img>
               </div>
-            </Slide>
+            </Slider>
           </div>) : [(file[0] && (
             <img key = {file} src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
         ))]}

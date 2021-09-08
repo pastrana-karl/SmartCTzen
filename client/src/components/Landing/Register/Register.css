@@ -156,7 +156,6 @@ div.col-md-6 button {
 .writeImg
 {
   text-align: center;
-  object-fit: cover;
   margin-bottom: 20px;  
 }
 
@@ -225,6 +224,10 @@ div.col-md-6 button {
 
 .firstStep-link:hover {
   color: #Dc4733;
+}
+
+.slick-slide img {
+  display: inline !important;
 }
 
 @media screen and (max-width: 1200px) {

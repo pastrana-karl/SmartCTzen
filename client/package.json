@@ -18,9 +18,10 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "react-slideshow-image": "^3.5.0",
+    "react-slick": "^0.28.1",
     "react-table": "7.6.3",
     "react-tooltip": "^4.2.21",
+    "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.1.2",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
