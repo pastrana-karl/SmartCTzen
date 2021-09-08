@@ -139,7 +139,6 @@ const FirstStep = (props) => {
 
   const onSubmit = (data) => {
     props.updateCitizen(data);
-    console.log(data.birthdate)
     props.history.push('/second');
   };
 

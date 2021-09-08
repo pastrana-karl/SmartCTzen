@@ -8,23 +8,27 @@ import 'react-slideshow-image/dist/styles.css'
 import { Link } from 'react-router-dom';
 
 const FourthStep = (props) => {
-    const { citizen } = props;
-    const [file, setFile] = useState([]);
-    const { register, handleSubmit, errors } = useForm({
+  const { citizen } = props;
+  const [file, setFile] = useState([]);
+  const { register, handleSubmit, errors } = useForm({
     defaultValues: {
-        validIDPic: citizen.validIDPic
+      validIDPic: citizen.validIDPic
     }
-    });
+  });
 
   const onSubmit = async (data) => {
-
     const updatedData = {
       validIDPic: data.validIDPic,
     };
 
-    // console.log(updatedData);
-    props.updateCitizen(updatedData);
-    props.history.push('/fifth');
+    if(file[0] === undefined) {
+      document.getElementById("fileInput").value = "";
+      alert("Input image files again!");
+    } else {
+      // console.log(updatedData);
+      props.updateCitizen(updatedData);
+      props.history.push('/fifth');
+    }
   };
 
   return (
@@ -55,10 +59,10 @@ const FourthStep = (props) => {
               <ReactTooltip place='right'/>
             </div>
           </div>
-          <Form.Control
+          <input
             type="file"
             name="validIDPic" 
-            id="fileInput" 
+            id="fileInput"  
             style={{display:"none"}}
             multiple
             onChange={(e) => setFile([...e.target.files])}

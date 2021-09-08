@@ -8,23 +8,50 @@ import 'react-slideshow-image/dist/styles.css'
 import { Link } from 'react-router-dom';
 
 const SixthStep = (props) => {
-    const { citizen } = props;
-    const [file, setFile] = useState([]);
-    const { register, handleSubmit, errors } = useForm({
+  const { citizen } = props;
+  const [file, setFile] = useState([]);
+  const [reqTrigger, setReqTrigger] = useState('');
+  const { register, handleSubmit, errors } = useForm({
     defaultValues: {
         birthCertPic: citizen.birthCertPic
     }
-    });
+  });
 
   const onSubmit = (data) => {
-
     const updatedData = {
       birthCertPic: data.birthCertPic,
     };
 
-    // console.log(updatedData);
-    props.updateCitizen(updatedData);
-    props.history.push('/seventh');
+    if(citizen.birthCertPic !== undefined) {
+
+      if(citizen.birthCertPic.length > 0) {
+
+        document.getElementById("fileInput").value = "";
+        alert("Input image files again!");
+        setReqTrigger(1);
+
+      } else if (reqTrigger === 1) {
+
+          if(file[0] === undefined) {
+            alert("Input image files again!");
+          } else {
+            props.updateCitizen(updatedData);
+            props.history.push('/seventh');
+          }
+
+      } else {
+
+          props.updateCitizen(updatedData);
+          props.history.push('/seventh');
+
+      }
+    } else {
+
+      // console.log(updatedData);
+      props.updateCitizen(updatedData);
+      props.history.push('/seventh');
+
+    }
   };
 
   return (
@@ -55,14 +82,16 @@ const SixthStep = (props) => {
               <ReactTooltip place='right'/>
             </div>
           </div>
-          <Form.Control
+          <input
             type="file"
             name="birthCertPic" 
             id="fileInput" 
             style={{display:"none"}}
             onChange={(e) => setFile([...e.target.files])}
             multiple
-            ref={register({})}
+            ref={register({
+              requried: reqTrigger
+            })}
             className={`${errors.birthCertPic ? 'input-error' : ''}`}
           />
           {errors.birthCertPic && (
