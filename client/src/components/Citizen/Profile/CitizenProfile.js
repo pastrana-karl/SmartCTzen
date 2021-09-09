@@ -1,8 +1,5 @@
-import React from "react";
+import React from 'react';
 import "./CitizenProfileLayout.css";
-import NavigationItem from '../../UI/Navigation/NavigationItems/NavigationItem/NavigationItem';
-import NavigationItems from '../../UI/Navigation/NavigationItems/NavigationItems';
-import Toolbar from '../../UI/Navigation/Toolbar/Toolbar';
 
 // export default function CitizenProfile() {
 //     return (
@@ -101,20 +98,8 @@ import Toolbar from '../../UI/Navigation/Toolbar/Toolbar';
 //     )
 // }
 
-const CitizenProfile = () => {
-    return(
+const CitizenProfile = () => (
         <div className="profile">
-            <div>
-            <React.Fragment>
-                <Toolbar>
-                    <NavigationItems>
-                        <NavigationItem link="/" >Home</NavigationItem>
-                        <NavigationItem link="/features" >Features</NavigationItem>
-                        <NavigationItem link="/login" >Login</NavigationItem>
-                    </NavigationItems>
-                </Toolbar>        
-            </React.Fragment>
-            </div>
              <img src="https://st.depositphotos.com/2101611/4338/v/600/depositphotos_43381243-stock-illustration-male-avatar-profile-picture.jpg" alt="DP" className="profilePic" />
              <br/><div className="profileName">Ivann Calandria</div><br/>
              <table>
@@ -178,7 +163,6 @@ const CitizenProfile = () => {
              </div>
          </div>
     );
-}
 
 
 export default CitizenProfile;

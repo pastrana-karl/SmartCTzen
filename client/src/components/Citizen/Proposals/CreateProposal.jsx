@@ -1,7 +1,6 @@
-import React from 'react'
-import "./createproposal.css"
-export default function CreateProposal() {
-    return (
+import React from 'react';
+import "./createproposal.css";
+const CreateProposal = () => (
         <div className="createMain">
             <form className="createForm">
                 <label for="proposalTitle">Proposal Title</label>
@@ -20,4 +19,4 @@ export default function CreateProposal() {
             
         </div>
     )
-}
+export default CreateProposal;

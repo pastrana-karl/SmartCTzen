@@ -1,65 +1,23 @@
-import "./menu.css"
-import React,{useEffect} from "react";
-import { NavLink } from "react-router-dom";
-// export default function Menu() {
-//     return (
-//         <div className="mainMenu">
-//             <div className="menuMid">
-//                 <ul className="menuList">
-//                     <li className="menuListItem">Profile</li>
-//                     <li className="menuListItem">Proposals</li>
-//                     <li className="menuListItem">Reports</li>
-//                     <li className="menuListItem">Projects</li>
-//                     <li className="menuListItem">Logout</li>
-//                 </ul>
-//             </div>
-//         </div>
-//     )
-// }
+import React from "react";
 
-function animation(){
-    var tabsNewAnim = $('#navbarSupportedContent');
-    var activeItemNewAnim = tabsNewAnim.find('.active');
-    var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
-    var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
-    var itemPosNewAnimTop = activeItemNewAnim.position();
-    var itemPosNewAnimLeft = activeItemNewAnim.position();
-    $(".hori-selector").css({
-      "top":itemPosNewAnimTop.top + "px", 
-      "left":itemPosNewAnimLeft.left + "px",
-      "height": activeWidthNewAnimHeight + "px",
-      "width": activeWidthNewAnimWidth + "px"
-    });
-    $("#navbarSupportedContent").on("click","li",function(e){
-      $('#navbarSupportedContent ul li').removeClass("active");
-      $(this).addClass('active');
-      var activeWidthNewAnimHeight = $(this).innerHeight();
-      var activeWidthNewAnimWidth = $(this).innerWidth();
-      var itemPosNewAnimTop = $(this).position();
-      var itemPosNewAnimLeft = $(this).position();
-      $(".hori-selector").css({
-        "top":itemPosNewAnimTop.top + "px", 
-        "left":itemPosNewAnimLeft.left + "px",
-        "height": activeWidthNewAnimHeight + "px",
-        "width": activeWidthNewAnimWidth + "px"
-      });
-    });
-  }
+import NavigationItem from '../../UI/Navigation/NavigationItems/NavigationItem/NavigationItem';
+import NavigationItems from '../../UI/Navigation/NavigationItems/NavigationItems';
+import Toolbar from '../../UI/Navigation/Toolbar/Toolbar';
 
-const navbarCitizen = props => {
-    return(
-        <div className="mainMenu">
-            <div className="menuMid">
-                <ul className="menuList">
-                    <li className="menuListItem">Profile</li>
-                    <li className="menuListItem">Proposals</li>
-                    <li className="menuListItem">Reports</li>
-                    <li className="menuListItem">Projects</li>
-                    <li className="menuListItem">Logout</li>
-                </ul>
-            </div>
-        </div>
-    )
-}
+
+
+const navbarCitizen = ( props ) => (
+  <React.Fragment>
+        <Toolbar>
+            <NavigationItems>
+                <NavigationItem link="/citizen-profile" >Profile</NavigationItem>
+                <NavigationItem link="/citizen-proposals" >Proposals</NavigationItem>{/*To be replaced by Proposals */}
+                <NavigationItem link="/citizen-reports" >Reports</NavigationItem>{/* Reports */}
+                <NavigationItem link="/citizen-projects" >Projects</NavigationItem>{/* Projects */}
+                <NavigationItem link="/citizen-logout" >Logout</NavigationItem>{/* Logout */}
+            </NavigationItems>
+        </Toolbar>        
+    </React.Fragment>
+);
 
 export default navbarCitizen;

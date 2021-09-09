@@ -2,8 +2,7 @@ import "./reports.css"
 import "../Bars/catbar.css"
 import React from 'react'
 
-export default function Reports() {
-    return (
+const CitizenReports = () => (
         <div className="reportsMain">
             <div className="category">
                 <ul className="categoryList">
@@ -29,4 +28,5 @@ export default function Reports() {
             </div>
         </div>
     )
-}
+
+export default CitizenReports;
