@@ -8,3 +8,36 @@
     justify-content: center;
     color: #FF5039;
 }
+
+.Messenger {
+    margin-top: 100px;
+    display: flex;
+    max-height: 800px;
+    height: 700px;
+}
+
+.AdminChat {
+    flex: 5.5;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 30px;
+}
+
+.AdminChatMenu {
+    flex: 2;
+    height: 100%;
+    background: #F0F0F3;
+    box-shadow: -10px -10px 10px rgba(255, 255, 255, 0.7), 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 30px;
+    margin-right: 50px;
+}
+
+.AdminChatMenuSearch {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding: 10px 20px 10px 20px;
+    border: none;
+    border-bottom: 1px solid #AEAEC0;
+    background-color: transparent;
+}
