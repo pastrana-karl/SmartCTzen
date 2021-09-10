@@ -39,6 +39,11 @@ import CitizenProposals from './components/Citizen/Proposals/CitizenProposals';
 import CitizenReports from './components/Citizen/Reports/CitizenReports';
 import CitizenProjects from './components/Citizen/Projects/CitizenProjects';
 import CitizenLogout from './components/Citizen/CitizenLogout';
+import ProposalAll from './components/Citizen/Proposals/ProposalStatus/ProposalAll';
+import ProposalApproved from './components/Citizen/Proposals/ProposalStatus/ProposalApproved';
+import ProposalRejected from './components/Citizen/Proposals/ProposalStatus/ProposalRejected';
+import MyProposal from './components/Citizen/Proposals/ProposalStatus/MyProposal';
+import NavBarProposalsHandler from './components/Citizen/Proposals/ProposalStatus/NavBarProposalsHandler';
 
 const App = () => {
 
@@ -56,6 +61,7 @@ const App = () => {
     <BrowserRouter>
       <NavBarHandle />
       <NavBarCitizenHandle/>
+      <NavBarProposalsHandler/>
       <Progress />
         <Switch>
           <Route exact path="/">
@@ -143,6 +149,19 @@ const App = () => {
 
           <Route path="/citizen-logout">
             <CitizenLogout/>
+          </Route> 
+
+          <Route path="/citizen-proposals-all">
+            <ProposalAll/>
+          </Route> 
+          <Route path="/citizen-proposals-approved">
+            <ProposalApproved/>
+          </Route> 
+          <Route path="/citizen-proposals-rejected">
+            <ProposalRejected/>
+          </Route> 
+          <Route path="/citizen-proposals-mine">
+            <MyProposal/>
           </Route> 
 
           {/**************************** SUPER ADMIN and ADMIN Login ****************************/}
