@@ -1,8 +1,21 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 
 import classes from './AdminConversations.module.css';
 
-const AdminConversations = () => {
+const AdminConversations = ({conversation, currentUser}) => {
+    //insert soon
+    // const [user, setUser] = useState(null);
+
+    // useEffect(() => {
+    //     const friendId = conversation.members.find(member => member !== currentUser._id);
+    
+    //     const getUser = async () => {
+    //         const res = await axios('/citizens?id=' + friendId);
+    //         console.log(res);
+    //     }
+    // }, []);
+
     return(
         <div className={classes.AdminConversations}>
             <img 

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
+import axios from 'axios';
 
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import AdminLayout from '../AdminLayout/AdminLayout';
@@ -8,6 +9,25 @@ import AdminMessage from './AdminMessage/AdminMessage';
 import classes from './AdminMessages.module.css';
 
 const AdminMessages = ( props ) => {
+    const [conversations, setConversations] = useState([]);
+
+    //insert this code soon:
+    //const { user } = useContext(AuthContext)
+
+    // useEffect(() => {
+    //     const getConversations = async () => {
+    //         try {
+    //             const res = await axios.get("/conversations/" + user._id);
+    //             setConversations(res.data);
+    //             console.log(res);
+    //         } catch(err) {
+    //             console.log(err);
+    //         }
+    //     };
+
+    //     getConversations();
+    // }, [user._id]);
+
     return (
         <React.Fragment>
             <AdminLayout>
@@ -27,13 +47,28 @@ const AdminMessages = ( props ) => {
                         <AdminConversations />
                     </div>
                     <div className={classes.AdminChat}>
-                        <div className={classes.AdminChatBoxTop}>
-                            <AdminMessage />
-                            <AdminMessage own />
-                            <AdminMessage />
-                        </div>
-                        <div className={classes.AdminChatBoxBottom}>
-                            
+                        <div className={classes.AdminChatWrapper}>
+                            <div className={classes.AdminChatBoxTop}>
+                                {/* {conversations.map(conversation => {
+                                    <AdminMessage conversation={conversation} currentUser={user} />
+                                })} */}
+                                
+                                <AdminMessage />
+                                <AdminMessage own />
+                                <AdminMessage />
+                                <AdminMessage own />
+                                <AdminMessage />
+                                <AdminMessage own />
+                                <AdminMessage />
+                                
+                            </div>
+                            <div className={classes.AdminChatBoxBottom}>
+                                <textarea
+                                    className={classes.ChatMessageInput}
+                                    placeholder="Write something..."
+                                ></textarea>
+                                <button className={classes.ChatSubmitButton}>Send</button>
+                            </div>
                         </div>
                     </div>
                 </div>

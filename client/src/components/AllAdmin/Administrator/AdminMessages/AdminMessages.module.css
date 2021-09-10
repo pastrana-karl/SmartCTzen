@@ -21,6 +21,18 @@
     background: #F0F0F3;
     box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
     border-radius: 30px;
+    height: 700px;
+}
+
+.AdminChatWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.AdminChatBoxTop {
+    height: 580px;
+    overflow-y: scroll;
 }
 
 .AdminChatMenu {
@@ -40,4 +52,28 @@
     border: none;
     border-bottom: 1px solid #AEAEC0;
     background-color: transparent;
+}
+
+.AdminChatBoxBottom {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px 20px 20px;
+}
+
+.ChatMessageInput {
+    width: 90%;
+    height: 90px;
+    padding: 10px;
+}
+
+.ChatSubmitButton {
+    width: 70px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #FF5039;
+    color: white
 }
