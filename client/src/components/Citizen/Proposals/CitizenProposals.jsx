@@ -4,21 +4,27 @@ import React from 'react';
 import NavigationItem from '../../UI/Navigation/NavigationItems/NavigationItem/NavigationItem';
 import NavigationItems from '../../UI/Navigation/NavigationItems/NavigationItems';
 import Toolbar from '../../UI/Navigation/Toolbar/Toolbar';
+import NavBarProposals from "./ProposalStatus/NavBarProposals";
 
+const showAll = () => {
+    return <h1>show All Proposals</h1>
+}
+const showRejected = () => {
+    return <h1>show Rejected Proposals</h1>
+}
+const showApproved = () => {
+    return <h1>show Approved Proposals</h1>
+}
+const showUserProposals = () => {
+    return <h1>show User Proposals</h1>
+}
 
 const CitizenProposals = () => (
         <div className="proposalsMain">
             <div>
-                    <React.Fragment>
-                        <Toolbar>
-                            <NavigationItems>
-                                <NavigationItem link="/citizen-proposals-all" >All</NavigationItem>
-                                <NavigationItem link="/citizen-proposals-approved" >Approved</NavigationItem>
-                                <NavigationItem link="/citizen-proposals-rejected" >Rejected</NavigationItem>
-                                <NavigationItem link="/citizen-proposals-mine" >My Proposals</NavigationItem>
-                            </NavigationItems>
-                        </Toolbar>        
-                    </React.Fragment>
+            <React.Fragment>
+                <NavBarProposals/>    
+            </React.Fragment>
             </div>
             <button className="proposalCreate">Create Proposal</button>
             <div className="proposalShort">

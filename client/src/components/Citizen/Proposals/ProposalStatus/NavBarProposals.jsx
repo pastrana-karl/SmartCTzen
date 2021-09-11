@@ -10,10 +10,10 @@ const NavBarProposals = ( props ) => (
   <React.Fragment>
         <Toolbar>
             <NavigationItems>
-                <NavigationItem link="/citizen-proposals-all" >Profile</NavigationItem>
-                <NavigationItem link="/citizen-proposals-approved" >Proposals</NavigationItem>
-                <NavigationItem link="/citizen-proposals-rejected" >Reports</NavigationItem>
-                <NavigationItem link="/citizen-proposals-mine" >Projects</NavigationItem>
+                <NavigationItem link="/citizen-proposals-all" >All</NavigationItem>
+                <NavigationItem link="/citizen-proposals-approved" >Approved</NavigationItem>
+                <NavigationItem link="/citizen-proposals-rejected" >Rejected</NavigationItem>
+                <NavigationItem link="/citizen-proposals-mine" >My Proposals</NavigationItem>
             </NavigationItems>
         </Toolbar>        
     </React.Fragment>
