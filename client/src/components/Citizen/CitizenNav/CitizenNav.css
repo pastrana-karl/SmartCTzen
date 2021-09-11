@@ -1,0 +1,113 @@
+.navbar-toggler i {
+    margin-right: 10px;
+    color: #ff5138;
+  }
+  
+  .citizenNavbar-mainbg {
+    box-sizing: border-box;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #f1f1f3 !important;
+  }
+  
+  #citizenNavbarSupportedContent {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  #citizenNavbarSupportedContent ul {
+    padding: 0px;
+    margin: 0px;  
+  }
+  
+  #citizenNavbarSupportedContent ul li a i {
+    margin-right: 10px;
+  }
+  
+  #citizenNavbarSupportedContent li {
+    list-style-type: none;
+    float: left;
+  }
+  
+  #citizenNavbarSupportedContent ul li a {
+    color: #fe5038;
+    text-decoration: none;
+    margin: 20px 50px;
+    font-size: 18px;
+    display: block;
+    padding: 10px 10px;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+  }
+  
+  #citizenNavbarSupportedContent ul li a:hover {
+    color: #87c441;
+  }
+  
+  #citizenNavbarSupportedContent > ul > li.active > a {
+    color: #87c441;
+    background-color: transparent;
+    transition: all 0.7s;
+  }
+  
+  #citizenNavbarSupportedContent a:not(:only-child):after {
+    content: '\f105';
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 14px;
+    font-family: 'Font Awesome 5 Free';
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    font-weight: 900;
+    transition: 0.5s;
+  }
+  
+  #citizenNavbarSupportedContent .active > a:not(:only-child):after {
+    transform: rotate(90deg);
+  }
+  
+  .navbar-toggler {
+    margin-left: 5%;
+  }
+  
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+  
+  .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: transparent !important;
+    color: #87c441 !important;
+  }
+  
+  @media (max-width: 1200px){
+    #citizenNavbarSupportedContent ul li a {
+        margin: 0px 50px;
+    }
+  }
+  
+  @media (max-width: 992px){
+    #citizenNavbarSupportedContent ul li a {
+        margin: 20px 0px;
+    }
+  }
+  
+  @media (max-width: 600px){
+    .navbar-toggler-icon {
+        width: 20px;
+        height: 20px;
+        margin: 5px 5px;
+    }
+  
+    .navbar-collapse {
+        padding: 10px;
+    }
+  
+    .citizenNavbar-toggler {
+        margin-bottom: 3%;
+    }
+  }
+  

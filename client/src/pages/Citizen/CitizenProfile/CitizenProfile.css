@@ -1,0 +1,163 @@
+.citizenProfile-container {
+    margin: 13% auto;
+}
+
+.citizenAccountImg {
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+}
+
+.citizenAccountImg img {
+    width: 200px;
+    height: 200px;
+    border-radius: 360px;
+    object-fit: cover;
+}
+
+.citizenAccountImg-shadow {
+    width: 240px;
+    height: 240px;
+    border-radius: 360px;
+    object-fit: cover;
+    margin: 5rem auto;
+    box-sizing: border-box;
+    padding: 20px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    display: grid;
+    row-gap: 20px;
+}
+
+.citizenProfile-Stats {
+    text-align: center;
+    border: hidden;
+    margin: 5% 5%;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 20px;
+    padding: 22px;
+    font-size: 18px;
+}
+
+.citizenProfile-Stats h4 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.citizenProfile-Stats p {
+    margin-top: 2%;
+    font-size: 20px;
+}
+
+.citizenProfile-Badge {
+    text-align: center;
+    border-radius: 20px;
+    object-fit: cover;
+    margin: 2.5% 5%;
+    box-sizing: border-box;
+    padding: 20px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    display: grid;
+    row-gap: 20px;
+}
+
+.citizenProfile-Badge h4 {
+    font-weight: bold;
+    margin: 0px 0px 0px !important;
+}
+
+.citizenProfile-BadgeImg {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.citizenProfile-name {
+    display: flex;
+    justify-content: center;
+}
+
+.citizenProfile-name  p {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 5%;
+}
+
+.citizenProfile-edit .form-control {
+    border: hidden !important;
+    background: #F0F0F3 !important;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 30px 20px 30px 20px !important;
+    font-size: 18px !important;
+}
+
+.citizenProfile-edit h3 {
+    font-weight: bold;
+    margin: 5% 0 5% 0;
+}
+
+.citizenProfile-edit {
+    padding: 40px 150px;
+}
+
+.citizenProfile-edit .form-label{
+    font-size: 20px;
+}
+
+.citizenProfile-passwordUpdate {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 50px;
+    color: #ff5138;
+}
+
+.citizenProfile-passwordUpdate:hover {
+    color: #Dc4733;
+    text-decoration: none;
+}
+
+.citizenProfile-statsMobile {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .citizenProfile-statsDesktop {
+        display: none;
+    }
+
+    .citizenProfile-edit {
+        padding: 40px 50px;
+    }
+
+    .citizenProfile-edit h3 {
+        font-size: 25px;        
+    }
+
+    .citizenProfile-name  p {
+        font-size: 30px;
+        margin-bottom: 15%;
+    }
+
+    .citizenProfile-statsMobile {
+        display: block;
+    }
+    
+    .citizenProfile-statsMobile .row {
+        display: block !important;
+    }
+
+    .citizenProfile-statsMobile .citizenProfile-StatsMD {
+        text-align: center;
+        border: hidden;
+        margin: 5% auto;
+        background: #F0F0F3;
+        box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+        border-radius: 20px;
+        padding: 22px;
+        font-size: 18px;
+    }
+}

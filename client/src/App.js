@@ -31,8 +31,14 @@ import SuperAdminAccountSettings from './components/AllAdmin/SuperAdmin/SuperAdm
 import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
 import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
 
-const App = () => {
+import CitizenNavBar from './components/Citizen/CitizenNav/CitizenNav';
+import CitizenProfile from './pages/Citizen/CitizenProfile/CitizenProfile';
+import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals';
+import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
+import CitizenProjects from './pages/Citizen/CitizenProjects/CitizenProjects';
+import CitizenLogout from './pages/Citizen/CitizenLogout/CitizenLogout';
 
+const App = () => {
   const [citizen, setCitizen] = useState({});
 
   const updateCitizen = (data) => {
@@ -47,6 +53,7 @@ const App = () => {
     <BrowserRouter>
       <NavBarHandle />
       <Progress />
+      <CitizenNavBar />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -109,6 +116,27 @@ const App = () => {
             )}
             path="/seventh"
           />
+
+          {/**************************** CITIZEN Routes ****************************/}
+          <Route path="/citizen-profile">
+            <CitizenProfile />
+          </Route>
+
+          <Route path="/citizen-proposals">
+            <CitizenProposals/>
+          </Route>
+
+          <Route path="/citizen-reports">
+            <CitizenReports/>
+          </Route> 
+
+          <Route path="/citizen-projects">
+            <CitizenProjects/>
+          </Route> 
+
+          <Route path="/citizen-logout">
+            <CitizenLogout/>
+          </Route>  
 
           {/**************************** SUPER ADMIN and ADMIN Login ****************************/}
           <Route path="/admin-login">

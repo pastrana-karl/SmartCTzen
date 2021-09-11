@@ -1,0 +1,28 @@
+.projectsMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+}
+
+
+.projectShort {
+    margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px 40px 40px;
+    max-width: 640px;
+}
+
+.projectShortInfo {
+    display: inline-block;
+    width: 46%;
+    @media (max-width: 620px) {
+      width: 100%;}
+}
+.projectImg {
+    display: inline-block;
+    vertical-align: top;
+    width: 46%;
+    margin: 20px 30px 0 0;
+}
