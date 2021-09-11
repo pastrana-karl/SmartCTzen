@@ -1,3 +1,6 @@
+.proposalsContainer {
+    margin: 13% auto;
+}
 .proposalsMain {
     display: flex;
     justify-content: center;
@@ -6,12 +9,29 @@
     z-index: 1;
 }
 
+.proposalCreate {
+    padding: 10px;
+    border: hidden;
+    border-radius: 73px;
+    background: #ff5138;
+    color: #ffffff;
+}
 
 .proposalShort {
     margin-top: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    border: hidden;
     padding: 20px 40px 40px;
     max-width: 640px;
+    /* //neumorphism magic */
+    border-radius: 73px;
+    background: linear-gradient(145deg, #ffffff, #d8d8db);
+    box-shadow:  5px 5px 4px #d6d6d8,
+                -5px -5px 4px #ffffff;
+    /* background: #F0F0F3;
+    box-shadow: inset 7px 7px 15px #d6d6d8,
+                inset -7px -7px 15px #ffffff; */
+                
 }
 
 .proposalShortInfo {

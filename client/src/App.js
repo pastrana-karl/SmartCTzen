@@ -37,6 +37,7 @@ import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals'
 import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
 import CitizenProjects from './pages/Citizen/CitizenProjects/CitizenProjects';
 import CitizenLogout from './pages/Citizen/CitizenLogout/CitizenLogout';
+import ProposalNav from './components/Citizen/ProposalNav/ProposalNav';
 
 const App = () => {
   const [citizen, setCitizen] = useState({});
@@ -54,6 +55,7 @@ const App = () => {
       <NavBarHandle />
       <Progress />
       <CitizenNavBar />
+      {/* <ProposalNav /> */}
         <Switch>
           <Route exact path="/">
             <Home />

@@ -1,0 +1,123 @@
+.navbar-toggler i {
+    margin-right: 10px;
+    color: #ff5138;
+  }
+  
+  .proposalNavbar-mainbg {
+    margin: 10px 10px 20px 10px;
+    box-sizing: border-box;
+    border-radius: 73px;
+    box-shadow:  inset 5px 5px 10px #d6d6d8,
+                inset -5px -5px 10px #ffffff;
+    background-color: #f1f1f3 !important;
+  }
+
+  .proposalnav-item {
+    margin: 10px 15px 10px 15px;
+    padding: 10px 30px 10px 30px;
+    border-radius: 73px;
+    background: linear-gradient(145deg, #ffffff, #d8d8db);
+    box-shadow:  5px 5px 4px #d6d6d8,
+                -5px -5px 4px #ffffff;
+  }
+  
+  #proposalNavbarSupportedContent {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  #proposalNavbarSupportedContent ul {
+    padding: 0px;
+    margin: 0px;  
+  }
+  
+  #proposalNavbarSupportedContent ul li a i {
+    margin-right: 10px;
+  }
+  
+  #proposalNavbarSupportedContent li {
+    list-style-type: none;
+    float: left;
+  }
+  
+  #proposalNavbarSupportedContent ul li a {
+    color: #fe5038;
+    text-decoration: none;
+    margin: 20px 50px;
+    font-size: 18px;
+    display: block;
+    padding: 10px 10px;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+  }
+  
+  #proposalNavbarSupportedContent ul li a:hover {
+    color: #87c441;
+  }
+  
+  #proposalNavbarSupportedContent > ul > li.active > a {
+    color: #87c441;
+    background-color: transparent;
+    transition: all 0.7s;
+  }
+  
+  #proposalNavbarSupportedContent a:not(:only-child):after {
+    content: '\f105';
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 14px;
+    font-family: 'Font Awesome 5 Free';
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    font-weight: 900;
+    transition: 0.5s;
+  }
+  
+  #proposalNavbarSupportedContent .active > a:not(:only-child):after {
+    transform: rotate(90deg);
+  }
+  
+  .navbar-toggler {
+    margin-left: 5%;
+  }
+  
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+  
+  .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: transparent !important;
+    color: #87c441 !important;
+  }
+  
+  @media (max-width: 1200px){
+    #proposalNavbarSupportedContent ul li a {
+        margin: 0px 50px;
+    }
+  }
+  
+  @media (max-width: 992px){
+    #proposalNavbarSupportedContent ul li a {
+        margin: 20px 0px;
+    }
+  }
+  
+  @media (max-width: 600px){
+    .navbar-toggler-icon {
+        width: 20px;
+        height: 20px;
+        margin: 5px 5px;
+    }
+  
+    .navbar-collapse {
+        padding: 10px;
+    }
+  
+    .proposalNavbar-toggler {
+        margin-bottom: 3%;
+    }
+  }
+  
