@@ -5,7 +5,7 @@ import Features from './components/Landing/Features/Features';
 import Home from './components/Landing/Home/Home';
 import Login from './components/Landing/Login/Login';
 import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
-import AdminsLogin from './components/AllAdmin/AllAdminLogin';
+import AdminLogin from './components/AllAdmin/Administrator/AdminLogin/AdminLogin';
 import FirstStep from './components/Landing/Register/FirstStep';
 import SecondStep from './components/Landing/Register/SecondStep';
 import ThirdStep from './components/Landing/Register/ThirdStep';
@@ -144,7 +144,7 @@ const App = () => {
           {/**************************** ADMIN Routes ****************************/}
 
           <Route path="/admin-login">
-            <AdminsLogin />
+            <AdminLogin />
           </Route>
 
           <Route path="/admin-profile">

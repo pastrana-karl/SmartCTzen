@@ -8,7 +8,7 @@ import { AuthContext } from '../../../../admin_context/AuthContext';
 
 import classes from './AdminLogin.module.css';
 
-const AllAdminsLogin = () => {
+const AdminLogin = () => {
 
     // const [inputEmail, setInputEmail] = useState('');
     // const [inputPassword, setInputPassword] = useState('');
@@ -57,4 +57,4 @@ const AllAdminsLogin = () => {
     );
 };
 
-export default AllAdminsLogin;
+export default AdminLogin;
