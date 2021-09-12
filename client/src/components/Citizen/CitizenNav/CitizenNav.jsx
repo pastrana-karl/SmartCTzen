@@ -15,6 +15,7 @@ const CitizenNav = ({ location: { pathname } }) => {
       <nav className="navbar navbar-expand-lg fixed-top citizenNavbar-mainbg">
         <button 
           className="navbar-toggler"
+          id = "citizenNavbar-Toggler"
           type="button" data-toggle="dropdown" data-target="#citizenNavbarSupportedContent" aria-controls="citizenNavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <i className="fas fa-bars"></i>
         </button>

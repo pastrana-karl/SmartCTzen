@@ -67,10 +67,10 @@ const SixthStep = (props) => {
   };
 
   return (
-    <div className = "input-form">
-      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
+    <div className = "registerInput-form">
+      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }} id = 'register-panel'>
       <h2 style={{textAlign: "center", marginBottom: '15px'}}>Upload Birth Certificate</h2>
-      <div className="writeImg">
+      <div className="registerSeeImg">
         {file[1] ? ( 
           <div>
             <Slider {...settings}>
@@ -85,11 +85,11 @@ const SixthStep = (props) => {
             <img key = {file} src={URL.createObjectURL(file[0])} alt="" onClick={()=> window.open(URL.createObjectURL(file[0]), "_blank")}></img>
         ))]}
       </div>
-      <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
+      <Form className="registerInput-form" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
-          <div className="uploadIcons">
-            <Form.Label htmlFor="fileInput"><i className="writeIcon fas fa-image"></i></Form.Label>
-            <div className="helpIcon">
+          <div className="registerUploadIcon">
+            <Form.Label htmlFor="fileInput"><i className="registerUploadImgIcon fas fa-image"></i></Form.Label>
+            <div className="registerHelpIcon">
               <i className="fas fa-info-circle" data-tip='( Optional ) Upload photo.. ( Max of 2 photos )' data-event='click focus'></i>
               <ReactTooltip place='right'/>
             </div>
@@ -107,7 +107,7 @@ const SixthStep = (props) => {
             className={`${errors.birthCertPic ? 'input-error' : ''}`}
           />
           {errors.birthCertPic && (
-            <p className="errorMsg-photo">{errors.birthCertPic.message}</p>
+            <p className="registerErrorMsg-photo">{errors.birthCertPic.message}</p>
           )}
         </Form.Group>
       

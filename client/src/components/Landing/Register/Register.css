@@ -6,10 +6,9 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #e67e22;
 }
 
-.form-control:focus {
+.registerInput-form .form-control:focus {
   outline: none;
   box-shadow: none;
   color: unset;
@@ -17,24 +16,18 @@ body {
   border-color: unset;
 }
 
-h1 {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 2.2rem;
-}
-
-.btn {
+.registerInput-form .btn {
   letter-spacing: 1px;
 }
 
-button.btn.btn-danger{
+.registerInput-form button.btn.btn-danger{
   border-radius: 10px;
   border-color: #fe5139;
   background-color: #fe5139;
   outline: #fe5139;
 }
 
-button.btn.btn-danger:hover{
+.registerInput-form button.btn.btn-danger:hover{
   background-color: #Dc4733;
   border-color: #Dc4733;
 }
@@ -90,12 +83,12 @@ button.btn.btn-danger:hover{
   color: #fff;
 }
 
-.input-form {
+.registerInput-form {
   width: 70%;
   margin: 1.3rem auto;
 }
 
-div.col-md-6 {
+#register-panel {
   box-sizing: border-box;
   padding: 20px;
   background: #F0F0F3;
@@ -103,12 +96,12 @@ div.col-md-6 {
   border-radius: 20px;
 }
 
-div.col-md-6 button {
+#register-panel button {
   width: 100%;
   display: grid;
 }
 
-.errorMsg {
+.registerErrorMsg {
   max-width: 350px;
   color: #f21e08;
   padding: 2px 0;
@@ -117,7 +110,7 @@ div.col-md-6 button {
   font-weight: 300;
 }
 
-.errorMsg-photo {
+.registerErrorMsg-photo {
   text-align: center;
   max-width: 350px;
   color: #f21e08;
@@ -127,24 +120,24 @@ div.col-md-6 button {
   font-weight: 300;
 }
 
-.loading {
+.registerLoading {
   color: #777;
   text-align: center;
 }
 
-.loading h2 {
+.registerLoading h2 {
   margin-top: 10%;
 }
 
-.form-control.input-error {
+.registerInput-form .form-control.input-error {
   border: 2px solid #f21e08;
 }
 
-.radioButton {
+.registerInput-form .radioButton {
   display: 'flex';
 }
 
-.writeIcon
+.registerUploadImgIcon
 {
   width: 25px;
   height: 25px;
@@ -153,13 +146,13 @@ div.col-md-6 button {
   vertical-align: middle;
 }
 
-.writeImg
+.registerSeeImg
 {
   text-align: center;
   margin-bottom: 20px;  
 }
 
-.writeImg img
+.registerSeeImg img
 {
   width: 25vw;
   height: 55vh;
@@ -167,12 +160,12 @@ div.col-md-6 button {
   object-fit: cover;
 }
 
-.uploadIcons
+.registerUploadIcon
 {
   text-align: center;
 }
 
-.DatePicker__input
+.registerInput-form .DatePicker__input
 {
   border: hidden;
   background: #F0F0F3;
@@ -183,7 +176,7 @@ div.col-md-6 button {
   font-size: 18px;
 }
 
-.helpIcon
+.registerHelpIcon
 {
   display: inline;
   vertical-align: middle;
@@ -191,12 +184,12 @@ div.col-md-6 button {
   margin-left: 5px;
 }
 
-.helpIcon .fas
+.registerHelpIcon .fas
 {
   color: grey;
 }
 
-.form-control {
+.registerInput-form .form-control {
   border: hidden !important;
   background: #F0F0F3 !important;
   box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
@@ -205,7 +198,7 @@ div.col-md-6 button {
   font-size: 18px !important;
 }
 
-.loading-icons {
+.regiterLoading-icons {
   display: flex;
   justify-content: center;
 }
@@ -226,28 +219,28 @@ div.col-md-6 button {
   color: #Dc4733;
 }
 
-.slick-slide img {
+.registerInput-form .slick-slide img {
   display: inline !important;
 }
 
 @media screen and (max-width: 1200px) {
-  .errorMsg-photo {
+  .registerErrorMsg-photo {
     max-width: 100%;
   }
-  .input-form {
+  .registerInput-form {
     width: 100%;
  }
 
-  .writeImg img {
+  .registerSeeImg img {
     width: 40vw;
   }
 
-  .loading {
+  .registerLoading {
     margin-top: 20%;  
   }
 }
 @media screen and (max-width: 900px) {
-  .input-form {
+  .registerInput-form {
     width: 100%;
   }
 
@@ -256,7 +249,7 @@ div.col-md-6 button {
   }
 }
 @media screen and (max-width: 600px) {
-  div.col-md-6 {
+  #register-panel {
     border: none;
     box-sizing: none;
     padding: 30px;
@@ -270,15 +263,11 @@ div.col-md-6 button {
     display: none;
   }
 
-  h1 {
-    font-size: 2rem;
-  }
-
-  .writeImg img {
+  .registerSeeImg img {
     width: 80vw;
   }
 
-  .loading {
+  .registerLoading {
     margin-top: 60%;  
   }
 

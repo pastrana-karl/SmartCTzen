@@ -180,8 +180,8 @@ const SeventhStep = (props) => {
   return (
     <>
     {loading ? (
-      <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
-      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
+      <Form className="registerInput-form" onSubmit={handleSubmit(onSubmit)}>
+      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }} id = 'register-panel'>
         <Form.Group controlId="first_name">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -199,7 +199,7 @@ const SeventhStep = (props) => {
             className={`${errors.email ? 'input-error' : ''}`}
           />
           {errors.email && (
-            <p className="errorMsg">{errors.email.message}</p>
+            <p className="registerErrorMsg">{errors.email.message}</p>
           )}
         </Form.Group>
 
@@ -220,7 +220,7 @@ const SeventhStep = (props) => {
             className={`${errors.password ? 'input-error' : ''}`}
           />
           {errors.password && (
-            <p className="errorMsg">{errors.password.message}</p>
+            <p className="registerErrorMsg">{errors.password.message}</p>
           )}
         </Form.Group>
 
@@ -232,11 +232,9 @@ const SeventhStep = (props) => {
       </motion.div>
       </Form>
     ) : (
-      <div className = 'loading'>
-        <div className = 'loading-title'>
-          <h2>Processing Please Wait</h2>
-        </div>
-        <div className = 'loading-icons'>
+      <div className = 'registerLoading'>
+        <h2>Processing Please Wait</h2>
+        <div className = 'regiterLoading-icons'>
           <ReactBootStrap.Spinner animation="grow" variant="primary" />
           <ReactBootStrap.Spinner animation="grow" variant="secondary" />
           <ReactBootStrap.Spinner animation="grow" variant="success" />
