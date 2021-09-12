@@ -6,7 +6,7 @@ import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import AdminConversations from './AdminConversations/AdminConversations';
 import AdminMessage from './AdminMessage/AdminMessage';
-import { AdminAuthContext } from '../../../../admin_context/AdminAuthContext';
+import { AuthContext } from '../../../../admin_context/AuthContext';
 
 import classes from './AdminMessages.module.css';
 

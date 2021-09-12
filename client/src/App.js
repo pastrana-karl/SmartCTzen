@@ -5,7 +5,7 @@ import Features from './components/Landing/Features/Features';
 import Home from './components/Landing/Home/Home';
 import Login from './components/Landing/Login/Login';
 import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
-import AllAdminsLogin from './components/AllAdmin/AllAdminLogin';
+import AdminLogin from './components/AllAdmin/Administrator/AdminLogin/AdminLogin';
 import FirstStep from './components/Landing/Register/FirstStep';
 import SecondStep from './components/Landing/Register/SecondStep';
 import ThirdStep from './components/Landing/Register/ThirdStep';
@@ -138,12 +138,12 @@ const App = () => {
             <CitizenLogout/>
           </Route>  
 
-          {/**************************** SUPER ADMIN and ADMIN Login ****************************/}
+          {/**************************** ADMIN Routes ****************************/}
           <Route path="/admin-login">
-            <AllAdminsLogin />
+            <AdminLogin />
           </Route>
 
-          {/**************************** ADMIN Routes ****************************/}
+          
           <Route path="/admin-profile">
             <AdminProfile />
           </Route>

@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 
-import AdminAuthReducer from './AdminAuthReducer';
+import AuthReducer from './AuthReducer';
 
 const INITIAL_STATE = {
     user: null,
@@ -8,15 +8,15 @@ const INITIAL_STATE = {
     error: false
 };
 
-export const AdminAuthContext = createContext(INITIAL_STATE);
+export const AuthContext = createContext(INITIAL_STATE);
 
 //ContextProvider
 
-export const AdminAuthContextProvider = ( props ) => {
-    const [state, dispatch] = useReducer(AdminAuthReducer, INITIAL_STATE);
+export const AuthContextProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
     return (
-        <AdminAuthContext.Provider value={
+        <AuthContext.Provider value={
             {
                 user: state.user, 
                 isFetching: state.isFetching, 
@@ -24,7 +24,7 @@ export const AdminAuthContextProvider = ( props ) => {
                 dispatch
             }
         }>
-        {props.children}
-        </AdminAuthContext.Provider>
+        {children}
+        </AuthContext.Provider>
     )
 };

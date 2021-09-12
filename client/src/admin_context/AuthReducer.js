@@ -1,4 +1,4 @@
-const AdminAuthReducer = ( state, action ) => {
+const AuthReducer = ( state, action ) => {
     switch(action.type) {
         case "LOGIN_START":
             return {
@@ -13,7 +13,7 @@ const AdminAuthReducer = ( state, action ) => {
                 isFetching: false,
                 error: false
             };
-        
+         
         case "LOGIN_FAILURE":
             return {
                 user: null,
@@ -26,4 +26,4 @@ const AdminAuthReducer = ( state, action ) => {
     }
 };
 
-export default AdminAuthReducer;
+export default AuthReducer;
