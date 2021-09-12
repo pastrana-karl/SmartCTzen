@@ -4,6 +4,7 @@ import React from 'react';
 import './CitizenProposals.css';
 import { Row, Col, Form, Button, Container} from 'react-bootstrap';
 import ProposalNav from '../../../components/Citizen/ProposalNav/ProposalNav';
+import { NavLink } from 'react-router-dom';
 // import NavigationItem from '../../UI/Navigation/NavigationItems/NavigationItem/NavigationItem';
 // import NavigationItems from '../../UI/Navigation/NavigationItems/NavigationItems';
 // import Toolbar from '../../UI/Navigation/Toolbar/Toolbar';
@@ -29,13 +30,19 @@ const CitizenProposals = () => (
             <React.Fragment>
                 <ProposalNav/>
             </React.Fragment>
-            <button className="proposalCreate">Create Proposal</button>
+            {/* <div className="proposalsCreateBtnContainer"> */}
+                <div className="proposalsCreateBtn">
+                    <NavLink to="/citizen-create-proposals">
+                        <button className="proposalCreate">Create Proposal</button>
+                    </NavLink>
+                </div>
+            {/* </div> */}
             <div className="proposalShort">
                 <div className="proposalShortInfo">
                     <h2>Hell Week</h2>
                     <img src="" alt="Author" className="proposalAuth" /><p>Author Name</p>
                     <p>Basta ayun nashotgun ako sa utak tapos pinapatigil ako sa paggawa sa comp kasi di raw ako nag aaral pag sa harap ng lappy</p>
-                    <p>Upvote: #</p><p>Downvote: #</p>
+                    <p>Upvote: 14</p><p>Downvote: 3</p>
                 </div>
                 <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2020/05/Elmo-Flames-Meme.jpg" alt="" className="proposalImg" />
             </div>
@@ -45,7 +52,7 @@ const CitizenProposals = () => (
                     <h2>Birthday ni Jack</h2>
                     <img src="" alt="Author" className="proposalAuth" /><p>Author Name</p>
                     <p>Happi Birthday J</p>
-                    <p>Upvote: #</p><p>Downvote: #</p>
+                    <p>Upvote: 5</p><p>Downvote: 1</p>
                 </div>
                 <img src="https://th.bing.com/th/id/OIP.rmWIgTMeGUWcirJpe-ehXgHaFC?pid=ImgDet&rs=1" alt="" className="proposalImg" />
             </div>

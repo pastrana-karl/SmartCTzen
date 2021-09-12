@@ -34,10 +34,14 @@ import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreate
 import CitizenNavBar from './components/Citizen/CitizenNav/CitizenNav';
 import CitizenProfile from './pages/Citizen/CitizenProfile/CitizenProfile';
 import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals';
+import CitizenCreateProposal from './pages/Citizen/CitizenProposals/CreateProposals/CitizenCreateProposals';
 import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
+import CitizenCreateReports from './pages/Citizen/CitizenReports/CreateReports/CitizenCreateReports';
+import CitizenReportsChat from './pages/Citizen/CitizenReports/ReportsChat/CitizenReportsChat';
 import CitizenProjects from './pages/Citizen/CitizenProjects/CitizenProjects';
 import CitizenLogout from './pages/Citizen/CitizenLogout/CitizenLogout';
 import ProposalNav from './components/Citizen/ProposalNav/ProposalNav';
+import ReportsNav from './components/Citizen/ReportsNav/ReportsNav';
 
 const App = () => {
   const [citizen, setCitizen] = useState({});
@@ -128,8 +132,20 @@ const App = () => {
             <CitizenProposals/>
           </Route>
 
+          <Route path="/citizen-create-proposals">
+            <CitizenCreateProposal/>
+          </Route>
+
           <Route path="/citizen-reports">
             <CitizenReports/>
+          </Route> 
+
+          <Route path="/citizen-create-reports">
+            <CitizenCreateReports/>
+          </Route> 
+
+          <Route path="/citizen-reports-chat">
+            <CitizenReportsChat/>
           </Route> 
 
           <Route path="/citizen-projects">

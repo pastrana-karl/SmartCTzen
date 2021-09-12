@@ -8,10 +8,11 @@ const CitizenNav = ({ location: { pathname } }) => {
   const isCitizenProposals = pathname === '/citizen-proposals';
   const isCitizenReports = pathname === '/citizen-reports';
   const isCitizenProjects = pathname === '/citizen-projects';
+  const isCitizenCreateProposals = pathname === '/citizen-create-proposals';
 
   return (
     <React.Fragment>
-      {isCitizenProfile || isCitizenProposals || isCitizenReports || isCitizenProjects ? (
+      {isCitizenProfile || isCitizenProposals || isCitizenReports || isCitizenProjects || isCitizenCreateProposals ? (
       <nav className="navbar navbar-expand-lg fixed-top citizenNavbar-mainbg">
         <button 
           className="navbar-toggler"

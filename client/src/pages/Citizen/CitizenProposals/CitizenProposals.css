@@ -9,6 +9,14 @@
     z-index: 1;
 }
 
+.proposalsCreateBtnContainer{
+    width: 55%;
+}
+
+.proposalsCreateBtn{
+    justify-content: center;
+}
+
 .proposalCreate {
     padding: 10px;
     border: hidden;
@@ -46,3 +54,4 @@
     width: 46%;
     margin: 20px 30px 0 0;
 }
+

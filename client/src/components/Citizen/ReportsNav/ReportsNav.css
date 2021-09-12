@@ -3,7 +3,7 @@
     color: #ff5138;
   }
   
-  .proposalNavbar-mainbg {
+  .reportNavbar-mainbg {
     margin: 10px 10px 20px 10px;
     box-sizing: border-box;
     border-radius: 73px;
@@ -12,7 +12,7 @@
     background-color: #f1f1f3 !important;
   }
 
-  .proposalnav-item {
+  .reportnav-item {
     margin: 10px 15px 10px 15px;
     padding: 10px 30px 10px 30px;
     border-radius: 73px;
@@ -21,26 +21,26 @@
                 -4px -4px 5px #ffffff;
   }
   
-  #proposalNavbarSupportedContent {
+  #reportNavbarSupportedContent {
     overflow: hidden;
     position: relative;
   }
   
-  #proposalNavbarSupportedContent ul {
+  #reportNavbarSupportedContent ul {
     padding: 0px;
     margin: 0px;  
   }
   
-  #proposalNavbarSupportedContent ul li a i {
+  #reportNavbarSupportedContent ul li a i {
     margin-right: 10px;
   }
   
-  #proposalNavbarSupportedContent li {
+  #reportNavbarSupportedContent li {
     list-style-type: none;
     float: left;
   }
   
-  #proposalNavbarSupportedContent ul li a {
+  #reportNavbarSupportedContent ul li a {
     color: #fe5038;
     text-decoration: none;
     margin: 20px 50px;
@@ -52,17 +52,17 @@
     position: relative;
   }
   
-  #proposalNavbarSupportedContent ul li a:hover {
+  #reportNavbarSupportedContent ul li a:hover {
     color: #87c441;
   }
   
-  #proposalNavbarSupportedContent > ul > li.active > a {
+  #reportNavbarSupportedContent > ul > li.active > a {
     color: #87c441;
     background-color: transparent;
     transition: all 0.7s;
   }
   
-  #proposalNavbarSupportedContent a:not(:only-child):after {
+  #reportNavbarSupportedContent a:not(:only-child):after {
     content: '\f105';
     position: absolute;
     right: 20px;
@@ -76,7 +76,7 @@
     transition: 0.5s;
   }
   
-  #proposalNavbarSupportedContent .active > a:not(:only-child):after {
+  #reportNavbarSupportedContent .active > a:not(:only-child):after {
     transform: rotate(90deg);
   }
   
@@ -94,17 +94,14 @@
   }
   
   @media (max-width: 1200px){
-    #proposalNavbarSupportedContent ul li a {
+    #reportNavbarSupportedContent ul li a {
         margin: 0px 50px;
     }
   }
   
   @media (max-width: 992px){
-    #proposalNavbarSupportedContent ul li a {
+    #reportNavbarSupportedContent ul li a {
         margin: 20px 0px;
-    }
-    .proposalNavbar-mainbg{
-      border-radius: 63px;
     }
   }
   
@@ -119,8 +116,8 @@
         padding: 10px;
     }
   
-    .proposalNavbar-toggler {
-        margin-bottom: 30%;
+    .reportNavbar-toggler {
+        margin-bottom: 3%;
     }
   }
   

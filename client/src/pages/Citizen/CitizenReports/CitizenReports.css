@@ -1,3 +1,7 @@
+.reportsContainer {
+    margin: 13% auto;
+}
+
 .reportsMain {
     display: flex;
     justify-content: center;
