@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const SecondStep = (props) => {
+const ThirdStep = (props) => {
     const { citizen } = props;
     const { register, handleSubmit, errors } = useForm({
     defaultValues: {
@@ -24,8 +24,8 @@ const SecondStep = (props) => {
   };
 
   return (
-    <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
-      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
+    <Form className="registerInput-form" onSubmit={handleSubmit(onSubmit)}>
+      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }} id = 'register-panel'>
       <h2 style={{textAlign: "center", marginBottom: '15px'}}>Personal Information</h2>
         <Form.Group controlId="street">
           <Form.Label>Street</Form.Label>
@@ -44,7 +44,7 @@ const SecondStep = (props) => {
             className={`${errors.street ? 'input-error' : ''}`}
           />
           {errors.street && (
-            <p className="errorMsg">{errors.street.message}</p>
+            <p className="registerErrorMsg">{errors.street.message}</p>
           )}
         </Form.Group>
 
@@ -65,7 +65,7 @@ const SecondStep = (props) => {
             className={`${errors.barangay ? 'input-error' : ''}`}
           />
           {errors.barangay && (
-            <p className="errorMsg">{errors.barangay.message}</p>
+            <p className="registerErrorMsg">{errors.barangay.message}</p>
           )}
         </Form.Group>
 
@@ -86,7 +86,7 @@ const SecondStep = (props) => {
             className={`${errors.city ? 'input-error' : ''}`}
           />
           {errors.city && (
-            <p className="errorMsg">{errors.city.message}</p>
+            <p className="registerErrorMsg">{errors.city.message}</p>
           )}
         </Form.Group>
 
@@ -107,7 +107,7 @@ const SecondStep = (props) => {
             className={`${errors.province ? 'input-error' : ''}`}
           />
           {errors.province && (
-            <p className="errorMsg">{errors.province.message}</p>
+            <p className="registerErrorMsg">{errors.province.message}</p>
           )}
         </Form.Group>
 
@@ -129,7 +129,7 @@ const SecondStep = (props) => {
             className={`${errors.zipcode ? 'input-error' : ''}`}
           />
           {errors.zipcode && (
-            <p className="errorMsg">{errors.zipcode.message}</p>
+            <p className="registerErrorMsg">{errors.zipcode.message}</p>
           )}
         </Form.Group>
 
@@ -150,7 +150,7 @@ const SecondStep = (props) => {
             className={`${errors.region ? 'input-error' : ''}`}
           />
           {errors.region && (
-            <p className="errorMsg">{errors.region.message}</p>
+            <p className="registerErrorMsg">{errors.region.message}</p>
           )}
         </Form.Group>
 
@@ -165,4 +165,4 @@ const SecondStep = (props) => {
   );
 };
 
-export default SecondStep;
+export default ThirdStep;

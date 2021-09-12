@@ -1,4 +1,4 @@
-.navbar-toggler i {
+#citizenNavbar-Toggler i {
     margin-right: 10px;
     color: #ff5138;
   }
@@ -70,11 +70,11 @@
     transform: rotate(90deg);
   }
   
-  .navbar-toggler {
+  #citizenNavbar-Toggler {
     margin-left: 5%;
   }
   
-  .navbar-toggler:focus {
+  #citizenNavbar-Toggler:focus {
     box-shadow: none;
   }
   
@@ -95,13 +95,7 @@
     }
   }
   
-  @media (max-width: 600px){
-    .navbar-toggler-icon {
-        width: 20px;
-        height: 20px;
-        margin: 5px 5px;
-    }
-  
+  @media (max-width: 600px){  
     .navbar-collapse {
         padding: 10px;
     }

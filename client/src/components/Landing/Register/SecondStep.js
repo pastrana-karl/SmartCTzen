@@ -20,8 +20,8 @@ const SecondStep = (props) => {
   };
 
   return (
-    <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
-      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
+    <Form className="registerInput-form" onSubmit={handleSubmit(onSubmit)}>
+      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }} id = 'register-panel'>
       <h2 style={{textAlign: "center", marginBottom: '15px'}}>Personal Information</h2>
         <Form.Group controlId="fathername">
           <Form.Label>Father Name</Form.Label>

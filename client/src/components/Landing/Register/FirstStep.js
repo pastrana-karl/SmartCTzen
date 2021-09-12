@@ -143,8 +143,8 @@ const FirstStep = (props) => {
   };
 
   return (
-    <Form className="input-form" onSubmit={handleSubmit(onSubmit)}>
-      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }}>
+    <Form className="registerInput-form" onSubmit={handleSubmit(onSubmit)}>
+      <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }} id = 'register-panel'>
       <h2 style={{textAlign: "center", marginBottom: '15px'}}>Personal Information</h2>
         <Form.Group controlId="firstname">
           <Form.Label>First Name</Form.Label>
@@ -163,7 +163,7 @@ const FirstStep = (props) => {
             className={`${errors.firstname ? 'input-error' : ''}`}
           />
           {errors.firstname && (
-            <p className="errorMsg">{errors.firstname.message}</p>
+            <p className="registerErrorMsg">{errors.firstname.message}</p>
           )}
         </Form.Group>
 
@@ -184,7 +184,7 @@ const FirstStep = (props) => {
             className={`${errors.lastname ? 'input-error' : ''}`}
           />
           {errors.lastname && (
-            <p className="errorMsg">{errors.lastname.message}</p>
+            <p className="registerErrorMsg">{errors.lastname.message}</p>
           )}
         </Form.Group>
 
@@ -205,7 +205,7 @@ const FirstStep = (props) => {
             className={`${errors.middlename ? 'input-error' : ''}`}
           />
           {errors.middlename && (
-            <p className="errorMsg">{errors.middlename.message}</p>
+            <p className="registerErrorMsg">{errors.middlename.message}</p>
           )}
         </Form.Group>
 
@@ -243,7 +243,7 @@ const FirstStep = (props) => {
               })}
             />
              {errors.sex && (
-            <p className="errorMsg">{errors.sex.message}</p>
+            <p className="registerErrorMsg">{errors.sex.message}</p>
           )}
         </Form.Group>
 
@@ -268,7 +268,7 @@ const FirstStep = (props) => {
               shouldHighlightWeekends
             />
              {errors.birthdate && (
-            <p className="errorMsg">{errors.birthdate.message}</p>
+            <p className="registerErrorMsg">{errors.birthdate.message}</p>
           )}
           </div>
         </Form.Group>

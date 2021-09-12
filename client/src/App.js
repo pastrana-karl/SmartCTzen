@@ -5,7 +5,7 @@ import Features from './components/Landing/Features/Features';
 import Home from './components/Landing/Home/Home';
 import Login from './components/Landing/Login/Login';
 import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
-import AllAdminsLogin from './components/AllAdmin/AllAdminLogin';
+import AdminsLogin from './components/AllAdmin/AllAdminLogin';
 import FirstStep from './components/Landing/Register/FirstStep';
 import SecondStep from './components/Landing/Register/SecondStep';
 import ThirdStep from './components/Landing/Register/ThirdStep';
@@ -32,6 +32,7 @@ import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreat
 import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
 
 import CitizenNavBar from './components/Citizen/CitizenNav/CitizenNav';
+import CitizenProposalsSideBar from './components/Citizen/CitizenCatNav/CitizenSideBar';
 import CitizenProfile from './pages/Citizen/CitizenProfile/CitizenProfile';
 import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals';
 import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
@@ -54,6 +55,7 @@ const App = () => {
       <NavBarHandle />
       <Progress />
       <CitizenNavBar />
+      <CitizenProposalsSideBar />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -118,6 +120,7 @@ const App = () => {
           />
 
           {/**************************** CITIZEN Routes ****************************/}
+
           <Route path="/citizen-profile">
             <CitizenProfile />
           </Route>
@@ -138,12 +141,12 @@ const App = () => {
             <CitizenLogout/>
           </Route>  
 
-          {/**************************** SUPER ADMIN and ADMIN Login ****************************/}
+          {/**************************** ADMIN Routes ****************************/}
+
           <Route path="/admin-login">
-            <AllAdminsLogin />
+            <AdminsLogin />
           </Route>
 
-          {/**************************** ADMIN Routes ****************************/}
           <Route path="/admin-profile">
             <AdminProfile />
           </Route>
@@ -186,21 +189,7 @@ const App = () => {
           </Route>
 
           {/**************************** SUPER ADMIN PANEL ****************************/}
-          {/* <Route path ="/sample-superadmin">
-              <SuperAdminLayout />
-          </Route> */}
-
-          <Route path="/super-admin/content">
-            <SuperAdminContent />
-          </Route>
-
-          <Route path="/super-admin/manage-admins">
-            <SuperAdminManageAdmins />
-          </Route>
-
-          <Route path="/super-admin/account-settings">
-            <SuperAdminAccountSettings />
-          </Route>
+          
 
           <Route render={() => <Redirect to="/" />} />
 
