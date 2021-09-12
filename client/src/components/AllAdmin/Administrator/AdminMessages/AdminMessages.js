@@ -1,16 +1,23 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import axios from 'axios';
+import { io } from 'socket.io-client';
 
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import AdminConversations from './AdminConversations/AdminConversations';
 import AdminMessage from './AdminMessage/AdminMessage';
+import { AdminAuthContext } from '../../../../admin_context/AdminAuthContext';
 
 import classes from './AdminMessages.module.css';
 
 const AdminMessages = ( props ) => {
     const [conversations, setConversations] = useState([]);
+    const socket = useRef(io("ws://localhost:8900"));
+    // const { user } = useContext(AdminAuthContext);
 
+    // useEffect(() => {
+    //     socket.current.emit("addUser", user._id);
+    // }, [user]);
     //insert this code soon:
     //const { user } = useContext(AuthContext)
 
@@ -27,7 +34,6 @@ const AdminMessages = ( props ) => {
 
     //     getConversations();
     // }, [user._id]);
-
     return (
         <React.Fragment>
             <AdminLayout>
