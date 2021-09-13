@@ -1,6 +1,7 @@
 const diffHistory = require("mongoose-audit-trail");
 
 const Projects = require("../models/projectsModel");
+const diffCollection = require("../models/diffCollectionModel");
 const APIFeatures = require("../utils/apiFeatures");
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
@@ -93,18 +94,24 @@ exports.getProjectHistory = catchAsync(async (req, res, next) => {
                 }
             });
         })
-    // await Projects.find({
-    //     id: req.params.id
-    // }).exec((err, projectResult) => {
-    //     if (err || !projectResult || !projectResult[0]) {
-    //         return next(err);
-    //     }
+});
 
-    //     diffHistory.getHistories("Projects", projectResult[0]._id, ["mobile"], function (err, histories) {
-    //         if (err) {
-    //             return next(err);
-    //         }
-    //         res.json(histories);
-    //     })
-    // })
+exports.saveProjectHistory = catchAsync(async (req, res, next) => {
+    const project = await Projects.findById(req.params.id);
+    
+    await diffHistory.getHistories("Projects", project._id, ["mobile"], 
+        function (err, histories) {
+            if (err) {
+                return next(err);
+            }
+           
+            const newProjectHistory = diffCollection.create(histories);
+
+            res.status(201).json({
+                status: 'success',
+                data: {
+                    newProjectHistory
+                }
+            });
+        })
 });
