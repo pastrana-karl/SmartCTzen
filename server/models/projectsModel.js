@@ -31,8 +31,6 @@ const projectsSchema = new mongoose.Schema({
     }
 });
 
-projectsSchema.plugin(diffHistory.plugin);
-
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 projectsSchema.pre('save', function(next) {
     this.slug = slugify(this.title, { lower: true });
@@ -46,6 +44,8 @@ projectsSchema.pre('save', function(next) {
             })
     */
 });
+
+projectsSchema.plugin(diffHistory.plugin);
 
 const Projects = mongoose.model('Projects', projectsSchema);
 

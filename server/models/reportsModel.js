@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
+const diffHistory = require("mongoose-audit-trail");
 
 const reportsSchema = new mongoose.Schema({
     title: {
@@ -37,6 +38,8 @@ reportsSchema.pre('save', function(next) {
             })
     */  
 });
+
+reportsSchema.plugin(diffHistory.plugin);
 
 const Reports = mongoose.model('Reports', reportsSchema);
 

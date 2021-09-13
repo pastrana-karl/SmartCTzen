@@ -48,7 +48,7 @@ const proposalsSchema = new mongoose.Schema({
     }
 });
 
-proposalsSchema.plugin(diffHistory.plugin);
+
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 proposalsSchema.pre('save', function(next) {
@@ -62,6 +62,8 @@ proposalsSchema.pre('save', function(next) {
             })
     */  
 });
+
+proposalsSchema.plugin(diffHistory.plugin);
 
 const Proposals = mongoose.model('Proposals', proposalsSchema);
 
