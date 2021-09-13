@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
+import './App.css';
 import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Features from './components/Landing/Features/Features';
-import Home from './components/Landing/Home/Home';
-import Login from './components/Landing/Login/Login';
+import LandingNavBar from './components/Landing/Navigation/LandingNavBar';
+import Home from './pages/Landing/Home/Home';
+import CitizenLogin from './pages/Landing/CitizenLogin/CitizenLogin';
+import Features from './pages/Landing/Feature/Features';
+import Progress from './components/Landing/Register/Progress';
+import FirstStep from './pages/Landing/Register/FirstStep';
+import SecondStep from './pages/Landing/Register/SecondStep';
+import ThirdStep from './pages/Landing/Register/ThirdStep';
+import FourthStep from './pages/Landing/Register/FourthStep';
+import FifthStep from './pages/Landing/Register/FifthStep';
+import SixthStep from './pages/Landing/Register/SixthStep';
+import SeventhStep from './pages/Landing/Register/SeventhStep';
+
 import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
 import AdminLogin from './components/AllAdmin/Administrator/AdminLogin/AdminLogin';
-import FirstStep from './components/Landing/Register/FirstStep';
-import SecondStep from './components/Landing/Register/SecondStep';
-import ThirdStep from './components/Landing/Register/ThirdStep';
-import FourthStep from './components/Landing/Register/FourthStep';
-import FifthStep from './components/Landing/Register/FifthStep';
-import SixthStep from './components/Landing/Register/SixthStep';
-import SeventhStep from './components/Landing/Register/SeventhStep';
-import Progress from './components/Landing/Register/Progress';
-import NavBarHandle from './components/UI/Navigation/NavBar/NavBarHandle'
-
-
 import AdminProposals from './components/AllAdmin/Administrator/AdminProposals/AdminProposals';
 import AdminReports from './components/AllAdmin/Administrator/AdminReports/AdminReports';
 import AdminMessages from './components/AllAdmin/Administrator/AdminMessages/AdminMessages';
@@ -24,10 +24,6 @@ import AdminProjects from './components/AllAdmin/Administrator/AdminProjects/Adm
 import AdminUsers from './components/AllAdmin/Administrator/AdminUsers/AdminUsers';
 import AdminApplicants from './components/AllAdmin/Administrator/AdminApplicants/AdminApplicants';
 import AdminLogout from './components/AllAdmin/Administrator/AdminLogout/AdminLogout';
-import SuperAdminLayout from './components/AllAdmin/SuperAdmin/SuperAdminLayout';
-import SuperAdminContent from './components/AllAdmin/SuperAdmin/SuperAdminContent/SuperAdminContent';
-import SuperAdminManageAdmins from './components/AllAdmin/SuperAdmin/SuperAdminManageAdmins/SuperAdminManageAdmins';
-import SuperAdminAccountSettings from './components/AllAdmin/SuperAdmin/SuperAdminAccountSettings/SuperAdminAccountSettings';
 import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
 import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
 
@@ -52,7 +48,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <NavBarHandle />
+      <LandingNavBar />
       <Progress />
       <CitizenNavBar />
       <CitizenProposalsSideBar />
@@ -66,7 +62,7 @@ const App = () => {
           </Route>
 
           <Route path="/login">
-            <Login />
+            <CitizenLogin />
           </Route>
 
           <Route
@@ -188,7 +184,7 @@ const App = () => {
             <AdminLogout />
           </Route>
 
-          {/**************************** SUPER ADMIN PANEL ****************************/}
+          {/**************************** SUPER ADMIN Routes ****************************/}
           
 
           <Route render={() => <Redirect to="/" />} />
