@@ -1,9 +1,0 @@
-.Content {
-    /* display: grid;
-    grid-auto-flow: column;
-    justify-content: center;
-    column-gap: 150px; */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-} 
