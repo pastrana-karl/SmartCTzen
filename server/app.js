@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
-const initiativesRoutes = require("./routes/initiativesRoutes");
+const proposalsRoutes = require("./routes/proposalsRoutes");
 const projectsRoutes = require("./routes/projectsRoutes");
 const reportsRoutes = require("./routes/reportsRoutes");
 const featuresRoutes = require("./routes/featuresRoutes");
@@ -60,7 +60,7 @@ app.use('/api/upload-images', upload.array('image'), async (req, res) => {
   })
 
 //Insert home and features
-app.use('/api', initiativesRoutes);
+app.use('/api', proposalsRoutes);
 app.use('/api', projectsRoutes);
 app.use('/api', reportsRoutes);
 app.use('/api', featuresRoutes);

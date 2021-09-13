@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
+const diffHistory = require("mongoose-audit-trail");
 
-const initiativesSchema = new mongoose.Schema({
-    user: {
+const proposalsSchema = new mongoose.Schema({
+    userId: {
         type: String,
-        trim: true
     },
     title: {
         type: String,
@@ -15,8 +15,7 @@ const initiativesSchema = new mongoose.Schema({
     description:  {
         type: String,
         required: [true, 'This field is required'],
-        trim: true,
-        unique: true
+        trim: true
     },
     date:  {
         type: String,
@@ -27,10 +26,9 @@ const initiativesSchema = new mongoose.Schema({
         required: [true, 'This field is required'],
         trim: true
     },
-    // coverImage: {
-    //     type: String,
-    //     required: [true, 'This field is required']
-    // },
+    coverImage: {
+        type: String
+    },
     images: { 
         type: [String],
     },
@@ -50,8 +48,10 @@ const initiativesSchema = new mongoose.Schema({
     }
 });
 
+proposalsSchema.plugin(diffHistory.plugin);
+
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
-initiativesSchema.pre('save', function(next) {
+proposalsSchema.pre('save', function(next) {
     this.slug = slugify(this.title, { lower: true });
     next();
     /*
@@ -63,6 +63,6 @@ initiativesSchema.pre('save', function(next) {
     */  
 });
 
-const Initiatives = mongoose.model('Initiatives', initiativesSchema);
+const Proposals = mongoose.model('Proposals', proposalsSchema);
 
-module.exports = Initiatives;
+module.exports = Proposals;

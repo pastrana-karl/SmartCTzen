@@ -1,3 +1,5 @@
+const diffHistory = require("mongoose-audit-trail");
+
 const Projects = require("../models/projectsModel");
 const APIFeatures = require("../utils/apiFeatures");
 const AppError = require('../utils/appError');
@@ -74,4 +76,35 @@ exports.deleteProject = catchAsync(async (req, res, next) => {
         status: "success",
         data: null
     });
+});
+
+exports.getProjectHistory = catchAsync(async (req, res, next) => {
+    const project = await Projects.findById(req.params.id);
+    
+    await diffHistory.getHistories("Projects", project._id, ["mobile"], 
+        function (err, histories) {
+            if (err) {
+                return next(err);
+            }
+            res.status(200).json({
+                status: 'success',
+                data: {
+                    histories
+                }
+            });
+        })
+    // await Projects.find({
+    //     id: req.params.id
+    // }).exec((err, projectResult) => {
+    //     if (err || !projectResult || !projectResult[0]) {
+    //         return next(err);
+    //     }
+
+    //     diffHistory.getHistories("Projects", projectResult[0]._id, ["mobile"], function (err, histories) {
+    //         if (err) {
+    //             return next(err);
+    //         }
+    //         res.json(histories);
+    //     })
+    // })
 });
