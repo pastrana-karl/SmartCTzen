@@ -1,12 +1,18 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
+const validator = require("validator");
+const bcrypt = require("bcryptjs");
+const { JsonWebTokenError } = require("jsonwebtoken");
 
 const citizenSchema = new mongoose.Schema({
     lastname:{
         type: String,
+        required: [true, "This field is required"]
     },
 
     firstname:{
         type: String,
+        required: [true, "This field is required"]
     },
 
     middlename:{
@@ -19,10 +25,12 @@ const citizenSchema = new mongoose.Schema({
 
     sex:{
         type: String,
+        required: [true, "This field is required"]
     },
 
     birthdate:{
         type: String,
+        required: [true, "This field is required"]
     },
 
     fathername:{
@@ -75,12 +83,27 @@ const citizenSchema = new mongoose.Schema({
     email:{
         type: String,
         unique: true,
+        required: [true, "This field is required"]
     },
 
     password:{
         type: String,
-        required:true,
+        required: [true, "This field is required"],
+        minlength: 8,
+        select: false
     },
+
+    passwordConfirm: {
+        type: String,
+        required: [true, "This field is required"],
+        validate: {
+            validator: function(el) {
+                return el === this.password;
+            },
+            message: "Passwords are not the same"
+        }
+    },
+    passwordChangedAt: Date,
 
     resetToken:{
         type: String,
@@ -90,7 +113,36 @@ const citizenSchema = new mongoose.Schema({
         type: Date,
     },
 }, 
+
 { timestamps: true }
+
 );
 
-module.exports = mongoose.model("citizen", citizenSchema);
+//insert slug
+
+citizenSchema.pre('save', async function(next) {
+    if (!this.isModified('password')) return next();
+
+    this.password = await bcrypt.hash(this.password, 12);
+    this.passwordConfirm = undefined;
+    next();
+});
+
+citizenSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
+    return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+citizenSchema.methods.changePasswordAfter = function(JWTTimestamp) {
+    if (this.passwordChangedAt) {
+        const changedTimestamp = parseInt(this.passwordChangedAt.getTime());
+
+        console.log(changedTimestamp, JWTTimestamp);
+        return JWTTimestamp < changedTimestamp;
+    }
+
+    return false;
+}
+
+const Citizen = mongoose.model("Citizen", citizenSchema);
+
+module.exports = Citizen;
