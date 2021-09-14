@@ -18,40 +18,193 @@
 }
 
 .proposalCreate {
-    padding: 10px;
+    padding: 15px 45px 15px 45px;
     border: hidden;
-    border-radius: 73px;
-    background: #ff5138;
+    background: #FF5039;
+    box-shadow: -10px -10px 30px #FFFFFF, 10px 10px 30px rgba(174, 174, 192, 0.4);
+    border-radius: 30px;
     color: #ffffff;
+    text-decoration: none;
 }
 
-.proposalShort {
-    margin-top: 20px;
-    margin-bottom: 20px;
+.proposalShortContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0% 10%;
+}
+
+/* .proposalShort {
+    display: flex;
+    flex: auto;
+    flex-wrap: wrap;
+    margin: 50px 0px;
     border: hidden;
-    padding: 20px 40px 40px;
-    max-width: 640px;
+    padding: 40px;
+    width: 640px auto;
+    /* max-height: 600px; */
+    /* transition: 1s; */
     /* //neumorphism magic */
-    border-radius: 73px;
-    background: linear-gradient(145deg, #ffffff, #d8d8db);
-    box-shadow:  5px 5px 4px #d6d6d8,
-                -5px -5px 4px #ffffff;
+    /* border-radius: 40px;
+    background: linear-gradient(145deg, #d8d8db);
+    box-shadow:  7px 7px 7px #d6d6d8,
+                -7px -7px 7px #ffffff; */
     /* background: #F0F0F3;
     box-shadow: inset 7px 7px 15px #d6d6d8,
-                inset -7px -7px 15px #ffffff; */
-                
+                inset -7px -7px 15px #ffffff; */  /*
+} */
+.proposalShort {
+    display: flex;
+    margin: 50px 0px;
+    border: hidden;
+    padding: 40px;
+    height: 600px;
+    max-width: 840px;
+    /* max-height: 600px; */
+    transition: 1s;
+    /* //neumorphism magic */
+    border-radius: 40px;
+    background: linear-gradient(145deg, #d8d8db);
+    box-shadow:  7px 7px 7px #d6d6d8,
+                -7px -7px 7px #ffffff;
+}
+
+.proposalTitleContainer{
+    display: none;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.proposalAuthContainer{
+    display: flex;
+    margin-bottom: 1px;
+}
+.proposalAuthImg{
+    display: flex;
+    max-height: 50px;
+    max-width: 50px;
+}
+.proposalAuthImg img{
+    border-radius: 50px;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+}
+.proposalAuth{
+    display: flex;
+    align-items: center;
+    margin: 0px;
+    padding-left: 5px;
+}
+
+.proposalContent{
+    display: flex;
 }
 
 .proposalShortInfo {
     display: inline-block;
-    width: 46%;
-    @media (max-width: 620px) {
-      width: 100%;}
+    padding-right: 25px;
+    flex: 50%;
 }
-.proposalImg {
-    display: inline-block;
-    vertical-align: top;
-    width: 46%;
-    margin: 20px 30px 0 0;
+.proposalShortInfo p{
+    display: inline-flex;
+    text-align: justify;
 }
 
+.proposalShortImgContainer{
+    display: flex;
+    flex: 50%;
+    padding: 20px;
+    max-height: 500px;
+    justify-content: center;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+}
+
+.proposalShortImgFrame{
+    display: flex;
+    max-width: inherit;
+    max-height: inherit;
+}
+
+
+.proposalImg {
+    border-radius: 40px;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 992px) {
+
+    .proposalShort{
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* hide title on click/tap*/
+    .proposalShort:hover .proposalTitleContainer{
+        display: none;
+    }
+
+    .proposalTitleContainer{
+        display: flex;
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+
+    .proposalTitle{
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+    }
+    .proposalTitle h2{
+        margin-bottom: 0px;
+    }
+
+    .proposalContent{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .proposalShort{
+        padding: 15px;
+        margin: 20px 0px;
+        height: 400px;
+        transition: 0.5s;
+    }
+    .proposalShort:hover{
+        height: fit-content;
+    }
+    .proposalShort:hover .proposalShortInfo{
+        display: inline-block;
+        padding: 20px;
+        visibility: visible;
+    }
+
+    .proposalShortImgContainer{
+        display: flex;
+        padding: 20px;
+        max-height: 300px;
+    }
+    
+    .proposalShort .proposalShortInfo{
+        height: 0px;
+        visibility: hidden;
+        transition: 0.1ms;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .proposalShortImgContainer{
+        display: flex;
+        padding: 20px;
+        max-height: 200px;
+    }
+    
+
+}

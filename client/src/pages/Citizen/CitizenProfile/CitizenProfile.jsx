@@ -182,7 +182,7 @@ const CitizenProfile = () => (
                 </Form.Group>
             </Form>
 
-            <Link to = '#' className = 'citizenProfile-passwordUpdate'><i className="editIcon far fa-edit"></i></Link>
+            <Link to = '/citizen-pass-update' className = 'citizenProfile-passwordUpdate'><i className="editIcon far fa-edit"></i></Link>
 
         </Container>
     </>

@@ -1,0 +1,57 @@
+.citizenSubmitReport-container {
+    margin: 13% auto;
+}
+
+
+.citizenSubmitReport-edit .form-control {
+    border: hidden !important;
+    background: #F0F0F3 !important;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 30px 20px 30px 20px !important;
+    font-size: 18px !important;
+}
+
+.citizenSubmitReport-edit h3 {
+    font-weight: bold;
+    margin: 5% 0 5% 0;
+}
+
+.citizenSubmitReport-edit {
+    padding: 40px 150px;
+}
+
+.citizenSubmitReport-edit .form-label{
+    font-size: 20px;
+}
+
+.citizenSubmitReport-passwordUpdate {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 50px;
+    color: #ff5138;
+}
+
+.citizenSubmitReport-passwordUpdate:hover {
+    color: #Dc4733;
+    text-decoration: none;
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+    .citizenSubmitReport-edit {
+        padding: 40px 50px;
+    }
+
+    .citizenSubmitReport-edit h3 {
+        font-size: 25px;        
+    }
+
+    .citizenSubmitReport-name  p {
+        font-size: 30px;
+        margin-bottom: 15%;
+    }
+}

@@ -15,7 +15,7 @@
   .proposalnav-item {
     margin: 10px 15px 10px 15px;
     padding: 10px 30px 10px 30px;
-    border-radius: 73px;
+    border-radius: 70px;
     background: linear-gradient(145deg, #ffffff, #d8d8db);
     box-shadow:  4px 4px 5px #d6d6d8,
                 -4px -4px 5px #ffffff;
@@ -104,7 +104,7 @@
         margin: 20px 0px;
     }
     .proposalNavbar-mainbg{
-      border-radius: 63px;
+      border-radius: 70px;
     }
   }
   

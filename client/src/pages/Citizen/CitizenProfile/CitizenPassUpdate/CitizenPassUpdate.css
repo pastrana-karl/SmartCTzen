@@ -1,0 +1,59 @@
+.citizenPassUpdate-container {
+    margin: 13% auto;
+}
+
+
+
+
+.citizenPassUpdate-edit .form-control {
+    border: hidden !important;
+    background: #F0F0F3 !important;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 30px 20px 30px 20px !important;
+    font-size: 18px !important;
+}
+
+.citizenPassUpdate-edit h3 {
+    font-weight: bold;
+    margin: 5% 0 5% 0;
+}
+
+.citizenPassUpdate-edit {
+    padding: 40px 150px;
+}
+
+.citizenPassUpdate-edit .form-label{
+    font-size: 20px;
+}
+
+.citizenPassUpdate-passwordUpdate {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 50px;
+    color: #ff5138;
+}
+
+.citizenPassUpdate-passwordUpdate:hover {
+    color: #Dc4733;
+    text-decoration: none;
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+    .citizenPassUpdate-edit {
+        padding: 40px 50px;
+    }
+
+    .citizenPassUpdate-edit h3 {
+        font-size: 25px;        
+    }
+
+    .citizenPassUpdate-name  p {
+        font-size: 30px;
+        margin-bottom: 15%;
+    }
+}

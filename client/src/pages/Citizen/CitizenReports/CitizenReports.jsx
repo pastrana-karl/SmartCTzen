@@ -13,15 +13,16 @@ const CitizenReports = () => (
                     </React.Fragment>
                 </div>
                 <div className="submitReport">
-                    <NavLink to="/citizen-create-reports">
+                    <NavLink to="/citizen-submit-reports">
                         <button className="reportCreate">Create A Report</button>
                         </NavLink>
-                    <NavLink to="/citizen-reports-chat">
+                    <NavLink to="/citizen-chat-report">
                         <button className="reportChat">Chat Icon</button>
                     </NavLink>
                     
                     
                 </div>
+                <NavLink to='/citizen-view-reports'>
                 <div className="reportShort">
                     <img className="reportImg" alt="IDK"src="https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Monochrome-Type-Simple-Background-Image.jpg"/>
                     <span className="reportTitle">Variant</span>
@@ -32,6 +33,7 @@ const CitizenReports = () => (
                         <span className="reportInfo">Status</span>
                     </div>
                 </div>
+                </NavLink>
             </div>
         </Container>
     )

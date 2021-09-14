@@ -7,12 +7,17 @@ const CitizenNav = ({ location: { pathname } }) => {
   const isCitizenProfile = pathname === '/citizen-profile';
   const isCitizenProposals = pathname === '/citizen-proposals';
   const isCitizenReports = pathname === '/citizen-reports';
+  const isCitizenViewReports = pathname === '/citizen-view-reports';
+  const isCitizenSubmitReports = pathname === '/citizen-submit-reports';
   const isCitizenProjects = pathname === '/citizen-projects';
   const isCitizenCreateProposals = pathname === '/citizen-create-proposals';
+  const isCitizenPassUpdate = pathname === '/citizen-pass-update';
+  const isCitizenChatReport = pathname === '/citizen-chat-report';
 
   return (
     <React.Fragment>
-      {isCitizenProfile || isCitizenProposals || isCitizenReports || isCitizenProjects || isCitizenCreateProposals ? (
+      {isCitizenProfile || isCitizenProposals || isCitizenReports || isCitizenProjects || isCitizenCreateProposals 
+      || isCitizenPassUpdate || isCitizenChatReport || isCitizenSubmitReports || isCitizenViewReports ? (
       <nav className="navbar navbar-expand-lg fixed-top citizenNavbar-mainbg">
         <button 
           className="navbar-toggler"

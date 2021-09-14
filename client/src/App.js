@@ -33,12 +33,15 @@ import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreate
 
 import CitizenNavBar from './components/Citizen/CitizenNav/CitizenNav';
 import CitizenProfile from './pages/Citizen/CitizenProfile/CitizenProfile';
+import CitizenPassUpdate from './pages/Citizen/CitizenProfile/CitizenPassUpdate/CitizenPassUpdate';
 import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals';
 import CitizenCreateProposal from './pages/Citizen/CitizenProposals/CreateProposals/CitizenCreateProposals';
 import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
-import CitizenCreateReports from './pages/Citizen/CitizenReports/CreateReports/CitizenCreateReports';
-import CitizenReportsChat from './pages/Citizen/CitizenReports/ReportsChat/CitizenReportsChat';
+import CitizenViewReport from './pages/Citizen/CitizenReports/ViewReports/CitizenViewReport';
+import CitizenSubmitReport from './pages/Citizen/CitizenReports/SubmitReport/CitizenSubmitReport';
+import CitizenChatReport from './pages/Citizen/CitizenReports/ChatReports/CitizenChatReport';
 import CitizenProjects from './pages/Citizen/CitizenProjects/CitizenProjects';
+import CitizenViewProject from './pages/Citizen/CitizenProjects/CitizenViewProject/CitizenViewProject';
 import CitizenLogout from './pages/Citizen/CitizenLogout/CitizenLogout';
 import ProposalNav from './components/Citizen/ProposalNav/ProposalNav';
 import ReportsNav from './components/Citizen/ReportsNav/ReportsNav';
@@ -128,6 +131,10 @@ const App = () => {
             <CitizenProfile />
           </Route>
 
+          <Route path="/citizen-pass-update">
+            <CitizenPassUpdate />
+          </Route>
+
           <Route path="/citizen-proposals">
             <CitizenProposals/>
           </Route>
@@ -140,12 +147,16 @@ const App = () => {
             <CitizenReports/>
           </Route> 
 
-          <Route path="/citizen-create-reports">
-            <CitizenCreateReports/>
+          <Route path="/citizen-view-reports">
+            <CitizenViewReport/>
           </Route> 
 
-          <Route path="/citizen-reports-chat">
-            <CitizenReportsChat/>
+          <Route path="/citizen-submit-reports">
+            <CitizenSubmitReport/>
+          </Route> 
+
+          <Route path="/citizen-chat-report">
+            <CitizenChatReport/>
           </Route> 
 
           <Route path="/citizen-projects">
@@ -154,6 +165,10 @@ const App = () => {
 
           <Route path="/citizen-logout">
             <CitizenLogout/>
+          </Route>  
+
+          <Route path="/citizen-view-project">
+            <CitizenViewProject/>
           </Route>  
 
           {/**************************** SUPER ADMIN and ADMIN Login ****************************/}

@@ -1,5 +1,6 @@
 import "./CitizenProjects.css";
 import React from 'react';
+import { Link, NavLink } from "react-router-dom";
 
 const CitizenProjects = () => (
         <div className="projectsMain">
@@ -10,6 +11,7 @@ const CitizenProjects = () => (
                     <li className="categoryItem">Ongoing</li>
                 </ul>
             </div>
+            <Link to='/citizen-view-project'>
             <div className="projectShort">
                 <div className="projectShortInfo">
                     <h2>Hell Week</h2>
@@ -31,6 +33,7 @@ const CitizenProjects = () => (
                 </div>
                 <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2020/05/Elmo-Flames-Meme.jpg" alt="" className="projectImg" />
             </div>
+            </Link>
         </div>
     );
 export default CitizenProjects;
