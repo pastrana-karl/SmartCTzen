@@ -5,6 +5,7 @@ import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
 import LandingNavBar from './components/Landing/Navigation/LandingNavBar';
 import Home from './pages/Landing/Home/Home';
 import CitizenLogin from './pages/Landing/CitizenLogin/CitizenLogin';
+import CitizenForgot from './pages/Landing/CitizenForgot/CitizenForgot';
 import Features from './pages/Landing/Feature/Features';
 import Progress from './components/Landing/Register/Progress';
 import FirstStep from './pages/Landing/Register/FirstStep';
@@ -65,9 +66,13 @@ const App = () => {
             <CitizenLogin />
           </Route>
 
+          <Route path="/forgot-password">
+            <CitizenForgot />
+          </Route>
+
           <Route
              render={(props) => (
-              <FirstStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+              <FirstStep {...props} citizen={citizen} updateCitizen={updateCitizen} resetCitizen={resetCitizen}/>
             )}
             path="/create-account"
              exact={true}

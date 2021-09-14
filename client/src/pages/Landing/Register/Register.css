@@ -45,6 +45,7 @@ body {
 }
 
 .steps .step a {
+  text-decoration: none;
   color: #fe5139;
   vertical-align: middle;
 }
@@ -208,6 +209,7 @@ body {
 }
 
 .firstStep-link {
+  text-decoration: none !important;
   display: flex;
   justify-content: center;
   margin-top: 2%;
