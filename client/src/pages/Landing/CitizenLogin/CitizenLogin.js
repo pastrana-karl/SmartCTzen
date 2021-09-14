@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import './CitizenLogin.css';
 import { Link } from 'react-router-dom';
+import { Context } from '../../../context/Context';
+import axios from 'axios';
 
 const CitizenLogin = () => {
+  const userRef = useRef();
+  const passwordRef = useRef();
+  const { dispatch, isFetching } = useContext(Context);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    dispatch({ type: "LOGIN_START" });
+    
+    try {
+        const res = await axios.post("/api/citizen/login", {
+            email: userRef.current.value,
+            password: passwordRef.current.value,
+        })
+
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+    } catch (err) {
+        dispatch({ type: "LOGIN_FAILURE" });
+    }
+  };
 
   return (
     <>
@@ -31,31 +53,31 @@ const CitizenLogin = () => {
               </motion.div>
             </div>
             <motion.div className="col-md-20 offset-md-0" initial={{ opacity: -3, x: '-100vw' }} animate={{ opacity: 1, x: 0 }} transition={{ stiffness: 150 }} id = 'citizenLogin-panel'>
-              <Form className="citizenLogin-inputForm">
+              <Form className="citizenLogin-inputForm" onSubmit={handleSubmit}>
                 
-                <Form.Group controlId="email">
+                <Form.Group>
                   <Form.Label>Email</Form.Label>
                   <Form.Control
-                    className = 'citizenLogin-input'
                     type="text"
                     name="email"
                     placeholder="Enter your email address"
+                    ref = { userRef }
                     autoComplete="off"
                   />
                 </Form.Group>
 
-                <Form.Group controlId="password">
+                <Form.Group>
                   <Form.Label>Password</Form.Label>
                   <Form.Control
-                    className = 'citizenLogin-input'
                     type="password"
                     name="password"
-                    placeholder="Choose a password"
+                    placeholder="Enter your password"
+                    ref = { passwordRef }
                     autoComplete="off"
                   />
                 </Form.Group>
 
-                <Button variant="danger" type="submit">
+                <Button variant="danger" type="submit" disabled={ isFetching }>
                   Submit
                 </Button>
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState, useContext } from 'react';
+import { Context } from './context/Context'
 import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import LandingNavBar from './components/Landing/Navigation/LandingNavBar';
@@ -16,6 +16,13 @@ import FifthStep from './pages/Landing/Register/FifthStep';
 import SixthStep from './pages/Landing/Register/SixthStep';
 import SeventhStep from './pages/Landing/Register/SeventhStep';
 
+import CitizenNavBar from './components/Citizen/CitizenNav/CitizenNav';
+import CitizenProposalsSideBar from './components/Citizen/CitizenCatNav/CitizenSideBar';
+import CitizenProfile from './pages/Citizen/CitizenProfile/CitizenProfile';
+import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals';
+import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
+import CitizenProjects from './pages/Citizen/CitizenProjects/CitizenProjects';
+
 import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
 import AdminLogin from './components/AllAdmin/Administrator/AdminLogin/AdminLogin';
 import AdminProposals from './components/AllAdmin/Administrator/AdminProposals/AdminProposals';
@@ -28,13 +35,10 @@ import AdminLogout from './components/AllAdmin/Administrator/AdminLogout/AdminLo
 import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
 import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
 
-import CitizenNavBar from './components/Citizen/CitizenNav/CitizenNav';
-import CitizenProposalsSideBar from './components/Citizen/CitizenCatNav/CitizenSideBar';
-import CitizenProfile from './pages/Citizen/CitizenProfile/CitizenProfile';
-import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals';
-import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
-import CitizenProjects from './pages/Citizen/CitizenProjects/CitizenProjects';
-import CitizenLogout from './pages/Citizen/CitizenLogout/CitizenLogout';
+import SANavBar from './components/SuperAdmin/SaSideBar';
+import SALogin from './pages/SuperAdmin/SALogin/SALogin';
+import SAForgot from './pages/SuperAdmin/SAForgot/SAForgot';
+import SAContentHome from './pages/SuperAdmin/SAContentHome/SAContentHome';
 
 const App = () => {
   const [citizen, setCitizen] = useState({});
@@ -47,12 +51,18 @@ const App = () => {
     setCitizen({});
   };
 
+  const { user } = useContext(Context);
+
   return (
     <BrowserRouter>
       <LandingNavBar />
       <Progress />
+
       <CitizenNavBar />
       <CitizenProposalsSideBar />
+
+      <SANavBar />
+
         <Switch>
           <Route exact path="/">
             <Home />
@@ -63,7 +73,7 @@ const App = () => {
           </Route>
 
           <Route path="/login">
-            <CitizenLogin />
+            {user ? <Redirect to="/citizen-profile" /> : <CitizenLogin />}
           </Route>
 
           <Route path="/forgot-password">
@@ -123,7 +133,7 @@ const App = () => {
           {/**************************** CITIZEN Routes ****************************/}
 
           <Route path="/citizen-profile">
-            <CitizenProfile />
+            {user ? <CitizenProfile /> : <Redirect to="/" />}
           </Route>
 
           <Route path="/citizen-proposals">
@@ -137,10 +147,6 @@ const App = () => {
           <Route path="/citizen-projects">
             <CitizenProjects/>
           </Route> 
-
-          <Route path="/citizen-logout">
-            <CitizenLogout/>
-          </Route>  
 
           {/**************************** ADMIN Routes ****************************/}
 
@@ -191,6 +197,17 @@ const App = () => {
 
           {/**************************** SUPER ADMIN Routes ****************************/}
           
+          <Route path="/superAdmin-login">
+            <SALogin />
+          </Route>
+
+          <Route path="/superAdmin-forgot">
+            <SAForgot />
+          </Route>
+
+          <Route path="/SAContent-home">
+            <SAContentHome />
+          </Route>
 
           <Route render={() => <Redirect to="/" />} />
 

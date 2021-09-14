@@ -29,6 +29,12 @@ body {
 .citizenLogin-inputForm .btn {
     letter-spacing: 1px;
 }
+
+.citizenLogin-inputForm button:disabled
+{
+    cursor: not-allowed;
+    background-color: rgb(252, 173, 173);
+}
   
 .citizenLogin-inputForm button.btn.btn-danger{
     border-radius: 10px;
@@ -54,7 +60,7 @@ body {
     row-gap: 20px;
 }
 
-.citizenLogin-input {
+.citizenLogin-inputForm .form-control {
     border: hidden !important;
     background: #F0F0F3 !important;
     box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;

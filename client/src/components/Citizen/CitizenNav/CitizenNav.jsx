@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, withRouter } from 'react-router-dom';
 import './CitizenNav.css';
+import { Context } from '../../../context/Context';
 import { Nav } from 'react-bootstrap';
 
 const CitizenNav = ({ location: { pathname } }) => {
@@ -8,6 +9,12 @@ const CitizenNav = ({ location: { pathname } }) => {
   const isCitizenProposals = pathname === '/citizen-proposals';
   const isCitizenReports = pathname === '/citizen-reports';
   const isCitizenProjects = pathname === '/citizen-projects';
+
+  const { user, dispatch } = useContext(Context);
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" })
+  }
 
   return (
     <React.Fragment>
@@ -38,7 +45,7 @@ const CitizenNav = ({ location: { pathname } }) => {
               </li>
 
               <li className="nav-item">
-                <Nav.Link as = {Link} eventKey="link-5" className="nav-link" to="/login">Logout</Nav.Link> 
+                <Nav.Link as = {Link} eventKey="link-5" className="nav-link"  onClick={handleLogout} to="/">Logout</Nav.Link> 
               </li>
           </ul>
         </Nav>

@@ -4,14 +4,14 @@ import { Link, withRouter } from 'react-router-dom';
 import { CitizenSideBarData } from './CitizenSideBarData';
 import CitizenSubMenu from './CitizenSubMenu';
 
-const Nav = styled.div`
+const CitizenNav = styled.div`
   height: 80px;
   display: flex;
   justify-content: flex-start;
   margin-top: 10%;
 `;
 
-const NavIcon = styled(Link)`
+const CitizenNavIcon = styled(Link)`
   margin-left: 2rem;
   font-size: 2rem;
   height: 80px;
@@ -25,7 +25,7 @@ const NavIcon = styled(Link)`
   }
 `;
 
-const SidebarNav = styled.nav`
+const CitizenSidebarNav = styled.nav`
   margin-top: 10%;
   box-sizing: border-box;
   box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
@@ -43,7 +43,7 @@ const SidebarNav = styled.nav`
   z-index: 10;
 `;
 
-const SidebarWrap = styled.div`
+const CitizenSidebarWrap = styled.div`
   width: 100%;
 `;
 
@@ -58,21 +58,21 @@ const CitizenSideBar = ({ location: { pathname } }) => {
     <React.Fragment>
       {isProposals ? (
         <>
-       <Nav>
-         <NavIcon to='#'>
+       <CitizenNav>
+         <CitizenNavIcon to='#'>
            <i class="fas fa-chevron-right" onClick={showSidebar}></i>
-         </NavIcon>
-       </Nav>
-       <SidebarNav sidebar={sidebar}>
-         <SidebarWrap>
-           <NavIcon to='#'>
+         </CitizenNavIcon>
+       </CitizenNav>
+       <CitizenSidebarNav sidebar={sidebar}>
+         <CitizenSidebarWrap>
+           <CitizenNavIcon to='#'>
              <i className="fas fa-times" onClick={showSidebar}></i>
-           </NavIcon>
+           </CitizenNavIcon>
            {CitizenSideBarData.map((item, index) => {
              return <CitizenSubMenu item={item} key={index} />;
            })}
-         </SidebarWrap>
-       </SidebarNav>
+         </CitizenSidebarWrap>
+       </CitizenSidebarNav>
        </>
       ) : (<></>)}
     </React.Fragment>

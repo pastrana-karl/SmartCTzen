@@ -1,0 +1,133 @@
+.SAcontent-header {
+    width: 80%;
+    margin: 5rem auto;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAcontent-header h1 {
+    color: #fe5139;
+    text-align: center;
+    font-weight: bold;
+}
+
+#SAHome-body {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+.SAContent-home {
+    width: 100%;
+    margin: 1.3rem auto;
+    padding: 50px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAContent-home h1 {
+    font-weight: bold;
+    color: #87c441;
+}
+
+.SAContent-homeImage {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.SAContent-homeImage img {
+    width: 25vw;
+    height: 55vh;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.SAContent-reset {
+    outline: none !important;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 10px;
+    color: #fe5139;
+}
+
+.SAContent-reset:hover {
+    background-color: white !important;
+    color: #fe5139 !important;
+}
+
+.SAContent-home .form-control {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.SAContent-homeUploadIcons {
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.SAContent-home button.btn.btn-danger{
+    border-radius: 10px;
+    border-color: #fe5139;
+    background-color: #fe5139;
+    outline: #fe5139;
+}
+  
+.SAContent-home button.btn.btn-danger:hover{
+    background-color: #Dc4733;
+    border-color: #Dc4733;
+}
+
+@media screen and (max-width: 1200px) {
+    .SAContent-homeImage img {
+        width: 35vw;
+        height: 35vh;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .SAContent-homeImage img {
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #SAHome-body {
+        border: none;
+        background: none;
+        box-shadow: inset -0px -0px 0px, inset 0px 0px 0px;
+        border-radius: 5px;
+        padding: 0px;
+        font-size: 18px;
+        margin-bottom: 50px;
+    }
+
+    .SAContent-home {
+        width: 100%;
+        margin: 1.3rem auto;
+        padding: 20px;
+        display: grid;
+        row-gap: 20px;
+    }
+
+    .SAContent-homeImage img {
+        width: 60vw;
+        height: 45vh;
+    }
+}

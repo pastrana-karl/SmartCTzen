@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const CitizenSidebarLink = styled(Link)`
+const SaSidebarLink = styled(Link)`
   display: flex;
   color: #ff5138;
   justify-content: space-between;
@@ -10,7 +10,7 @@ const CitizenSidebarLink = styled(Link)`
   padding: 20px;
   list-style: none;
   height: 60px;
-  text-decoration: none;
+  text-decoration: none !important;
   font-size: 18px;
   &:hover {
     border-bottom-right-radius: 50px;
@@ -22,11 +22,11 @@ const CitizenSidebarLink = styled(Link)`
   }
 `;
 
-const CitizenSidebarLabel = styled.span`
+const SaSidebarLabel = styled.span`
   margin-left: 16px;
 `;
 
-const CitizenDropdownLink = styled(Link)`
+const SaDropdownLink = styled(Link)`
   border-bottom-right-radius: 50px;
   border-top-right-radius: 50px;
   background-color: #f1f1f3 !important;
@@ -34,7 +34,7 @@ const CitizenDropdownLink = styled(Link)`
   padding-left: 3rem;
   display: flex;
   align-items: center;
-  text-decoration: none;
+  text-decoration: none !important;
   color: #ff5138;
   font-size: 18px;
   &:hover {
@@ -45,17 +45,17 @@ const CitizenDropdownLink = styled(Link)`
   }
 `;
 
-const CitizenSubMenu = ({ item }) => {
+const SaSubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
 
   const showSubnav = () => setSubnav(!subnav);
 
   return (
     <>
-      <CitizenSidebarLink to={item.path} onClick={item.subNav && showSubnav}>
+      <SaSidebarLink to={item.path} onClick={item.subNav && showSubnav}>
         <div>
           {item.icon}
-          <CitizenSidebarLabel>{item.title}</CitizenSidebarLabel>
+          <SaSidebarLabel>{item.title}</SaSidebarLabel>
         </div>
         <div>
           {item.subNav && subnav
@@ -64,18 +64,18 @@ const CitizenSubMenu = ({ item }) => {
             ? item.iconClosed
             : null}
         </div>
-      </CitizenSidebarLink>
+      </SaSidebarLink>
       {subnav &&
         item.subNav.map((item, index) => {
           return (
-            <CitizenDropdownLink to={item.path} key={index}>
+            <SaDropdownLink to={item.path} key={index}>
               {item.icon}
-              <CitizenSidebarLabel>{item.title}</CitizenSidebarLabel>
-            </CitizenDropdownLink>
+              <SaSidebarLabel>{item.title}</SaSidebarLabel>
+            </SaDropdownLink>
           );
         })}
     </>
   );
 };
 
-export default CitizenSubMenu;
+export default SaSubMenu;

@@ -14,50 +14,16 @@ const bcrypt = require("bcrypt");
  * 
  * */
 
- const signToken = id => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN
-    });
-}
-
-//Register DO NOTE ERASE
-// exports.registerCitizen = catchAsync(async (req, res, next) => {
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPass = await bcrypt.hash(req.body.password, salt);
-//     const newCitizen = await Citizen.create({
-//         firstname: req.body.firstname,
-//         lastname: req.body.lastname,
-//         middlename: req.body.middlename,
-//         suffix: req.body.suffix,
-//         sex: req.body.sex,
-//         birthdate: req.body.birthdate,
-//         fathername: req.body.fathername,
-//         mothername: req.body.mothername,
-//         street: req.body.street,
-//         barangay: req.body.barangay,
-//         city: req.body.city,
-//         province: req.body.province,
-//         zipcode: req.body.zipcode,
-//         region: req.body.region,
-//         validIDPic: req.body.validIDPic,
-//         residencyPic: req.body.residencyPic,
-//         birthCertPic: req.body.birthCertPic,
-//         email: req.body.email,
-//         password: hashedPass,
-//     })
-
-//     const token = signToken(newAdmin._id);
-
-//     res.status(200).json({
-//         status: "Success",
-//         token,
-//         data: {
-//             newCitizen
-//         }
+//  const signToken = id => {
+//     return jwt.sign({ id }, process.env.JWT_SECRET, {
+//         expiresIn: process.env.JWT_EXPIRES_IN
 //     });
-// });
+// }
 
+// Register DO NOTE ERASE
 exports.registerCitizen = catchAsync(async (req, res, next) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.password, salt);
     const newCitizen = await Citizen.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -77,97 +43,124 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         residencyPic: req.body.residencyPic,
         birthCertPic: req.body.birthCertPic,
         email: req.body.email,
-        password: req.body.password,
-        passwordConfirm: req.body.passwordConfirm
+        password: hashedPass,
     })
 
-    const token = signToken(newCitizen._id);
-
-    res.status(201).json({
-        status: "success",
-        token,
-        data: {
-            newCitizen
-        }
-    });
-})
-
-exports.loginCitizen = catchAsync(async (req, res, next) => {
-    const { email, password } = req.body;
-
-    //1) Check if there is email and password
-    if(!email || !password) {
-        return next(new AppError('Please provide email and password', 400));
-    }
-
-    //2 Check if user exists && password is valid
-    const citizenUser = await Citizen.findOne({ email }).select('+password');
-
-    if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
-        return next(new AppError("Incorrect email or password", 401));
-    }
-
-    //3) Check if everything is ok, send token to client
-    const token = signToken(citizenUser._id);
-    res.status(200).json({
-        status: 'success',
-        token
-    });
+    const citizen = await newCitizen.save();
+    res.status(200).json(citizen);
 });
 
-exports.protect = catchAsync(async (req, res, next) => {
-    //1) Getting token and check if it's there
-    let token;
+// exports.registerCitizen = catchAsync(async (req, res, next) => {
+//     const newCitizen = await Citizen.create({
+//         firstname: req.body.firstname,
+//         lastname: req.body.lastname,
+//         middlename: req.body.middlename,
+//         suffix: req.body.suffix,
+//         sex: req.body.sex,
+//         birthdate: req.body.birthdate,
+//         fathername: req.body.fathername,
+//         mothername: req.body.mothername,
+//         street: req.body.street,
+//         barangay: req.body.barangay,
+//         city: req.body.city,
+//         province: req.body.province,
+//         zipcode: req.body.zipcode,
+//         region: req.body.region,
+//         validIDPic: req.body.validIDPic,
+//         residencyPic: req.body.residencyPic,
+//         birthCertPic: req.body.birthCertPic,
+//         email: req.body.email,
+//         password: req.body.password,
+//         passwordConfirm: req.body.passwordConfirm
+//     })
 
-    const headerAuth = req.headers.authorization;
-    if (headerAuth && headerAuth.statsWith('Bearer')) {
-        token = req.headers.authorization.split(' ')[1];
-    }
+//     const token = signToken(newCitizen._id);
 
-    console.log(token);
+//     res.status(201).json({
+//         status: "success",
+//         token,
+//         data: {
+//             newCitizen
+//         }
+//     });
+// })
 
-    if (!token) {
-        return next(new AppError('Please login!', 401));
-    }
+// exports.loginCitizen = catchAsync(async (req, res, next) => {
+//     const { email, password } = req.body;
 
-    //2) Verification token
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    console.log(decoded);
+//     //1) Check if there is email and password
+//     if(!email || !password) {
+//         return next(new AppError('Please provide email and password', 400));
+//     }
 
-    //3) Check if user still exists
-    const freshCitizen = await Citizen.findById(decoded.id);
-    if (!freshCitizen) {
-        return next(new AppError('User no longer exists', 401));
-    }
+//     //2 Check if user exists && password is valid
+//     const citizenUser = await Citizen.findOne({ email }).select('+password');
 
-    //4) Check if user changed password after the JWT was issued
-    if (freshCitizen.changedPasswordAfter(decoded.iat)) {
-        return next(new AppError('User recently changed password! Please login again', 401));
-    }
+//     if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
+//         return next(new AppError("Incorrect email or password", 401));
+//     }
 
-    //GRANT ACCESS TO PROTECTED ROUTE
-    req.user = freshCitizen;
-    next();
-});
+//     //3) Check if everything is ok, send token to client
+//     const token = signToken(citizenUser._id);
+//     res.status(200).json({
+//         status: 'success',
+//         token
+//     });
+// });
+
+// exports.protect = catchAsync(async (req, res, next) => {
+//     //1) Getting token and check if it's there
+//     let token;
+
+//     const headerAuth = req.headers.authorization;
+//     if (headerAuth && headerAuth.statsWith('Bearer')) {
+//         token = req.headers.authorization.split(' ')[1];
+//     }
+
+//     console.log(token);
+
+//     if (!token) {
+//         return next(new AppError('Please login!', 401));
+//     }
+
+//     //2) Verification token
+//     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+//     console.log(decoded);
+
+//     //3) Check if user still exists
+//     const freshCitizen = await Citizen.findById(decoded.id);
+//     if (!freshCitizen) {
+//         return next(new AppError('User no longer exists', 401));
+//     }
+
+//     //4) Check if user changed password after the JWT was issued
+//     if (freshCitizen.changedPasswordAfter(decoded.iat)) {
+//         return next(new AppError('User recently changed password! Please login again', 401));
+//     }
+
+//     //GRANT ACCESS TO PROTECTED ROUTE
+//     req.user = freshCitizen;
+//     next();
+// });
 
 //Login Backup DO NOT ERASE
-// exports.loginCitizen = catchAsync(async (req, res, next) => {
-//     const citizen = await Citizen.findOne({ email: req.body.email });
+exports.loginCitizen = catchAsync(async (req, res, next) => {
+    const citizen = await Citizen.findOne({ email: req.body.email });
 
-//     if(!citizen)
-//     {
-//         return res.status(400).json("Wrong Credentials!!");
-//     }
+    if(!citizen)
+    {
+        return res.status(400).json("Wrong Credentials!!");
+    }
 
-//     const validated = await bcrypt.compare(req.body.password, citizen.password);
+    const validated = await bcrypt.compare(req.body.password, citizen.password);
 
-//     if(!validated)
-//     {
-//         return res.status(400).json("Wrong Credentials!!");
-//     }
+    if(!validated)
+    {
+        return res.status(400).json("Wrong Credentials!!");
+    }
 
-//     const { password, ...others } = citizen._doc;
-//     console.log()
-//     res.status(200).json(others);
-// });
+    const { password, ...others } = citizen._doc;
+    console.log()
+    res.status(200).json(others);
+});
 
