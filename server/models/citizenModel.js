@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const slugify = require("slugify");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
-const { JsonWebTokenError } = require("jsonwebtoken");
 
 const citizenSchema = new mongoose.Schema({
     lastname:{
