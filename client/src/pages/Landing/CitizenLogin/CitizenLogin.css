@@ -78,7 +78,7 @@ body {
 }
 
 .citizenLogin-link {
-    text-decoration: none;
+    text-decoration: none !important;
     text-align: center;
     color: #fe5139;
 }

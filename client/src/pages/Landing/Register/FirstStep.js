@@ -134,6 +134,10 @@ const FirstStep = (props) => {
         return  `${startDate.month} ${startDate.day}, ${startDate.year}`;
       }
     };
+  
+  const handleBack = () => {
+    props.resetCitizen();
+  }
 
   const Bday = formatInputValue();
 
@@ -277,8 +281,8 @@ const FirstStep = (props) => {
           Next
         </Button>
 
-        <Link className="firstStep-link" to="/login">Back</Link>
-        <Link className="register-link" to="/login">Back</Link>
+        <Link className="firstStep-link" to="/" onClick={handleBack}>Back</Link>
+        <Link className="register-link" to="/" onClick={handleBack}>Back</Link>
       </motion.div>
     </Form>
   );

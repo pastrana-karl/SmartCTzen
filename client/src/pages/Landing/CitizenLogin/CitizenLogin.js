@@ -59,7 +59,7 @@ const CitizenLogin = () => {
                   Submit
                 </Button>
 
-                <Link className="citizenLogin-link" to="/citizen_forgot">Forgot Password?</Link>
+                <Link className="citizenLogin-link" to="/forgot-password">Forgot Password?</Link>
                 <Link className="citizenLogin-link" to="/create-account">Register</Link>
               </Form>
             </motion.div>
