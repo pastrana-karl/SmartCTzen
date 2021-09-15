@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const adminController = require("../controllers/adminController");
+const Admin = require('../models/adminModel');
 
 //REGISTER
 router
@@ -21,6 +22,17 @@ router
     .route("/new-password")
     .post(adminController.changeAdminPassword);
 
+
+//DISPLAY ALL ADMIN
+router.get("/", async (req, res) => {
+    try{
+        let admins;
+        admins = await Admin.find();
+        res.status(200).json(admins);
+    }catch(err){
+         res.status(500).json(err);
+    }
+});
 
 // router.post("/register", async (req, res) => {
 //     try{

@@ -16,24 +16,19 @@ export const SaSideBarData = [
       },
       {
         title: 'Features',
-        path: '/content-feature',
+        path: '/SAContent-feature',
         icon: <i className="fas fa-clipboard-list"></i>
       }
     ]
   },
   {
     title: 'Admins',
-    path: '/superAdmin-manageUser',
+    path: '/SAManage-admin',
     icon: <i className="fas fa-user-shield"></i>
   },
   {
     title: 'Account Settings',
-    path: '/superAdmin-account',
+    path: '/SA-account',
     icon: <i className="fas fa-user-cog"></i>
-  },
-  {
-    title: 'Logout',
-    path: '/superAdmin-login',
-    icon: <i className="fas fa-sign-out-alt"></i>
   }
 ];

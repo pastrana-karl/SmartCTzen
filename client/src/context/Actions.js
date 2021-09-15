@@ -15,6 +15,23 @@ export const Logout = () => ({
     type: "LOGOUT"
 });
 
+export const SALoginStart = (userCredentials) => ({
+    type: "SALOGIN_START"
+});
+
+export const SALoginSuccessful = (saUser) => ({
+    type: "SALOGIN_SUCCESS",
+    payload: saUser,
+});
+
+export const SALoginFailure = () => ({
+    type: "SALOGIN_FAILURE"
+});
+
+export const SALogout = () => ({
+    type: "SALOGOUT"
+});
+
 export const UpdateStart = (userCredentials) => ({
     type: "UPDATE_START"
 });

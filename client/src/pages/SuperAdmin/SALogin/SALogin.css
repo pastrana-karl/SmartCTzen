@@ -29,6 +29,12 @@ body {
 .superAdminLogin-form .btn {
     letter-spacing: 1px;
 }
+
+.superAdminLogin-form button:disabled
+{
+    cursor: not-allowed;
+    background-color: rgb(252, 173, 173);
+}
   
 .superAdminLogin-form button.btn.btn-danger{
     border-radius: 10px;

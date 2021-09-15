@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import './SALogin.css';
 import { Link } from 'react-router-dom';
+import { Context } from '../../../context/Context';
+import axios from 'axios';
 
 const SALogin = () => {
+  const userRef = useRef();
+  const passwordRef = useRef();
+  const { dispatch, isFetching } = useContext(Context);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    dispatch({ type: "SALOGIN_START" });
+    
+    try {
+        const res = await axios.post("/api/superAdmin/login", {
+            email: userRef.current.value,
+            password: passwordRef.current.value,
+        })
+
+        dispatch({ type: "SALOGIN_SUCCESS", payload: res.data });
+    } catch (err) {
+        dispatch({ type: "SALOGIN_FAILURE" });
+    }
+  };
 
   return (
     <>
@@ -18,29 +40,31 @@ const SALogin = () => {
             </div>
             </motion.div>
             <motion.div className="col-md-10 offset-md-1" initial={{ opacity: -3, x: '-100vw' }} animate={{ opacity: 1, x: 0 }} transition={{ stiffness: 150 }}>
-              <Form className="superAdminLogin-form">
+              <Form className="superAdminLogin-form" onSubmit={handleSubmit}>
                 
-                <Form.Group controlId="email">
+                <Form.Group>
                   <Form.Label>Email</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="email"
                     name="email"
                     placeholder="Enter your email address"
+                    ref = { userRef }
                     autoComplete="off"
                   />
                 </Form.Group>
 
-                <Form.Group controlId="password">
+                <Form.Group>
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
                     name="password"
                     placeholder="Choose a password"
+                    ref = { passwordRef }
                     autoComplete="off"
                   />
                 </Form.Group>
 
-                <Button variant="danger" type="submit">
+                <Button variant="danger" type="submit" disabled={ isFetching }>
                   Submit
                 </Button>
 

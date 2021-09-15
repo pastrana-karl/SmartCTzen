@@ -10,7 +10,7 @@ const CitizenNav = ({ location: { pathname } }) => {
   const isCitizenReports = pathname === '/citizen-reports';
   const isCitizenProjects = pathname === '/citizen-projects';
 
-  const { user, dispatch } = useContext(Context);
+  const { dispatch } = useContext(Context);
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" })

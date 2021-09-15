@@ -19,7 +19,7 @@ exports.registerSuperAdmin = catchAsync(async (req, res, next) => {
 });
 
 exports.loginSuperAdmin = catchAsync(async (req, res, next) => {
-    const superadmin = await SuperAdmin.findOne({ username: req.body.username });
+    const superadmin = await SuperAdmin.findOne({ email: req.body.email });
 
     if(!superadmin)
     {

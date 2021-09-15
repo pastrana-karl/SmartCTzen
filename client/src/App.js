@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Context } from './context/Context'
+import { Context } from './context/Context';
 import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import LandingNavBar from './components/Landing/Navigation/LandingNavBar';
@@ -39,6 +39,12 @@ import SANavBar from './components/SuperAdmin/SaSideBar';
 import SALogin from './pages/SuperAdmin/SALogin/SALogin';
 import SAForgot from './pages/SuperAdmin/SAForgot/SAForgot';
 import SAContentHome from './pages/SuperAdmin/SAContentHome/SAContentHome';
+import SAContentFeature from './pages/SuperAdmin/SAContentFeature/SAContentFeature';
+import SAAddFeature from './pages/SuperAdmin/SAAddFeature/SAAddFeature';
+import SAManage from './pages/SuperAdmin/SAManage/SAManage';
+import SASearchAdmin from './pages/SuperAdmin/SASearchAdmin/SASearchAdmin';
+import SAAddAdmin from './pages/SuperAdmin/SAAddAdmin/SAAddAdmin';
+import SAAccount from './pages/SuperAdmin/SAAccount/SAAccount';
 
 const App = () => {
   const [citizen, setCitizen] = useState({});
@@ -52,6 +58,7 @@ const App = () => {
   };
 
   const { user } = useContext(Context);
+  const { saUser } = useContext(Context);
 
   return (
     <BrowserRouter>
@@ -134,6 +141,7 @@ const App = () => {
 
           <Route path="/citizen-profile">
             {user ? <CitizenProfile /> : <Redirect to="/" />}
+            {saUser ? <Redirect to="/SAContent-home" /> : <CitizenLogin />}
           </Route>
 
           <Route path="/citizen-proposals">
@@ -198,7 +206,7 @@ const App = () => {
           {/**************************** SUPER ADMIN Routes ****************************/}
           
           <Route path="/superAdmin-login">
-            <SALogin />
+            {saUser ? <Redirect to="/SAContent-home" /> : <SALogin />}
           </Route>
 
           <Route path="/superAdmin-forgot">
@@ -206,7 +214,31 @@ const App = () => {
           </Route>
 
           <Route path="/SAContent-home">
-            <SAContentHome />
+            {saUser ? <SAContentHome /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAContent-feature">
+            {saUser ? <SAContentFeature /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAAdd-feature">
+            {saUser ? <SAAddFeature /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAManage-admin">
+            {saUser ? <SAManage /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SASearch-admin">
+            {saUser ? <SASearchAdmin /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAAdd-admin">
+            {saUser ? <SAAddAdmin /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SA-account">
+            {saUser ? <SAAccount /> : <Redirect to="/superAdmin-login" />}
           </Route>
 
           <Route render={() => <Redirect to="/" />} />

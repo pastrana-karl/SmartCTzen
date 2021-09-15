@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import { SaSideBarData } from './SaSideBarData';
 import SaSubMenu from './SaSubMenu';
+import { Context } from '../../context/Context';
 
 const SaNav = styled.div`
   height: 80px;
@@ -74,18 +75,51 @@ const SuperAdminHeader = styled.div`
   @media screen and (max-width: 499px) {
     padding-right: 15.3%;
   }
-`
+`;
+
+const SaLogoutSidebarLabel = styled.span`
+  margin-left: 16px;
+`;
+
+const SaLogoutSidebarLink = styled(Link)`
+  display: flex;
+  color: #ff5138;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  list-style: none;
+  height: 60px;
+  text-decoration: none !important;
+  font-size: 18px;
+  &:hover {
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    background: #ff5138;
+    border-left: 4px solid #87c441;
+    color: white;
+    cursor: pointer;
+  }
+`;
 
 const SaSideBar = ({ location: { pathname } }) => {
   const isContentHome = pathname === '/SAContent-home';
+  const isContentFeature = pathname === '/SAContent-feature';
+  const isManageAdmin = pathname === '/SAManage-admin';
+  const isSAAccount = pathname === '/SA-account';
 
   const [sidebar, setSidebar] = useState(false);
 
-  const showSidebar = () => setSidebar(!sidebar); 
+  const showSidebar = () => setSidebar(!sidebar);
+
+  const { dispatch } = useContext(Context);
+
+  const handleLogout = () => {
+    dispatch({ type: "SALOGOUT" })
+  }
   
   return (
     <React.Fragment>
-      {isContentHome ? (
+      {isContentHome || isManageAdmin || isContentFeature || isSAAccount ? (
         <>
        <SaNav>
          <SaNavIcon to='#'>
@@ -104,6 +138,12 @@ const SaSideBar = ({ location: { pathname } }) => {
            {SaSideBarData.map((item, index) => {
              return <SaSubMenu item={item} key={index} />;
            })}
+           <SaLogoutSidebarLink to='/superAdmin-login' onClick={handleLogout}>
+              <div>
+                <i className="fas fa-sign-out-alt"></i>
+                <SaLogoutSidebarLabel>Logout</SaLogoutSidebarLabel>
+              </div>
+            </SaLogoutSidebarLink>
          </SaSidebarWrap>
        </SaSidebarNav>
        </>

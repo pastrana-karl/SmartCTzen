@@ -7,47 +7,50 @@ const catchAsync = require('../utils/catchAsync');
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
 
 //Sendgrid key
 
-const signToken = id => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN
-    });
-}
-
-//Register BACKUP DO NOT ERASE
-// exports.registerAdmin = catchAsync(async (req, res, next) => {
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPass = await bcrypt.hash(req.body.password, salt);
-//     const newAdmin = new Admin({
-//         username: req.body.username,
-//         email: req.body.email,
-//         password: hashedPass,
+// const signToken = id => {
+//     return jwt.sign({ id }, process.env.JWT_SECRET, {
+//         expiresIn: process.env.JWT_EXPIRES_IN
 //     });
+// }
 
-//     const admin = await newAdmin.save();
-//     res.status(200).json(admin)
-// });
-
+// Register BACKUP DO NOT ERASE
 exports.registerAdmin = catchAsync(async (req, res, next) => {
-    const newAdmin = await Admin.create({
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.password, salt);
+    const newAdmin = new Admin({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
-        passwordConfirm: req.body.passwordConfirm
+        password: hashedPass,
+        location: req.body.location,
+        profilePic: req.body.profilePic,
     });
 
-    const token = signToken(newAdmin._id);
-    
-    res.status(201).json({
-        status: "success",
-        token,
-        data: {
-            newAdmin
-        }
-    });
+    const admin = await newAdmin.save();
+    res.status(200).json(admin)
 });
+
+// exports.registerAdmin = catchAsync(async (req, res, next) => {
+//     const newAdmin = await Admin.create({
+//         username: req.body.username,
+//         email: req.body.email,
+//         password: req.body.password,
+//         passwordConfirm: req.body.passwordConfirm
+//     });
+
+//     const token = signToken(newAdmin._id);
+    
+//     res.status(201).json({
+//         status: "success",
+//         token,
+//         data: {
+//             newAdmin
+//         }
+//     });
+// });
 
 exports.loginAdmin = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
