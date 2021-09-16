@@ -3,6 +3,9 @@ const morgan = require('morgan');
 const upload = require('./utils/multer')
 const cloudinary = require('./utils/cloudinary')
 const fs = require('fs');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -18,6 +21,9 @@ const messagesRoutes = require('./routes/messagesRoutes');
 
 const app = express();
 
+//Set Security HTTP Headers
+app.use(helmet());
+
 //Middleware
 app.use(express.urlencoded({extended: false})); //parse body coming from a form
 app.use(express.json()); //application/json
@@ -29,9 +35,16 @@ app.use((req, res, next) => {
     next();
 });
 
+//Development Logging
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
+
+// Data sanitization against NoSQL query injection
+app.use(mongoSanitize());
+
+// Data sanitization against cross-site scripting (XSS) attacks
+app.use(xss());
 
 app.use('/api/upload-images', upload.array('image'), async (req, res) => {
 

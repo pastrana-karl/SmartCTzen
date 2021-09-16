@@ -139,6 +139,7 @@ const citizenSchema = new mongoose.Schema({
 //     return false;
 // }
 
-module.exports = mongoose.model("Citizen", citizenSchema);
+// module.exports = mongoose.model("Citizen", citizenSchema);
 
-// module.exports = Citizen;
+const Citizen = mongoose.model("Citizen", citizenSchema);
+module.exports = Citizen;
