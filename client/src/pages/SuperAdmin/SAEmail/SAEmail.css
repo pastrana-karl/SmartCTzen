@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.superadminEmail-row {
+    margin-top: 5% !important;
+}
+
+.superadminEmail-input .form-control:focus {
+    outline: none;
+    box-shadow: none;
+    color: unset;
+    background-color: unset;
+    border-color: unset;
+}
+
+.superadminEmail-banner h1 {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 2.2rem;
+}
+  
+.superadminEmail-input .btn {
+    letter-spacing: 1px;
+}
+  
+.superadminEmail-input button.btn.btn-danger{
+    border-radius: 10px;
+    border-color: #fe5139;
+    background-color: #fe5139;
+    outline: #fe5139;
+}
+  
+.superadminEmail-input button.btn.btn-danger:hover{
+    background-color: #Dc4733;
+    border-color: #Dc4733;
+}
+
+.superadminEmail-row .superadminEmail-input {
+    width: 55%;
+    margin: 1.3rem auto;
+    box-sizing: border-box;
+    padding: 50px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.superadminEmail-input .form-control {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.superadminEmail-banner {
+    text-align: center;
+    color: #fe5138;
+}
+
+@media screen and (max-width: 1200px) {
+    .superadminEmail-row .superadminEmail-input {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .superadminEmail-row {
+        margin-top: 15% !important;
+    }
+
+    .superadminEmail-row .superadminEmail-input {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .superadminEmail-banner h1 {
+        font-size: 2rem;
+    }
+
+    .superadminEmail-row .superadminEmail-input {
+        width: 90%;
+        box-sizing: none;
+        padding: 0px;
+        background: none;
+        box-shadow: 0px 0px 0px , -0px -0px 0px ;
+        border-radius: 0px;
+        margin-top: 0px;
+    }
+
+    .superadminEmail-input .form-control {
+        padding: 10px;
+        font-size: 18px;
+    }
+
+    .superadminEmail-input label, button {
+        margin-top: 10px;
+    }
+}

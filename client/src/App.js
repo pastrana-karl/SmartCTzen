@@ -6,6 +6,7 @@ import LandingNavBar from './components/Landing/Navigation/LandingNavBar';
 import Home from './pages/Landing/Home/Home';
 import CitizenLogin from './pages/Landing/CitizenLogin/CitizenLogin';
 import CitizenForgot from './pages/Landing/CitizenForgot/CitizenForgot';
+import CitizenEmail from './pages/Landing/CitizenEmail/CitizenEmail';
 import Features from './pages/Landing/Feature/Features';
 import Progress from './components/Landing/Register/Progress';
 import FirstStep from './pages/Landing/Register/FirstStep';
@@ -38,6 +39,7 @@ import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreate
 import SANavBar from './components/SuperAdmin/SaSideBar';
 import SALogin from './pages/SuperAdmin/SALogin/SALogin';
 import SAForgot from './pages/SuperAdmin/SAForgot/SAForgot';
+import SAEmail from './pages/SuperAdmin/SAEmail/SAEmail';
 import SAContentHome from './pages/SuperAdmin/SAContentHome/SAContentHome';
 import SAContentFeature from './pages/SuperAdmin/SAContentFeature/SAContentFeature';
 import SAAddFeature from './pages/SuperAdmin/SAAddFeature/SAAddFeature';
@@ -85,6 +87,10 @@ const App = () => {
 
           <Route path="/forgot-password">
             <CitizenForgot />
+          </Route>
+
+          <Route path="/change-password">
+            <CitizenEmail />
           </Route>
 
           <Route
@@ -141,7 +147,6 @@ const App = () => {
 
           <Route path="/citizen-profile">
             {user ? <CitizenProfile /> : <Redirect to="/" />}
-            {saUser ? <Redirect to="/SAContent-home" /> : <CitizenLogin />}
           </Route>
 
           <Route path="/citizen-proposals">
@@ -211,6 +216,10 @@ const App = () => {
 
           <Route path="/superAdmin-forgot">
             <SAForgot />
+          </Route>
+
+          <Route path="/superAdmin-changePassword">
+            <SAEmail />
           </Route>
 
           <Route path="/SAContent-home">

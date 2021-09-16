@@ -60,7 +60,7 @@ const CitizenSideBar = ({ location: { pathname } }) => {
         <>
        <CitizenNav>
          <CitizenNavIcon to='#'>
-           <i class="fas fa-chevron-right" onClick={showSidebar}></i>
+           <i className="fas fa-chevron-right" onClick={showSidebar}></i>
          </CitizenNavIcon>
        </CitizenNav>
        <CitizenSidebarNav sidebar={sidebar}>

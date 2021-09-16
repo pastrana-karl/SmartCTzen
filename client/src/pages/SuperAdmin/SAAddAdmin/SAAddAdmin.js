@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 import './SAAddAdmin.css'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
