@@ -6,6 +6,7 @@ import axios from 'axios'
 
 const SAManage = () => {
     const [admin, setAdmin] = useState([]);
+    const [adminSearch, setAdminSearch] = useState("");
     const {search} = useLocation();
 
     useEffect(()=>{
@@ -14,7 +15,13 @@ const SAManage = () => {
             setAdmin(res.data);
         }
         fetchAdmin();
-    },[search]) 
+    },[search])
+
+    const onSearch = async () => {
+        const res = await axios.get(`/api/admin/?user=${adminSearch}`);
+        setAdmin(res.data);
+    }
+
 
     // Admin Checking
     // console.log(admin)
@@ -26,14 +33,14 @@ const SAManage = () => {
                     <h1>Administrators</h1>
                 </div>
 
-                <Form className="SAmanage-search">
-                    <Form.Group controlId="email">
+                <Form className="SAmanage-search" onSubmit = { onSearch }>
+                    <Form.Group>
                     <Form.Control
-                        className='SAmanage-input'
                         type="text"
-                        name="email"
+                        name="user"
                         autoComplete="off"
                         placeholder='Search . . .'
+                        onChange = {e => setAdminSearch(e.target.value)}
                     />
                     </Form.Group>
                     
@@ -55,7 +62,7 @@ const SAManage = () => {
                             <Col className='SAmanage-searchResult'><h4>{adminUser._id}</h4></Col>
                             <Col className='SAmanage-searchResult'><h4>{adminUser.username}</h4></Col>
                             <Col className='SAmanage-searchResult'><h4>{adminUser.email}</h4></Col>
-                            <Col className='SAmanage-searchResult'><h4><Link to = '/SASearch-admin'><i className="fas fa-external-link-alt"></i></Link></h4></Col>
+                            <Col className='SAmanage-searchResult'><h4><Link to = {`/SASearch-admin/${adminUser._id}`}><i className="fas fa-external-link-alt"></i></Link></h4></Col>
                         </Row>
                     ))}
                 </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 import './SAAddAdmin.css'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
@@ -11,6 +11,7 @@ const SAAddAdmin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [location, setLocation] = useState("");
+    const [redirect, setRedirect] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +29,6 @@ const SAAddAdmin = () => {
                 const profilePic = res.data.secure_url;
 
                 try {
-                    console.log(profilePic);
                     await axios.post("/api/admin/register", {
                         username,
                         email,
@@ -37,10 +37,10 @@ const SAAddAdmin = () => {
                         profilePic,
                     });
         
-                    Swal.fire('Awesome!', "You're successfully registered!", 'success').then(
+                    Swal.fire('Awesome!', "You've successfully registered an Administrator!", 'success').then(
                         (result) => {
                           if (result.isConfirmed || result.isDismissed) {
-                            res.data && window.location.replace('/SAManage-admin');
+                            setRedirect(true);
                            }
                         }
                     );
@@ -57,13 +57,41 @@ const SAAddAdmin = () => {
                 }
 
             } catch (err) {
-
+                console.log(err)
+            }
+        } else {
+            try {
+                await axios.post("/api/admin/register", {
+                    username,
+                    email,
+                    password,
+                    location,
+                });
+    
+                Swal.fire('Awesome!', "You've successfully registered an Administrator!", 'success').then(
+                    (result) => {
+                      if (result.isConfirmed || result.isDismissed) {
+                        setRedirect(true);
+                       }
+                    }
+                );
+            } catch (err) {
+                console.log(err);
+                if (err.response) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'something wrong!',
+                    });
+                    window.location.replace('/SAAdd-admin');
+                }
             }
         }
     };
 
     return (
         <>
+            { redirect && (<Redirect to = '/SAManage-admin' />) }
             <Container>
                 <div className = 'SAaddAdmin'>
                     <h1>Register Admin</h1>
