@@ -18,21 +18,20 @@ const SASearchAdmin = () => {
         const getAdmin = async ()=>{
             const res = await axios.get("/api/admin/" + path);
             console.log(res)
-            if(res.data !== null) {
-                setAdminId(res.data._id);
-                setEmail(res.data.email);
-                setLoc(res.data.location);
-                setAdminDP(res.data.profilePic);
-            } else {
-                setRedirect(true);
-            }
+            setAdminId(res.data._id);
+            setEmail(res.data.email);
+            setLoc(res.data.location);
+            setAdminDP(res.data.profilePic);
         }
         getAdmin();
     },[path]);
 
-    const handleDelete = async () => {
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
         try {
             await axios.delete(`/api/admin/${adminId}`);
+            setRedirect(true);
         } catch (err) {
             console.log(err);
         }

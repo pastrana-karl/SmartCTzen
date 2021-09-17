@@ -1,8 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Container, Button } from 'react-bootstrap'
 import './SAContentHome.css'
+import axios from 'axios'
 
 const SAContentHome = () => {
+  const [communities, setCommunities] = useState("");
+  const [users, setUsers] = useState("");
+  const [members, setMembers] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const updateCount = {
+      communities,
+      users,
+      members,
+    };
+
+    console.log(updateCount)
+
+    try {
+      await axios.post("/api/updateCount", updateCount);
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
     return (
         <>
         <Container>
@@ -11,37 +34,37 @@ const SAContentHome = () => {
             </div>
 
             <div className = 'col-md-10 offset-md-1' id = 'SAHome-body'>
-                <Form className="SAContent-home">
+                <Form className="SAContent-home" onSubmit = { handleSubmit }>
                 
                 <h1>Update Count</h1>
 
-                <Form.Group controlId="email">
+                <Form.Group>
                   <Form.Label>Partner Communities</Form.Label>
                   <Form.Control
-                    className='homeContent-input'
                     type="number"
-                    name="email"
+                    name="communities"
                     autoComplete="off"
+                    onChange = {e => setCommunities(e.target.value)}
                   />
                 </Form.Group>
 
-                <Form.Group controlId="email">
+                <Form.Group>
                   <Form.Label>Users</Form.Label>
                   <Form.Control
-                    className='homeContent-input'
                     type="number"
-                    name="email"
+                    name="users"
                     autoComplete="off"
+                    onChange = {e => setUsers(e.target.value)}
                   />
                 </Form.Group>
 
-                <Form.Group controlId="email">
+                <Form.Group>
                   <Form.Label>Members</Form.Label>
                   <Form.Control
-                    className='homeContent-input'
                     type="number"
-                    name="email"
+                    name="members"
                     autoComplete="off"
+                    onChange = {e => setMembers(e.target.value)}
                   />
                 </Form.Group>
 
@@ -68,7 +91,6 @@ const SAContentHome = () => {
                 <Form.Group controlId="email">
                   <Form.Label>Message</Form.Label>
                   <Form.Control
-                    className='homeContent-input'
                     type="text"
                     name="email"
                     autoComplete="off"
@@ -80,7 +102,6 @@ const SAContentHome = () => {
                 <Form.Group controlId="email">
                   <Form.Label>Message</Form.Label>
                   <Form.Control
-                    className='homeContent-input'
                     type="text"
                     name="email"
                     autoComplete="off"

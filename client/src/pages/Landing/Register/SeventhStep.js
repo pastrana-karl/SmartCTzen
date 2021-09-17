@@ -234,7 +234,7 @@ const SeventhStep = (props) => {
     ) : (
       <div className = 'registerLoading'>
         <h2>Processing Please Wait</h2>
-        <div className = 'regiterLoading-icons'>
+        <div>
           <ReactBootStrap.Spinner animation="grow" variant="primary" />
           <ReactBootStrap.Spinner animation="grow" variant="secondary" />
           <ReactBootStrap.Spinner animation="grow" variant="success" />

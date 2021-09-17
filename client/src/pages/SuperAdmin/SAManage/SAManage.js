@@ -17,7 +17,8 @@ const SAManage = () => {
         fetchAdmin();
     },[search])
 
-    const onSearch = async () => {
+    const onSearch = async (e) => {
+        e.preventDefault();
         const res = await axios.get(`/api/admin/?user=${adminSearch}`);
         setAdmin(res.data);
     }

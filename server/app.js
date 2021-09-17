@@ -16,6 +16,7 @@ const featuresRoutes = require("./routes/featuresRoutes");
 const citizenRoutes = require("./routes/citizenRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const superAdminRoutes = require("./routes/superAdminRoutes");
+const PartnersHomeRoutes = require("./routes/PartnersHomeRoutes");
 const conversationsRoutes = require('./routes/conversationsRoutes');
 const messagesRoutes = require('./routes/messagesRoutes');
 
@@ -80,6 +81,7 @@ app.use('/api', featuresRoutes);
 app.use('/api/citizen', citizenRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/superAdmin', superAdminRoutes);
+app.use('/api/updateCount', PartnersHomeRoutes);
 app.use('/api', conversationsRoutes);
 app.use('/api', messagesRoutes);
 

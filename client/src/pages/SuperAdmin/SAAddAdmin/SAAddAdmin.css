@@ -106,6 +106,21 @@
     color: #Dc4733;
 }
 
+.SAAddAdminLoading {
+  color: #777;
+  text-align: center;
+}
+
+.SAAddAdminLoading h2 {
+  margin-top: 10%;
+}
+
+@media screen and (max-width: 1200px) {
+    .SAAddAdminLoading {
+        margin-top: 20%;  
+    }
+}
+
 @media screen and (max-width: 600px) {
     #SAaddAmin-body {
         width: 100%;
@@ -125,5 +140,9 @@
 
     .SAaddAmin h1 {
         font-size: 29px;
+    }
+
+    .SAAddAdminLoading {
+        margin-top: 60%;  
     }
 }
