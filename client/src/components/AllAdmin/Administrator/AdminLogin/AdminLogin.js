@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import CardForm from '../../../UI/Cards/CardForm/CardForm';
 import Input from '../../../UI/Input/Input';
 import LoginButton from '../../../UI/Buttons/LoginButton/LoginButton';
-// import { loginCall } from '../../../../api_calls/ApiCalls';
 import { Context } from '../../../../context/Context';
 import axios from 'axios';
 import classes from './AdminLogin.module.css';
@@ -10,13 +9,10 @@ import classes from './AdminLogin.module.css';
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { dispatch, isFetching } = useContext(Context);
+  const { dispatch } = useContext(Context);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(email);
-    console.log(password);
 
     dispatch({ type: "ALOGIN_START" });
 
@@ -32,7 +28,6 @@ const AdminLogin = () => {
     }
   };
 
-    // console.log(user);
     return (
         <div className={classes.Content}>
             <CardForm onSubmit = { handleSubmit }>

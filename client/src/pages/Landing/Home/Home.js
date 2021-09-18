@@ -1,9 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Home.css'
 import Footer from '../../../components/Landing/Footer/Footer'
 import { Container, Row, Col } from 'react-bootstrap'
+import axios from 'axios';
 
 function Home() {
+    const [count, setCount] = useState("");
+    const [community, setCommunity] = useState("");
+    const [users, setUsers] = useState("");
+    const [members, setMembers] = useState("");
+    const [announcement, setAnnouncement] = useState([]);
+
+    useEffect(() => {
+        const fetchCount = async () => {
+            const res = await axios.get("/api/partners");
+            setCount(res.data[0]._id);
+            setCommunity(res.data[0].communities);
+            setUsers(res.data[0].users);
+            setMembers(res.data[0].members);
+        }
+
+        fetchCount();
+    }, []);
+
+    useEffect(() => {
+        const fetchAnnouncement = async () => {
+            const res = await axios.get("/api/saAnnounce");
+            setAnnouncement(res.data);
+        }
+
+        fetchAnnouncement();
+    }, []);
+
+    console.log(announcement);
+
     return (
         <>
             <Container className = 'home-container'>
@@ -16,34 +46,34 @@ function Home() {
                 <Row>
                     <div className = 'homeStats-visibility'>
                         <div>
-                            <h2>140</h2>
+                            <h2>{ count ? community : "" }</h2>
                             <p>PARTNER COMMUNITIES</p>
                         </div> 
                         <div>
-                            <h2>140</h2>
+                            <h2>{ count ? users : "" }</h2>
                             <p>USERS</p>
                         </div>
                         <div>
-                            <h2>140</h2>
+                            <h2>{ count ? members : "" }</h2>
                             <p>MEMBERS</p>
                         </div> 
                     </div>
 
                     <Col className = 'homeStats-container'>
                         <div className = 'home-stats'>
-                            <h2>140</h2>
+                            <h2>{ count ? community : "" }</h2>
                             <p>PARTNER COMMUNITIES</p>
                         </div>  
                     </Col>
                     <Col className = 'homeStats-container'>
                         <div className = 'home-stats'>
-                            <h2>140</h2>
+                            <h2>{ count ? users : "" }</h2>
                             <p>USERS</p>
                         </div> 
                     </Col>
                     <Col className = 'homeStats-container'>
                         <div className = 'home-stats'>
-                            <h2>140</h2>
+                            <h2>{ count ? members : "" }</h2>
                             <p>MEMBERS</p>
                         </div> 
                     </Col>
@@ -123,13 +153,12 @@ function Home() {
                 </div>
 
                 <div className = 'col-md-10 offset-md-0' id = 'home-announcements'>
-                    <div className = 'homeContainer-announcements'>
-                        <h4>SmartCT: </h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
-                    </div>
+                    {announcement.map((message) => (
+                        <div  key={message._id}>
+                            <h4>{message.username}: </h4>
+                            <p>{message.message}</p>
+                        </div> )
+                    )}
                 </div>
             </Container>
             <div className = 'sticky-bottom'>

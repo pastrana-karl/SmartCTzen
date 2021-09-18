@@ -159,12 +159,6 @@
     margin-top: 5%;
 }
 
-.homeContainer-announcements {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
 #home-announcements p {
     text-align: justify;
     margin-left: 5%;
@@ -366,12 +360,6 @@
     .homeAnnounemnets {
         width: 250px;
         margin: 15% auto;
-    }
-
-    .homeContainer-announcements {
-        width: 100%;
-        display: block;
-        justify-content: center;
     }
 
     #home-announcements {
