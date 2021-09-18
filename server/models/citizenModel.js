@@ -116,28 +116,30 @@ const citizenSchema = new mongoose.Schema({
 
 //insert slug
 
-// citizenSchema.pre('save', async function(next) {
-//     if (!this.isModified('password')) return next();
+citizenSchema.pre('save', async function(next) {
+    if (!this.isModified('password')) return next();
+    
+    const salt = await bcrypt.genSalt(10);
+    
+    this.password = await bcrypt.hash(this.password, salt);
+    //this.passwordConfirm = undefined;
+    next();
+});
 
-//     this.password = await bcrypt.hash(this.password, 12);
-//     this.passwordConfirm = undefined;
-//     next();
-// });
+citizenSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
+    return await bcrypt.compare(candidatePassword, userPassword);
+};
 
-// citizenSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
-//     return await bcrypt.compare(candidatePassword, userPassword);
-// };
+citizenSchema.methods.changePasswordAfter = function(JWTTimestamp) {
+    if (this.passwordChangedAt) {
+        const changedTimestamp = parseInt(this.passwordChangedAt.getTime());
 
-// citizenSchema.methods.changePasswordAfter = function(JWTTimestamp) {
-//     if (this.passwordChangedAt) {
-//         const changedTimestamp = parseInt(this.passwordChangedAt.getTime());
+        console.log(changedTimestamp, JWTTimestamp);
+        return JWTTimestamp < changedTimestamp;
+    }
 
-//         console.log(changedTimestamp, JWTTimestamp);
-//         return JWTTimestamp < changedTimestamp;
-//     }
-
-//     return false;
-// }
+    return false;
+}
 
 // module.exports = mongoose.model("Citizen", citizenSchema);
 

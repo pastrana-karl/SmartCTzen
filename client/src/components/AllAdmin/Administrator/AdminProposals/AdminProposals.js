@@ -12,11 +12,11 @@ const AdminProposals = () => {
     
     useEffect(() => {
         const sendRequest = async () => {
-            const response = await fetch('api/initiatives');
+            const response = await fetch('api/proposals');
             
             const responseData = await response.json();
 
-            setProposals(responseData.data.initiatives);
+            setProposals(responseData.data.proposals);
         };
         sendRequest();
     }, []);

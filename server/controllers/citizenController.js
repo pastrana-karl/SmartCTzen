@@ -23,7 +23,7 @@ const bcrypt = require("bcrypt");
 const createSendToken = (user, statusCode, res) => {
     const token = signToken(user._id);
     const cookieOptions = {
-        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN *24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
         secure: false,
         httpOnly: true
     }
@@ -42,7 +42,7 @@ const createSendToken = (user, statusCode, res) => {
             user
         }
     });
-}
+};
 
 // Register DO NOTE ERASE
 // exports.registerCitizen = catchAsync(async (req, res, next) => {
@@ -94,11 +94,24 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         residencyPic: req.body.residencyPic,
         birthCertPic: req.body.birthCertPic,
         email: req.body.email,
-        password: req.body.password,
-        passwordConfirm: req.body.passwordConfirm
+        password: req.body.password
+        //passwordConfirm: req.body.passwordConfirm
     });
 
-    createSendToken(newCitizen, 201, res);
+    // Remove password from the output
+    // newCitizen.password = undefined;
+
+    // res.status(201).json({
+    //     status: 'success',
+    //     token,
+    //     data: {
+    //         newCitizen
+    //     }
+    // });
+
+    const citizen = await newCitizen.save();
+    res.status(200).json(citizen);
+    // createSendToken(newCitizen, 201, res);
 });
 
 exports.loginCitizen = catchAsync(async (req, res, next) => {
