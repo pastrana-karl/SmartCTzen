@@ -56,6 +56,38 @@ const Reducer = (state, action) => {
             error: false,
         };
 
+        case "ALOGIN_START": return {
+            user: null,
+            saUser: null,
+            aUser: null,
+            isFetching: true,
+            error: false,
+        };
+
+        case "ALOGIN_SUCCESS": return {
+            user: null,
+            saUser: null,
+            aUser: action.payload,
+            isFetching: false,
+            error: false,
+        };
+
+        case "ALOGIN_FAILURE": return {
+            user: null,
+            saUser: null,
+            aUser: null,
+            isFetching: false,
+            error: true,
+        };
+
+        case "ALOGOUT": return {
+            user: null,
+            saUser: null,
+            aUser: null,
+            isFetching: false,
+            error: false,
+        };
+
         case "UPDATE_START": return {
             ...state,
             isFetching: true,

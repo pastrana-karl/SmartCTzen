@@ -1,51 +1,57 @@
-import React, { useState, useRef, useContext } from 'react';
-
+import React, { useState, useContext } from 'react';
 import CardForm from '../../../UI/Cards/CardForm/CardForm';
 import Input from '../../../UI/Input/Input';
 import LoginButton from '../../../UI/Buttons/LoginButton/LoginButton';
-import { loginCall } from '../../../../api_calls/ApiCalls';
-import { AuthContext } from '../../../../admin_context/AuthContext';
-
+// import { loginCall } from '../../../../api_calls/ApiCalls';
+import { Context } from '../../../../context/Context';
+import axios from 'axios';
 import classes from './AdminLogin.module.css';
 
 const AdminLogin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { dispatch, isFetching } = useContext(Context);
 
-    // const [inputEmail, setInputEmail] = useState('');
-    // const [inputPassword, setInputPassword] = useState('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    // const email = useRef();
-    // const password = useRef();
+    console.log(email);
+    console.log(password);
 
-    // CODE FOR AUTHENTICATION FOLLOWING LAMA DEV SOCMED
-    // const { user, isFetching, error, dispatch } = useContext(AuthContext);
+    dispatch({ type: "ALOGIN_START" });
 
-    // const submitHandler = (e) => {
-    //     e.preventDefault();
-    //     loginCall({ 
-    //         email: email.current.value, 
-    //         password: password.current.value }, 
-    //         dispatch);
-    // };
+    try {
+        const res = await axios.post("/api/admin/login", {
+            email,
+            password,
+        })
+
+        dispatch({ type: "ALOGIN_SUCCESS", payload: res.data });
+    } catch (err) {
+        dispatch({ type: "ALOGIN_FAILURE" });
+    }
+  };
 
     // console.log(user);
     return (
         <div className={classes.Content}>
-            <CardForm >
+            <CardForm onSubmit = { handleSubmit }>
                 <h3>SmartCTLogo</h3>
                 <Input
                     type="email"
                     placeholder="Email address"
+                    onChange = {e => setEmail(e.target.value)} 
                     id="email"
-
                 />
                 <Input
                     type="password"
                     placeholder="Password"
+                    onChange = {e => setPassword(e.target.value)} 
                     id="password"
 
                 />
                 <div className={classes.ButtonDiv}>
-                    <LoginButton type="submit" />
+                    <LoginButton type="submit"/>
                 </div>
                 <div className={classes.HyperlinkDiv}>
                     <a href="/forgot-password" className={classes.Hyperlink}>

@@ -32,6 +32,23 @@ export const SALogout = () => ({
     type: "SALOGOUT"
 });
 
+export const ALoginStart = (userCredentials) => ({
+    type: "ALOGIN_START"
+});
+
+export const ALoginSuccessful = (aUser) => ({
+    type: "ALOGIN_SUCCESS",
+    payload: aUser,
+});
+
+export const ALoginFailure = () => ({
+    type: "ALOGIN_FAILURE"
+});
+
+export const ALogout = () => ({
+    type: "ALOGOUT"
+});
+
 export const UpdateStart = (userCredentials) => ({
     type: "UPDATE_START"
 });
