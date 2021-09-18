@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Toolbar from '../../../UI/Navigation/Toolbar/Toolbar';
 import NavigationItems from '../../../UI/Navigation/NavigationItems/NavigationItems';
 import NavigationItem from '../../../UI/Navigation/NavigationItems/NavigationItem/NavigationItem';
 
 import classes from './AdminLayout.module.css';
+import { Context } from '../../../../context/Context';
+
 
 const AdminLayout = ( props ) => {
+
+    const { dispatch } = useContext(Context);
+
+    const handleLogout = () => {
+        dispatch({ type: "ALOGOUT" })
+    }
+    
     return (
         <React.Fragment>
             <Toolbar>
@@ -18,7 +27,7 @@ const AdminLayout = ( props ) => {
                     <NavigationItem link="/admin-projects" >Projects</NavigationItem>
                     <NavigationItem link="/admin-users" >Users</NavigationItem>
                     <NavigationItem link="/admin-applicants" >Applicants</NavigationItem>
-                    <NavigationItem link="/admin-logout" >Logout</NavigationItem>
+                    <NavigationItem  onClick={handleLogout} link="/admin-logout" >Logout</NavigationItem>
                 </NavigationItems>
             </Toolbar>
 

@@ -61,6 +61,7 @@ const App = () => {
 
   const { user } = useContext(Context);
   const { saUser } = useContext(Context);
+  const { aUser } = useContext(Context);
 
   return (
     <BrowserRouter>
@@ -164,7 +165,7 @@ const App = () => {
           {/**************************** ADMIN Routes ****************************/}
 
           <Route path="/admin-login">
-            <AdminLogin />
+            {aUser ? <Redirect to="/admin-profile" /> : <AdminLogin />}
           </Route>
 
           <Route path="/admin-profile">

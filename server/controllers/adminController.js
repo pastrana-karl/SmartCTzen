@@ -68,78 +68,78 @@ exports.registerAdmin = catchAsync(async (req, res, next) => {
 //     createSendToken(newAdmin, 201, res);
 // });
 
-exports.loginAdmin = catchAsync(async (req, res, next) => {
-    const { email, password } = req.body;
+// exports.loginAdmin = catchAsync(async (req, res, next) => {
+//     const { email, password } = req.body;
 
-    //1) Check if there is email and password
-    if (!email || !password) {
-        return next(new AppError('Please provide email and password', 400));
-    }
+//     //1) Check if there is email and password
+//     if (!email || !password) {
+//         return next(new AppError('Please provide email and password', 400));
+//     }
 
-    //2) Check if user exists && password is valid
-    const adminUser = await Admin.findOne({ email }).select('+password');
+//     //2) Check if user exists && password is valid
+//     const adminUser = await Admin.findOne({ email }).select('+password');
 
-    if (!adminUser || !(await adminUser.correctPassword(password, adminUser.password))) {
-        return next(new AppError("Incorrect email or password", 401));
-    }
+//     if (!adminUser || !(await adminUser.correctPassword(password, adminUser.password))) {
+//         return next(new AppError("Incorrect email or password", 401));
+//     }
 
-    //3) Check of everything ok, send token to client
-    createSendToken(adminUser, 201, res);
-});
+//     //3) Check of everything ok, send token to client
+//     createSendToken(adminUser, 201, res);
+// });
 
-exports.protectAdmin = catchAsync(async (req, res, next) => {
-    //1) Getting token and check if it's there
-    let token;
+// exports.protectAdmin = catchAsync(async (req, res, next) => {
+//     //1) Getting token and check if it's there
+//     let token;
 
-    const headerAuth = req.header.authorization;
-    if (headerAuth && headerAuth.startsWith('Bearer')) {
-        token = req.headers.authorization.split(' ')[1];
-    }
+//     const headerAuth = req.header.authorization;
+//     if (headerAuth && headerAuth.startsWith('Bearer')) {
+//         token = req.headers.authorization.split(' ')[1];
+//     }
 
-    if (!token) {
-        return next(new AppError("Please login!", 401));
-    }
+//     if (!token) {
+//         return next(new AppError("Please login!", 401));
+//     }
 
-    //2) Verification token
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    console.log(decoded);
+//     //2) Verification token
+//     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+//     console.log(decoded);
 
-    //3) Check if user still exists
-    const freshAdmin = await Admin.findById(decoded.id);
-    if (!freshAdmin) {
-        return next(new AppError("User no longer exists", 401));
-    }
+//     //3) Check if user still exists
+//     const freshAdmin = await Admin.findById(decoded.id);
+//     if (!freshAdmin) {
+//         return next(new AppError("User no longer exists", 401));
+//     }
 
-    //4) Check if user changed password after the JWT was issued
-    if (freshAdmin.changedPasswordAfter(decoded.iat)) {
-        return next(new AppError('User recently changed password! Please login again', 401));
-    }
+//     //4) Check if user changed password after the JWT was issued
+//     if (freshAdmin.changedPasswordAfter(decoded.iat)) {
+//         return next(new AppError('User recently changed password! Please login again', 401));
+//     }
 
-    //GRANT ACCESS TO PROTECTED ROUTE
-    req.user = freshAdmin;
-    next();
+//     //GRANT ACCESS TO PROTECTED ROUTE
+//     req.user = freshAdmin;
+//     next();
 
-});
+// });
 
 //Login BACKUP DO NOT ERASE
-// exports.loginAdmin = catchAsync(async (req, res, next) => {
-//     const admin = await Admin.findOne({ username: req.body.username });
+exports.loginAdmin = catchAsync(async (req, res, next) => {
+    const admin = await Admin.findOne({ email: req.body.email });
 
-//     if(!admin)
-//     {
-//         return res.status(400).json("Wrong Credentials!!");
-//     }
+    if(!admin)
+    {
+        return res.status(400).json("Wrong Credentials!!");
+    }
 
-//     const validated = await bcrypt.compare(req.body.password, admin.password);
+    const validated = await bcrypt.compare(req.body.password, admin.password);
 
-//     if(!validated)
-//     {
-//         return res.status(400).json("Wrong Credentials!!");
-//     }
+    if(!validated)
+    {
+        return res.status(400).json("Wrong Credentials!!");
+    }
 
-//     const { password, ...others } = admin._doc;
-//     res.status(200).json(others);
-// });
+    const { password, ...others } = admin._doc;
+    res.status(200).json(others);
+});
 
 //FORGOT PASSWORD
 

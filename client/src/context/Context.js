@@ -4,6 +4,7 @@ import Reducer from "./Reducer";
 const INITIAL_STATE = {
     user: JSON.parse(localStorage.getItem("user")) || null,
     saUser: JSON.parse(localStorage.getItem("saUser")) || null,
+    aUser: JSON.parse(localStorage.getItem("aUser")) || null,
     isFetching: false,
     error: false,
 };
@@ -20,11 +21,16 @@ export const ContextProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem("saUser", JSON.stringify(state.saUser))
     }, [state.saUser])
+
+    useEffect(() => {
+        localStorage.setItem("aUser", JSON.stringify(state.aUser))
+    }, [state.aUser])
     
     return(
         <Context.Provider value = {{
             user: state.user,
             saUser: state.saUser,
+            aUser: state.aUser,
             isFetching: state.isFetching,
             error: state.error,
             dispatch
