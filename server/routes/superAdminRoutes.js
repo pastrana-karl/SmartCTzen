@@ -13,4 +13,11 @@ router
     .route("/login")
     .post(superAdminController.loginSuperAdmin);
 
+//UPDATE ACCOUNT
+router
+    .route("/:id")
+    .put(superAdminController.UpdateSuperAdmin);
+
+
+
 module.exports = router;

@@ -9,11 +9,13 @@ const SAContentHome = () => {
   const [communities, setCommunities] = useState("");
   const [users, setUsers] = useState("");
   const [members, setMembers] = useState("");
+  const [currentCom, setCurrentCom] = useState("");
+  const [currentUsers, setCurrentUsers] = useState("");
+  const [currentMembers, setCurrentMembers] = useState("");
   const [message, setMessage] = useState("");
   const { saUser } = useContext(Context);
   const [announcement, setAnnouncement] = useState([]);
-
-  console.log(saUser.username);
+  const [featuredM, setFeaturedM] = useState([]);
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
@@ -24,7 +26,16 @@ const SAContentHome = () => {
     fetchAnnouncement();
   }, []);
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    const fetchFeaturedMember = async () => {
+        const res = await axios.get("/api/mFeatured");
+        setFeaturedM(res.data);
+    }
+
+    fetchFeaturedMember();
+  }, []);
+
+  const handlePartners = async (e) => {
     e.preventDefault();
 
     const updateCount = {
@@ -33,16 +44,37 @@ const SAContentHome = () => {
       members,
     };
 
-    const newAnnouncement = {
-      username: saUser.username,
-      message,
-    };
-
-    console.log(communities)
-
     const res = await axios.get("/api/partners");
+    console.log(res.data)
+    setCurrentCom(res.data[0].communities)
+    setCurrentUsers(res.data[0].members)
+    setCurrentMembers(res.data[0].users)
 
     if(communities !== "" || users !== "" || members !== "") {
+      if(currentCom === communities) {
+        updateCount.communities = currentCom;
+      } else if(updateCount.communities === "") {
+        updateCount.communities = currentCom;
+      } else {
+        updateCount.communities = communities;
+      }
+
+      if(currentUsers === users) {
+        updateCount.users = currentUsers;
+      } else if(updateCount.users === "") {
+        updateCount.users = currentUsers;
+      } else {
+        updateCount.users = users;
+      }
+
+      if(currentMembers === members) {
+        updateCount.members = currentMembers;
+      } else if(updateCount.members === "") {
+        updateCount.members = currentMembers;
+      } else {
+        updateCount.members = members;
+      }
+
       if(res.data[0]._id) {
         try {
           await axios.delete(`/api/partners/${res.data[0]._id}`);
@@ -57,6 +89,15 @@ const SAContentHome = () => {
         console.log(err)
       }
     }
+  }
+
+  const handleAnnouncement = async (e) => {
+    e.preventDefault();
+
+    const newAnnouncement = {
+      username: saUser.username,
+      message,
+    };
 
     if(message !== "") {
       try {
@@ -79,7 +120,7 @@ const SAContentHome = () => {
             </div>
 
             <div className = 'col-md-10 offset-md-1' id = 'SAHome-body'>
-                <Form className="SAContent-home" onSubmit = { handleSubmit }>
+                <Form className="SAContent-home" onSubmit = { handlePartners }>
                   <Form.Group>
                     <Form.Label>Partner Communities</Form.Label>
                     <Form.Control
@@ -133,7 +174,7 @@ const SAContentHome = () => {
             </div>
 
             <div className = 'col-md-10 offset-md-1' id = 'SAHome-body'>
-                <Form className="SAContent-home" onSubmit = { handleSubmit }>
+                <Form className="SAContent-home" onSubmit = { handleAnnouncement }>
                   <Form.Group>
                     <Form.Label>Message</Form.Label>
                     <Form.Control
@@ -159,19 +200,21 @@ const SAContentHome = () => {
             </div>
 
             <div className = 'col-md-10 offset-md-1' id = 'SAHome-body'>
-                <div className = 'featuredMembers-imgContainer'>
-                  <div className = 'SAContent-homeImage'>
-                    <Link to = '/SAContent-addFeaturedMember'>
-                      <img src= 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt=""></img>
-                    </Link>
-                    
-                    <h2><Link to = '/SAContent-addFeaturedMember'>Kris Libunao</Link></h2>
-                    <h3>Executive Director</h3>
-                  </div>
-                </div>
+              {featuredM.map((featured) => (
+                <div className = 'featuredMembers-imgContainer' key={featured._id}>
+                    <div className = 'SAContent-homeImage'>
+                      <Link to = {`/SAContent-FeaturedMember/${featured._id}`}>
+                        <img src= {featured.profilePic} alt=""></img>
+                      </Link>
+                      
+                      <h2><Link to = {`/SAContent-FeaturedMember/${featured._id}`}>{featured.name}</Link></h2>
+                      <h3>{featured.position}</h3>
+                    </div>
+                </div>)
+              )}
 
                 <div className = 'SAContent-addFeaturedMember'>
-                    <Link to = '/SAAdd-feature'><i className="fas fa-plus-circle"></i></Link>
+                    <Link to = '/SAContent-addFeaturedMember'><i className="fas fa-plus-circle"></i></Link>
                 </div>
             </div>
         </Container>

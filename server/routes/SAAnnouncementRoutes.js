@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Announcement = require("../models/SAAnnouncement");
+const Announcement = require("../models/SAAnnouncementModel");
 
 //CREATE ANNOUNCEMENT
 

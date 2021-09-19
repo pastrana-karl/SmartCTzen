@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const SAAnnouncement = new mongoose.Schema({
+const SAAnnouncementSchema = new mongoose.Schema({
     username:{
         type:String,
     },
@@ -9,4 +9,4 @@ const SAAnnouncement = new mongoose.Schema({
     },
 }, { timestamps: true } )
 
-module.exports = mongoose.model("SAAnnouncement", SAAnnouncement);
+module.exports = mongoose.model("SAAnnouncement", SAAnnouncementSchema);

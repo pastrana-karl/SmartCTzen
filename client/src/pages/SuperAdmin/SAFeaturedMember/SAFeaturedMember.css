@@ -1,0 +1,80 @@
+#SAFeaturedMemberDisplay-body {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 50px;
+    font-size: 18px;
+    margin: 5% auto;
+}
+
+.SFMD-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5%;
+}
+
+.SFMD-imgContainer {
+    width: 25vw;
+    display: flex;
+    justify-content: center;
+}
+
+.SFMD-imgContainer img {
+    width: 100%;
+    object-fit: fill;
+    border-radius: 45px;
+}
+
+#SAFeaturedMemberDisplay-body h2 {
+    text-align: center;
+    margin: 2% auto;
+    color: #fe5138;
+}
+
+#SAFeaturedMemberDisplay-body h3 {
+    margin-bottom: 5%;
+    text-align: center;
+    color: #87c441;
+}
+
+.SAFMD-message {
+    display: flex;
+    justify-content: center;
+    padding: 0% 10%;
+}
+
+.SAFMD-message p {
+    text-align: center;
+    font-weight: bold;
+}
+
+.SAFMD-link {
+    text-decoration: none !important;
+    display: flex;
+    justify-content: center;
+    color: #fe5139;
+    font-size: 17px;
+}
+
+.SAFMD-link:hover {
+    color: #Dc4733;
+}
+
+@media screen and (max-width: 1200px) {
+    #SAFeaturedMemberDisplay-body {
+        margin: 10% auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #SAFeaturedMemberDisplay-body {
+        border: none;
+        background: none;
+        box-shadow: inset -0px -0px 0px, inset 0px 0px 0px;
+        border-radius: 5px;
+        padding: 0px;
+        font-size: 18px;
+        margin: 25% auto;
+    }
+}

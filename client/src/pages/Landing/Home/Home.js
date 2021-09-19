@@ -10,6 +10,7 @@ function Home() {
     const [users, setUsers] = useState("");
     const [members, setMembers] = useState("");
     const [announcement, setAnnouncement] = useState([]);
+    const [featuredM, setFeaturedM] = useState([]);
 
     useEffect(() => {
         const fetchCount = async () => {
@@ -30,6 +31,15 @@ function Home() {
         }
 
         fetchAnnouncement();
+    }, []);
+
+    useEffect(() => {
+        const fetchFeaturedMember = async () => {
+            const res = await axios.get("/api/mFeatured");
+            setFeaturedM(res.data);
+        }
+    
+        fetchFeaturedMember();
     }, []);
 
     console.log(announcement);
@@ -128,25 +138,26 @@ function Home() {
                         <p>" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "</p>
                     </div>
                 </Row>
-
-                <Row className = 'homeFeaturedSuperAdmin'>
-                    <Col>
-                        <div className = 'col-md-10 offset-md-2' id = 'homePanel-superAdminFeature'>
-                            <div className = 'homeContainer-superAdminImg'>
-                                <div className = 'home-superAdminImg'>
-                                    <img src = 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt ='superAdminFeature'></img>
+                {featuredM.map((featured) => (
+                    <Row className = 'homeFeaturedSuperAdmin' key={featured._id}>
+                        <Col>
+                            <div className = 'col-md-10 offset-md-2' id = 'homePanel-superAdminFeature'>
+                                <div className = 'homeContainer-superAdminImg'>
+                                    <div className = 'home-superAdminImg'>
+                                        <img src = {featured.profilePic} alt ='superAdminFeature'></img>
+                                    </div>
                                 </div>
+                                <h2>{featured.name}</h2>
+                                <h3>{featured.position}</h3>
                             </div>
-                            <h2>Kris Libunao</h2>
-                            <h3>Executive Director</h3>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className = 'homeFeaturedSA-textContainer'>
-                            <p>" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "</p>
-                        </div>
-                    </Col>
-                </Row>
+                        </Col>
+                        <Col>
+                            <div className = 'homeFeaturedSA-textContainer'>
+                                <p>" {featured.message} "</p>
+                            </div>
+                        </Col>
+                    </Row>
+                ))}
 
                 <div className = "homeAnnounemnets">
                     <h4>Announcements</h4>
