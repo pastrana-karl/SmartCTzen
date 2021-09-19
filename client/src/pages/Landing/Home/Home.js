@@ -11,6 +11,16 @@ function Home() {
     const [members, setMembers] = useState("");
     const [announcement, setAnnouncement] = useState([]);
     const [featuredM, setFeaturedM] = useState([]);
+    const [feature, setFeature] = useState([]);
+
+    useEffect(() => {
+        const fetchFeatures = async () => {
+            const res = await axios.get("/api/SAFeatures");
+            setFeature(res.data);
+        }
+    
+        fetchFeatures();
+    }, []);
 
     useEffect(() => {
         const fetchCount = async () => {
@@ -90,57 +100,28 @@ function Home() {
                 </Row>
 
                 <Row className = 'homeFeat-container'>
-                    <div className = 'homeFeat-visibility'>
-                        <i className="fas fa-clipboard-list"></i>
-                        <div>
-                            <h2>Create Proposals</h2>
-                        </div>
-                        <div>
-                            <h2>Monitor Projects</h2>
-                        </div>
-                        <div>
-                            <h2>Submit Reports</h2>
-                        </div> 
-                    </div>
-
-                    <Col className = 'home-features'>
-                        <div>
-                            <i className="fas fa-clipboard-list"></i>
-                            <h2>Create Proposals</h2>
-                        </div>  
-                    </Col>
-                    <Col className = 'home-features'>
-                        <div>
-                            <i className="fas fa-clipboard-list"></i>
-                            <h2>Monitor Projects</h2>
-                        </div> 
-                    </Col>
-                    <Col className = 'home-features'>
-                        <div>
-                            <i className="fas fa-clipboard-list"></i>
-                            <h2>Submit Reports</h2>
-                        </div> 
-                    </Col>
-                </Row>
-
-                <Row className = 'homeFeaturedSuperAdmin-mobile'>
-                    <div className = 'col-md-10 offset-md-2' id = 'homePanel-superAdminFeature'>
-                        <div className = 'homeContainer-superAdminImg'>
-                            <div className = 'home-superAdminImg'>
-                                <img src = 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt ='superAdminFeature'></img>
+                    {feature.map((featTitle) => (
+                        <div key={featTitle._id}>
+                            <div className = 'homeFeat-visibility'>
+                                <i className="fas fa-clipboard-list"></i>
+                                <div>
+                                    <h2>{featTitle.title}</h2>
+                                </div>
                             </div>
-                        </div>
-                        <h2>Kris Libunao</h2>
-                        <h3>Executive Director</h3>
-                    </div>
 
-                    <div className = 'homeFeaturedSA-textContainer'>
-                        <p>" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "</p>
-                    </div>
+                            <Col className = 'home-features'>
+                                <div>
+                                    <i className="fas fa-clipboard-list"></i>
+                                    <h2>{featTitle.title}</h2>
+                                </div>  
+                            </Col>
+                        </div>
+                    ))}
                 </Row>
+
                 {featuredM.map((featured) => (
-                    <Row className = 'homeFeaturedSuperAdmin' key={featured._id}>
-                        <Col>
+                    <div key={featured._id}>
+                        <Row className = 'homeFeaturedSuperAdmin-mobile'>
                             <div className = 'col-md-10 offset-md-2' id = 'homePanel-superAdminFeature'>
                                 <div className = 'homeContainer-superAdminImg'>
                                     <div className = 'home-superAdminImg'>
@@ -150,13 +131,31 @@ function Home() {
                                 <h2>{featured.name}</h2>
                                 <h3>{featured.position}</h3>
                             </div>
-                        </Col>
-                        <Col>
+
                             <div className = 'homeFeaturedSA-textContainer'>
-                                <p>" {featured.message} "</p>
+                                <p>" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "</p>
                             </div>
-                        </Col>
-                    </Row>
+                        </Row>
+
+                        <Row className = 'homeFeaturedSuperAdmin'>
+                            <Col>
+                                <div className = 'col-md-10 offset-md-2' id = 'homePanel-superAdminFeature'>
+                                    <div className = 'homeContainer-superAdminImg'>
+                                        <div className = 'home-superAdminImg'>
+                                            <img src = {featured.profilePic} alt ='superAdminFeature'></img>
+                                        </div>
+                                    </div>
+                                    <h2>{featured.name}</h2>
+                                    <h3>{featured.position}</h3>
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className = 'homeFeaturedSA-textContainer'>
+                                    <p>" {featured.message} "</p>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
                 ))}
 
                 <div className = "homeAnnounemnets">

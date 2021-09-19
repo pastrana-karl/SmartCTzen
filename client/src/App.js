@@ -46,6 +46,7 @@ import SAFeaturedMember from './pages/SuperAdmin/SAFeaturedMember/SAFeaturedMemb
 import SAAddFeaturedMember from './pages/SuperAdmin/SAAddFeaturedMember/SAAddFeaturedMember';
 import SAContentFeature from './pages/SuperAdmin/SAContentFeature/SAContentFeature';
 import SAAddFeature from './pages/SuperAdmin/SAAddFeature/SAAddFeature';
+import SAFeatures from './pages/SuperAdmin/SAFeatures/SAFeatures';
 import SAManage from './pages/SuperAdmin/SAManage/SAManage';
 import SASearchAdmin from './pages/SuperAdmin/SASearchAdmin/SASearchAdmin';
 import SAAddAdmin from './pages/SuperAdmin/SAAddAdmin/SAAddAdmin';
@@ -255,6 +256,10 @@ const App = () => {
 
           <Route path="/SAAdd-feature">
             {saUser ? <SAAddFeature /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SA-feature">
+            {saUser ? <SAFeatures /> : <Redirect to="/superAdmin-login" />}
           </Route>
 
           <Route path="/SAManage-admin">

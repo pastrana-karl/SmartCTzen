@@ -79,10 +79,10 @@
 
 .SAaccount-reset {
     outline: none !important;
-    background: #F0F0F3;
-    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
-    border-radius: 10px;
-    color: #fe5139;
+    background: #F0F0F3 !important;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF !important;
+    border-radius: 10px !important;
+    color: #fe5139 !important;
 }
 
 .SAaccount-reset:hover {

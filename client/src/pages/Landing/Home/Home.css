@@ -52,11 +52,13 @@
 
 .home-features {
     display: flex;
-    justify-content: center;
+    justify-content: center; 
 }
 
 .homeFeat-container {
     margin-top: 10%;
+    display: flex;
+    justify-content: center;
 }
 
 .home-features h2 {
@@ -364,5 +366,10 @@
 
     #home-announcements {
         margin-bottom: 25%;
+    }
+
+    #home-announcements p {
+        text-align: justify;
+        margin-bottom: 10%;
     }
 }

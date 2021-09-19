@@ -9,9 +9,6 @@ const SAContentHome = () => {
   const [communities, setCommunities] = useState("");
   const [users, setUsers] = useState("");
   const [members, setMembers] = useState("");
-  const [currentCom, setCurrentCom] = useState("");
-  const [currentUsers, setCurrentUsers] = useState("");
-  const [currentMembers, setCurrentMembers] = useState("");
   const [message, setMessage] = useState("");
   const { saUser } = useContext(Context);
   const [announcement, setAnnouncement] = useState([]);
@@ -46,31 +43,28 @@ const SAContentHome = () => {
 
     const res = await axios.get("/api/partners");
     console.log(res.data)
-    setCurrentCom(res.data[0].communities)
-    setCurrentUsers(res.data[0].members)
-    setCurrentMembers(res.data[0].users)
 
     if(communities !== "" || users !== "" || members !== "") {
-      if(currentCom === communities) {
-        updateCount.communities = currentCom;
+      if(res.data[0].communities === communities) {
+        updateCount.communities = res.data[0].communities;
       } else if(updateCount.communities === "") {
-        updateCount.communities = currentCom;
+        updateCount.communities = res.data[0].communities;
       } else {
         updateCount.communities = communities;
       }
 
-      if(currentUsers === users) {
-        updateCount.users = currentUsers;
+      if(res.data[0].users === users) {
+        updateCount.users = res.data[0].users;
       } else if(updateCount.users === "") {
-        updateCount.users = currentUsers;
+        updateCount.users = res.data[0].users;
       } else {
         updateCount.users = users;
       }
 
-      if(currentMembers === members) {
-        updateCount.members = currentMembers;
+      if(res.data[0].members === members) {
+        updateCount.members = res.data[0].members;
       } else if(updateCount.members === "") {
-        updateCount.members = currentMembers;
+        updateCount.members = res.data[0].members;
       } else {
         updateCount.members = members;
       }

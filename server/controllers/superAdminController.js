@@ -39,11 +39,17 @@ exports.loginSuperAdmin = catchAsync(async (req, res, next) => {
 
 
 exports.UpdateSuperAdmin = catchAsync(async (req, res) => {
+    const superadmin = await SuperAdmin.findById(req.params.id);
+
     if(req.body.userId === req.params.id){
-        if(req.body.password){
+
+        if(req.body.password === "") {
+            req.body.password = superadmin.password;
+        } else {
             const salt = await bcrypt.genSalt(10);
             req.body.password = await bcrypt.hash(req.body.password, salt);
         }
+
         try{
             const updatedUser = await SuperAdmin.findByIdAndUpdate(req.params.id,{
                 $set: req.body,
@@ -55,5 +61,17 @@ exports.UpdateSuperAdmin = catchAsync(async (req, res) => {
         }catch(err){
             res.status(500).json(err);
         }
+    }
+});
+
+
+exports.GetSpecificSuperAdmin = catchAsync(async (req, res) => {
+    try{
+        const specSAdmin = await SuperAdmin.findById(req.params.id);
+
+        const { password, ...others } = specSAdmin._doc;
+        res.status(200).json(others);
+    }catch(err){
+         res.status(500).json(err);
     }
 });

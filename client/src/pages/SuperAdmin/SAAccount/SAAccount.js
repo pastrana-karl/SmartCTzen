@@ -9,6 +9,7 @@ const SAAccount = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -20,12 +21,29 @@ const SAAccount = () => {
             password,
         }
 
-        try {
-            const res = await axios.put("/api/superAdmin/" + saUser._id, updateAccount);
-            dispatch({ type: "SAUPDATE_SUCCESS", payload: res.data });
-        } catch (err) {
-            console.log(err);
-            dispatch({ type: "SAUPDATE_FAILURE" })
+        const res = await axios.get("/api/superAdmin/" + saUser._id);
+        console.log(res.data)
+
+        if(username !== "" || email !== "" || password !== "") {
+            if(updateAccount.username === "") {
+                updateAccount.username = res.data.username;
+            } else {
+                updateAccount.username = username;
+            }
+    
+            if(updateAccount.email === "") {
+                updateAccount.email = res.data.email;
+            } else {
+                updateAccount.email = email;
+            }
+
+            try {
+                const res = await axios.put("/api/superAdmin/" + saUser._id, updateAccount);
+                dispatch({ type: "SAUPDATE_SUCCESS", payload: res.data });
+            } catch (err) {
+                console.log(err);
+                dispatch({ type: "SAUPDATE_FAILURE" })
+            }
         }
     }
 

@@ -73,6 +73,16 @@
     color: #Dc4733;
 }
 
+.SAcontent-featureRow a {
+    text-decoration: none !important;
+    color: black;
+}
+
+.SAcontent-featureRow a:hover {
+    text-decoration: none !important;
+    color: black;
+}
+
 @media screen and (max-width: 1200px) {
     .SAcontent-featureDescription {
         margin: 1.3rem auto;
