@@ -11,9 +11,13 @@ const addUser = (userId, socketId) => {
     users.push({ userId, socketId });
 };
 
-const getUser = (userId) => {
+const removeUser = (socketId) => {
+    users = users.filter(user => user.socketId !== socketId);
+};
+
+const getUser = (userId, socketId) => {
     return users.find(user => user.userId === userId);
-}
+};
 
 io.on("connection", (socket) => {
     console.log("A user connected");
@@ -35,6 +39,9 @@ io.on("connection", (socket) => {
     });
 
     //when disconnect
-
-
+    socket.on("disconnect", () => {
+        console.log("A user disconnected");
+        removeUser(socket.id);
+        io.emit("getUsers", users);
+    });
 });

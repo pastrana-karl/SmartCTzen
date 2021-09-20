@@ -1,8 +1,12 @@
 import React from 'react';
+import { format } from 'timeago.js';
+import AdminMessages from '../AdminMessages';
 
 import classes from './AdminMessage.module.css';
 
-const AdminMessage = ({ own }) => {
+const AdminMessage = ({messages, own }) => {
+    console.log(messages);
+    
     return (
         <div className={own ? classes.MessageOwn : classes.Message }>
             <div className={classes.MessageTop}>
@@ -12,11 +16,11 @@ const AdminMessage = ({ own }) => {
                     alt=""
                 />
                 <p className={classes.MessageText}>
-                Hello! This is me This real!
+                {messages.text}
                 </p>
             </div>
             <div className={classes.MessageBottom}>
-            1 hour ago
+            {format(messages.createdAt)}
             </div>
         </div>
     );

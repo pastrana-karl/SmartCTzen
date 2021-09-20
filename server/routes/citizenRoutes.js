@@ -11,4 +11,9 @@ router
     .route("/login")
     .post(citizenController.loginCitizen);
 
+//Get Citizen
+router
+    .route("/:id")
+    .get(citizenController.getCitizen);
+
 module.exports = router;
