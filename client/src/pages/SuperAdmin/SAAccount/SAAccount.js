@@ -15,13 +15,14 @@ const SAAccount = () => {
 
         dispatch({ type: "SAUPDATE_START" })
         const updateAccount = {
-            userId: saUser._id,
+            userId: saUser.others._id,
             username,
             email,
             password,
+            token: saUser.token,
         }
 
-        const res = await axios.get("/api/superAdmin/" + saUser._id);
+        const res = await axios.get("/api/superAdmin/" + saUser.others._id);
         console.log(res.data)
 
         if(username !== "" || email !== "" || password !== "") {
@@ -38,10 +39,13 @@ const SAAccount = () => {
             }
 
             try {
-                await axios.put(`/api/saAnnounce/?user=${saUser.username}`, updateAccount);
+                await axios.put(`/api/saAnnounce/?user=${saUser.others.username}`, updateAccount);
 
                 try {
-                    const res = await axios.put("/api/superAdmin/" + saUser._id, updateAccount);
+                    const res = await axios.put("/api/superAdmin/" + saUser.others._id, updateAccount);
+                    Array.from(document.querySelectorAll("input")).forEach(
+                        input => (input.value = "")
+                      );
                     dispatch({ type: "SAUPDATE_SUCCESS", payload: res.data });
                 } catch (err) {
                     console.log(err);
@@ -68,7 +72,7 @@ const SAAccount = () => {
                         <Form.Control
                             type="text"
                             name="username"
-                            placeholder = {saUser.username}
+                            placeholder = {saUser.others.username}
                             onChange = {e => setUsername(e.target.value)}
                             autoComplete="off"
                         />
@@ -79,7 +83,7 @@ const SAAccount = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder = {saUser.email}
+                            placeholder = {saUser.others.email}
                             onChange = {e => setEmail(e.target.value)}
                             autoComplete="off"
                         />

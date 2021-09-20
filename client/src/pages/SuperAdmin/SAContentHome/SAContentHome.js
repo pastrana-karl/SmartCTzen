@@ -14,6 +14,8 @@ const SAContentHome = () => {
   const [announcement, setAnnouncement] = useState([]);
   const [featuredM, setFeaturedM] = useState([]);
 
+  console.log(saUser.others.username)
+
   useEffect(() => {
     const fetchAnnouncement = async () => {
         const res = await axios.get("/api/saAnnounce");
@@ -79,6 +81,9 @@ const SAContentHome = () => {
 
       try {
         await axios.post("/api/partners/update", updateCount);
+        Array.from(document.querySelectorAll("input")).forEach(
+          input => (input.value = "")
+        );
       } catch (err) {
         console.log(err)
       }
@@ -89,13 +94,16 @@ const SAContentHome = () => {
     e.preventDefault();
 
     const newAnnouncement = {
-      username: saUser.username,
+      username: saUser.others.username,
       message,
     };
 
     if(message !== "") {
       try {
         await axios.post("/api/saAnnounce/announcement", newAnnouncement);
+        Array.from(document.querySelectorAll("input")).forEach(
+          input => (input.value = "")
+        );
       } catch (err) {
         console.log(err)
       }

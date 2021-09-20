@@ -14,7 +14,7 @@ const bcrypt = require("bcrypt");
  * 
  * */
 
- const signToken = id => {
+const signToken = id => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN
     });
@@ -28,12 +28,12 @@ const createSendToken = (user, statusCode, res) => {
         httpOnly: true
     }
 
-//     if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+    if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
-//     res.cookie('jwt', token, cookieOptions);
+    res.cookie('jwt', token, cookieOptions);
 
-//     // Remove password from the output
-//     user.password = undefined;
+    // Remove password from the output
+    user.password = undefined;
 
     res.status(statusCode).json({
         status: 'success',
@@ -114,24 +114,24 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
 //     createSendToken(newCitizen, 201, res);
 // });
 
-// exports.loginCitizen = catchAsync(async (req, res, next) => {
-//     const { email, password } = req.body;
+exports.loginCitizen = catchAsync(async (req, res, next) => {
+    const { email, password } = req.body;
 
-//     //1) Check if there is email and password
-//     if(!email || !password) {
-//         return next(new AppError('Please provide email and password', 400));
-//     }
+    //1) Check if there is email and password
+    if(!email || !password) {
+        return next(new AppError('Please provide email and password', 400));
+    }
 
-//     //2 Check if user exists && password is valid
-//     const citizenUser = await Citizen.findOne({ email }).select('+password');
+    //2 Check if user exists && password is valid
+    const citizenUser = await Citizen.findOne({ email }).select('+password');
 
-//     if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
-//         return next(new AppError("Incorrect email or password", 401));
-//     }
+    if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
+        return next(new AppError("Incorrect email or password", 401));
+    }
 
-//     //3) Check if everything is ok, send token to client
-//     createSendToken(citizenUser, 201, res);
-// });
+    //3) Check if everything is ok, send token to client
+    createSendToken(citizenUser, 201, res);
+});
 
 // exports.protect = catchAsync(async (req, res, next) => {
 //     //1) Getting token and check if it's there
@@ -169,23 +169,23 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
 // });
 
 //Login Backup DO NOT ERASE
-exports.loginCitizen = catchAsync(async (req, res, next) => {
-    const citizen = await Citizen.findOne({ email: req.body.email });
+// exports.loginCitizen = catchAsync(async (req, res, next) => {
+//     const citizen = await Citizen.findOne({ email: req.body.email });
 
-    if(!citizen)
-    {
-        return res.status(400).json("Wrong Credentials!!");
-    }
+//     if(!citizen)
+//     {
+//         return res.status(400).json("Wrong Credentials!!");
+//     }
 
-    const validated = await bcrypt.compare(req.body.password, citizen.password);
+//     const validated = await bcrypt.compare(req.body.password, citizen.password);
 
-    if(!validated)
-    {
-        return res.status(400).json("Wrong Credentials!!");
-    }
+//     if(!validated)
+//     {
+//         return res.status(400).json("Wrong Credentials!!");
+//     }
 
-    const { password, ...others } = citizen._doc;
-    console.log()
-    res.status(200).json(others);
-});
+//     const { password, ...others } = citizen._doc;
+//     console.log()
+//     res.status(200).json(others);
+// });
 
