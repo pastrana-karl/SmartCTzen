@@ -1,4 +1,4 @@
-.SAcontent-addFeatureHeader {
+.SAnew-feature {
     width: 80%;
     margin: 5rem auto;
     box-sizing: border-box;
@@ -10,13 +10,13 @@
     row-gap: 20px;
 }
 
-.SAcontent-addFeatureHeader h1 {
+.SAnew-feature h1 {
     color: #ff5138;
     text-align: center;
     font-weight: bold;
 }
 
-#SAAddFeature-body {
+#SANewFeature-body {
     border: hidden;
     background: #F0F0F3;
     box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
@@ -26,7 +26,7 @@
     margin-bottom: 50px;
 }
 
-.SAContent-featureAdd {
+.SA-featuredelete {
     width: 100%;
     margin: 1.3rem auto;
     padding: 50px;
@@ -34,7 +34,7 @@
     row-gap: 20px;
 }
 
-.SAContent-featureAdd .form-control {
+.SA-featuredelete .form-control {
     border: hidden;
     background: #F0F0F3;
     box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
@@ -42,79 +42,69 @@
     padding: 10px;
 }
 
-.SAContent-featureAdd button.btn.btn-danger{
+.SA-featuredelete button.btn.btn-danger{
     border-radius: 10px;
     border-color: #fe5139;
     background-color: #fe5139;
     outline: #fe5139;
 }
   
-.SAContent-featureAdd button.btn.btn-danger:hover{
+.SA-featuredelete button.btn.btn-danger:hover{
     background-color: #Dc4733;
     border-color: #Dc4733;
 }
 
-.SAContent-addFeatureImage {
-    display: flex;
-    justify-content: center;
-}
-
-.SAAF-container {
-    width: 25vw;
-    display: flex;
-    justify-content: center;
-}
-
-.SAAF-container img {
-    width: 100%;
-    object-fit: fill;
+.SA-FeatureImage {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
     border-radius: 10px;
+    padding: 20px;
+    text-align: center;
 }
 
-.SAContent-addFeatureUploadIcons {
-    font-size: 50px;
-    display: flex;
-    justify-content: center;
+.SA-FeatureImage img {
+    width: 25vw;
+    height: 55vh;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
-.addFeatureLink {
+.SADelete-FeaturesLink {
     text-decoration: none !important;
     display: flex;
     justify-content: center;
     color: #fe5139;
 }
 
-.addFeatureLink:hover {
+.SADelete-FeaturesLink:hover {
     color: #Dc4733;
 }
 
-.SAContent-addFeatureReset {
-    outline: none !important;
-    background: #F0F0F3 !important;
-    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF !important;
-    border-radius: 10px !important;
-    color: #fe5139 !important;
+.SA-featuredelete h4 {
+    text-align: center;
+    font-weight: bold;
 }
 
-.SAContent-addFeatureReset:hover {
-    background-color: white !important;
-    color: #fe5139 !important;
+.SA-featuredelete p {
+    text-align: justify;
 }
 
 @media screen and (max-width: 1200px) {
-    .SAContent-addFeatureImage img {
+    .SA-FeatureImage img {
         width: 35vw;
+        height: 35vh;
     }
 }
 
 @media screen and (max-width: 900px) {
-    .SAContent-addFeatureImage img {
+    .SA-FeatureImage img {
         width: 40vw;
     }
 }
 
 @media screen and (max-width: 600px) {
-    #SAAddFeature-body {
+    #SANewFeature-body {
         border: none;
         background: none;
         box-shadow: inset -0px -0px 0px, inset 0px 0px 0px;
@@ -124,7 +114,7 @@
         margin-bottom: 50px;
     }
 
-    .SAContent-featureAdd {
+    .SA-featuredelete {
         width: 100%;
         margin: 1.3rem auto;
         padding: 20px;
@@ -132,7 +122,8 @@
         row-gap: 20px;
     }
 
-    .SAContent-addFeatureImage img {
+    .SA-FeatureImage img {
         width: 60vw;
+        height: 45vh;
     }
 }

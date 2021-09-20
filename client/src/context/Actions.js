@@ -61,3 +61,16 @@ export const UpdateSuccessful = (user) => ({
 export const UpdateFailure = () => ({
     type: "UPDATE_FAILURE"
 });
+
+export const SAUpdateStart = (userCredentials) => ({
+    type: "SAUPDATE_START"
+});
+
+export const SAUpdateSuccessful = (user) => ({
+    type: "SAUPDATE_SUCCESS",
+    payload: user,
+});
+
+export const SAUpdateFailure = () => ({
+    type: "SAUPDATE_FAILURE"
+});

@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
-import { Container, Form, Button } from 'react-bootstrap'
-import * as ReactBootStrap from 'react-bootstrap'
-import './SAAddAdmin.css'
 import { Link, Redirect } from 'react-router-dom'
+import { Form, Button, Container } from 'react-bootstrap'
+import * as ReactBootStrap from 'react-bootstrap'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import './SAAddFeaturedMember.css'
 
-const SAAddAdmin = () => {
+const SAAddFeaturedMember = () => {
     const [file, setFile] = useState(null);
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [location, setLocation] = useState("");
+    const [name, setName] = useState("");
+    const [position, setPosition] = useState("");
+    const [message, setMessage] = useState("");
     const [profilePic, setProfilePic] = useState("");
     const [redirect, setRedirect] = useState(false);
     const [loading, setLoading] =  useState(true);
@@ -20,13 +19,12 @@ const SAAddAdmin = () => {
         e.preventDefault();
         setLoading(false);
 
-        const newAdmin = {
-            username,
-            email,
-            password,
-            location,
+        const newFeaturedMember = {
+            name,
+            position,
+            message,
             profilePic,
-        };
+        }
 
         if (file) {
             const data = new FormData();
@@ -38,7 +36,7 @@ const SAAddAdmin = () => {
 
             try {
                 const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
-                newAdmin.profilePic = res.data.secure_url;
+                newFeaturedMember.profilePic = res.data.secure_url;
             } catch (err) {
                 console.log(err)
             }
@@ -47,11 +45,11 @@ const SAAddAdmin = () => {
         }
 
         try {
-            await axios.post("/api/admin/register", newAdmin);
+            await axios.post("/api/mFeatured/featuredMember", newFeaturedMember);
             setLoading(true);
 
             if(loading === true){
-                Swal.fire('Awesome!', "You've successfully registered an Administrator!", 'success').then(
+                Swal.fire('Awesome!', "You've successfully created an featured member post!", 'success').then(
                     (result) => {
                         if (result.isConfirmed || result.isDismissed) {
                             setRedirect(true);
@@ -78,90 +76,81 @@ const SAAddAdmin = () => {
                 }
             }
         }
-    };
+    }
 
     return (
         <>
-            { redirect && (<Redirect to = '/SAManage-admin' />) }
+            { redirect && (<Redirect to = '/SAContent-home' />) }
             {loading ? (
                 <Container>
-                    <div className = 'SAaddAdmin'>
-                        <h1>Register Admin</h1>
-                    </div>
-
-                    <div className = 'col-md-10 offset-md-1' id = 'SAaddAmin-body'>
-                        <div className = 'SAaddAminImg'>
-                            <div className = 'SAaddAminImg-container'>
+                    <div className = 'col-md-10 offset-md-1' id = 'SAFeaturedMember-body'>
+                        <div className = 'SFMBody-container'>
+                            <div className = 'SAFM-container'>
                                 <img src= {file && (URL.createObjectURL(file))} alt="" onClick={()=> window.open(URL.createObjectURL(file), "_blank")}></img>
                             </div>
                         </div>
-                        <Form className = 'SAaddAmin-edit' onSubmit = { handleSubmit }>
+
+                        <Form className="SAContent-formFM" onSubmit = { handleSubmit }>
+                            <div className = 'SAFMicon-container'>
+                                <Form.Label htmlFor="fileInput"><i className="SAFM-icon fas fa-image"></i></Form.Label>
+                            </div>
+                            <input
+                                type="file"
+                                name="Featured-Photo" 
+                                id="fileInput"  
+                                style={{display:"none"}}
+                                required
+                                onChange={(e) => setFile(e.target.files[0])}
+                            />
+
                             <Form.Group>
-                                <div className="SAaddAmin-uploadIcon">
-                                    <Form.Label htmlFor="fileInput"><i className="writeIcon fas fa-image"></i></Form.Label>
-                                </div>
-                                <input
-                                    type="file"
-                                    name="validIDPic" 
-                                    id="fileInput"  
-                                    style={{display:"none"}}
-                                    onChange={(e) => setFile(e.target.files[0])}
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control
+                                type="text"
+                                name="name"
+                                required
+                                onChange = {e => setName(e.target.value)}
+                                autoComplete="off"
                                 />
                             </Form.Group>
 
                             <Form.Group>
-                            <Form.Label>User Name</Form.Label>
-                            <Form.Control
+                                <Form.Label>Position</Form.Label>
+                                <Form.Control
                                 type="text"
-                                name="userName"
-                                onChange = {e => setUsername(e.target.value)}
+                                name="position"
+                                required
+                                onChange = {e => setPosition(e.target.value)}
                                 autoComplete="off"
-                            />
+                                />
                             </Form.Group>
 
                             <Form.Group>
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                name="email"
-                                onChange = {e => setEmail(e.target.value)}
-                                autoComplete="off"
-                            />
-                            </Form.Group>
-
-                            <Form.Group>
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                name="password"
-                                onChange = {e => setPassword(e.target.value)}
-                                autoComplete="off"
-                            />
-                            </Form.Group>
-
-                            <Form.Group>
-                            <Form.Label>City or Municipality</Form.Label>
-                            <Form.Control
+                                <Form.Label>Message</Form.Label>
+                                <Form.Control
                                 type="text"
-                                name="location"
-                                onChange = {e => setLocation(e.target.value)}
+                                name="message"
+                                required
+                                onChange = {e => setMessage(e.target.value)}
                                 autoComplete="off"
-                            />
+                                />
                             </Form.Group>
 
 
                             <Button variant="danger" type="submit">
-                                Register
+                                Submit
                             </Button>
-                            <Button className = 'SAaddAmin-reset' variant="outline-light" type="reset">
+
+                            <Button className = 'SAFM-reset' variant="outline-light" type="reset">
                                 Clear
                             </Button>
-                            <Link className="SAaddAmin-links" to="/SAManage-admin">Back</Link>
+
+                            <Link to = '/SAContent-home' className = 'SAFM-link'>Back</Link>
                         </Form>
                     </div>
                 </Container>
             ) : (
-                <div className = 'SAAddAdminLoading'>
+                <div className = 'SAAddFeaturedMLoading'>
                     <h2>Processing Please Wait</h2>
                     <div>
                     <ReactBootStrap.Spinner animation="grow" variant="primary" />
@@ -179,4 +168,5 @@ const SAAddAdmin = () => {
     )
 }
 
-export default SAAddAdmin
+export default SAAddFeaturedMember
+

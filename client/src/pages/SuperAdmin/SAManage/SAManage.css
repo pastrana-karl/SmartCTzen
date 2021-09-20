@@ -83,9 +83,17 @@
     color: #Dc4733;
 }
 
+#SAmanage-body .SAmanage-displayResult h4 {
+    font-size: 16px;
+    font-weight: bold;
+}
 
 @media screen and (max-width: 600px) {
     .SAmanage-addAdmin {
         font-size: 50px;
+    }
+
+    .SAmanage-header h1 {
+        font-size: 35px;
     }
 }

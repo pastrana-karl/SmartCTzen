@@ -52,11 +52,16 @@
     margin-top: 5%;
 }
 
-.SAaddAminImg img {
-    width: 200px;
-    height: 200px;
-    border-radius: 360px;
-    object-fit: cover;
+.SAaddAminImg-container {
+    width: 25vw;
+    display: flex;
+    justify-content: center;
+}
+
+.SAaddAminImg-container img {
+    width: 100%;
+    object-fit: fill;
+    border-radius: 45px;
     cursor: pointer;
 }
 
@@ -136,6 +141,8 @@
 
     .SAaddAmin-edit  {
         padding: 30px;
+        padding-top: 0;
+        margin-top: 0;
     }
 
     .SAaddAmin h1 {
@@ -144,5 +151,9 @@
 
     .SAAddAdminLoading {
         margin-top: 60%;  
+    }
+
+    .SAaddAminImg-container {
+        width: 45vw;
     }
 }

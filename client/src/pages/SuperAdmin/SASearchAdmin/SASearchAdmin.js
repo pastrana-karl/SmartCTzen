@@ -46,7 +46,7 @@ const SASearchAdmin = () => {
                 <div className = 'SAmanage-searchResultBody'>
                     <div className = 'searchResultImg-container'>
                         <div className = 'searchResultImg'>
-                            <img src = {adminDP} alt = "" ></img>
+                            {adminDP === "" ? <i style = {{fontSize: '100px', display: 'flex', justifyContent: 'center', marginTop: '25%'}} class="fas fa-user"></i> : <img src = {adminDP} alt = "" ></img>}
                         </div>
                     </div>
                     <Form className="SAmanage-result" onSubmit = {handleDelete}>

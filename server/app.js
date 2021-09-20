@@ -17,6 +17,9 @@ const citizenRoutes = require("./routes/citizenRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const superAdminRoutes = require("./routes/superAdminRoutes");
 const PartnersHomeRoutes = require("./routes/PartnersHomeRoutes");
+const SAAnnouncement = require("./routes/SAAnnouncementRoutes");
+const SAFeaturedMember = require("./routes/SAFeaturedMemberRoutes");
+const SAFeatures = require("./routes/SAFeaturesRoutes");
 const conversationsRoutes = require('./routes/conversationsRoutes');
 const messagesRoutes = require('./routes/messagesRoutes');
 
@@ -81,7 +84,10 @@ app.use('/api', featuresRoutes);
 app.use('/api/citizen', citizenRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/superAdmin', superAdminRoutes);
-app.use('/api/updateCount', PartnersHomeRoutes);
+app.use('/api/partners', PartnersHomeRoutes);
+app.use('/api/saAnnounce', SAAnnouncement);
+app.use('/api/mFeatured', SAFeaturedMember);
+app.use('/api/SAFeatures', SAFeatures);
 app.use('/api', conversationsRoutes);
 app.use('/api', messagesRoutes);
 

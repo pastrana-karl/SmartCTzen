@@ -29,9 +29,6 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(email);
-    console.log(password);
-
     dispatch({ type: "ALOGIN_START" });
 
     try {

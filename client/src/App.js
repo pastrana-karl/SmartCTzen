@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context } from './context/Context';
-import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import LandingNavBar from './components/Landing/Navigation/LandingNavBar';
 import Home from './pages/Landing/Home/Home';
@@ -41,14 +41,20 @@ import SALogin from './pages/SuperAdmin/SALogin/SALogin';
 import SAForgot from './pages/SuperAdmin/SAForgot/SAForgot';
 import SAEmail from './pages/SuperAdmin/SAEmail/SAEmail';
 import SAContentHome from './pages/SuperAdmin/SAContentHome/SAContentHome';
+import SAAnnouncements from './pages/SuperAdmin/SAAnnouncements/SAAnnouncements';
+import SAFeaturedMember from './pages/SuperAdmin/SAFeaturedMember/SAFeaturedMember';
+import SAAddFeaturedMember from './pages/SuperAdmin/SAAddFeaturedMember/SAAddFeaturedMember';
 import SAContentFeature from './pages/SuperAdmin/SAContentFeature/SAContentFeature';
 import SAAddFeature from './pages/SuperAdmin/SAAddFeature/SAAddFeature';
+import SAFeatures from './pages/SuperAdmin/SAFeatures/SAFeatures';
 import SAManage from './pages/SuperAdmin/SAManage/SAManage';
 import SASearchAdmin from './pages/SuperAdmin/SASearchAdmin/SASearchAdmin';
 import SAAddAdmin from './pages/SuperAdmin/SAAddAdmin/SAAddAdmin';
 import SAAccount from './pages/SuperAdmin/SAAccount/SAAccount';
 
 const App = () => {
+
+  //Register data passing...
   const [citizen, setCitizen] = useState({});
 
   const updateCitizen = (data) => {
@@ -59,12 +65,17 @@ const App = () => {
     setCitizen({});
   };
 
+  //Citizen User...
   const { user } = useContext(Context);
+
+  //Super Administrator User...
   const { saUser } = useContext(Context);
+
+  //Administrator User...
   const { aUser } = useContext(Context);
 
   return (
-    <BrowserRouter>
+    <>
       <LandingNavBar />
       <Progress />
 
@@ -227,12 +238,28 @@ const App = () => {
             {saUser ? <SAContentHome /> : <Redirect to="/superAdmin-login" />}
           </Route>
 
+          <Route path="/SAContent-announcements">
+            {saUser ? <SAAnnouncements /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAContent-FeaturedMember">
+            {saUser ? <SAFeaturedMember /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAContent-addFeaturedMember">
+            {saUser ? <SAAddFeaturedMember /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
           <Route path="/SAContent-feature">
             {saUser ? <SAContentFeature /> : <Redirect to="/superAdmin-login" />}
           </Route>
 
           <Route path="/SAAdd-feature">
             {saUser ? <SAAddFeature /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SA-feature">
+            {saUser ? <SAFeatures /> : <Redirect to="/superAdmin-login" />}
           </Route>
 
           <Route path="/SAManage-admin">
@@ -254,7 +281,7 @@ const App = () => {
           <Route render={() => <Redirect to="/" />} />
 
         </Switch>
-    </BrowserRouter>
+    </>
   );
 } 
 
