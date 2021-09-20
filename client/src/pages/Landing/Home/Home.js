@@ -99,25 +99,52 @@ function Home() {
                     </Col>
                 </Row>
 
-                <Row className = 'homeFeat-container'>
-                    {feature.map((featTitle) => (
-                        <div key={featTitle._id}>
-                            <div className = 'homeFeat-visibility'>
-                                <i className="fas fa-clipboard-list"></i>
-                                <div>
-                                    <h2>{featTitle.title}</h2>
-                                </div>
-                            </div>
+                <div className = "homeFeatures">
+                    <h4>Features</h4>
+                </div>
 
-                            <Col className = 'home-features'>
-                                <div>
-                                    <i className="fas fa-clipboard-list"></i>
-                                    <h2>{featTitle.title}</h2>
-                                </div>  
-                            </Col>
+                {feature.map((featTitle) => (
+                    <Row className = 'homeFeat-container' key={featTitle._id}>
+                        <div className = 'homeFeat-visibility'>
+                            <i className="fas fa-clipboard-list"></i>
+                            <div>
+                                <h2>{featTitle.title}</h2>
+                            </div>
                         </div>
-                    ))}
-                </Row>
+                            
+                        {featTitle.position === "Left" ? (
+                            <>
+                                <Col className = 'home-features'>
+                                    <div>
+                                        <i className="fas fa-clipboard-list"></i>
+                                    </div>  
+                                </Col>
+                                <Col className = 'home-features'>
+                                    <div>
+                                        <h2>{featTitle.title}</h2>
+                                    </div>  
+                                </Col>
+                            </>
+                        ) : (
+                            <>
+                                <Col className = 'home-features'>
+                                    <div>
+                                        <h2>{featTitle.title}</h2>
+                                    </div>  
+                                </Col>
+                                <Col className = 'home-features'>
+                                    <div>
+                                        <i className="fas fa-clipboard-list"></i>
+                                    </div>  
+                                </Col>
+                            </>
+                        )}
+                    </Row>
+                ))}
+
+                <div className = "homeCommunity">
+                    <h4>Community</h4>
+                </div>
 
                 {featuredM.map((featured) => (
                     <div key={featured._id}>

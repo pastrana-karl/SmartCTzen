@@ -93,8 +93,11 @@ const SAAddFeature = () => {
                     <div className = 'col-md-10 offset-md-1' id = 'SAAddFeature-body'>
                         <Form  className="SAContent-featureAdd" onSubmit = { handleSubmit }>
                             <div className = 'SAContent-addFeatureImage'>
-                                <img src= {file && (URL.createObjectURL(file))} alt="" onClick={()=> window.open(URL.createObjectURL(file), "_blank")}></img>
+                                <div className = 'SAAF-container'>
+                                    <img src= {file && (URL.createObjectURL(file))} alt="" onClick={()=> window.open(URL.createObjectURL(file), "_blank")}></img>
+                                </div>
                             </div>
+                           
 
                             <Form.Group>
                             <div className="SAContent-addFeatureUploadIcons">

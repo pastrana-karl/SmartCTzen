@@ -59,7 +59,7 @@ const SAManage = () => {
                     </Row>
 
                     {admin.map((adminUser) => (
-                        <Row key={adminUser._id}>
+                        <Row className = 'SAmanage-displayResult' key={adminUser._id}>
                             <Col className='SAmanage-searchResult'><h4>{adminUser._id}</h4></Col>
                             <Col className='SAmanage-searchResult'><h4>{adminUser.username}</h4></Col>
                             <Col className='SAmanage-searchResult'><h4>{adminUser.email}</h4></Col>

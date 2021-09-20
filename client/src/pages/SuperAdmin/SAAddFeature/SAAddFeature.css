@@ -55,19 +55,20 @@
 }
 
 .SAContent-addFeatureImage {
-    border: hidden;
-    background: #F0F0F3;
-    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
-.SAContent-addFeatureImage img {
+.SAAF-container {
     width: 25vw;
-    height: 55vh;
+    display: flex;
+    justify-content: center;
+}
+
+.SAAF-container img {
+    width: 100%;
+    object-fit: fill;
     border-radius: 10px;
-    object-fit: cover;
 }
 
 .SAContent-addFeatureUploadIcons {
@@ -103,7 +104,6 @@
 @media screen and (max-width: 1200px) {
     .SAContent-addFeatureImage img {
         width: 35vw;
-        height: 35vh;
     }
 }
 
@@ -134,6 +134,5 @@
 
     .SAContent-addFeatureImage img {
         width: 60vw;
-        height: 45vh;
     }
 }

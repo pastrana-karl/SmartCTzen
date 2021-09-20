@@ -91,7 +91,9 @@ const SAAddAdmin = () => {
 
                     <div className = 'col-md-10 offset-md-1' id = 'SAaddAmin-body'>
                         <div className = 'SAaddAminImg'>
-                            <img src= {file && (URL.createObjectURL(file))} alt="" onClick={()=> window.open(URL.createObjectURL(file), "_blank")} ></img>
+                            <div className = 'SAaddAminImg-container'>
+                                <img src= {file && (URL.createObjectURL(file))} alt="" onClick={()=> window.open(URL.createObjectURL(file), "_blank")}></img>
+                            </div>
                         </div>
                         <Form className = 'SAaddAmin-edit' onSubmit = { handleSubmit }>
                             <Form.Group>

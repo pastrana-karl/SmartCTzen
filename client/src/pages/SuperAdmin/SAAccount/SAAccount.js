@@ -38,11 +38,18 @@ const SAAccount = () => {
             }
 
             try {
-                const res = await axios.put("/api/superAdmin/" + saUser._id, updateAccount);
-                dispatch({ type: "SAUPDATE_SUCCESS", payload: res.data });
+                await axios.put(`/api/saAnnounce/?user=${saUser.username}`, updateAccount);
+
+                try {
+                    const res = await axios.put("/api/superAdmin/" + saUser._id, updateAccount);
+                    dispatch({ type: "SAUPDATE_SUCCESS", payload: res.data });
+                } catch (err) {
+                    console.log(err);
+                    dispatch({ type: "SAUPDATE_FAILURE" })
+                }
+
             } catch (err) {
                 console.log(err);
-                dispatch({ type: "SAUPDATE_FAILURE" })
             }
         }
     }
