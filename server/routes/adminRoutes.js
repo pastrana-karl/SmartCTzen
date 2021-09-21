@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const adminController = require("../controllers/adminController");
+const Admin = require('../models/adminModel');
 
 //REGISTER
 router
@@ -20,6 +21,48 @@ router
 router
     .route("/new-password")
     .post(adminController.changeAdminPassword);
+
+
+//GET SPECIFIC ADMIN
+router.get("/:id", async (req, res) => {
+    try{
+        const admin = await Admin.findById(req.params.id);
+        res.status(200).json(admin);
+    }catch(err){
+         res.status(500).json(err);
+    }
+});
+
+//DISPLAY ALL ADMIN
+router.get("/", async (req, res) => {
+    const adminName = req.query.user;
+
+    try{
+        let admins;
+
+        if(adminName) {
+            admins = await Admin.find({ username:adminName }).collation({locale: "en", strength: 2})
+        } else {
+            admins = await Admin.find();
+        }
+
+        res.status(200).json(admins);
+    }catch(err){
+         res.status(500).json(err);
+    }
+});
+
+//Delete Admin
+router.delete("/:id", async (req, res) => {
+    try {
+        const admin = await Admin.findById(req.params.id);
+        await admin.delete();
+        res.status(200).json("Admin has been deleted...");
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 
 
 // router.post("/register", async (req, res) => {

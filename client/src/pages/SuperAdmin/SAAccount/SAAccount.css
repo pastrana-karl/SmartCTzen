@@ -1,0 +1,113 @@
+.SAaccount {
+    width: 80%;
+    margin: 5rem auto;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAaccount h1 {
+    color: #fe5139;
+    text-align: center;
+    font-weight: bold;
+}
+
+#SAaccount-body {
+    width: 80%;
+    margin: 5rem auto;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAaccount-edit  {
+    width: 100%;
+    margin: 1.3rem auto;
+    padding: 50px;
+    padding-top: 0px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAaccount-edit .form-control {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.SAaccountImg {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.SAaccountImg img {
+    width: 200px;
+    height: 200px;
+    border-radius: 360px;
+    object-fit: cover;
+}
+
+.SAaccount-uploadIcon {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.SAaccount-edit button.btn.btn-danger{
+    border-radius: 10px;
+    border-color: #fe5139;
+    background-color: #fe5139;
+    outline: #fe5139;
+}
+  
+.SAaccount-edit button.btn.btn-danger:hover{
+    background-color: #Dc4733;
+    border-color: #Dc4733;
+}
+
+.SAaccount-reset {
+    outline: none !important;
+    background: #F0F0F3 !important;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF !important;
+    border-radius: 10px !important;
+    color: #fe5139 !important;
+}
+
+.SAaccount-reset:hover {
+    background-color: white !important;
+    color: #fe5139 !important;
+}
+
+@media screen and (max-width: 600px) {
+    #SAaccount-body {
+        width: 100%;
+        margin: 5rem auto;
+        box-sizing: none;
+        padding: 0px;
+        background: none;
+        box-shadow: 0px 0px 0px , -0px -0px 0px ;
+        border-radius: 0px;
+        display: grid;
+        row-gap: 20px;
+    }
+
+    .SAaccount-edit  {
+        padding: 30px;
+    }
+
+    .SAaccount h1 {
+        font-size: 29px;
+    }
+}

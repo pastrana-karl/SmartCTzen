@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
-import { Redirect, BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Context } from './context/Context';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import Features from './components/Landing/Features/Features';
-import Home from './components/Landing/Home/Home';
-import Login from './components/Landing/Login/Login';
-import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
-import AllAdminsLogin from './components/AllAdmin/AllAdminLogin';
-import FirstStep from './components/Landing/Register/FirstStep';
-import SecondStep from './components/Landing/Register/SecondStep';
-import ThirdStep from './components/Landing/Register/ThirdStep';
-import FourthStep from './components/Landing/Register/FourthStep';
-import FifthStep from './components/Landing/Register/FifthStep';
-import SixthStep from './components/Landing/Register/SixthStep';
-import SeventhStep from './components/Landing/Register/SeventhStep';
+import LandingNavBar from './components/Landing/Navigation/LandingNavBar';
+import Home from './pages/Landing/Home/Home';
+import CitizenLogin from './pages/Landing/CitizenLogin/CitizenLogin';
+import CitizenForgot from './pages/Landing/CitizenForgot/CitizenForgot';
+import CitizenEmail from './pages/Landing/CitizenEmail/CitizenEmail';
+import Features from './pages/Landing/Feature/Features';
 import Progress from './components/Landing/Register/Progress';
-import NavBarHandle from './components/UI/Navigation/NavBar/NavBarHandle'
+import FirstStep from './pages/Landing/Register/FirstStep';
+import SecondStep from './pages/Landing/Register/SecondStep';
+import ThirdStep from './pages/Landing/Register/ThirdStep';
+import FourthStep from './pages/Landing/Register/FourthStep';
+import FifthStep from './pages/Landing/Register/FifthStep';
+import SixthStep from './pages/Landing/Register/SixthStep';
+import SeventhStep from './pages/Landing/Register/SeventhStep';
 
+import CitizenNavBar from './components/Citizen/CitizenNav/CitizenNav';
+import CitizenProposalsSideBar from './components/Citizen/CitizenCatNav/CitizenSideBar';
+import CitizenProfile from './pages/Citizen/CitizenProfile/CitizenProfile';
+import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals';
+import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
+import CitizenProjects from './pages/Citizen/CitizenProjects/CitizenProjects';
 
+import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
+import AdminLogin from './components/AllAdmin/Administrator/AdminLogin/AdminLogin';
 import AdminProposals from './components/AllAdmin/Administrator/AdminProposals/AdminProposals';
 import AdminReports from './components/AllAdmin/Administrator/AdminReports/AdminReports';
 import AdminMessages from './components/AllAdmin/Administrator/AdminMessages/AdminMessages';
@@ -24,29 +33,37 @@ import AdminProjects from './components/AllAdmin/Administrator/AdminProjects/Adm
 import AdminUsers from './components/AllAdmin/Administrator/AdminUsers/AdminUsers';
 import AdminApplicants from './components/AllAdmin/Administrator/AdminApplicants/AdminApplicants';
 import AdminLogout from './components/AllAdmin/Administrator/AdminLogout/AdminLogout';
-import SuperAdminLayout from './components/AllAdmin/SuperAdmin/SuperAdminLayout';
-import SuperAdminContent from './components/AllAdmin/SuperAdmin/SuperAdminContent/SuperAdminContent';
-import SuperAdminManageAdmins from './components/AllAdmin/SuperAdmin/SuperAdminManageAdmins/SuperAdminManageAdmins';
-import SuperAdminAccountSettings from './components/AllAdmin/SuperAdmin/SuperAdminAccountSettings/SuperAdminAccountSettings';
 import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
 import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
 
-import CitizenNavBar from './components/Citizen/CitizenNav/CitizenNav';
-import CitizenProfile from './pages/Citizen/CitizenProfile/CitizenProfile';
 import CitizenPassUpdate from './pages/Citizen/CitizenProfile/CitizenPassUpdate/CitizenPassUpdate';
-import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals';
 import CitizenCreateProposal from './pages/Citizen/CitizenProposals/CreateProposals/CitizenCreateProposals';
-import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
 import CitizenViewReport from './pages/Citizen/CitizenReports/ViewReports/CitizenViewReport';
 import CitizenSubmitReport from './pages/Citizen/CitizenReports/SubmitReport/CitizenSubmitReport';
 import CitizenChatReport from './pages/Citizen/CitizenReports/ChatReports/CitizenChatReport';
-import CitizenProjects from './pages/Citizen/CitizenProjects/CitizenProjects';
 import CitizenViewProject from './pages/Citizen/CitizenProjects/CitizenViewProject/CitizenViewProject';
 import CitizenLogout from './pages/Citizen/CitizenLogout/CitizenLogout';
 import ProposalNav from './components/Citizen/ProposalNav/ProposalNav';
 import ReportsNav from './components/Citizen/ReportsNav/ReportsNav';
+import SANavBar from './components/SuperAdmin/SaSideBar';
+import SALogin from './pages/SuperAdmin/SALogin/SALogin';
+import SAForgot from './pages/SuperAdmin/SAForgot/SAForgot';
+import SAEmail from './pages/SuperAdmin/SAEmail/SAEmail';
+import SAContentHome from './pages/SuperAdmin/SAContentHome/SAContentHome';
+import SAAnnouncements from './pages/SuperAdmin/SAAnnouncements/SAAnnouncements';
+import SAFeaturedMember from './pages/SuperAdmin/SAFeaturedMember/SAFeaturedMember';
+import SAAddFeaturedMember from './pages/SuperAdmin/SAAddFeaturedMember/SAAddFeaturedMember';
+import SAContentFeature from './pages/SuperAdmin/SAContentFeature/SAContentFeature';
+import SAAddFeature from './pages/SuperAdmin/SAAddFeature/SAAddFeature';
+import SAFeatures from './pages/SuperAdmin/SAFeatures/SAFeatures';
+import SAManage from './pages/SuperAdmin/SAManage/SAManage';
+import SASearchAdmin from './pages/SuperAdmin/SASearchAdmin/SASearchAdmin';
+import SAAddAdmin from './pages/SuperAdmin/SAAddAdmin/SAAddAdmin';
+import SAAccount from './pages/SuperAdmin/SAAccount/SAAccount';
 
 const App = () => {
+
+  //Register data passing...
   const [citizen, setCitizen] = useState({});
 
   const updateCitizen = (data) => {
@@ -57,12 +74,26 @@ const App = () => {
     setCitizen({});
   };
 
+  //Citizen User...
+  const { user } = useContext(Context);
+
+  //Super Administrator User...
+  const { saUser } = useContext(Context);
+
+  //Administrator User...
+  const { aUser } = useContext(Context);
+
   return (
-    <BrowserRouter>
-      <NavBarHandle />
+    <>
+      <LandingNavBar />
       <Progress />
+
       <CitizenNavBar />
       {/* <ProposalNav /> */}
+      <CitizenProposalsSideBar />
+
+      <SANavBar />
+
         <Switch>
           <Route exact path="/">
             <Home />
@@ -73,12 +104,20 @@ const App = () => {
           </Route>
 
           <Route path="/login">
-            <Login />
+            {user ? <Redirect to="/citizen-profile" /> : <CitizenLogin />}
+          </Route>
+
+          <Route path="/forgot-password">
+            <CitizenForgot />
+          </Route>
+
+          <Route path="/change-password">
+            <CitizenEmail />
           </Route>
 
           <Route
              render={(props) => (
-              <FirstStep {...props} citizen={citizen} updateCitizen={updateCitizen} />
+              <FirstStep {...props} citizen={citizen} updateCitizen={updateCitizen} resetCitizen={resetCitizen}/>
             )}
             path="/create-account"
              exact={true}
@@ -127,8 +166,9 @@ const App = () => {
           />
 
           {/**************************** CITIZEN Routes ****************************/}
+
           <Route path="/citizen-profile">
-            <CitizenProfile />
+            {user ? <CitizenProfile /> : <Redirect to="/" />}
           </Route>
 
           <Route path="/citizen-pass-update">
@@ -163,9 +203,7 @@ const App = () => {
             <CitizenProjects/>
           </Route> 
 
-          <Route path="/citizen-logout">
-            <CitizenLogout/>
-          </Route>  
+          {/**************************** ADMIN Routes ****************************/}
 
           <Route path="/citizen-view-project">
             <CitizenViewProject/>
@@ -173,10 +211,9 @@ const App = () => {
 
           {/**************************** SUPER ADMIN and ADMIN Login ****************************/}
           <Route path="/admin-login">
-            <AllAdminsLogin />
+            {aUser ? <Redirect to="/admin-profile" /> : <AdminLogin />}
           </Route>
 
-          {/**************************** ADMIN Routes ****************************/}
           <Route path="/admin-profile">
             <AdminProfile />
           </Route>
@@ -218,27 +255,68 @@ const App = () => {
             <AdminLogout />
           </Route>
 
-          {/**************************** SUPER ADMIN PANEL ****************************/}
-          {/* <Route path ="/sample-superadmin">
-              <SuperAdminLayout />
-          </Route> */}
-
-          <Route path="/super-admin/content">
-            <SuperAdminContent />
+          {/**************************** SUPER ADMIN Routes ****************************/}
+          
+          <Route path="/superAdmin-login">
+            {saUser ? <Redirect to="/SAContent-home" /> : <SALogin />}
           </Route>
 
-          <Route path="/super-admin/manage-admins">
-            <SuperAdminManageAdmins />
+          <Route path="/superAdmin-forgot">
+            <SAForgot />
           </Route>
 
-          <Route path="/super-admin/account-settings">
-            <SuperAdminAccountSettings />
+          <Route path="/superAdmin-changePassword">
+            <SAEmail />
+          </Route>
+
+          <Route path="/SAContent-home">
+            {saUser ? <SAContentHome /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAContent-announcements">
+            {saUser ? <SAAnnouncements /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAContent-FeaturedMember">
+            {saUser ? <SAFeaturedMember /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAContent-addFeaturedMember">
+            {saUser ? <SAAddFeaturedMember /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAContent-feature">
+            {saUser ? <SAContentFeature /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAAdd-feature">
+            {saUser ? <SAAddFeature /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SA-feature">
+            {saUser ? <SAFeatures /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAManage-admin">
+            {saUser ? <SAManage /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SASearch-admin">
+            {saUser ? <SASearchAdmin /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAAdd-admin">
+            {saUser ? <SAAddAdmin /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SA-account">
+            {saUser ? <SAAccount /> : <Redirect to="/superAdmin-login" />}
           </Route>
 
           <Route render={() => <Redirect to="/" />} />
 
         </Switch>
-    </BrowserRouter>
+    </>
   );
 } 
 

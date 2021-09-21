@@ -1,0 +1,95 @@
+.SAmanage-adminSearchContainer {
+    margin-top: 0 !important;
+}
+
+.SAmanage-searchResultBody {
+    width: 80%;
+    margin: 5rem auto;
+    box-sizing: border-box;
+    padding: 0px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAmanage-result {
+    width: 80%;
+    margin: 0.2rem auto;
+    padding: 20px;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAmanage-result .form-control {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.SAmanage-result button.btn.btn-danger{
+    border-radius: 10px;
+    border-color: #fe5139;
+    background-color: #fe5139;
+    outline: #fe5139;
+}
+  
+.SAmanage-result button.btn.btn-danger:hover{
+    background-color: #Dc4733;
+    border-color: #Dc4733;
+}
+
+.SAmanageLink {
+    text-decoration: none !important;
+    display: flex;
+    justify-content: center;
+    color: #fe5139;
+}
+
+.SAmanageLink:hover {
+    color: #Dc4733;
+}
+
+.searchResultImg-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.searchResultImg {
+    width: 30vh;
+    height: 30vh;
+}
+
+.searchResultImg img {
+    width: 100%;
+    height: 100%;
+    border-radius: 360px;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 600px) {
+    .SAmanage-searchResultBody {
+        width: 100%;
+        box-sizing: none;
+        padding: 0px;
+        background: none;
+        box-shadow: 0px 0px 0px, -0px -0px 0px ;
+        border-radius: 0px;
+        display: grid;
+        row-gap: 20px;
+    }
+
+    .SAmanage-result {
+        width: 100%;
+        margin: 1.3rem auto;
+        border-radius: 20px;
+        display: grid;
+        row-gap: 20px;
+    }
+}

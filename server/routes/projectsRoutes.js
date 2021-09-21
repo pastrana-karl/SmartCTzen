@@ -22,4 +22,9 @@ projectsRouter
     .route("/projects/ongoing")
     .get(projectsController.aliasOngoingProjects);
 
+projectsRouter
+    .route("/projects/:id/histories")
+    .get(projectsController.getProjectHistory)
+    .post(projectsController.saveProjectHistory);
+
 module.exports = projectsRouter;

@@ -1,0 +1,129 @@
+.SAnew-feature {
+    width: 80%;
+    margin: 5rem auto;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAnew-feature h1 {
+    color: #ff5138;
+    text-align: center;
+    font-weight: bold;
+}
+
+#SANewFeature-body {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+.SA-featuredelete {
+    width: 100%;
+    margin: 1.3rem auto;
+    padding: 50px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SA-featuredelete .form-control {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.SA-featuredelete button.btn.btn-danger{
+    border-radius: 10px;
+    border-color: #fe5139;
+    background-color: #fe5139;
+    outline: #fe5139;
+}
+  
+.SA-featuredelete button.btn.btn-danger:hover{
+    background-color: #Dc4733;
+    border-color: #Dc4733;
+}
+
+.SA-FeatureImage {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.SA-FeatureImage img {
+    width: 25vw;
+    height: 55vh;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.SADelete-FeaturesLink {
+    text-decoration: none !important;
+    display: flex;
+    justify-content: center;
+    color: #fe5139;
+}
+
+.SADelete-FeaturesLink:hover {
+    color: #Dc4733;
+}
+
+.SA-featuredelete h4 {
+    text-align: center;
+    font-weight: bold;
+}
+
+.SA-featuredelete p {
+    text-align: justify;
+}
+
+@media screen and (max-width: 1200px) {
+    .SA-FeatureImage img {
+        width: 35vw;
+        height: 35vh;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .SA-FeatureImage img {
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #SANewFeature-body {
+        border: none;
+        background: none;
+        box-shadow: inset -0px -0px 0px, inset 0px 0px 0px;
+        border-radius: 5px;
+        padding: 0px;
+        font-size: 18px;
+        margin-bottom: 50px;
+    }
+
+    .SA-featuredelete {
+        width: 100%;
+        margin: 1.3rem auto;
+        padding: 20px;
+        display: grid;
+        row-gap: 20px;
+    }
+
+    .SA-FeatureImage img {
+        width: 60vw;
+        height: 45vh;
+    }
+}

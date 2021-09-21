@@ -1,0 +1,99 @@
+.SAmanage-header {
+    width: 80%;
+    margin: 5rem auto;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAmanage-header h1 {
+    color: #fe5139;
+    text-align: center;
+    font-weight: bold;
+}
+
+.SAmanage-search {
+    display: flex;
+    justify-content: center;
+}
+
+.SAmanage-search .form-control {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.SAmanage-searchBTN {
+    margin-left: 10px;
+    height: 50% !important;
+}
+
+.SAmanage-search button.btn.btn-danger{
+    border-radius: 10px;
+    border-color: #fe5139;
+    background-color: #fe5139;
+    outline: #fe5139;
+}
+  
+.SAmanage-search button.btn.btn-danger:hover{
+    background-color: #Dc4733;
+    border-color: #Dc4733;
+}
+
+#SAmanage-body {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 50px;
+    font-size: 18px;
+    margin: 50px auto;
+}
+
+.SAmanage-searchHeader h4 {
+    text-align: center;
+    font-weight: bold;
+}
+
+.SAmanage-searchResult h4{
+    text-align: center;
+    font-weight: 400;
+}
+
+.SAmanage-searchResult i {
+    color: black;
+}
+
+.SAmanage-addAdmin {
+    text-align: center;
+    font-size: 100px;
+}
+
+.SAmanage-addAdmin i {
+    color: #fe5139;
+}
+
+.SAmanage-addAdmin i:hover {
+    color: #Dc4733;
+}
+
+#SAmanage-body .SAmanage-displayResult h4 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+    .SAmanage-addAdmin {
+        font-size: 50px;
+    }
+
+    .SAmanage-header h1 {
+        font-size: 35px;
+    }
+}

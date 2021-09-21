@@ -1,0 +1,291 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.registerInput-form .form-control:focus {
+  outline: none;
+  box-shadow: none;
+  color: unset;
+  background-color: unset;
+  border-color: unset;
+}
+
+.registerInput-form .btn {
+  letter-spacing: 1px;
+}
+
+.registerInput-form button.btn.btn-danger{
+  border-radius: 10px;
+  border-color: #fe5139;
+  background-color: #fe5139;
+  outline: #fe5139;
+}
+
+.registerInput-form button.btn.btn-danger:hover{
+  background-color: #Dc4733;
+  border-color: #Dc4733;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.steps .step {
+  margin: 0.5rem 1rem;
+  display: flex;
+  color: #fe5139;
+}
+
+.steps .step a {
+  text-decoration: none;
+  color: #fe5139;
+  vertical-align: middle;
+}
+
+.steps .step p {
+  vertical-align: middle;
+}
+
+.steps .step.active p {
+  vertical-align: middle;
+}
+
+.steps .step div:first-of-type {
+  border: 1px solid #fe5139;
+  padding: 5px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  line-height: 100%;
+  padding-top: 7%;
+}
+
+.steps .step :last-child {
+  margin-top: 3%;
+}
+
+.steps .step.active div:first-of-type {
+  background-color: #fe5139;
+  border: 1px solid transparent;
+  color: #fff;
+}
+
+.steps .step.active div:last-of-type {
+  color: #fff;
+}
+
+.registerInput-form {
+  width: 70%;
+  margin: 1.3rem auto;
+}
+
+#register-panel {
+  box-sizing: border-box;
+  padding: 20px;
+  background: #F0F0F3;
+  box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+  border-radius: 20px;
+}
+
+#register-panel button {
+  width: 100%;
+  display: grid;
+}
+
+.registerErrorMsg {
+  max-width: 350px;
+  color: #f21e08;
+  padding: 2px 0;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.registerErrorMsg-photo {
+  text-align: center;
+  max-width: 350px;
+  color: #f21e08;
+  padding: 2px 0;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.registerLoading {
+  color: #777;
+  text-align: center;
+}
+
+.registerLoading h2 {
+  margin-top: 10%;
+}
+
+.registerInput-form .form-control.input-error {
+  border: 2px solid #f21e08;
+}
+
+.registerInput-form .radioButton {
+  display: 'flex';
+}
+
+.registerUploadImgIcon
+{
+  width: 25px;
+  height: 25px;
+  font-size: 30px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.registerSeeImg
+{
+  text-align: center;
+  margin-bottom: 20px;  
+}
+
+.registerSeeImg img
+{
+  width: 25vw;
+  height: 55vh;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.registerUploadIcon
+{
+  text-align: center;
+}
+
+.registerInput-form .DatePicker__input
+{
+  border: hidden;
+  background: #F0F0F3;
+  color: grey;
+  box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+  border-radius: 20px;
+  padding: 5px;
+  font-size: 18px;
+}
+
+.registerHelpIcon
+{
+  display: inline;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.registerHelpIcon .fas
+{
+  color: grey;
+}
+
+.registerInput-form .form-control {
+  border: hidden !important;
+  background: #F0F0F3 !important;
+  box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
+  border-radius: 20px !important;
+  padding: 20px !important;
+  font-size: 18px !important;
+}
+
+.regiterLoading-icons {
+  display: flex;
+  justify-content: center;
+}
+
+.register-link {
+  display: none;
+}
+
+.firstStep-link {
+  text-decoration: none !important;
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  text-align: center;
+  color: #fe5139;
+}
+
+.firstStep-link:hover {
+  color: #Dc4733;
+}
+
+.registerInput-form .slick-slide img {
+  display: inline !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .registerErrorMsg-photo {
+    max-width: 100%;
+  }
+  .registerInput-form {
+    width: 100%;
+ }
+
+  .registerSeeImg img {
+    width: 40vw;
+  }
+
+  .registerLoading {
+    margin-top: 20%;  
+  }
+}
+@media screen and (max-width: 900px) {
+  .registerInput-form {
+    width: 100%;
+  }
+
+  .steps .step {
+    margin: 0.5rem 2rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  #register-panel {
+    border: none;
+    box-sizing: none;
+    padding: 30px;
+    background: none;
+    box-shadow: 0px 0px 0px, -0px -0px 0px;
+    border-radius: 20px;
+    row-gap: 20px;
+  }
+
+  .steps {
+    display: none;
+  }
+
+  .registerSeeImg img {
+    width: 80vw;
+  }
+
+  .registerLoading {
+    margin-top: 60%;  
+  }
+
+  .register-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    text-align: center;
+    color: #fe5139;
+  }
+  
+  .register-link:hover {
+    color: #Dc4733;
+  }
+
+  .firstStep-link {
+    display: none;
+  }
+}

@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.superadminLogin-row {
+    margin-top: 5% !important;
+}
+
+.superAdminLogin-form .form-control:focus {
+    outline: none;
+    box-shadow: none;
+    color: unset;
+    background-color: unset;
+    border-color: unset;
+}
+
+.superadminLogin-banner h1 {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 2.2rem;
+}
+  
+.superAdminLogin-form .btn {
+    letter-spacing: 1px;
+}
+
+.superAdminLogin-form button:disabled
+{
+    cursor: not-allowed;
+    background-color: rgb(252, 173, 173);
+}
+  
+.superAdminLogin-form button.btn.btn-danger{
+    border-radius: 10px;
+    border-color: #fe5139;
+    background-color: #fe5139;
+    outline: #fe5139;
+}
+  
+.superAdminLogin-form button.btn.btn-danger:hover{
+    background-color: #Dc4733;
+    border-color: #Dc4733;
+}
+
+.superadminLogin-row .superAdminLogin-form {
+    width: 55%;
+    margin: 1.3rem auto;
+    box-sizing: border-box;
+    padding: 50px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.superAdminLogin-form .form-control {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.superAdminLogin-link {
+    text-decoration: none !important;
+    text-align: center;
+    color: #fe5139;
+}
+
+.superAdminLogin-link:hover {
+    color: #Dc4733;
+}
+
+.superadminLogin-banner {
+    text-align: center;
+    color: #fe5138;
+}
+
+@media screen and (max-width: 1200px) {
+    .superadminLogin-row .superAdminLogin-form {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .superadminLogin-row {
+        margin-top: 15% !important;
+    }
+
+    .superadminLogin-row .superAdminLogin-form {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .superadminLogin-banner h1 {
+        font-size: 2rem;
+    }
+
+    .superadminLogin-row .superAdminLogin-form {
+        width: 90%;
+        box-sizing: none;
+        padding: 0px;
+        background: none;
+        box-shadow: 0px 0px 0px , -0px -0px 0px ;
+        border-radius: 0px;
+        margin-top: 0px;
+    }
+
+    .superAdminLogin-form .form-control {
+        padding: 10px;
+        font-size: 18px;
+    }
+
+    .superAdminLogin-form label, button {
+        margin-top: 10px;
+    }
+}

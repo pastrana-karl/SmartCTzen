@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, withRouter } from 'react-router-dom';
 import './CitizenNav.css';
+import { Context } from '../../../context/Context';
 import { Nav } from 'react-bootstrap';
 
 const CitizenNav = ({ location: { pathname } }) => {
@@ -15,6 +16,12 @@ const CitizenNav = ({ location: { pathname } }) => {
   const isCitizenPassUpdate = pathname === '/citizen-pass-update';
   const isCitizenChatReport = pathname === '/citizen-chat-report';
 
+  const { dispatch } = useContext(Context);
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" })
+  }
+
   return (
     <React.Fragment>
       {isCitizenProfile || isCitizenProposals || isCitizenReports || isCitizenProjects || isCitizenCreateProposals 
@@ -22,6 +29,7 @@ const CitizenNav = ({ location: { pathname } }) => {
       <nav className="navbar navbar-expand-lg fixed-top citizenNavbar-mainbg">
         <button 
           className="navbar-toggler"
+          id = "citizenNavbar-Toggler"
           type="button" data-toggle="dropdown" data-target="#citizenNavbarSupportedContent" aria-controls="citizenNavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <i className="fas fa-bars"></i>
         </button>
@@ -44,7 +52,7 @@ const CitizenNav = ({ location: { pathname } }) => {
               </li>
 
               <li className="nav-item">
-                <Nav.Link as = {Link} eventKey="link-5" className="nav-link" to="/login">Logout</Nav.Link> 
+                <Nav.Link as = {Link} eventKey="link-5" className="nav-link"  onClick={handleLogout} to="/">Logout</Nav.Link> 
               </li>
           </ul>
         </Nav>

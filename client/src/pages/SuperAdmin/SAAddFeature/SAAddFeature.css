@@ -1,0 +1,138 @@
+.SAcontent-addFeatureHeader {
+    width: 80%;
+    margin: 5rem auto;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAcontent-addFeatureHeader h1 {
+    color: #ff5138;
+    text-align: center;
+    font-weight: bold;
+}
+
+#SAAddFeature-body {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+.SAContent-featureAdd {
+    width: 100%;
+    margin: 1.3rem auto;
+    padding: 50px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAContent-featureAdd .form-control {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.SAContent-featureAdd button.btn.btn-danger{
+    border-radius: 10px;
+    border-color: #fe5139;
+    background-color: #fe5139;
+    outline: #fe5139;
+}
+  
+.SAContent-featureAdd button.btn.btn-danger:hover{
+    background-color: #Dc4733;
+    border-color: #Dc4733;
+}
+
+.SAContent-addFeatureImage {
+    display: flex;
+    justify-content: center;
+}
+
+.SAAF-container {
+    width: 25vw;
+    display: flex;
+    justify-content: center;
+}
+
+.SAAF-container img {
+    width: 100%;
+    object-fit: fill;
+    border-radius: 10px;
+}
+
+.SAContent-addFeatureUploadIcons {
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.addFeatureLink {
+    text-decoration: none !important;
+    display: flex;
+    justify-content: center;
+    color: #fe5139;
+}
+
+.addFeatureLink:hover {
+    color: #Dc4733;
+}
+
+.SAContent-addFeatureReset {
+    outline: none !important;
+    background: #F0F0F3 !important;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF !important;
+    border-radius: 10px !important;
+    color: #fe5139 !important;
+}
+
+.SAContent-addFeatureReset:hover {
+    background-color: white !important;
+    color: #fe5139 !important;
+}
+
+@media screen and (max-width: 1200px) {
+    .SAContent-addFeatureImage img {
+        width: 35vw;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .SAContent-addFeatureImage img {
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #SAAddFeature-body {
+        border: none;
+        background: none;
+        box-shadow: inset -0px -0px 0px, inset 0px 0px 0px;
+        border-radius: 5px;
+        padding: 0px;
+        font-size: 18px;
+        margin-bottom: 50px;
+    }
+
+    .SAContent-featureAdd {
+        width: 100%;
+        margin: 1.3rem auto;
+        padding: 20px;
+        display: grid;
+        row-gap: 20px;
+    }
+
+    .SAContent-addFeatureImage img {
+        width: 60vw;
+    }
+}

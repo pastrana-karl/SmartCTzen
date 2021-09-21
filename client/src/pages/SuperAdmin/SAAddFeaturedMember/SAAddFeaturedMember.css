@@ -1,0 +1,142 @@
+#SAFeaturedMember-body {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 50px;
+    font-size: 18px;
+    margin: 5% auto;
+}
+
+.SAContent-formFM {
+    width: 100%;
+    margin: 0.1rem auto;
+    padding: 50px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.SAContent-formFM .SAContent-reset {
+    outline: none !important;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 10px;
+    color: #fe5139;
+}
+
+.SAContent-formFM .SAContent-reset:hover {
+    background-color: white !important;
+    color: #fe5139 !important;
+}
+
+.SAContent-formFM .form-control {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.SAContent-formFM button.btn.btn-danger{
+    border-radius: 10px;
+    border-color: #fe5139;
+    background-color: #fe5139;
+    outline: #fe5139;
+}
+
+.SFMBody-container {
+    display: flex;
+    justify-content: center;
+}
+
+.SAContent-formFM button.btn.btn-danger:hover{
+    background-color: #Dc4733;
+    border-color: #Dc4733;
+}
+
+.SAFM-container {
+    width: 25vw;
+    display: flex;
+    justify-content: center;
+}
+
+.SAFM-container img {
+    width: 100%;
+    object-fit: fill;
+    border-radius: 45px;
+    cursor: pointer;
+}
+
+.SAFM-icon {
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.SAFMicon-container {
+    display: flex;
+    justify-content: center;
+}
+
+.SAFM-link {
+    text-decoration: none !important;
+    display: flex;
+    justify-content: center;
+    color: #fe5139;
+    font-size: 17px;
+}
+
+.SAFM-link:hover {
+    color: #Dc4733;
+}
+
+.SAContent-formFM .SAFM-reset {
+    outline: none !important;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 10px;
+    color: #fe5139;
+}
+
+.SAContent-formFM .SAFM-reset:hover {
+    background-color: white !important;
+    color: #fe5139 !important;
+}
+
+.SAAddFeaturedMLoading {
+  color: #777;
+  text-align: center;
+}
+
+.SAAddFeaturedMLoading h2 {
+  margin-top: 10%;
+}
+
+@media screen and (max-width: 1200px) {
+    .SAAddFeaturedMLoading {
+        margin-top: 20%;  
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #SAFeaturedMember-body {
+        border: none;
+        background: none;
+        box-shadow: inset -0px -0px 0px, inset 0px 0px 0px;
+        border-radius: 5px;
+        padding: 0px;
+        font-size: 18px;
+        margin-bottom: 50px;
+    }
+
+    .SAContent-formFM {
+        width: 100%;
+        margin: 1.3rem auto;
+        padding: 20px;
+        display: grid;
+        row-gap: 20px;
+    }
+
+    .SAAddFeaturedMLoading {
+        margin-top: 60%;  
+    }
+}

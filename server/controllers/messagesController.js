@@ -7,12 +7,7 @@ exports.createMessage = catchAsync(async (req, res, next) => {
 
     const savedMessage = await newMessage.save();
 
-    res.status(200).json({
-        status: 'success',
-        data: {
-            savedMessage
-        }
-    })
+    res.status(200).json( savedMessage );
 });
 
 exports.getMessage = catchAsync(async (req, res, next) => {
@@ -20,10 +15,12 @@ exports.getMessage = catchAsync(async (req, res, next) => {
         conversationId: req.params.id,
     });
 
-    res.status(200).json({
-        status: 'success',
-        data: {
-            messages
-        }
-    });
+    // res.status(200).json({
+    //     status: 'success',
+    //     messages
+    // });
+
+    res.status(200).json(
+        messages
+    );
 });

@@ -13,22 +13,14 @@ router
     .route("/login")
     .post(superAdminController.loginSuperAdmin);
 
-// router.post("/register", async (req, res) => {
-//     try{
+//UPDATE ACCOUNT
+router
+    .route("/:id")
+    .put(superAdminController.UpdateSuperAdmin);
 
-//     }catch(err){
-//         res.status(500).json(err);
-//     }
-// });
-
-
-
-// router.post("/login", async (req, res) => {
-//     try{
-       
-//     }catch(err){
-//         res.status(500).json(err);
-//     }
-// });
+//GET SPECIFIC FEATURED MEMBER
+router
+    .route("/:id")
+    .get(superAdminController.GetSpecificSuperAdmin);
 
 module.exports = router;
