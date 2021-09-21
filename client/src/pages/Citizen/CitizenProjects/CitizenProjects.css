@@ -1,28 +1,245 @@
-.projectsMain {
+.citizenprojects-container {
+    margin: 13%;
+}
+
+.citizenprojects-catbar-container{
     display: flex;
     justify-content: center;
+    width: 100%;
+    max-height: 100%;
+    margin-bottom: 30px;
+}
+
+.citizenprojects-catbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
+    margin: 10px 50% 0px 50%;
+    max-height: 80px;   
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+}
+
+.citizenprojects-catbar-item{
+    display: flex;
+    white-space: nowrap;
+    justify-content: center;
+    margin: 20px 20px 20px 20px !important;
+    padding: 10px 30px 10px 30px;
+    color: black;
+    /*Neumorphism Magic*/
+    border-radius: 40px;
+    background: linear-gradient(145deg, #d8d8db);
+    box-shadow:  7px 7px 7px #d6d6d8,
+                -7px -7px 7px #ffffff;
+}
+
+.citizenprojects-catbar-item:hover{
+    padding-top: 15px;
+    color: black;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+    text-decoration: none;
+}
+
+.citizenprojects-short {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+    padding: 50px;
+    max-height: 600px;
+
+    /*Neumorphism Magic*/
+    border-radius: 40px;
+    background: linear-gradient(145deg, #d8d8db);
+    box-shadow:  7px 7px 7px #d6d6d8,
+                -7px -7px 7px #ffffff;
+}
+
+.citizenprojects-shortinfo {
+    display: inline-block;
+}
+
+.citizenprojects-shortinfo-auth {
+    display: flex;
     flex-direction: column;
-    z-index: 1;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.citizenprojects-auth-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.citizenprojects-auth{
+    padding: 0px 5px !important;
+}
+
+.citizenprojects-authimg-container{
+    display: flex;
+    width: 30px;
+    height: 30px;
+    border-radius: 40px;
+    overflow: hidden;
+}
+.citizenprojects-authimg-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.citizenprojects-shortinfo-desc {
+    text-align: justify;
+    margin-bottom: 10px;
+    padding-right: 10px;
+}
+
+.citizenprojects-shortinfo-status{
+    display: flex;
+    align-items: center;
+}
+
+.citizenprojects-shortinfo-status p{
+    margin: 0px 15px 0px 0px !important;
+}
+
+.citizenprojects-shortinfo-status i{
+    margin: 0px !important;
+}
+
+.citizenprojects-shortinfo-status-views{
+    font-size: 25px;
 }
 
 
-.projectShort {
-    margin-top: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 20px 40px 40px;
-    max-width: 640px;
+.citizenprojects-shortinfo-img-container{
+    display: flex;
+    height: 450px;
+    width: auto;
+
+    padding: 10px 0px 10px 0px;
 }
 
-.projectShortInfo {
-    display: inline-block;
-    width: 46%;
-    @media (max-width: 620px) {
-      width: 100%;}
+.citizenprojects-shortinfo-img-frame{
+    padding: 20px;
+    /*Neumorphism Magic*/
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
 }
-.projectImg {
-    display: inline-block;
-    vertical-align: top;
-    width: 46%;
-    margin: 20px 30px 0 0;
+
+.citizenprojects-shortinfo-img-frame img{
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+@media screen and (max-width: 992px) {
+    
+    .citizenprojects-short{
+        display: flex;
+        flex-direction: column-reverse;
+        height: auto;
+        
+    }
+
+    .citizenprojects-shortinfo-auth{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .citizenprojects-shortinfo-auth h2{
+        margin-right: 10px;
+    }
+
+    .citizenprojects-shortinfo-desc{
+        display: none !important;
+    }
+
+    .citizenprojects-shortinfo-img-container{
+        display: flex;
+        justify-content: center;
+        max-height: 100%;
+    }
+
+    .citizenprojects-shortinfo-img-frame{
+        width: 100%;
+    }
+
+    /* hide title on click/tap*/
+    .citizenprojects-short:hover .proposalTitleContainer{
+        display: none;
+    }
+
+    .citizenprojects-shortinfo-auth{
+        display: flex;
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+
+    .proposalTitle{
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+    }
+    .proposalTitle h2{
+        margin-bottom: 0px;
+    }
+
+    .proposalContent{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .proposalShort{
+        padding: 15px;
+        margin: 20px 0px;
+        height: 400px;
+        transition: 0.5s;
+    }
+    .proposalShort:hover{
+        height: fit-content;
+    }
+    .proposalShort:hover .proposalShortInfo{
+        display: inline-block;
+        padding: 20px;
+        visibility: visible;
+    }
+
+    .proposalShortImgContainer{
+        display: flex;
+        padding: 20px;
+        max-height: 300px;
+    }
+    
+    .proposalShort .proposalShortInfo{
+        height: 0px;
+        visibility: hidden;
+        transition: 0.1ms;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .proposalShortImgContainer{
+        display: flex;
+        padding: 20px;
+        max-height: 200px;
+    }
+    
+
 }

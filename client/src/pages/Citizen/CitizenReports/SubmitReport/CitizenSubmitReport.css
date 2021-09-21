@@ -1,5 +1,6 @@
 .citizenSubmitReport-container {
     margin: 13% auto;
+    
 }
 
 
@@ -8,40 +9,159 @@
     background: #F0F0F3 !important;
     box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
     border-radius: 20px !important;
-    padding: 30px 20px 30px 20px !important;
+    padding: 0px 0px 30px 0px;
     font-size: 18px !important;
 }
 
-.citizenSubmitReport-edit h3 {
+/*.citizenSubmitReport-row-container{
+    display: flex;
+    flex-direction: row;
+}*/
+
+.citizenSubmitReportForm{
+    display: flex;
+    flex-direction: column;
+}
+.citizenSubmitReport-row-container .citizenSubmitReportForm{
+    flex: 50%;
+}
+
+.citizenSubmitReportQuote{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.quotebox{
+    padding-top: 5%;
+    width: 200px;
+    height: 300px;
+}
+
+.citizenSubmitReport-row-container .citizenSubmitReportQuote{
+    flex: 50%;
+}
+
+.citizen-header{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.citizen-header h3{
     font-weight: bold;
-    margin: 5% 0 5% 0;
+    margin: 0px;
+    color: #ff5138;
+}
+.citizenSubmitReport-container h4 {
+    font-weight: bold;
+    margin: 0px;
+}
+
+.text-highlight{
+    font-weight: bold;
+    color: #ff5138;
 }
 
 .citizenSubmitReport-edit {
-    padding: 40px 150px;
+    padding-right: 30px;
 }
 
 .citizenSubmitReport-edit .form-label{
     font-size: 20px;
 }
 
-.citizenSubmitReport-passwordUpdate {
+.citizenSubmitReport-input {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.btn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+    margin: 40px;
+    width: 50%;
+}
+
+.btnContainerCenter{
     display: flex;
     justify-content: center;
-    text-decoration: none;
-    font-size: 50px;
-    color: #ff5138;
+    flex: 50%;
 }
 
-.citizenSubmitReport-passwordUpdate:hover {
-    color: #Dc4733;
+.citizenSubmitReport-BtnCancel{
+    padding: 15px 45px 15px 45px;
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: -10px -10px 30px #FFFFFF, 10px 10px 30px rgba(114, 114, 114, 0.4);
+    border-radius: 30px;
+    color: #FF5039;
+    text-decoration: none;
+    justify-content: center;
+    
+}
+
+.citizenSubmitReport-BtnCancel:hover {
+    color: #FF5039;
+    text-decoration: none;
+}
+
+.citizenSubmitReport {
+    padding: 15px 45px 15px 45px;
+    border: hidden;
+    background: #FF5039;
+    box-shadow: -10px -10px 30px #FFFFFF, 10px 10px 30px rgba(174, 174, 192, 0.4);
+    border-radius: 30px;
+    color: #ffffff;
+    text-decoration: none;
+    justify-content: center;
+}
+
+.citizenSubmitReport:hover {
+    background: #Dc4733;
+    color: #ffffff;
     text-decoration: none;
 }
 
 
+@media screen and (max-width: 992px) {
+    .citizenSubmitReport-container {
+        margin: 13%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 80%;
+    }
 
-@media screen and (max-width: 600px) {
+    .citizen-header{
+        display: flex;
+        
+    }
+    .citizen-header h3{
+        font-weight: bold;
+        font-size: 20px;
+        color: #ff5138;
+    }
+    
+    .citizenSubmitReportForm{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
 
+    .citizenSubmitReportQuote{
+        display: none;
+        
+    }
+    
+    .citizenSubmitReport-input {
+        display: flex;
+        padding: 10px;
+        font-size: 15px;
+        flex-direction: column;
+    }
     .citizenSubmitReport-edit {
         padding: 40px 50px;
     }

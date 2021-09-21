@@ -21,9 +21,9 @@ const CitizenProfile = () => (
                     <Row>
                         <Col className = 'citizenProfile-Badge'>
                             <div className = 'citizenProfile-BadgeImg'>
-                                    <img src="https://imgur.com/vxihw43.png" alt="FUCKSHIT"></img>
+                                    {/* <img src='' alt="badge"></img> */}
                             </div>
-                            <h4>KEVIN</h4>
+                            <h4>Badge</h4>
                         </Col>
                         <Col>
                             <Row>
@@ -56,7 +56,7 @@ const CitizenProfile = () => (
                             <Col>
                                 <Row>
                                     <div className = 'citizenProfile-BadgeImg'>
-                                        <img src="https://imgur.com/vxihw43.png" alt="FUCKSHIT"></img>
+                                        <img src="https://imgur.com/vxihw43.png" alt="badge"></img>
                                     </div>
                                 </Row>
                                 <Row><h4>KEVIN</h4></Row>

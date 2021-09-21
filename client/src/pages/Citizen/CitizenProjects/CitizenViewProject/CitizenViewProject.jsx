@@ -11,7 +11,7 @@ const CitizenViewProject = () => (
                 <Col><i class="fas fa-eye">#</i></Col>
             </Row>
             <Row>
-                Description na medyo mahaba at puno puno ng masasamang words.
+                Description.
             </Row>
             <Row>
                 <Col>When/Started On:</Col>
@@ -20,7 +20,7 @@ const CitizenViewProject = () => (
                 <Col>Located in:</Col>
             </Row>
             <Row>
-                <Col>Status: Going Nowhere</Col>
+                <Col>Status: On Going</Col>
             </Row>
             <Row>
                 <Col><img src="https://imgur.com/vxihw43.png" alt="Project"></img></Col>

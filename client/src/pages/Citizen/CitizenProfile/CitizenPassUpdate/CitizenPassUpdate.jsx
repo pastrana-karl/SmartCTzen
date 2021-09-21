@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './CitizenPassUpdate.css';
+import CancelButton from '../../../../components/UI/Buttons/CancelButton/CancelButton';
 
 
 const CitizenPassUpdate = () => (
@@ -14,7 +15,7 @@ const CitizenPassUpdate = () => (
                         <Form.Label>Current Password</Form.Label>
                         <Form.Control
                             className='citizenPassUpdate-input'
-                            type="text"
+                            type="password"
                             name="cpass"
                             autoComplete="off"
                         />
@@ -23,7 +24,7 @@ const CitizenPassUpdate = () => (
                         <Form.Label>New Password</Form.Label>
                         <Form.Control
                             className='citizenPassUpdate-input'
-                            type="text"
+                            type="password"
                             name="cpass"
                             autoComplete="off"
                         />
@@ -32,16 +33,20 @@ const CitizenPassUpdate = () => (
                         <Form.Label>Confirm Password</Form.Label>
                         <Form.Control
                             className='citizenPassUpdate-input'
-                            type="text"
+                            type="password"
                             name="cpass"
                             autoComplete="off"
                         />
                     </Form.Group>
+                    <Row className='citizenPassUpdate-BtnContainer'>
+                        <Col className='BtnContainerCenter'>
+                            <Link to = '/citizen-profile' className = 'citizenPassUpdate-BtnCancel'>Cancel</Link>
+                        </Col>
+                        <Col className='BtnContainerCenter'>
+                            <Link to = '#' className = 'citizenPassUpdate-Btn'>Change</Link>
+                        </Col>
+                    </Row>
                 </Form>
-                <Row>
-                    <Col><Button><Link to = '#' className = 'citizenProfile'>Cancel</Link></Button></Col>
-                    <Col><Button><Link to = '#' className = 'citizenProfile'>Change</Link></Button></Col>
-                </Row>
         </Container>
     </>
 );

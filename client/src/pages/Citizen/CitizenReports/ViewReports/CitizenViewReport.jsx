@@ -9,18 +9,18 @@ const CitizenViewReport = () => (
             <Row>
                 <Col>Title</Col>
                 <Row>
-                    <Col>Reporter: Kevin Gojocco</Col>
+                    <Col>Reporter: John Doe</Col>
                     <Col>Submitted on: September 11, 2021</Col>
                 </Row>
             </Row>
+            {/* <Row>
+                Lorem Ipsum
+            </Row> */}
             <Row>
-                Kung ano man nangyari kuya
+                <Col>Where: Cainta, Rizal</Col>
             </Row>
             <Row>
-                <Col>Nangyari sa: Cainta, Rizal</Col>
-            </Row>
-            <Row>
-                <Col>Status: Going Nowhere</Col>
+                <Col>Status: Confirmed</Col>
             </Row>
             <Row>
                 <img src="https://imgur.com/vxihw43.png" alt="Project"></img>

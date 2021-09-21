@@ -1,41 +1,88 @@
 import "./CitizenReports.css";
 import React from 'react';
+import { Link } from "react-router-dom";
 import ReportsNav from "../../../components/Citizen/ReportsNav/ReportsNav";
 import { Row, Col, Form, Button, Container} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 const CitizenReports = () => (
-        <Container className="reportsContainer">
-            <div className="reportsMain">
-                <div className="category">
-                    <React.Fragment>
-                        <ReportsNav/> 
-                    </React.Fragment>
-                </div>
-                <div className="submitReport">
-                    <NavLink to="/citizen-submit-reports">
-                        <button className="reportCreate">Create A Report</button>
-                        </NavLink>
-                    <NavLink to="/citizen-chat-report">
-                        <button className="reportChat">Chat Icon</button>
-                    </NavLink>
-                    
-                    
-                </div>
-                <NavLink to='/citizen-view-reports'>
-                <div className="reportShort">
-                    <img className="reportImg" alt="IDK"src="https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Monochrome-Type-Simple-Background-Image.jpg"/>
-                    <span className="reportTitle">Variant</span>
-                    <div className="reportDets">
-                        <span className="reportInfo">Where</span>
-                        <span className="reportInfo">Reported by</span>
-                        <span className="reportInfo">Date Submitted</span>
-                        <span className="reportInfo">Status</span>
-                    </div>
-                </div>
-                </NavLink>
-            </div>
-        </Container>
-    )
+        <div className='citizenreports-Container'>
+           <Row className='citizenreports-catbar-container'>
+                <Col className='citizenreports-catbar'>
+                    <Link className='citizenreports-catbar-item' to='/'>All</Link>
+                    <Link className='citizenreports-catbar-item' to='/'>Confirmed</Link>
+                    <Link className='citizenreports-catbar-item' to='/'>Cancelled</Link>
+                    <Link className='citizenreports-catbar-item' to='/'>Resolved</Link>
+                </Col>
+            </Row>
+            <Row className='citizenreports-btn-container'>
+                <Col className='citizenreports-btnbar'>
+                    <Link className='citizenreports-btn-submit' to='/citizen-submit-reports'>Submit a report</Link> 
+                    <Link class='far fa-comment citizenreports-btn-chat' to='/citizen-chat-report'/>
+                </Col>
+            </Row>
+
+            <Row className='citizenreports-short'>
+                <Col className='citizenreports-img-container'>
+                    <img className='citizenreports-img' alt='citizenreports-img'src="https://th.bing.com/th/id/OIP.YLpvvCgXD0sI6X5dg0i6UgHaE7?pid=ImgDet&rs=1"/>
+                </Col>
+
+                <Col>
+                    <Row className='citizenreports-title-container'>
+                        <span className='citizenreports-title'><h2>Road Damage</h2></span>
+                    </Row>
+                    <Row className='citizenreports-details'>
+                        <Col className='citizenreports-info-container'>
+                            <span className='reportInfo'>Where: Cainta Rizal</span>
+                            <span className='reportInfo'>Reported by: John Doe</span>
+                            <span className='reportInfo'>Date Submitted: September 17, 2021 11:17am</span>
+                        </Col>
+                        <Col className='citizenreports-info-status-container'>
+                            <span className='reportInfo'>Status: Confirmed</span>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+        </div>
+        // <div className="reportsContainer">
+        //      <div className="reportsMain">
+        //          <div className="category">
+        //              <React.Fragment>
+        //                     <ReportsNav/> 
+        //             </React.Fragment> 
+        //         </div>
+        //         <div className="citizenreports-btn-container">
+        //             <NavLink to="/citizen-submit-reports">
+        //                 <button className="citizenreports-submitreport-btn">Create A Report</button>
+        //                 </NavLink>
+        //             <NavLink to="/citizen-chat-report">
+        //                 <div className='chat-icon'>
+        //                     <i class="far fa-comment"></i>
+        //                 </div>
+        //             </NavLink>
+        //         </div>
+        //         <Row className="citizenreportShort">
+        //                 <Col className="citizenreportimg-container">
+        //                     <img className="reportImg" alt="reportimg"src="https://th.bing.com/th/id/OIP.YLpvvCgXD0sI6X5dg0i6UgHaE7?pid=ImgDet&rs=1"/>
+        //                 </Col>
+        //                 <Col>
+        //                     <Row className='citizenreport-reportTitleContainer'>
+        //                         <span className="citizenreport-reportTitle"><h2>Road Damage</h2></span>
+        //                     </Row>
+        //                     <Row className="reportDetails">
+        //                         <Col className='reportInfo-container'>
+        //                             <span className="reportInfo">Where: Cainta Rizal</span>
+        //                             <span className="reportInfo">Reported by: John Doe</span>
+        //                             <span className="reportInfo">Date Submitted: September 17, 2021 11:17am</span>
+        //                         </Col>
+        //                         <Col className='reportInfo-container'>
+        //                             <span className="reportInfo">Status: Confirmed</span>
+        //                         </Col>
+        //                     </Row>
+        //                 </Col>
+        //         </Row>
+        //     </div>
+        // </div>
+    );
 
 export default CitizenReports;

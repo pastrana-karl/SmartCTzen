@@ -1,0 +1,141 @@
+.CitizenCreateProposalHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    
+}
+
+.filler{
+    display: flex;
+    padding: 10%;
+}
+
+.CitizenCreateProposalFormDiv {
+    margin-top: 10px;
+    display: grid;
+    row-gap: 30px;
+}
+
+.CitizenCreateProposalForm {
+    display: grid;
+    width: 100%;
+    row-gap: 100px;
+}
+
+.CitizenCreateProposalContentContainer {
+    /* margin: 0px 100px 50px 100px; */
+    margin: 13%;
+    display: flex;
+    flex-direction: column;
+     justify-content: center;
+    /* grid-auto-flow: column; */
+    /* flex-direction: column;
+    column-gap: 100px; */
+}
+
+.CitizenCreateProposalFormInput {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}
+
+.QuoteDiv {
+    display: flex;
+    color: #FF5039;
+}
+.QuoteDiv h1{
+    font-weight: bold;
+}
+
+.ButtonDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    margin: 40px;
+}
+
+.InputValidation {
+    margin-top: 10px;
+    color: red;
+}
+
+
+@media screen and (max-width: 992px) {
+
+    .CitizenCreateProposalContentContainer {
+        /* margin: 0px 100px 50px 100px; */
+        margin: 13%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 80%;
+        /* grid-auto-flow: column; */
+        /* flex-direction: column;
+        column-gap: 100px; */
+    }
+
+    .QuoteDiv {
+        display: flex;
+        color: #FF5039;
+        overflow-wrap: break-word;
+    }
+    .QuoteDiv h1{
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .CitizenCreateProposalForm {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        /* row-gap: 100px; */
+    }
+
+    .CitizenCreateProposalHeader {
+        display: none;
+       
+        
+    }
+    .CitizenCreateProposalFormInput {
+        display: flex;
+        padding: 10px;
+        font-size: 15px;
+        flex-direction: column;
+    }
+
+    .InputValidation {
+        margin-top: 10px;
+        color: red;
+        font-size: 15px;
+
+    }
+
+    .Text {
+        display: flex;
+        justify-content: center;
+        color: #FF5039;
+        font-size: 15px;
+    }
+
+    .ButtonDiv {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 10px;
+        margin: 40px;
+        font-size: 15px;
+    }
+}
+
+/* @media screen and (max-width: 600px) {
+    
+
+} */

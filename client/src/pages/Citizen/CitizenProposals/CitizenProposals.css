@@ -9,6 +9,51 @@
     z-index: 1;
 }
 
+.citizenproposals-catbar-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-height: 100%;
+    margin-bottom: 30px;
+}
+
+.citizenproposals-catbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 50% 0px 50%;
+    max-height: 80px;   
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+}
+
+.citizenproposals-catbar-item{
+    display: flex;
+    white-space: nowrap;
+    justify-content: center;
+    margin: 20px 20px 20px 20px !important;
+    padding: 10px 30px 10px 30px;
+    color: black;
+    /*Neumorphism Magic*/
+    border-radius: 40px;
+    background: linear-gradient(145deg, #d8d8db);
+    box-shadow:  7px 7px 7px #d6d6d8,
+                -7px -7px 7px #ffffff;
+}
+
+.citizenproposals-catbar-item:hover{
+    padding-top: 15px;
+    color: black;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+    text-decoration: none;
+}
+
 .proposalsCreateBtnContainer{
     width: 55%;
 }
@@ -34,25 +79,6 @@
     margin: 0% 10%;
 }
 
-/* .proposalShort {
-    display: flex;
-    flex: auto;
-    flex-wrap: wrap;
-    margin: 50px 0px;
-    border: hidden;
-    padding: 40px;
-    width: 640px auto;
-    /* max-height: 600px; */
-    /* transition: 1s; */
-    /* //neumorphism magic */
-    /* border-radius: 40px;
-    background: linear-gradient(145deg, #d8d8db);
-    box-shadow:  7px 7px 7px #d6d6d8,
-                -7px -7px 7px #ffffff; */
-    /* background: #F0F0F3;
-    box-shadow: inset 7px 7px 15px #d6d6d8,
-                inset -7px -7px 15px #ffffff; */  /*
-} */
 .proposalShort {
     display: flex;
     margin: 50px 0px;
@@ -78,7 +104,7 @@
 
 .proposalAuthContainer{
     display: flex;
-    margin-bottom: 1px;
+    margin-bottom: 30px;
 }
 .proposalAuthImg{
     display: flex;
@@ -110,6 +136,7 @@
 .proposalShortInfo p{
     display: inline-flex;
     text-align: justify;
+    padding: 5px;
 }
 
 .proposalShortImgContainer{

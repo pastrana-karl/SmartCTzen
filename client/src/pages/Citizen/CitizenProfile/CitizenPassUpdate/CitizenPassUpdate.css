@@ -1,5 +1,5 @@
 .citizenPassUpdate-container {
-    margin: 13% auto;
+    margin: 10% 10% 0% 10%;
 }
 
 
@@ -16,15 +16,60 @@
 
 .citizenPassUpdate-edit h3 {
     font-weight: bold;
-    margin: 5% 0 5% 0;
+    margin-bottom: 5%;
 }
 
 .citizenPassUpdate-edit {
-    padding: 40px 150px;
+    padding: 0px 50px 0px 50px;
 }
 
 .citizenPassUpdate-edit .form-label{
     font-size: 20px;
+}
+
+.citizenPassUpdate-BtnContainer{
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    
+}
+
+.BtnContainerCenter{
+    display: flex;
+    justify-content: center;
+}
+
+.citizenPassUpdate-Btn{
+    padding: 15px 45px 15px 45px;
+    border: hidden;
+    background: #FF5039;
+    box-shadow: -10px -10px 30px #FFFFFF, 10px 10px 30px rgba(174, 174, 192, 0.4);
+    border-radius: 30px;
+    color: #ffffff;
+    text-decoration: none;
+    justify-content: center;
+}
+
+.citizenPassUpdate-Btn:hover {
+    background: #Dc4733;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.citizenPassUpdate-BtnCancel{
+    padding: 15px 45px 15px 45px;
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: -10px -10px 30px #FFFFFF, 10px 10px 30px rgba(114, 114, 114, 0.4);
+    border-radius: 30px;
+    color: #FF5039;
+    text-decoration: none;
+    justify-content: center;
+}
+
+.citizenPassUpdate-BtnCancel:hover {
+    color: #FF5039;
+    text-decoration: none;
 }
 
 .citizenPassUpdate-passwordUpdate {

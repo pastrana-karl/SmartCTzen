@@ -1,0 +1,85 @@
+.AdminMessages {
+    display: flex;
+    justify-content: center;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}
+
+.Messenger {
+    margin-top: 100px;
+    display: flex;
+    max-height: 800px;
+    height: 700px;
+}
+
+.AdminChat {
+    flex: 5.5;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 30px;
+    height: 700px;
+}
+
+.AdminChatWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.AdminChatBoxTop {
+    height: 580px;
+    overflow-y: scroll;
+}
+
+.AdminChatMenu {
+    flex: 2;
+    height: 100%;
+    background: #F0F0F3;
+    box-shadow: -10px -10px 10px rgba(255, 255, 255, 0.7), 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 30px;
+    margin-right: 50px;
+}
+
+.AdminChatMenuSearch {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding: 10px 20px 10px 20px;
+    border: none;
+    border-bottom: 1px solid #AEAEC0;
+    background-color: transparent;
+}
+
+.AdminChatBoxBottom {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px 20px 20px;
+}
+
+.ChatMessageInput {
+    width: 90%;
+    height: 90px;
+    padding: 20px;
+    border-radius: 30px;
+
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+}
+
+.ChatSubmitButton {
+    width: 70px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #FF5039;
+    color: white
+}
