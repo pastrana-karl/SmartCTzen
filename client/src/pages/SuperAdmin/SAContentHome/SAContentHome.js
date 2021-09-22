@@ -44,9 +44,36 @@ const SAContentHome = () => {
     };
 
     const res = await axios.get("/api/partners");
-    console.log(res.data)
 
-    if(communities !== "" || users !== "" || members !== "") {
+    if(res.data[0] === undefined) {
+      if(communities !== "") {
+        updateCount.communities = communities;
+      } else {
+        updateCount.communities = "";
+      }
+
+      if(users !== "") {
+        updateCount.users = users;
+      } else {
+        updateCount.users = "";
+      }
+
+      if(members !== "") {
+        updateCount.members = members;
+      } else {
+        updateCount.members = "";
+      }
+
+      try {
+        await axios.post("/api/partners/update", updateCount);
+        Array.from(document.querySelectorAll("input")).forEach(
+          input => (input.value = "")
+        );
+      } catch (err) {
+        console.log(err)
+      }
+
+    } else if (communities !== "" || users !== "" || members !== "") {
       if(res.data[0].communities === communities) {
         updateCount.communities = res.data[0].communities;
       } else if(updateCount.communities === "") {

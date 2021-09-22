@@ -118,7 +118,8 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         birthCertPic: req.body.birthCertPic,
         email: req.body.email,
         password: req.body.password,
-        passwordConfirm: req.body.passwordConfirm
+        status: req.body.status
+        // passwordConfirm: req.body.passwordConfirm
     });
 
     createSendToken(newCitizen, 201, res);
@@ -134,13 +135,16 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
 
     //2 Check if user exists && password is valid
     const citizenUser = await Citizen.findOne({ email }).select('+password');
+    if(citizenUser.status === 'false') {
 
-    if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
-        return next(new AppError("Incorrect email or password", 401));
+    } else {
+        if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
+            return next(new AppError("Incorrect email or password", 401));
+        }
+    
+        //3) Check if everything is ok, send token to client
+        createSendToken(citizenUser, 201, res);
     }
-
-    //3) Check if everything is ok, send token to client
-    createSendToken(citizenUser, 201, res);
 });
 
 exports.protect = catchAsync(async (req, res, next) => {

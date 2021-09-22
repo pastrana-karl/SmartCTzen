@@ -140,6 +140,7 @@ const SeventhStep = (props) => {
         validIDPic: citizen.validIDPic,
         residencyPic: citizen.residencyPic,
         birthCertPic: citizen.birthCertPic,
+        status: false,
       };
       
       // console.log(citizen) Testing for data passing...
