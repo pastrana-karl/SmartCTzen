@@ -1,6 +1,5 @@
 import React from 'react';
 import { format } from 'timeago.js';
-import AdminMessages from '../AdminMessages';
 
 import classes from './AdminMessage.module.css';
 

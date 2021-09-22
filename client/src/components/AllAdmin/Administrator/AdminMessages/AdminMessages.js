@@ -92,7 +92,7 @@ const AdminMessages = ( props ) => {
         // });
 
         try {
-            const res = await axios.post("/api/messages", message);
+            const res = await axios.post("/api/messages/", message);
             setMessages([...chatMessages, res.data]);
         } catch(err) {
             console.log(err);
@@ -123,11 +123,13 @@ const AdminMessages = ( props ) => {
                             placeholder="Search messages"
                             className={classes.AdminChatMenuSearch}
                         />
-                        {conversations.map(c => (
-                            <div onClick={() => setCurrentChat(c)}>
-                                <AdminConversations conversation={c} currentUser={aUser?.user}  />
-                            </div>
-                        ))}
+                        {
+                            conversations.map(c => (
+                                <div onClick={() => setCurrentChat(c)}>
+                                    <AdminConversations conversation={c} currentUser={aUser?.user}  />
+                                </div>
+                            ))
+                        }
                         {/* <AdminConversations /> */}
                     </div>
                     <div className={classes.AdminChat}>
