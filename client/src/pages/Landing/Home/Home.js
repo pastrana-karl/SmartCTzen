@@ -25,14 +25,18 @@ function Home() {
     useEffect(() => {
         const fetchCount = async () => {
             const res = await axios.get("/api/partners");
-            setCount(res.data[0]._id);
-            setCommunity(res.data[0].communities);
-            setUsers(res.data[0].users);
-            setMembers(res.data[0].members);
+            if(res.data[0] !== undefined) {
+                setCount(res.data[0]._id);
+                setCommunity(res.data[0].communities);
+                setUsers(res.data[0].users);
+                setMembers(res.data[0].members);
+            }
         }
 
         fetchCount();
     }, []);
+
+    console.log(`Here it is${users}`)
 
     useEffect(() => {
         const fetchAnnouncement = async () => {
@@ -66,34 +70,34 @@ function Home() {
                 <Row>
                     <div className = 'homeStats-visibility'>
                         <div>
-                            <h2>{ count ? community : "" }</h2>
+                            <h2>{ count && community !== null ? community : "N/A" }</h2>
                             <p>PARTNER COMMUNITIES</p>
                         </div> 
                         <div>
-                            <h2>{ count ? users : "" }</h2>
+                            <h2>{ count && users !== null ? users : "N/A" }</h2>
                             <p>USERS</p>
                         </div>
                         <div>
-                            <h2>{ count ? members : "" }</h2>
+                            <h2>{ count && members !== null ? members : "N/A" }</h2>
                             <p>MEMBERS</p>
                         </div> 
                     </div>
 
                     <Col className = 'homeStats-container'>
                         <div className = 'home-stats'>
-                            <h2>{ count ? community : "" }</h2>
+                            <h2>{ count && community !== null ? community : "N/A" }</h2>
                             <p>PARTNER COMMUNITIES</p>
                         </div>  
                     </Col>
                     <Col className = 'homeStats-container'>
                         <div className = 'home-stats'>
-                            <h2>{ count ? users : "" }</h2>
+                            <h2>{ count && users !== null ? users : "N/A" }</h2>
                             <p>USERS</p>
                         </div> 
                     </Col>
                     <Col className = 'homeStats-container'>
                         <div className = 'home-stats'>
-                            <h2>{ count ? members : "" }</h2>
+                            <h2>{ count && members !== null ? members : "N/A" }</h2>
                             <p>MEMBERS</p>
                         </div> 
                     </Col>
