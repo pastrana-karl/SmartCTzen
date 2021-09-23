@@ -6,6 +6,10 @@ const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+const sendgridTransport = require("nodemailer-sendgrid-transport");
+
+//Sendgrid key
 
 /**
  * 
@@ -98,6 +102,8 @@ exports.getCitizen = catchAsync(async (req, res, next) => {
 });
 
 exports.registerCitizen = catchAsync(async (req, res, next) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.password, salt);
     const newCitizen = await Citizen.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -117,12 +123,71 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         residencyPic: req.body.residencyPic,
         birthCertPic: req.body.birthCertPic,
         email: req.body.email,
-        password: req.body.password,
+        password: hashedPass,
         status: req.body.status
-        // passwordConfirm: req.body.passwordConfirm
     });
 
-    createSendToken(newCitizen, 201, res);
+    transporter.sendMail({
+        to:newCitizen.email,
+        from:"smartct.management@gmail.com",
+        subject:"Registration Verification Ongoing",
+        html:`
+        <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
+        <body style = "
+            padding: 50px;
+            margin: 0;
+        ">
+            <div style = "
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            ">
+                <div style = "
+                    box-sizing: border-box;
+                    padding: 50px;
+                    background: #F0F0F3;
+                    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                    border-radius: 20px;
+                ">
+                    <h3 style = "
+                        font-weight: bold;
+                        color: #fe5138;
+                        text-align: center;
+                    ">
+                        Thank you!
+                    </h3>
+
+                    <p style = "
+                        font-weight: bold;
+                        text-align: center;
+                        color: black;
+                    ">
+                        Your registration is recieved.<br></br>
+                        Please wait for confirmation to access your account.
+                    </p>
+                </div>
+            </div>
+            
+            <p style = "
+                font-weight: bold;
+                color: black;
+            ">
+                <br></br><br></br>
+                From: Your SmartCTzen Administrator
+                <br></br>
+                "Be a Smart Citizen!"
+            </p>
+        </body>
+        </html>
+        `
+    })
+
+    const citizen = await newCitizen.save();
+    res.status(200).json(citizen);
 });
 
 exports.loginCitizen = catchAsync(async (req, res, next) => {
