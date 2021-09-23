@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import './CitizenLogin.css';
 import { Link } from 'react-router-dom';
 import { Context } from '../../../context/Context';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const CitizenLogin = () => {
@@ -24,7 +25,12 @@ const CitizenLogin = () => {
 
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
     } catch (err) {
-        dispatch({ type: "LOGIN_FAILURE" });
+      Swal.fire({
+        icon: 'error',
+        title: `${err.response.status}`,
+        text: `${err.response.data}`,
+      });
+      dispatch({ type: "LOGIN_FAILURE" });
     }
   };
 
@@ -58,9 +64,10 @@ const CitizenLogin = () => {
                 <Form.Group>
                   <Form.Label>Email</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="email"
                     name="email"
                     placeholder="Enter your email address"
+                    required
                     ref = { userRef }
                     autoComplete="off"
                   />
@@ -72,6 +79,7 @@ const CitizenLogin = () => {
                     type="password"
                     name="password"
                     placeholder="Enter your password"
+                    required
                     ref = { passwordRef }
                     autoComplete="off"
                   />

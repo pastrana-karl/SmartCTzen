@@ -136,7 +136,7 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
     //2 Check if user exists && password is valid
     const citizenUser = await Citizen.findOne({ email }).select('+password');
     if(citizenUser.status === 'false') {
-
+        res.status(403).json("Your account is not yet verified by the administrator");
     } else {
         if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
             return next(new AppError("Incorrect email or password", 401));
