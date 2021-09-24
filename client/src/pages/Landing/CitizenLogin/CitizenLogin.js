@@ -28,7 +28,7 @@ const CitizenLogin = () => {
       Swal.fire({
         icon: 'error',
         title: `${err.response.status}`,
-        text: `${err.response.data}`,
+        text: `${err.response.data.message}`,
       });
       dispatch({ type: "LOGIN_FAILURE" });
     }

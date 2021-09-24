@@ -4,10 +4,11 @@ const { promisify } = require("util"); //built-in module
 const Citizen = require("../models/citizenModel");
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
-const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
+const catchAsync = require('../utils/catchAsync');
+const bcrypt = require("bcrypt");
+
 
 //Sendgrid key
 
@@ -102,8 +103,6 @@ exports.getCitizen = catchAsync(async (req, res, next) => {
 });
 
 exports.registerCitizen = catchAsync(async (req, res, next) => {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPass = await bcrypt.hash(req.body.password, salt);
     const newCitizen = await Citizen.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -123,8 +122,9 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         residencyPic: req.body.residencyPic,
         birthCertPic: req.body.birthCertPic,
         email: req.body.email,
-        password: hashedPass,
+        password: req.body.password,
         status: req.body.status
+        // passwordConfirm: req.body.passwordConfirm
     });
 
     transporter.sendMail({
@@ -186,8 +186,8 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         `
     })
 
-    const citizen = await newCitizen.save();
-    res.status(200).json(citizen);
+
+    createSendToken(newCitizen, 201, res);
 });
 
 exports.loginCitizen = catchAsync(async (req, res, next) => {
@@ -201,7 +201,7 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
     //2 Check if user exists && password is valid
     const citizenUser = await Citizen.findOne({ email }).select('+password');
     if(citizenUser.status === 'false') {
-        res.status(403).json("Your account is not yet verified by the administrator");
+        return next(new AppError("This account is not yet verefied by the administrator . . .", 403));
     } else {
         if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
             return next(new AppError("Incorrect email or password", 401));
@@ -268,3 +268,164 @@ exports.protect = catchAsync(async (req, res, next) => {
 //     res.status(200).json(others);
 // });
 
+//GET ALL APPLICANTS
+exports.applicants = catchAsync(async (req, res, next) => {
+    const applicantStatus = req.query.status;
+
+    try{
+        let citizenUser;
+
+        if(applicantStatus) {
+            citizenUser = await Citizen.find({ status:applicantStatus }).collation({locale: "en", strength: 2})
+        } else {
+            res.status(404).json("There are no current applicants...");
+        }
+
+        res.status(200).json(citizenUser);
+    }catch(err){
+         res.status(500).json(err);
+    }
+});
+
+//ACCEPT APPLICANTS
+exports.acceptApplicant = catchAsync(async (req, res, next) => {
+    try{
+        const acceptApplicant = await Citizen.findByIdAndUpdate(req.params.id,{
+            $set: { "status": true }
+        });
+
+        transporter.sendMail({
+            to:acceptApplicant.email,
+            from:"smartct.management@gmail.com",
+            subject:"Registration Confirmation",
+            html:`
+            <html lang="en">
+            <head>
+                <meta charset="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </head>
+            <body style = "
+                padding: 50px;
+                margin: 0;
+            ">
+                <div style = "
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                ">
+                    <div style = "
+                        box-sizing: border-box;
+                        padding: 50px;
+                        background: #F0F0F3;
+                        box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                        border-radius: 20px;
+                    ">
+                        <h3 style = "
+                            font-weight: bold;
+                            color: #fe5138;
+                            text-align: center;
+                        ">
+                            Welcome!
+                        </h3>
+    
+                        <p style = "
+                            font-weight: bold;
+                            text-align: center;
+                            color: black;
+                        ">
+                            Your registration is Approved.
+                        </p>
+                    </div>
+                </div>
+                
+                <p style = "
+                    font-weight: bold;
+                    color: black;
+                ">
+                    <br></br><br></br>
+                    From: Your SmartCTzen Administrator
+                    <br></br>
+                    "Be a Smart Citizen!"
+                </p>
+            </body>
+            </html>
+            `
+        })
+
+        const { password, ...others } = acceptApplicant._doc;
+        res.status(200).json(others);
+    }catch(err){
+        res.status(500).json(err);
+    }
+
+});
+
+//REJECT APPLICANTS
+exports.rejectApplicant = catchAsync(async (req, res, next) => {
+try {
+    const rejectApplicant = await Citizen.findById(req.params.id);
+    await rejectApplicant.delete();
+
+    transporter.sendMail({
+        to:rejectApplicant.email,
+        from:"smartct.management@gmail.com",
+        subject:"Registration Rejected",
+        html:`
+        <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
+        <body style = "
+            padding: 50px;
+            margin: 0;
+        ">
+            <div style = "
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            ">
+                <div style = "
+                    box-sizing: border-box;
+                    padding: 50px;
+                    background: #F0F0F3;
+                    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                    border-radius: 20px;
+                ">
+                    <h3 style = "
+                        font-weight: bold;
+                        color: #fe5138;
+                        text-align: center;
+                    ">
+                        Sorry . . .
+                    </h3>
+
+                    <p style = "
+                        font-weight: bold;
+                        text-align: center;
+                        color: black;
+                    ">
+                        Your registration is rejected.
+                    </p>
+                </div>
+            </div>
+            
+            <p style = "
+                font-weight: bold;
+                color: black;
+            ">
+                <br></br><br></br>
+                From: Your SmartCTzen Administrator
+                <br></br>
+                "Be a Smart Citizen!"
+            </p>
+        </body>
+        </html>
+        `
+    })
+
+    res.status(200).json("Citizen has been rejected...");
+} catch (err) {
+    res.status(500).json(err);
+}
+});
