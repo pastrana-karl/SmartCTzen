@@ -28,6 +28,11 @@ const reportsSchema = new mongoose.Schema({
     //     type: String,
     //     required: [true, 'This field is required']
     // }
+    status: {
+        type: String,
+        enum: ['Need action', 'Confirmed', 'Resolved'],
+        default: 'Need action'
+    }
 });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()

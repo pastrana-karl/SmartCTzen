@@ -23,6 +23,7 @@ exports.getAllReports = catchAsync(async (req, res, next) => {
     });
 });
 
+//GET a Report
 exports.getReport = catchAsync(async (req, res, next) => {
     const report = await Reports.findById(req.params.id);
     
