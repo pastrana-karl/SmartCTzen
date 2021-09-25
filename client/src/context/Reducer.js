@@ -102,12 +102,16 @@ const Reducer = (state, action) => {
         };
 
         case "UPDATE_SUCCESS": return {
+            saUser: null,
+            aUser: null,
             user: action.payload,
             isFetching: false,
             error: false,
         };
 
         case "UPDATE_FAILURE": return {
+            saUser: null,
+            aUser: null,
             user: state.user,
             isFetching: false,
             error: true,

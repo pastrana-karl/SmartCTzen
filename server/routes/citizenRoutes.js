@@ -16,4 +16,9 @@ router
     .route("/:id")
     .get(citizenController.getCitizen);
 
+//Update Citizen
+router
+    .route("/:id")
+    .put(citizenController.UpdateCitizen);
+
 module.exports = router;

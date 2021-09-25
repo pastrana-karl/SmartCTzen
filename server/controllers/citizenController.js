@@ -203,3 +203,17 @@ exports.protect = catchAsync(async (req, res, next) => {
 //     res.status(200).json(others);
 // });
 
+
+exports.UpdateCitizen = catchAsync(async (req, res, next) => {
+    const token = req.body.token;
+    try{
+        const user = await Citizen.findByIdAndUpdate(req.params.id,{
+            $set: { "profilePic": req.body.profilePic }
+        },
+        { new:true }
+        );
+        res.status(200).json({data: { user }, token});
+    }catch(err){
+        res.status(500).json(err);
+    }
+});

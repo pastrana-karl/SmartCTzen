@@ -79,7 +79,7 @@ const CitizenReports = () => {
                                 <span className='reportInfo'>Desc : {report.description}</span>
                                 <span className='reportInfo'>Reported By : {report.userName}</span>
                                 <span className='reportInfo'>Date Submitted: Sept 20, 2021</span>
-                                <span className='reportInfo'><i onClick={()=> deletereport(report._id)} className="fas fa-trash"></i></span>
+                                {/* <span className='reportInfo'><i onClick={()=> deletereport(report._id)} className="fas fa-trash"></i></span> */}
 
                             </Col>
                             <Col className='citizenreports-info-status-container'>
