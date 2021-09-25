@@ -107,6 +107,15 @@
     font-size: 20px;
 }
 
+.citizenProfile-changeImg{
+    display: flex;
+    justify-content: center;
+}
+.citizenProfile-changeImg .form-label{
+    padding: 0px 30px;
+    font-size: 32px;
+}
+
 .citizenProfile-passwordUpdate {
     display: flex;
     justify-content: center;

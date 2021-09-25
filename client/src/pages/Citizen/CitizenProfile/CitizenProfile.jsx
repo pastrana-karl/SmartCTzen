@@ -1,28 +1,72 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { Context } from '../../../context/Context';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './CitizenProfile.css';
 
-const CitizenProfile = () => (
-    <>
+const CitizenProfile = () => {
+    const { user, dispatch } = useContext(Context);
+    const [file, setFile] = useState(null);
+    const [profilePic, setProfilePic] = useState("");
+
+    console.log(user);
+    const handleSubmit = async () => {
+
+        dispatch({ type: "UPDATE_START" });
+        const updateAccount = {
+            profilePic,
+            token: user.token,
+        }
+        if (file) {
+            const data = new FormData();
+            const filename = Date.now() + file.name;
+            data.append("name", filename);
+            data.append("file", file);
+            data.append("upload_preset", "dev_prac");
+            data.append("cloud_name", "karlstorage");
+            try {
+                const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
+                updateAccount.profilePic = res.data.secure_url;
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            setProfilePic("");
+        }
+
+        console.log(updateAccount.profilePic)
+
+        try {
+            const res = await axios.put("/api/citizen/" + user.data.user._id, updateAccount);
+            console.log(res.data)
+            dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
+        } catch (err) {
+            console.log(err);
+            dispatch({ type: "UPDATE_FAILURE" })
+        }
+    }
+    return(
         <Container className = 'citizenProfile-container'>
             <div className = 'citizenAccountImg-shadow'>
                 <div className = 'citizenAccountImg'>
-                    <img src= 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt="" ></img>
+                    <img src= {file ? (URL.createObjectURL(file)) : `${user.data.user.profilePic}`} alt="" ></img>
                 </div>
             </div>
-
+            <div className="citizenProfile-changeImg">
+                <Form.Label  htmlFor="iconImg"><i className="fas fa-image"></i></Form.Label>
+                <i className="fas fa-upload" onClick = { handleSubmit }></i>
+            </div>
             <div  className = 'col-md-10 offset-md-1' id = 'citizenProfile-body'>
-                <div className = 'citizenProfile-name'>
-                    <p>Juan Miguel Dela Cruz</p>
-                </div>
-
-                <div className = 'citizenProfile-statsDesktop'>
+                <div className = 'citizenProfile-name'> 
+                     {/* <p>{user.data.user.firstname + " " + user.data.user.middlename + " " + user.data.user.lastname}</p> */}
+                 </div>
+                 <div className = 'citizenProfile-statsDesktop'>
                     <Row>
                         <Col className = 'citizenProfile-Badge'>
                             <div className = 'citizenProfile-BadgeImg'>
-                                    {/* <img src='' alt="badge"></img> */}
-                            </div>
+                                    <img src='' alt="badge"></img> 
+                             </div>
                             <h4>Badge</h4>
                         </Col>
                         <Col>
@@ -49,7 +93,6 @@ const CitizenProfile = () => (
                         </Col>
                     </Row>
                 </div>
-
                 <div className = 'citizenProfile-statsMobile'>
                     <Col>
                         <Row className = 'citizenProfile-Badge'>
@@ -73,8 +116,6 @@ const CitizenProfile = () => (
                             <Row><h4>Approved Proposals</h4></Row>
                             <Row><p>1</p></Row>
                             </Col>
-                            
-                            
                         </Row>
                         <Row className = 'citizenProfile-StatsMD'>
                             <Col>
@@ -94,14 +135,25 @@ const CitizenProfile = () => (
             
             <Form className = 'citizenProfile-edit'>
                 <h3>Personal Information</h3>
-
-                <Form.Group controlId="email">
+                 <Form.Group>
+                    <Form.Control
+                        id="iconImg"
+                        type="file"
+                        name="citizenImg"
+                        style = {{display: "none"}}
+                        required
+                        onChange = {(e) => setFile(e.target.files[0])}
+                    />
+                </Form.Group>
+              {/*   <Form.Group controlId="email">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'
                         type="text"
                         name="lname"
                         autoComplete="off"
+                        disabled
+                        placeholder={user.data.user.lastname}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -111,6 +163,8 @@ const CitizenProfile = () => (
                         type="text"
                         name="fname"
                         autoComplete="off"
+                        disabled
+                        placeholder={user.data.user.firstname}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -120,6 +174,8 @@ const CitizenProfile = () => (
                         type="text"
                         name="mname"
                         autoComplete="off"
+                        disabled
+                        placeholder={user.data.user.middlename}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -129,6 +185,8 @@ const CitizenProfile = () => (
                         type="text"
                         name="sname"
                         autoComplete="off"
+                        disabled
+                        placeholder={user.data.user.suffix}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -138,6 +196,8 @@ const CitizenProfile = () => (
                         type="text"
                         name="sex"
                         autoComplete="off"
+                        disabled
+                        placeholder={user.data.user.sex}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -147,6 +207,8 @@ const CitizenProfile = () => (
                         type="text"
                         name="birthday"
                         autoComplete="off"
+                        disabled
+                        placeholder={user.data.user.birthdate}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -156,11 +218,12 @@ const CitizenProfile = () => (
                         type="text"
                         name="address"
                         autoComplete="off"
+                        disabled
+                        placeholder={user.data.user.street +" "+user.data.user.barangay +" "+user.data.user.city +" "+user.data.user.region}
                     />
                 </Form.Group>
                 
                 <h3>Login Credentials</h3>
-
                 <Form.Group controlId="email">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
@@ -168,39 +231,24 @@ const CitizenProfile = () => (
                         type="text"
                         name="birthday"
                         autoComplete="off"
+                        disabled
+                        placeholder={user.data.user.email}
                     />
-                </Form.Group>
-              
-                <Form.Group controlId="email">
-                    <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            className='citizenProfile-input'
-                            type="text"
-                            name="password"
-                            autoComplete="off"
-                        />               
-                </Form.Group>
+                </Form.Group> */}
             </Form>
-
             <Link to = '/citizen-pass-update' className = 'citizenProfile-passwordUpdate'><i className="editIcon far fa-edit"></i></Link>
-
         </Container>
-    </>
-);
-
+    );
+};
 
 export default CitizenProfile;
-
 // import React, { useState } from 'react';
 // import { useFormik } from 'formik';
-
 // import ProfileIconCard from '../../../UI/Cards/ProfileIconCard/ProfileIconCard';
 // import ProfileInput from '../../../UI/Input/ProfileInput/ProfileInput';
 // import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
 // import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
-
 // import classes from './CitizenProfile.module.css';
-
 // const initialValues = {
 //     last_name: '',
 //     first_name: '',
@@ -212,11 +260,9 @@ export default CitizenProfile;
 //     email: '',
 //     password: ''
 // }
-
 // const onSubmit = values => {
 //     console.log('Form data', values)
 // };
-
 // const CitizenProfile = () => {
 //     const formik = useFormik({
 //         initialValues,
@@ -224,7 +270,6 @@ export default CitizenProfile;
 //             console.log('Form values', values)
 //         }
 //     });
-
 
 //     return (
 //         <React.Fragment>
@@ -332,9 +377,7 @@ export default CitizenProfile;
 //                                 </div>
 //                             </form>
 //                         </div>
-
 //                         {/* LOGIN CREDENTIALS */}
-
 //                         <h2>Login Credentials</h2>
 //                         <div>
 //                             <form onSubmit={formik.handleSubmit}>
@@ -374,5 +417,4 @@ export default CitizenProfile;
 //         </React.Fragment>
 //     );
 // }
-
 // export default CitizenProfile;

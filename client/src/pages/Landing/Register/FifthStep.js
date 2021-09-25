@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import ReactTooltip from "react-tooltip";
+import Swal from 'sweetalert2';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
@@ -26,6 +26,14 @@ const FifthStep = (props) => {
     arrows: false,
     slidesToScroll: 1,
     className: 'slides'
+  }
+
+  const handleInfo = () => {
+    Swal.fire({
+      icon: 'info',
+      title: 'Required Document',
+      text: 'Photo/s of this document is required for account verificaton. (Max of two (2) photos)',
+    });
   }
 
   const onSubmit = (data) => {
@@ -67,8 +75,7 @@ const FifthStep = (props) => {
           <div className="registerUploadIcon">
             <Form.Label htmlFor="fileInput"><i className="registerUploadImgIcon fas fa-image"></i></Form.Label>
             <div className="registerHelpIcon">
-              <i className="fas fa-info-circle" data-tip='Upload required photo.. ( Max of 2 photos )' data-event='click focus'></i>
-              <ReactTooltip place='right'/>
+              <i className="fas fa-info-circle" onClick = { handleInfo }></i>
             </div>
           </div>
           <input

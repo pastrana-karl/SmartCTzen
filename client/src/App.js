@@ -31,7 +31,8 @@ import AdminReports from './components/AllAdmin/Administrator/AdminReports/Admin
 import AdminMessages from './components/AllAdmin/Administrator/AdminMessages/AdminMessages';
 import AdminProjects from './components/AllAdmin/Administrator/AdminProjects/AdminProjects';
 import AdminUsers from './components/AllAdmin/Administrator/AdminUsers/AdminUsers';
-import AdminApplicants from './components/AllAdmin/Administrator/AdminApplicants/AdminApplicants';
+import Applicants from './components/AllAdmin/Administrator/Applicants/Applicants';
+import SingleApplicants from './components/AllAdmin/Administrator/SingleApplicants/SingleApplicants';
 import AdminLogout from './components/AllAdmin/Administrator/AdminLogout/AdminLogout';
 import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
 import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
@@ -45,6 +46,7 @@ import CitizenViewProject from './pages/Citizen/CitizenProjects/CitizenViewProje
 import CitizenLogout from './pages/Citizen/CitizenLogout/CitizenLogout';
 import ProposalNav from './components/Citizen/ProposalNav/ProposalNav';
 import ReportsNav from './components/Citizen/ReportsNav/ReportsNav';
+
 import SANavBar from './components/SuperAdmin/SaSideBar';
 import SALogin from './pages/SuperAdmin/SALogin/SALogin';
 import SAForgot from './pages/SuperAdmin/SAForgot/SAForgot';
@@ -76,6 +78,8 @@ const App = () => {
 
   //Citizen User...
   const { user } = useContext(Context);
+
+  // console.log(user);
 
   //Super Administrator User...
   const { saUser } = useContext(Context);
@@ -209,7 +213,7 @@ const App = () => {
             <CitizenViewProject/>
           </Route>  
 
-          {/**************************** SUPER ADMIN and ADMIN Login ****************************/}
+          {/**************************** ADMIN Login ****************************/}
           <Route path="/admin-login">
             {aUser ? <Redirect to="/admin-profile" /> : <AdminLogin />}
           </Route>
@@ -225,7 +229,6 @@ const App = () => {
           <Route path="/admin-create-proposals">
             <AdminCreateProposals />
           </Route>
-
 
           <Route path="/admin-reports">
             <AdminReports />
@@ -247,12 +250,16 @@ const App = () => {
             <AdminUsers />
           </Route>
 
-          <Route path="/admin-applicants">
-            <AdminApplicants />
-          </Route>
-
           <Route path="/admin-logout">
             <AdminLogout />
+          </Route>
+
+          <Route path="/Applicants">
+            <Applicants />
+          </Route>
+
+          <Route path="/Applicants-Verification">
+            <SingleApplicants />
           </Route>
 
           {/**************************** SUPER ADMIN Routes ****************************/}

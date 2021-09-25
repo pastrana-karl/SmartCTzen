@@ -7,11 +7,11 @@ const CitizenViewProject = () => (
     <>
         <Container className = 'citizenViewProject-container'>
             <Row>
-                <Col>Title</Col>
+                <Col><h2>Magdalena</h2></Col>
                 <Col><i class="fas fa-eye">#</i></Col>
             </Row>
             <Row>
-                Description.
+                Anong Nangyari Sayo.
             </Row>
             <Row>
                 <Col>When/Started On:</Col>

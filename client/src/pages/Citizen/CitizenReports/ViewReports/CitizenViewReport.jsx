@@ -6,24 +6,30 @@ import './CitizenViewReport.css';
 const CitizenViewReport = () => (
     <>
         <Container className = 'citizenViewReport-container'>
-            <Row>
-                <Col>Title</Col>
+            <Row className="citizenViewReport-header">
                 <Row>
-                    <Col>Reporter: John Doe</Col>
-                    <Col>Submitted on: September 11, 2021</Col>
+                    <Col claasName="citizenViewReport-title">
+                    <h2>Ahay</h2>
+                    </Col>
+                </Row>
+                <Row className="citizenViewReport-auth">
+                    <Col>Reporter: IC</Col>
+                    <Col>Submitted on: September 22, 2021</Col>
                 </Row>
             </Row>
-            {/* <Row>
-                Lorem Ipsum
-            </Row> */}
-            <Row>
-                <Col>Where: Cainta, Rizal</Col>
-            </Row>
-            <Row>
-                <Col>Status: Confirmed</Col>
-            </Row>
-            <Row>
-                <img src="https://imgur.com/vxihw43.png" alt="Project"></img>
+            <Row className="citizenViewReport-description">
+                <p>So ayun nga, nag catgirl ata yung prof namin sa klase. Di ako sure mismo kasi nakaasa lang ako sa chat namin nung oras na yun.</p>
+            </Row> 
+            <Row className="citizenViewReport-footer">
+                <Row className="citizenViewReport-details">
+                    <Col>Where: Cainta, Rizal</Col>
+                    <Col>Status: Confirmed</Col>
+                </Row>
+                <Row className="citizenViewReport-img-container">
+                    <Col className="citizenViewReport-img-frame">
+                        <img src="https://imgur.com/vxihw43.png" alt="Report"></img>
+                    </Col>
+                </Row>
             </Row>
         </Container>
     </>

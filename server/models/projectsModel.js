@@ -5,7 +5,7 @@ const diffHistory = require("mongoose-audit-trail");
 const projectsSchema = new mongoose.Schema({
     userId: {
         type: String,
-        required: [true, 'This field is required']
+        // required: [true, 'This field is required']
     },
     title: {
         type: String,

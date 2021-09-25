@@ -1,52 +1,55 @@
 import "./CitizenProjects.css";
-import React, { Component } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Col, Column, Row, Container } from 'react-bootstrap'
 import { Link, NavLink } from "react-router-dom";
 
-class CitizenProjects extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          count: 0
-        }
-    }
+const CitizenProjects = () => {
+    const [projects, setProjects] = useState();
+    const [views, setViews] = useState(0);
 
-    add = () => {
-        this.setState({count: this.state.count + 1})
-    }
+    useEffect(() => {
+        const sendRequest = async () => {
+            const response = await fetch('/api/projects');
 
+            const responseData = await response.json();
 
-    render() {
+            setProjects(responseData.data.projects);
+        };
+        sendRequest();
+    });
+
+    // const count = async () => {
+    //     setViews(views + 1);
+    // };
+
         return (
-            <div className='citizenprojects-container'>
-                {/* <Row className='citizenprojects-catbar-container'>
+            <div className='citizenprojects-container' >
+                <Row className='citizenprojects-catbar-container'>
                     <Col className='citizenprojects-catbar'>
                         <Link className='citizenprojects-catbar-item' to='/'>All</Link>
                         <Link className='citizenprojects-catbar-item' to='/'>Accomplished</Link>
                         <Link className='citizenprojects-catbar-item' to='/'>Ongoing</Link>
                     </Col>
-                </Row> */}
-                
-                <Row  className='citizenprojects-short' onClick={this.add}>
+                </Row> 
+                {projects && projects.map(project =>(
+                    <Row  className='citizenprojects-short' key={project._id}>
                     <Col className='citizenprojects-shortinfo'>
                         <Row className='citizenprojects-shortinfo-auth'>
-                            <h2>Lorem Ipusm</h2>
+                            <h2>{project.title}</h2>
                             <Col className='citizenprojects-auth-container'>
                                 <div className='citizenprojects-authimg-container'>
                                     <img src='https://media.istockphoto.com/photos/mameshibainu-picture-id950213314?s=612x612'/>
                                 </div>
-                                <div className='citizenprojects-auth'>John Doe</div>
+                                <div className='citizenprojects-auth'>{project.userId}</div>
                             </Col>
                         </Row>
                         <Row className='citizenprojects-shortinfo-desc'>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis efficitur orci et interdum vulputate. 
-                            Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut vel euismod leo. Ut varius a magna 
-                            eu vulputate.
+                            {project.description}
                         </Row>
                         <Row className='citizenprojects-shortinfo-status'>
                             <p>Status: Ongoing</p>
                             <div className='citizenprojects-shortinfo-status-views'>
-                                <i class="fas fa-eye"/> <span>{this.state.count}</span>
+                                <i className="fas fa-eye"/> <span>{views}</span>
                             </div>
                         </Row>
                     </Col>
@@ -57,9 +60,9 @@ class CitizenProjects extends Component {
                         </div>
                     </Col>
                 </Row>
+                ))}
             </div>
         );
-    }
 }
 export default CitizenProjects;
 
