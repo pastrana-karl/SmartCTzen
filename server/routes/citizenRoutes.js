@@ -20,6 +20,7 @@ router
 router
     .route("/:id")
     .put(citizenController.UpdateCitizen);
+    
 //Get Applicants
 router
     .route("/")

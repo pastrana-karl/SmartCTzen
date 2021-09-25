@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import * as ReactBootStrap from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 const SeventhStep = (props) => {
   const { citizen } = props;
@@ -17,8 +17,20 @@ const SeventhStep = (props) => {
   });
 
   const [loading, setLoading] =  useState(true);
+  const [redirect, setRedirect] = useState(false);
 
   const onSubmit = async (data) => {
+
+    if(citizen.validIDPic === undefined || citizen.residencyPic === undefined) {
+      setRedirect(true);
+
+      Swal.fire({
+        icon: 'info',
+        title: `No Photo input . . .`,
+        text: `You will be redirected! Make sure to finish all the steps. (Refreshing the browser will cause all your data input to be gone)`,
+      });
+    }
+  
     setLoading(false);
 
     try {
@@ -164,11 +176,12 @@ const SeventhStep = (props) => {
       }
     } catch (err) {
         if (err.response) {
+          console.log(err.response)
           if(loading === true){
             Swal.fire({
               icon: 'error',
-              title: 'Oops...',
-              text: 'something wrong!',
+              title: `${err.response.status}`,
+              text: `${err.response.data.message}`,
             });
             props.resetCitizen();
             props.history.push('/create-account');
@@ -180,6 +193,7 @@ const SeventhStep = (props) => {
 
   return (
     <>
+    { redirect && (<Redirect to = '/create-account' />) }
     {loading ? (
       <Form className="registerInput-form" onSubmit={handleSubmit(onSubmit)}>
       <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }} id = 'register-panel'>

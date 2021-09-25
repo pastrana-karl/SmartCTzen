@@ -10,7 +10,7 @@
 }
 
 .citizenFeatures-container {
-    margin-bottom: 15%;
+    margin-bottom: 33%;
 }
 
 .citizenFeatures-row {
@@ -65,6 +65,10 @@
     .citizenFeature-display {
         margin-top: 15%;
     }
+
+    .citizenFeatures-container {
+        margin-bottom: 84.8%;
+    }
 }
 
 @media screen and (max-width: 900px) {
@@ -78,6 +82,7 @@
 
     .citizenFeatures-container {
         font-size: 14px;
+        margin-bottom: 62.4%;
     }
     
     .citizenFeature-mobileDisplay {
@@ -94,5 +99,9 @@
 
     .citizenFeatures {
         margin-top: 30%;
+    }
+
+    .citizenFeatures-container {
+        margin-bottom: 71%;
     }
 }

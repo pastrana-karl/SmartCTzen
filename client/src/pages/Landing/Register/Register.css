@@ -182,12 +182,17 @@ body {
   display: inline;
   vertical-align: middle;
   cursor: pointer;
-  margin-left: 5px;
+  margin-left: 5%;
 }
 
 .registerHelpIcon .fas
 {
   color: grey;
+}
+
+#infoIconFields {
+  color: grey;
+  cursor: pointer;
 }
 
 .registerInput-form .form-control {
