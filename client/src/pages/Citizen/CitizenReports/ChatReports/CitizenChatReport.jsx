@@ -9,8 +9,8 @@ import CitizenMessage from './CitizenMessage/CitizenMessage';
 import { Context } from '../../../../context/Context';
 
 import './CitizenChatReport.module.css';
-import classes from './CitizenChatReport.module.css'
-import { data } from 'jquery';
+import classes from './CitizenChatReport.module.css';
+// import { data } from 'jquery';
 
 const CitizenChatReport = ( props ) => {
     const [conversations, setConversations] = useState([]);
@@ -88,7 +88,7 @@ const CitizenChatReport = ( props ) => {
         }
     };
 
-    //console.log(currentChat);
+    console.log(currentChat);
     
     return(
         <React.Fragment>

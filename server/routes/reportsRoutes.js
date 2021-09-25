@@ -12,6 +12,7 @@ reportsRouter
 reportsRouter
     .route("/reports/:id")
     .get(reportsController.getReport)
+    .delete(reportsController.deleteReports);
 
 reportsRouter
     .route("/reports/:id/histories")

@@ -3,6 +3,10 @@ const slugify = require("slugify");
 const diffHistory = require("mongoose-audit-trail");
 
 const reportsSchema = new mongoose.Schema({
+    userName: {
+        type: String
+    },
+
     title: {
         type: String,
         required: [true, 'This field is required']
@@ -12,18 +16,18 @@ const reportsSchema = new mongoose.Schema({
         required: [true, 'This field is required']
     },
     slug: String,
-    date: {
-        type: String,
-        required: [true, 'This field is required']
-    },
+    // date: {
+    //     type: String,
+    //     required: [true, 'This field is required']
+    // },
     location: {
         type: String,
         required: [true, 'This field is required']
     },
-    photo: {
-        type: String,
-        required: [true, 'This field is required']
-    }
+    // photo: {
+    //     type: String,
+    //     required: [true, 'This field is required']
+    // }
 });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()

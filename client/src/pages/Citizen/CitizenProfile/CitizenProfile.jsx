@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { Context } from '../../../context/Context';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './CitizenProfile.css';
 
-const CitizenProfile = () => (
-    <>
+const CitizenProfile = () => {
+    const { user } = useContext(Context);
+    const [file, setFile] = useState("");
+
+
+    console.log(user);
+    return(
         <Container className = 'citizenProfile-container'>
             <div className = 'citizenAccountImg-shadow'>
                 <div className = 'citizenAccountImg'>
-                    <img src= 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt="" ></img>
+                    <img src= {file ? (URL.createObjectURL(file)) : "https://www.pinclipart.com/picdir/big/157-1578186_user-profile-default-image-png-clipart.png"} alt="" ></img>
                 </div>
             </div>
+            <Form.Label htmlFor="iconImg"><i className="fas fa-image"></i></Form.Label>
 
             <div  className = 'col-md-10 offset-md-1' id = 'citizenProfile-body'>
                 <div className = 'citizenProfile-name'>
-                    <p>Juan Miguel Dela Cruz</p>
+                    <p>{user.data.user.firstname + " " + user.data.user.middlename + " " + user.data.user.lastname}</p>
                 </div>
 
                 <div className = 'citizenProfile-statsDesktop'>
@@ -73,8 +80,6 @@ const CitizenProfile = () => (
                             <Row><h4>Approved Proposals</h4></Row>
                             <Row><p>1</p></Row>
                             </Col>
-                            
-                            
                         </Row>
                         <Row className = 'citizenProfile-StatsMD'>
                             <Col>
@@ -95,6 +100,16 @@ const CitizenProfile = () => (
             <Form className = 'citizenProfile-edit'>
                 <h3>Personal Information</h3>
 
+                <Form.Group>
+                    <Form.Control
+                        id="iconImg"
+                        type="file"
+                        name="citizenImg"
+                        style = {{display: "none"}}
+                        onChange = {(e) => setFile(e.target.files[0])}
+                    />
+                </Form.Group>
+
                 <Form.Group controlId="email">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
@@ -102,6 +117,7 @@ const CitizenProfile = () => (
                         type="text"
                         name="lname"
                         autoComplete="off"
+                        placeholder={user.data.user.lastname}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -111,6 +127,7 @@ const CitizenProfile = () => (
                         type="text"
                         name="fname"
                         autoComplete="off"
+                        placeholder={user.data.user.firstname}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -120,6 +137,7 @@ const CitizenProfile = () => (
                         type="text"
                         name="mname"
                         autoComplete="off"
+                        placeholder={user.data.user.middlename}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -129,6 +147,7 @@ const CitizenProfile = () => (
                         type="text"
                         name="sname"
                         autoComplete="off"
+                        placeholder={user.data.user.suffix}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -138,6 +157,7 @@ const CitizenProfile = () => (
                         type="text"
                         name="sex"
                         autoComplete="off"
+                        placeholder={user.data.user.sex}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -147,6 +167,7 @@ const CitizenProfile = () => (
                         type="text"
                         name="birthday"
                         autoComplete="off"
+                        placeholder={user.data.user.birthdate}
                     />
                 </Form.Group>
                 <Form.Group controlId="email">
@@ -156,6 +177,7 @@ const CitizenProfile = () => (
                         type="text"
                         name="address"
                         autoComplete="off"
+                        placeholder={user.data.user.street +" "+user.data.user.barangay +" "+user.data.user.city +" "+user.data.user.region}
                     />
                 </Form.Group>
                 
@@ -168,25 +190,16 @@ const CitizenProfile = () => (
                         type="text"
                         name="birthday"
                         autoComplete="off"
+                        placeholder={user.data.user.email}
                     />
-                </Form.Group>
-              
-                <Form.Group controlId="email">
-                    <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            className='citizenProfile-input'
-                            type="text"
-                            name="password"
-                            autoComplete="off"
-                        />               
                 </Form.Group>
             </Form>
 
             <Link to = '/citizen-pass-update' className = 'citizenProfile-passwordUpdate'><i className="editIcon far fa-edit"></i></Link>
 
         </Container>
-    </>
-);
+    );
+};
 
 
 export default CitizenProfile;

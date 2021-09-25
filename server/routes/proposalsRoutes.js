@@ -4,6 +4,7 @@ const proposalsController = require("../controllers/proposalsController");
 
 const proposalsRouter = express.Router();
 
+//use this as the address in postman
 proposalsRouter
     .route("/proposals")
     .get(proposalsController.getAllProposals)

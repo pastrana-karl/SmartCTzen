@@ -77,6 +77,8 @@ const App = () => {
   //Citizen User...
   const { user } = useContext(Context);
 
+  // console.log(user);
+
   //Super Administrator User...
   const { saUser } = useContext(Context);
 

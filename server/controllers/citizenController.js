@@ -135,16 +135,16 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
 
     //2 Check if user exists && password is valid
     const citizenUser = await Citizen.findOne({ email }).select('+password');
-    if(citizenUser.status === 'false') {
+    // if(citizenUser.status === 'false') {
 
-    } else {
+    // } else {
         if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
             return next(new AppError("Incorrect email or password", 401));
         }
     
         //3) Check if everything is ok, send token to client
         createSendToken(citizenUser, 201, res);
-    }
+    // }
 });
 
 exports.protect = catchAsync(async (req, res, next) => {

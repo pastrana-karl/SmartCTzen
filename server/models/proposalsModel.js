@@ -6,6 +6,9 @@ const proposalsSchema = new mongoose.Schema({
     userId: {
         type: String,
     },
+    userName: {
+        type: String,
+    },
     title: {
         type: String,
         required: [true, 'This field is required'],
@@ -17,10 +20,10 @@ const proposalsSchema = new mongoose.Schema({
         required: [true, 'This field is required'],
         trim: true
     },
-    date:  {
-        type: String,
-        required: [true, 'This field is required'],
-    },
+    // date:  {
+    //     type: String,
+    //     required: [true, 'This field is required'],
+    // },
     location:  {
         type: String,
         required: [true, 'This field is required'],
