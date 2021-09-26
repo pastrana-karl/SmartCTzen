@@ -54,6 +54,7 @@ import SAEmail from './pages/SuperAdmin/SAEmail/SAEmail';
 import SAContentHome from './pages/SuperAdmin/SAContentHome/SAContentHome';
 import SAAnnouncements from './pages/SuperAdmin/SAAnnouncements/SAAnnouncements';
 import SAFeaturedMember from './pages/SuperAdmin/SAFeaturedMember/SAFeaturedMember';
+import SAEula from './pages/SuperAdmin/SAEula/SAEula';
 import SAAddFeaturedMember from './pages/SuperAdmin/SAAddFeaturedMember/SAAddFeaturedMember';
 import SAContentFeature from './pages/SuperAdmin/SAContentFeature/SAContentFeature';
 import SAAddFeature from './pages/SuperAdmin/SAAddFeature/SAAddFeature';
@@ -282,7 +283,7 @@ const App = () => {
             <SAForgot />
           </Route>
 
-          <Route path="/superAdmin-changePassword">
+          <Route path="/superAdmin-changePassword/:token">
             <SAEmail />
           </Route>
 
@@ -296,6 +297,10 @@ const App = () => {
 
           <Route path="/SAContent-FeaturedMember">
             {saUser ? <SAFeaturedMember /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAContent-Eula">
+            {saUser ? <SAEula /> : <Redirect to="/superAdmin-login" />}
           </Route>
 
           <Route path="/SAContent-addFeaturedMember">

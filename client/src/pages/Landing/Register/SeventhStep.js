@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
@@ -18,6 +18,24 @@ const SeventhStep = (props) => {
 
   const [loading, setLoading] =  useState(true);
   const [redirect, setRedirect] = useState(false);
+  const [agreement,setAgreement] = useState("");
+
+  useEffect(() => {
+    const fetchEula = async () => {
+        const res = await axios.get('/api/eula');
+        setAgreement(res.data[0].message);
+    }
+
+    fetchEula();
+  }, [])
+
+  const handleInfo = () => {
+    Swal.fire({
+      icon: 'info',
+      title: 'End-User License Agreement',
+      html: `<p style ='text-align: justify; white-space: pre-wrap;'>${agreement}</p>`,
+    });
+  }
 
   const onSubmit = async (data) => {
 
@@ -238,6 +256,12 @@ const SeventhStep = (props) => {
           {errors.password && (
             <p className="registerErrorMsg">{errors.password.message}</p>
           )}
+        </Form.Group>
+
+        <p className = 'eulaText'><i className="fas fa-info-circle" onClick = { handleInfo } id="infoIconFields"></i> Click the 'info' icon to read end-user license agreement.</p>
+
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" required label="I've read and agree with the presented end-user license agreement." />
         </Form.Group>
 
         <Button variant="danger" type="submit">

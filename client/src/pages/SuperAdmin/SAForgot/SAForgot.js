@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import './SAForgot.css';
+import axios from 'axios'
 import { Link } from 'react-router-dom';
 
 const SAForgot = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        const res = await axios.post("/api/superAdmin/reset-password", { email });
+        
+    } catch (err) {
+      console.log(err.response)
+    }
+  };
 
   return (
     <>
@@ -18,7 +31,7 @@ const SAForgot = () => {
             </div>
             </motion.div>
             <motion.div className="col-md-10 offset-md-1" initial={{ opacity: -3, x: '-100vw' }} animate={{ opacity: 1, x: 0 }} transition={{ stiffness: 150 }}>
-              <Form className="superadminForgot-input">
+              <Form className="superadminForgot-input" onSubmit = { handleSubmit }>
                 
                 <Form.Group controlId="email">
                   <Form.Label>Email</Form.Label>
@@ -27,6 +40,7 @@ const SAForgot = () => {
                     name="email"
                     placeholder="Enter your email address"
                     autoComplete="off"
+                    onChange = {(e) => setEmail(e.target.value)}
                   />
                 </Form.Group>
 

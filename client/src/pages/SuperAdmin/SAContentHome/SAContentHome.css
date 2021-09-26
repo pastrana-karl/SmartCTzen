@@ -205,6 +205,23 @@
     color: #Dc4733;
 }
 
+.eulaButton {
+    margin: 10% auto;
+    display: flex;
+    justify-content: center;
+}
+
+.eulaButton .btn.btn-danger{
+    padding: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    background-color: #fe5139;
+}
+
+.eulaButton .btn.btn-danger:hover{
+    background-color: #Dc4733;
+}
+
 @media screen and (max-width: 600px) {
     .SAcontent-header h1 {
         font-size: 35px;

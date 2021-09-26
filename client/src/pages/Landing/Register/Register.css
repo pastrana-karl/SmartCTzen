@@ -91,7 +91,7 @@ body {
 
 #register-panel {
   box-sizing: border-box;
-  padding: 20px;
+  padding: 40px;
   background: #F0F0F3;
   box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
   border-radius: 20px;
@@ -230,6 +230,10 @@ body {
   display: inline !important;
 }
 
+.eulaText {
+  margin: 5% auto;
+}
+
 @media screen and (max-width: 1200px) {
   .registerErrorMsg-photo {
     max-width: 100%;
@@ -253,6 +257,10 @@ body {
 
   .steps .step {
     margin: 0.5rem 2rem;
+  }
+  
+  .eulaText {
+    margin: 10% auto;
   }
 }
 @media screen and (max-width: 600px) {
