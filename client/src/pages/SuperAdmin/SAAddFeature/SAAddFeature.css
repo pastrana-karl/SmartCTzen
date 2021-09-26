@@ -135,4 +135,8 @@
     .SAContent-addFeatureImage img {
         width: 60vw;
     }
+
+    .SAcontent-addFeatureHeader h1 {
+        font-size: 30px;
+    }
 }

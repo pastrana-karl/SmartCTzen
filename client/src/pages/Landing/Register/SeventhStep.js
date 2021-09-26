@@ -172,7 +172,8 @@ const SeventhStep = (props) => {
               props.resetCitizen();
               props.history.push('/create-account');
              }
-          });
+          }
+        );
       }
     } catch (err) {
         if (err.response) {

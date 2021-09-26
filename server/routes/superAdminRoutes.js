@@ -23,4 +23,9 @@ router
     .route("/:id")
     .get(superAdminController.GetSpecificSuperAdmin);
 
+//GET SPECIFIC FEATURED MEMBER
+router
+    .route("/password-compare")
+    .post(superAdminController.PassWordCompare);
+
 module.exports = router;

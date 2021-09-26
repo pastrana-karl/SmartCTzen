@@ -124,6 +124,7 @@
 
 .SAContent-homeAnnounemnets {
     margin: 0 auto;
+    margin-bottom: 5%;
     width: 450px;
     box-sizing: border-box;
     padding: 5px;
@@ -146,6 +147,7 @@
     padding: 60px;
     text-align: center;
     margin: 5% auto;
+    margin-top: 0;
 }
 
 #SAContenthome-announcements p {
@@ -204,6 +206,10 @@
 }
 
 @media screen and (max-width: 600px) {
+    .SAcontent-header h1 {
+        font-size: 35px;
+    }
+
     #SAHome-body {
         border: none;
         background: none;

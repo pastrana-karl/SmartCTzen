@@ -89,15 +89,15 @@ const SAAddAdmin = () => {
                         <h1>Register Admin</h1>
                     </div>
 
-                    <div className = 'col-md-10 offset-md-1' id = 'SAaddAmin-body'>
-                        <div className = 'SAaddAminImg'>
-                            <div className = 'SAaddAminImg-container'>
+                    <div className = 'col-md-10 offset-md-1' id = 'SAaddAdmin-body'>
+                        <div className = 'SAaddAdminImg'>
+                            <div className = 'SAaddAdminImg-container'>
                                 <img src= {file && (URL.createObjectURL(file))} alt="" onClick={()=> window.open(URL.createObjectURL(file), "_blank")}></img>
                             </div>
                         </div>
-                        <Form className = 'SAaddAmin-edit' onSubmit = { handleSubmit }>
+                        <Form className = 'SAaddAdmin-edit' onSubmit = { handleSubmit }>
                             <Form.Group>
-                                <div className="SAaddAmin-uploadIcon">
+                                <div className="SAaddAdmin-uploadIcon">
                                     <Form.Label htmlFor="fileInput"><i className="writeIcon fas fa-image"></i></Form.Label>
                                 </div>
                                 <input
@@ -115,6 +115,7 @@ const SAAddAdmin = () => {
                                 type="text"
                                 name="userName"
                                 onChange = {e => setUsername(e.target.value)}
+                                required
                                 autoComplete="off"
                             />
                             </Form.Group>
@@ -125,6 +126,7 @@ const SAAddAdmin = () => {
                                 type="email"
                                 name="email"
                                 onChange = {e => setEmail(e.target.value)}
+                                required
                                 autoComplete="off"
                             />
                             </Form.Group>
@@ -135,6 +137,7 @@ const SAAddAdmin = () => {
                                 type="password"
                                 name="password"
                                 onChange = {e => setPassword(e.target.value)}
+                                required
                                 autoComplete="off"
                             />
                             </Form.Group>
@@ -145,6 +148,7 @@ const SAAddAdmin = () => {
                                 type="text"
                                 name="location"
                                 onChange = {e => setLocation(e.target.value)}
+                                required
                                 autoComplete="off"
                             />
                             </Form.Group>
@@ -153,10 +157,10 @@ const SAAddAdmin = () => {
                             <Button variant="danger" type="submit">
                                 Register
                             </Button>
-                            <Button className = 'SAaddAmin-reset' variant="outline-light" type="reset">
+                            <Button className = 'SAaddAdmin-reset' variant="outline-light" type="reset">
                                 Clear
                             </Button>
-                            <Link className="SAaddAmin-links" to="/SAManage-admin">Back</Link>
+                            <Link className="SAaddAdmin-links" to="/SAManage-admin">Back</Link>
                         </Form>
                     </div>
                 </Container>

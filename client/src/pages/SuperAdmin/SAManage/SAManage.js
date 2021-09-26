@@ -23,10 +23,6 @@ const SAManage = () => {
         setAdmin(res.data);
     }
 
-
-    // Admin Checking
-    // console.log(admin)
-
     return (
         <>
             <Container>
@@ -40,7 +36,7 @@ const SAManage = () => {
                         type="text"
                         name="user"
                         autoComplete="off"
-                        placeholder='Search . . .'
+                        placeholder='Search username . . .'
                         onChange = {e => setAdminSearch(e.target.value)}
                     />
                     </Form.Group>
@@ -51,21 +47,26 @@ const SAManage = () => {
                 </Form>
 
                 <div  className = 'col-md-10 offset-md-1' id = 'SAmanage-body'>
-                    <Row>
-                        <Col className = 'SAmanage-searchHeader'><h4>Administrator ID</h4></Col>
-                        <Col className = 'SAmanage-searchHeader'><h4>User Name</h4></Col>
-                        <Col className = 'SAmanage-searchHeader'><h4>Email Address</h4></Col>
-                        <Col></Col>
-                    </Row>
+                    {admin[0] &&
+                        <>
+                            <Row>
+                                <Col className = 'SAmanage-searchHeader' id='SAmanage-resultVisibility'><h4>Administrator ID</h4></Col>
+                                <Col className = 'SAmanage-searchHeader'><h4>Username</h4></Col>
+                                <Col className = 'SAmanage-searchHeader' id='SAmanage-resultVisibilityMobile'><h4>Email Address</h4></Col>
+                                <Col></Col>
+                            </Row>
 
-                    {admin.map((adminUser) => (
-                        <Row className = 'SAmanage-displayResult' key={adminUser._id}>
-                            <Col className='SAmanage-searchResult'><h4>{adminUser._id}</h4></Col>
-                            <Col className='SAmanage-searchResult'><h4>{adminUser.username}</h4></Col>
-                            <Col className='SAmanage-searchResult'><h4>{adminUser.email}</h4></Col>
-                            <Col className='SAmanage-searchResult'><h4><Link to = {`/SASearch-admin/${adminUser._id}`}><i className="fas fa-external-link-alt"></i></Link></h4></Col>
-                        </Row>
-                    ))}
+                            {admin.map((adminUser) => (
+                                    <Row className = 'SAmanage-displayResult' key={adminUser._id}>
+                                        <Col className='SAmanage-searchResult' id='SAmanage-resultVisibility'><h4>{adminUser._id}</h4></Col>
+                                        <Col className='SAmanage-searchResult'><h4>{adminUser.username}</h4></Col>
+                                        <Col className='SAmanage-searchResult' id='SAmanage-resultVisibilityMobile'><h4>{adminUser.email}</h4></Col>
+                                        <Col className='SAmanage-searchResult'><h4><Link to = {`/SASearch-admin/${adminUser._id}`}><i className="fas fa-external-link-alt"></i></Link></h4></Col>
+                                    </Row>
+                                ))
+                            }
+                        </>
+                    }
                 </div>
 
                 <div className = 'SAmanage-addAdmin'>

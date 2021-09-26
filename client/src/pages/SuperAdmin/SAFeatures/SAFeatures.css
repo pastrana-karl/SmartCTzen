@@ -126,4 +126,8 @@
         width: 60vw;
         height: 45vh;
     }
+
+    .SAnew-feature h1 {
+        font-size: 28px;
+    }
 }

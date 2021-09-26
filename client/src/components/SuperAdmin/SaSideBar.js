@@ -70,6 +70,7 @@ const SuperAdminHeader = styled.div`
 
   @media screen and (max-width: 600px) {
     padding-right: 10%;
+    h1 {font-size: 35px;}
   }
 
   @media screen and (max-width: 499px) {

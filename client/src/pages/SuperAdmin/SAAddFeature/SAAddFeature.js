@@ -17,7 +17,6 @@ const SAAddFeature = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(false);
 
         const newFeature = {
             title,
@@ -26,55 +25,63 @@ const SAAddFeature = () => {
             featurePic,
         }
 
-        console.log(position);
-
-        if (file) {
-            const data = new FormData();
-            const filename = Date.now() + file.name;
-            data.append("name", filename);
-            data.append("file", file);
-            data.append("upload_preset", "dev_prac");
-            data.append("cloud_name", "karlstorage");
-
-            try {
-                const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
-                newFeature.featurePic = res.data.secure_url;
-            } catch (err) {
-                console.log(err)
-            }
+        if(file === null) {
+            Swal.fire({
+                icon: 'error',
+                title: 'No Image!',
+                text: 'A photo is required.',
+            });
         } else {
-            setFeaturePic("");
-        }
+            setLoading(false);
 
-        try {
-            await axios.post("/api/SAFeatures/newFeatures", newFeature);
-            setLoading(true);
-
-            if(loading === true){
-                Swal.fire('Awesome!', "You've successfully posted a new feature!", 'success').then(
-                    (result) => {
-                        if (result.isConfirmed || result.isDismissed) {
-                            setRedirect(true);
-                        }
-                    }
-                );
+            if (file) {
+                const data = new FormData();
+                const filename = Date.now() + file.name;
+                data.append("name", filename);
+                data.append("file", file);
+                data.append("upload_preset", "dev_prac");
+                data.append("cloud_name", "karlstorage");
+    
+                try {
+                    const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
+                    newFeature.featurePic = res.data.secure_url;
+                } catch (err) {
+                    console.log(err)
+                }
+            } else {
+                setFeaturePic("");
             }
-        } catch (err) {
-            console.log(err);
-            if (err.response) {
+    
+            try {
+                await axios.post("/api/SAFeatures/newFeatures", newFeature);
+                setLoading(true);
+    
                 if(loading === true){
-                    setLoading(true);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'something wrong!',
-                    }).then(
+                    Swal.fire('Awesome!', "You've successfully posted a new feature!", 'success').then(
                         (result) => {
                             if (result.isConfirmed || result.isDismissed) {
-                                window.location.reload();
+                                setRedirect(true);
                             }
                         }
-                    )
+                    );
+                }
+            } catch (err) {
+                console.log(err);
+                if (err.response) {
+                    if(loading === true){
+                        setLoading(true);
+                        Swal.fire({
+                            icon: 'error',
+                            title: `${err.response.status}`,
+                            text: `${err.response.data.message}`,
+                        }).then(
+                            (result) => {
+                                if (result.isConfirmed || result.isDismissed) {
+                                    window.location.reload();
+                                }
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -108,7 +115,6 @@ const SAAddFeature = () => {
                                 name="featuresPic" 
                                 id="fileInput"  
                                 style={{display:"none"}}
-                                required
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                             </Form.Group>

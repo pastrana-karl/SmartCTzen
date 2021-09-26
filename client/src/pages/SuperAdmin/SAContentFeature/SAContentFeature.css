@@ -122,4 +122,8 @@
     .SAContent-addFeature {
         font-size: 50px;
     }
+
+    .SAcontent-feature h1 {
+        font-size: 35px;
+    }
 }

@@ -41,9 +41,9 @@ router.get("/", async (req, res) => {
         let admins;
 
         if(adminName) {
-            admins = await Admin.find({ username:adminName }).collation({locale: "en", strength: 2})
+            admins = await Admin.find({ username:adminName }).collation({locale: "en", strength: 2});
         } else {
-            admins = await Admin.find();
+            admins = await Admin.find().sort({username:1});
         }
 
         res.status(200).json(admins);
