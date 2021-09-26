@@ -62,7 +62,8 @@ import SAManage from './pages/SuperAdmin/SAManage/SAManage';
 import SASearchAdmin from './pages/SuperAdmin/SASearchAdmin/SASearchAdmin';
 import SAAddAdmin from './pages/SuperAdmin/SAAddAdmin/SAAddAdmin';
 import SAAccount from './pages/SuperAdmin/SAAccount/SAAccount';
-import AdminProjectsDashboard from './components/AllAdmin/Administrator/AdminProjectsDashboard/AdminProjectsDashboard';
+import AdminReportsDashboard from './components/AllAdmin/Administrator/AdminReportsDashboard/AdminReportsDashboard';
+import AdminProposalsDashboard from './components/AllAdmin/Administrator/AdminProposalsDashboard/AdminProposalsDashboard';
 
 const App = () => {
 
@@ -236,7 +237,7 @@ const App = () => {
           </Route>
 
           <Route path="/admin-summary/reports">
-            <AdminProjectsDashboard />
+            <AdminReportsDashboard />
           </Route>
 
           <Route path="/admin-messages">
@@ -245,6 +246,10 @@ const App = () => {
 
           <Route path="/admin-projects">
             <AdminProjects />
+          </Route>
+
+          <Route path="/admin-summary/proposals">
+            <AdminProposalsDashboard />
           </Route>
 
           <Route path="/admin-create-projects">

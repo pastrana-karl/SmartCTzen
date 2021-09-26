@@ -18,4 +18,8 @@ reportsRouter
     .route("/reports/:id/histories")
     .get(reportsController.getReportsHistory);
 
+reportsRouter
+    .route("/reports/count")
+    .get(reportsController.countReportsTotal);
+
 module.exports = reportsRouter;

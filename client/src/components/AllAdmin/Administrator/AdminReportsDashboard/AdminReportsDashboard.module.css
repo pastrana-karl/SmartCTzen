@@ -1,22 +1,14 @@
-.AdminProjectsDashboard {
+.AdminReportsDashboard {
     display: flex;
     justify-content: center;
     margin-bottom: 150px;
 }
 
-/* .SummaryContainer {
-    display: flex;
-    justify-content: space-between;
-} */
 
-.ProjectSummary {
+.ReportsSummary {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* display: grid;
-    row-gap: 100px;
-    grid-template-columns: repeat(2, 150px) 500px;
-    justify-content: space-around; */
 }
 
 .SummaryCard {
@@ -27,8 +19,18 @@
     grid-template-columns: repeat(2, 150px);
 }
 
+.SummaryCardHeader {
+    font-weight: bold;
+}
+
 .SummaryGraph {
     width: 700px;
+}
+
+.SummaryDataText {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .Text {
@@ -36,3 +38,4 @@
     justify-content: center;
     color: #FF5039;
 }
+

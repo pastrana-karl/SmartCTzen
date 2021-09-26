@@ -1,0 +1,72 @@
+.AdminProposalsDashboard {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 150px;
+}
+
+
+
+.LeaderboardsHeader {
+    width: 70%;
+    height: 60px;
+
+    background: #F0F0F3;
+    box-shadow: -10px -10px 30px #FFFFFF, 10px 10px 30px rgba(174, 174, 192, 0.4);
+    border-radius: 10px 10px 0px 0px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    margin-bottom: 40px;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}
+
+.Divider {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.TableDiv {
+    height: 80%;
+    max-height: 700px;
+    width: 100%;
+    max-width: 1000px;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 0px 0px 10px 10px;
+    padding: 50px 20px 50px;
+}
+
+.Table {
+    display: block;
+    height: 700px;
+    max-height: 600px;
+    top: 0;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+.CardData {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.SummaryCardHeader {
+    font-weight: bold;
+}
+
+.SummaryDataText {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
