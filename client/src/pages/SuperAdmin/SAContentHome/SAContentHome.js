@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Form, Container, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './SAContentHome.css'
+import Swal from 'sweetalert2'
 import axios from 'axios'
 import { Context } from '../../../context/Context'
 
@@ -13,8 +14,6 @@ const SAContentHome = () => {
   const { saUser } = useContext(Context);
   const [announcement, setAnnouncement] = useState([]);
   const [featuredM, setFeaturedM] = useState([]);
-
-  console.log(saUser.others.username)
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
@@ -43,76 +42,108 @@ const SAContentHome = () => {
       members,
     };
 
-    const res = await axios.get("/api/partners");
+    if(communities === "" && users === "" && members === "") {
+      Swal.fire({
+        icon: 'error',
+        title: 'No Input . . .',
+        text: 'You need to input update before you submit!',
+      });
+    } else {
+      const res = await axios.get("/api/partners");
 
-    if(res.data[0] === undefined) {
-      if(communities !== "") {
-        updateCount.communities = communities;
-      } else {
-        updateCount.communities = "";
-      }
-
-      if(users !== "") {
-        updateCount.users = users;
-      } else {
-        updateCount.users = "";
-      }
-
-      if(members !== "") {
-        updateCount.members = members;
-      } else {
-        updateCount.members = "";
-      }
-
-      try {
-        await axios.post("/api/partners/update", updateCount);
-        Array.from(document.querySelectorAll("input")).forEach(
-          input => (input.value = "")
-        );
-      } catch (err) {
-        console.log(err)
-      }
-
-    } else if (communities !== "" || users !== "" || members !== "") {
-      if(res.data[0].communities === communities) {
-        updateCount.communities = res.data[0].communities;
-      } else if(updateCount.communities === "") {
-        updateCount.communities = res.data[0].communities;
-      } else {
-        updateCount.communities = communities;
-      }
-
-      if(res.data[0].users === users) {
-        updateCount.users = res.data[0].users;
-      } else if(updateCount.users === "") {
-        updateCount.users = res.data[0].users;
-      } else {
-        updateCount.users = users;
-      }
-
-      if(res.data[0].members === members) {
-        updateCount.members = res.data[0].members;
-      } else if(updateCount.members === "") {
-        updateCount.members = res.data[0].members;
-      } else {
-        updateCount.members = members;
-      }
-
-      if(res.data[0]._id) {
-        try {
-          await axios.delete(`/api/partners/${res.data[0]._id}`);
-        } catch (err) {
-          console.log(err);
+      if(res.data[0] === undefined) {
+        if(communities !== "") {
+          updateCount.communities = communities;
+        } else {
+          updateCount.communities = "";
         }
-      }
 
-      try {
-        await axios.post("/api/partners/update", updateCount);
-        Array.from(document.querySelectorAll("input")).forEach(
-          input => (input.value = "")
-        );
-      } catch (err) {
-        console.log(err)
+        if(users !== "") {
+          updateCount.users = users;
+        } else {
+          updateCount.users = "";
+        }
+
+        if(members !== "") {
+          updateCount.members = members;
+        } else {
+          updateCount.members = "";
+        }
+
+        try {
+          await axios.post("/api/partners/update", updateCount);
+          Array.from(document.querySelectorAll("input")).forEach(
+            input => (input.value = "")
+          );
+        } catch (err) {
+          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: `${err.response.status}`,
+            text: `${err.response.data.message}`,
+          });
+        }
+
+      } else {
+        if(res.data[0].communities === communities) {
+          updateCount.communities = res.data[0].communities;
+        } else if(updateCount.communities === "") {
+          updateCount.communities = res.data[0].communities;
+        } else {
+          updateCount.communities = communities;
+        }
+
+        if(res.data[0].users === users) {
+          updateCount.users = res.data[0].users;
+        } else if(updateCount.users === "") {
+          updateCount.users = res.data[0].users;
+        } else {
+          updateCount.users = users;
+        }
+
+        if(res.data[0].members === members) {
+          updateCount.members = res.data[0].members;
+        } else if(updateCount.members === "") {
+          updateCount.members = res.data[0].members;
+        } else {
+          updateCount.members = members;
+        }
+
+        if(res.data[0]._id) {
+          try {
+            await axios.delete(`/api/partners/${res.data[0]._id}`);
+          } catch (err) {
+            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: `${err.response.status}`,
+              text: `${err.response.data.message}`,
+            });
+          }
+        }
+
+        try {
+          await axios.post("/api/partners/update", updateCount);
+          Array.from(document.querySelectorAll("input")).forEach(
+            input => (input.value = ""),
+            setCommunities(""),
+            setUsers(""),
+            setMembers(""),
+          );
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Update Complete',
+            text: '',
+          });
+        } catch (err) {
+          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: `${err.response.status}`,
+            text: `${err.response.data.message}`,
+          });
+        }
       }
     }
   }
@@ -129,11 +160,29 @@ const SAContentHome = () => {
       try {
         await axios.post("/api/saAnnounce/announcement", newAnnouncement);
         Array.from(document.querySelectorAll("input")).forEach(
-          input => (input.value = "")
+          input => (input.value = ""),
+          setMessage(""),
         );
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Update Complete',
+          text: '',
+        });
       } catch (err) {
         console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: `${err.response.status}`,
+          text: `${err.response.data.message}`,
+        });
       }
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'No Input . . .',
+        text: 'You need to input message before you submit!',
+      });
     }
   }
 
@@ -193,14 +242,16 @@ const SAContentHome = () => {
               <h4>Announcements</h4>
             </div>
 
-            <div className = 'col-md-10 offset-md-1' id = 'SAContenthome-announcements'>
-              {announcement.map((message) => (
-                <div key={message._id}>
-                  <h4><Link to = {`/SAContent-announcements/${message._id}`}>{message.username}: </Link></h4>
-                  <p>{message.message}</p>
-                </div> )
-              )}
-            </div>
+            {announcement[0] && 
+              <div className = 'col-md-10 offset-md-1' id = 'SAContenthome-announcements'>
+                {announcement.map((message) => (
+                  <div key={message._id}>
+                    <h4><Link to = {`/SAContent-announcements/${message._id}`}>{message.username}: </Link></h4>
+                    <p>{message.message}</p>
+                  </div> )
+                )}
+              </div>
+            }
 
             <div className = 'col-md-10 offset-md-1' id = 'SAHome-body'>
                 <Form className="SAContent-home" onSubmit = { handleAnnouncement }>

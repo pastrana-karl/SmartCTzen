@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Form, Container, Button } from 'react-bootstrap'
 import { Link, Redirect, useLocation } from 'react-router-dom'
 import './SASearchAdmin.css'
+import Swal from 'sweetalert2'
 import axios from 'axios'
 
 const SASearchAdmin = () => {
@@ -26,14 +27,27 @@ const SASearchAdmin = () => {
         getAdmin();
     },[path]);
 
+    console.log(loc)
+
     const handleDelete = async (e) => {
         e.preventDefault();
 
         try {
             await axios.delete(`/api/admin/${adminId}`);
-            setRedirect(true);
+            Swal.fire('Delete Successful!', "You've successfully deleted an administrator.", 'success').then(
+                (result) => {
+                  if (result.isConfirmed || result.isDismissed) {
+                    setRedirect(true);
+                   }
+                }
+            );
         } catch (err) {
             console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: `${err.response.status}`,
+                text: `${err.response.data.message}`,
+            });
         }
     };
     
@@ -46,7 +60,7 @@ const SASearchAdmin = () => {
                 <div className = 'SAmanage-searchResultBody'>
                     <div className = 'searchResultImg-container'>
                         <div className = 'searchResultImg'>
-                            {adminDP === "" ? <i style = {{fontSize: '100px', display: 'flex', justifyContent: 'center', marginTop: '25%'}} class="fas fa-user"></i> : <img src = {adminDP} alt = "" ></img>}
+                            <img src = {adminDP} alt = "" ></img>
                         </div>
                     </div>
                     <Form className="SAmanage-result" onSubmit = {handleDelete}>

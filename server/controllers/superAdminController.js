@@ -64,33 +64,45 @@ exports.loginSuperAdmin = catchAsync(async (req, res, next) => {
 
 
 exports.UpdateSuperAdmin = catchAsync(async (req, res) => {
-    const superadmin = await SuperAdmin.findById(req.params.id);
     const token = req.body.token;
 
-    if(req.body.userId === req.params.id){
+    if(req.body.newPassword) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPass = await bcrypt.hash(req.body.newPassword, salt);
 
-        if(req.body.password === "") {
-            req.body.password = superadmin.password;
-        } else {
-            const salt = await bcrypt.genSalt(10);
-            req.body.password = await bcrypt.hash(req.body.password, salt);
+        if(req.body.userId === req.params.id){
+            try{
+                const updatedUser = await SuperAdmin.findByIdAndUpdate(req.params.id,{
+                    $set: { "password": hashedPass }
+                },
+                { new:true }
+                );
+
+                const { password, ...others } = updatedUser._doc;
+                res.status(200).json({others, token});
+            }catch(err){
+                res.status(500).json(err);
+            }
         }
+    }
 
-        try{
-            const updatedUser = await SuperAdmin.findByIdAndUpdate(req.params.id,{
-                $set: req.body,
-            },
-            { new:true }
-            );
-
-            const { password, ...others } = updatedUser._doc;
-            res.status(200).json({others, token});
-        }catch(err){
-            res.status(500).json(err);
+    if(req.body.newEmail) {
+        if(req.body.userId === req.params.id){
+            try{
+                const updatedUser = await SuperAdmin.findByIdAndUpdate(req.params.id,{
+                    $set: { "username": req.body.username, "email": req.body.newEmail }
+                },
+                { new:true }
+                );
+    
+                const { password, ...others } = updatedUser._doc;
+                res.status(200).json({others, token});
+            }catch(err){
+                res.status(500).json(err);
+            }
         }
     }
 });
-
 
 exports.GetSpecificSuperAdmin = catchAsync(async (req, res) => {
     try{
@@ -101,4 +113,17 @@ exports.GetSpecificSuperAdmin = catchAsync(async (req, res) => {
     }catch(err){
          res.status(500).json(err);
     }
+});
+
+exports.PassWordCompare = catchAsync(async (req, res, next) => {
+    const superadmin = await SuperAdmin.findById(req.body.userId);
+
+    const validated = await bcrypt.compare(req.body.oldPassword, superadmin.password);
+
+    if(!validated)
+    {
+        return res.status(400).json("Your Old Password is Wrong!!");
+    }
+    
+    res.status(200).json("Correct Password!");
 });

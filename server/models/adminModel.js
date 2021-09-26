@@ -45,7 +45,7 @@ const adminSchema = new mongoose.Schema({
 
     profilePic:{
         type:String,
-        default:"",
+        default:"https://www.pinclipart.com/picdir/big/157-1578186_user-profile-default-image-png-clipart.png",
     },
 }, 
 { timestamps: true }
