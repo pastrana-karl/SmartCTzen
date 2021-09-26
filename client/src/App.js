@@ -62,6 +62,7 @@ import SAManage from './pages/SuperAdmin/SAManage/SAManage';
 import SASearchAdmin from './pages/SuperAdmin/SASearchAdmin/SASearchAdmin';
 import SAAddAdmin from './pages/SuperAdmin/SAAddAdmin/SAAddAdmin';
 import SAAccount from './pages/SuperAdmin/SAAccount/SAAccount';
+import AdminProjectsDashboard from './components/AllAdmin/Administrator/AdminProjectsDashboard/AdminProjectsDashboard';
 
 const App = () => {
 
@@ -232,6 +233,10 @@ const App = () => {
 
           <Route path="/admin-reports">
             <AdminReports />
+          </Route>
+
+          <Route path="/admin-summary/reports">
+            <AdminProjectsDashboard />
           </Route>
 
           <Route path="/admin-messages">

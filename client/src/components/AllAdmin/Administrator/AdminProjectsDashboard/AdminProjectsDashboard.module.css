@@ -1,0 +1,38 @@
+.AdminProjectsDashboard {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 150px;
+}
+
+/* .SummaryContainer {
+    display: flex;
+    justify-content: space-between;
+} */
+
+.ProjectSummary {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* display: grid;
+    row-gap: 100px;
+    grid-template-columns: repeat(2, 150px) 500px;
+    justify-content: space-around; */
+}
+
+.SummaryCard {
+    width: 500px;
+    display: grid;
+    column-gap: 200px;
+    row-gap: 50px;
+    grid-template-columns: repeat(2, 150px);
+}
+
+.SummaryGraph {
+    width: 700px;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}
