@@ -16,7 +16,7 @@ const CitizenPassUpdate = () => (
                         <Form.Control
                             className='citizenPassUpdate-input'
                             type="password"
-                            name="cpass"
+                            name="curpass"
                             autoComplete="off"
                         />
                     </Form.Group>
@@ -25,7 +25,7 @@ const CitizenPassUpdate = () => (
                         <Form.Control
                             className='citizenPassUpdate-input'
                             type="password"
-                            name="cpass"
+                            name="newpass"
                             autoComplete="off"
                         />
                     </Form.Group>
@@ -34,7 +34,7 @@ const CitizenPassUpdate = () => (
                         <Form.Control
                             className='citizenPassUpdate-input'
                             type="password"
-                            name="cpass"
+                            name="conpass"
                             autoComplete="off"
                         />
                     </Form.Group>

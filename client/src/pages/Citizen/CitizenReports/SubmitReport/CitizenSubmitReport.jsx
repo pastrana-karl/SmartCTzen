@@ -63,10 +63,10 @@ const CitizenSubmitReport = () => {
 
     return(
         <React.Fragment>
-            <Container className={classes.CitizenCreateProposalContentContainer}>
+            <Container className="citizenSubmitReport-container">
                 {/* <div className = 'col-lg-10 offset-lg-1'> */}
                 <Row>
-                    <div className={classes.QuoteDiv}>
+                    <div className="citizen-header">
                         <h1>Found a Problem? Go Submit a Report</h1>
                     </div>
                     <Formik
@@ -74,11 +74,11 @@ const CitizenSubmitReport = () => {
                         validationSchema={validationSchema}
                         onSubmit={onSubmit}
                     >
-                        <Form className={classes.CitizenCreateProposalForm}>
+                        <Form className="citizenSubmitReport-edit">
                             <Col>
                                 <Row>
                                     <Col sm={6}>
-                                        <Row className={classes.CitizenCreateProposalFormInput}>
+                                        <Row className="citizenSubmitReport-input">
                                             <label>Report Title</label>
                                             <FormikInput 
                                             type="text"
@@ -87,10 +87,10 @@ const CitizenSubmitReport = () => {
                                             name="title"
                                             />
                                             <ErrorMessage name="title">
-                                                {errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>}
+                                                {errorMsg => <div className="InputValidation">{errorMsg}</div>}
                                             </ErrorMessage>
-                                        </Row>
-                                        <Row className={classes.CitizenCreateProposalFormInput}>
+                                        {/* </Row>
+                                        <Row className="citizenSubmitReport-input"> */}
                                             <label>Description</label>
                                             <FormikInput 
                                                 type="text"
@@ -100,12 +100,12 @@ const CitizenSubmitReport = () => {
                                             />
                                             <ErrorMessage name="name">
                                                 {
-                                                    errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                                    errorMsg => <div className="InputValidation">{errorMsg}</div>
                                                 }
                                             </ErrorMessage>
                                         </Row>
                                     </Col>
-                                    <Col className={classes.CitizenCreateProposalHeader}>
+                                    <Col className="citizenSubmitReportQuote">
                                         <h2>Reporting a problem or an issue is your <span className="text-highlight">ambag</span></h2>
                                     </Col>
                                 </Row>
@@ -124,7 +124,7 @@ const CitizenSubmitReport = () => {
                                             }
                                         </ErrorMessage>
                                     </Col> */}
-                                    <Col className={classes.CitizenCreateProposalFormInput}>
+                                    <Col className="citizenSubmitReport-input">
                                         <label>Location</label>
                                         <FormikInput 
                                             type="text"
@@ -134,7 +134,7 @@ const CitizenSubmitReport = () => {
                                         />
                                         <ErrorMessage name="location">
                                             {
-                                                errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                                errorMsg => <div className="InputValidation">{errorMsg}</div>
                                             }
                                         </ErrorMessage>
                                     </Col>
@@ -159,7 +159,7 @@ const CitizenSubmitReport = () => {
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <div className={classes.ButtonDiv}>
+                                        <div className="ButtonDiv">
                                             <SubmitButton />
                                             <CancelButton />
                                         </div>

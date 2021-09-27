@@ -1,6 +1,10 @@
 .proposalsContainer {
     margin: 13% auto;
 }
+
+i{
+    margin-right: 5px;
+}
 .proposalsMain {
     display: flex;
     justify-content: center;
@@ -100,6 +104,9 @@
     text-align: center;
     padding: 0px;
     margin: 0px;
+}
+.proposalTitle{
+    text-align: left;
 }
 
 .proposalAuthContainer{

@@ -3,7 +3,7 @@ import axios from 'axios';
 import './CitizenProposals.css';
 import { Row, Col, Container} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { Link, useLocation} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const CitizenProposals = () => {
@@ -14,6 +14,7 @@ const CitizenProposals = () => {
         const sendRequest = async () => {
             const response = await fetch('/api/proposals');
             const responseData = await response.json();
+            console.log(responseData)
             setProposals(responseData.data.proposals);
         };
         sendRequest();
@@ -25,6 +26,11 @@ const CitizenProposals = () => {
         const refresh = await fetch('/api/proposals');
         const responseData = await refresh.json();
         setProposals(responseData.data.proposals);
+    }
+
+    const getProposalId = async (proposalId) => {
+        console.log(proposalId);
+        localStorage.setItem('proposalid', proposalId);
     }
     
 
@@ -108,8 +114,13 @@ const CitizenProposals = () => {
                                     </div>
                                 </div>
                                 <p>{proposal.description} </p>
-                                <p>Upvote: 14 </p><p> Downvote: 3</p>
-                                {/* <i onClick={()=> deleteProposal(proposal._id)} className="fas fa-trash"></i> */}
+                                <div className="proposalsBody">
+                                    <p><i className="fas fa-thumbs-up"/>14 </p><p><i className="fas fa-thumbs-down"/> 3</p>
+                                    <i onClick={()=> deleteProposal(proposal._id)} className="fas fa-trash"></i>
+                                </div>
+                                <Link to={`/citizen-view-proposals`} onClick={()=> getProposalId(proposal._id)}>
+                                    View More
+                                </Link>
                             </div>
                             <div className="proposalShortImgContainer">
                                 <div className="proposalShortImgFrame">

@@ -1,34 +1,51 @@
 .citizenViewProposal-container {
     margin: 13% auto;
     display: flex;
+    max-width: 80% !important;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    
 }
 
-.citizenViewProposal-header {
-    display: inline-block;
-    padding-right: 25px;
-    flex: 50%;
+p{
+    font-size: 18px;
+}
+
+.citizenViewProposal-long{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
 }
 
 .citizenViewProposal-title {
     color: black;
+
 }
 
 .citizenViewProposal-auth {
-    display: inline-flex;
+    display: flex;
     text-align: justify;
-    padding: 5px;
+}
+
+.citizenViewProposal-auth p{
+    margin-right: 10px;
 }
 
 .citizenViewProposal-description {
     color: black;
+    display: flex;
+    flex-direction: column;
 }
 
 .citizenViewProposal-description p {
     display: inline-flex;
     text-align: justify;
-    padding: 5px;
+    padding: 0px;
 }
 
 .citizenViewProposal-footer {
@@ -41,27 +58,114 @@
     text-align: justify;
     padding: 5px;
 }
-.citizenViewProposal-img-container {
-    display: flex;
-    flex: 50%;
-    padding: 20px;
-    max-height: 500px;
-    justify-content: center;
-    background: #F0F0F3;
-    box-shadow:  inset 5px 5px 10px #d4d4d4,
-                inset -5px -5px 10px #ffffff;
-    border-radius: 40px;
-}
 
 .citizenViewProposal-img-frame{
     display: flex;
     max-width: inherit;
     max-height: inherit;
+    margin-bottom: 10px;
 }
 
-.citizenViewProposal-img-frame img{
+.citizenViewProposal-img{
     border-radius: 40px;
     object-fit: cover;
     width: 100%;
-    height: auto;
+    height: 100%;
+}
+
+.citizenViewProposal-status{
+    margin-bottom: 10px;
+}
+
+.citizenViewProposal-btn-container{
+    display: flex;
+    flex-direction: row !important;
+}
+
+.citizenViewProposal-btn-frame{
+    display: flex;
+    margin: 0px 50px;
+    padding: 10px;
+    justify-content: center;
+    flex: 50%;
+    max-width: 100%;
+}
+.citizenViewProposal-btn{
+    display: flex;
+    margin: 0px 50px;
+    padding: 10px;
+    justify-content: center;
+    flex: 50%;
+    max-width: 100%;
+    color: black !important;
+    border: hidden !important;
+    border-radius: 40px !important;
+    background: #efefef !important;
+    box-shadow: 7px 7px 7px #bababc, -7px -7px 7px #f6f6fa;
+}
+.citizenViewProposal-btn:disabled{
+    box-shadow: 1px 1px 1px #bababc, -1px -1px 1px #f6f6fa;;
+}
+
+.citizenViewProposal-btn:active{
+    outline: hidden !important;
+}
+
+.citizenViewProposal-writecomment-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.citizenViewProposal-writecomment-container form{
+    width: inherit;
+}
+
+.citizenViewProposal-writecomment{
+    border: hidden !important;
+    margin: 30px 0px;
+    padding: 30px;
+    width: inherit;
+    font-size: 20px;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+}
+.citizenViewProposal-writecomment:focus{
+    outline: none;
+}
+
+.citizenViewProposal-comment{
+    margin: 0px 0px 30px 0px;
+    padding: 30px;
+    font-size: 20px;
+    border-radius: 40px ;
+    background: #efefef ;
+    box-shadow: 7px 7px 7px #bababc, -7px -7px 7px #f6f6fa;
+}
+
+.citizenViewProposal-comment{
+    display: flex;
+    max-height: 600px;
+}
+.citizenViewProposal-comment-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex:15%;
+    margin-right: 10px;
+}
+.citizenViewProposal-comment-img img{
+    border-radius: 40px;
+    display: flex;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+.citizenViewProposal-comment-body{
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    flex:85%
 }

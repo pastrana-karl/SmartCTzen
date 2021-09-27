@@ -135,7 +135,7 @@ const CitizenProfile = () => {
             
             <Form className = 'citizenProfile-edit'>
                 <h3>Personal Information</h3>
-                 <Form.Group>
+                  <Form.Group>
                     <Form.Control
                         id="iconImg"
                         type="file"
@@ -145,7 +145,8 @@ const CitizenProfile = () => {
                         onChange = {(e) => setFile(e.target.files[0])}
                     />
                 </Form.Group>
-              {/*   <Form.Group controlId="email">
+                {/* 
+                <Form.Group controlId="email">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'

@@ -212,7 +212,7 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
     
         //3) Check if everything is ok, send token to client
         createSendToken(citizenUser, 201, res);
-    // }
+    }
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
