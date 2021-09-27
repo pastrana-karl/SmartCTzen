@@ -9,12 +9,6 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
 //Sendgrid key
-const transporter = nodemailer.createTransport(sendgridTransport({
-    auth:{
-        api_key:"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"
-    }
-}))
-
 
 const signToken = id => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -241,5 +235,6 @@ exports.PasswordChange = catchAsync(async (req, res, next) => {
         })
     }).catch(err => {
         console.log(err)
+        res.status(400).json(err)
     })
 });

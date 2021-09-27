@@ -125,15 +125,15 @@ const citizenSchema = new mongoose.Schema({
 
 //insert slug
 
-citizenSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
+// citizenSchema.pre('save', async function(next) {
+//     if (!this.isModified('password')) return next();
     
-    const salt = await bcrypt.genSalt(10);
+//     const salt = await bcrypt.genSalt(10);
     
-    this.password = await bcrypt.hash(this.password, salt);
-    //this.passwordConfirm = undefined;
-    next();
-});
+//     this.password = await bcrypt.hash(this.password, salt);
+//     //this.passwordConfirm = undefined;
+//     next();
+// });
 
 citizenSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
     return await bcrypt.compare(candidatePassword, userPassword);
@@ -154,3 +154,5 @@ citizenSchema.methods.changePasswordAfter = function(JWTTimestamp) {
 
 const Citizen = mongoose.model("Citizen", citizenSchema);
 module.exports = Citizen;
+
+

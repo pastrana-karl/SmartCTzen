@@ -53,13 +53,13 @@ const adminSchema = new mongoose.Schema({
 
 //insert slug
 
-adminSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
+// adminSchema.pre('save', async function(next) {
+//     if (!this.isModified('password')) return next();
 
-    this.password = await bcrypt.hash(this.password, 12);
-    this.passwordConfirm = undefined;
-    next();
-});
+//     this.password = await bcrypt.hash(this.password, 12);
+//     this.passwordConfirm = undefined;
+//     next();
+// });
 
 adminSchema.methods.correctPassword = async function(candidatePassword, adminPassword) {
     return await bcrypt.compare(candidatePassword, adminPassword);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import AdminLayout from '../AdminLayout/AdminLayout';
 import axios from 'axios'
 import './Applicants.css'
 
@@ -26,6 +27,7 @@ const Applicants = () => {
     console.log(applicantID)
     return (
         <>
+        <AdminLayout />
             <Container>
                 <div  className = 'Applicants-header'>
                     <h1>Applicants</h1>
