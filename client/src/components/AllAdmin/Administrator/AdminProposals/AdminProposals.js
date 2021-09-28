@@ -36,7 +36,8 @@ const AdminProposals = () => {
                             <th>Title</th>
                             <th>Date</th>
                             <th>Location</th>
-                            <th>Upvote</th>
+    ;
+                              <th>Upvote</th>
                             <th>Downvote</th>
                             <th>Status</th>
                         </tr>

@@ -67,6 +67,9 @@ import SAAddAdmin from './pages/SuperAdmin/SAAddAdmin/SAAddAdmin';
 import SAAccount from './pages/SuperAdmin/SAAccount/SAAccount';
 import AdminReportsDashboard from './components/AllAdmin/Administrator/AdminReportsDashboard/AdminReportsDashboard';
 import AdminProposalsDashboard from './components/AllAdmin/Administrator/AdminProposalsDashboard/AdminProposalsDashboard';
+import AdminEachProposal from './components/AllAdmin/Administrator/AdminEachProposal/AdminEachProposal';
+import AdminEachProject from './components/AllAdmin/Administrator/AdminEachProject/AdminEachProject';
+import AdminEachReport from './components/AllAdmin/Administrator/AdminEachReport/AdminEachReport';
 
 const App = () => {
 
@@ -237,6 +240,10 @@ const App = () => {
           <Route path="/admin-proposals">
             {aUser ? <AdminProposals /> : <Redirect to="/admin-login" />}
           </Route>
+          
+          <Route path="/admin-proposal/id">
+            {aUser ? <AdminEachProposal /> : <Redirect to="/admin-login" />}
+          </Route>
 
           <Route path="/admin-create-proposals">
             {aUser ? <AdminCreateProposals /> : <Redirect to="/admin-login" />}
@@ -244,6 +251,10 @@ const App = () => {
 
           <Route path="/admin-reports">
             {aUser ? <AdminReports /> : <Redirect to="/admin-login" />}
+          </Route>
+
+          <Route path="/admin-report/id">
+            {aUser ? <AdminEachReport /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-summary/reports">
@@ -256,6 +267,10 @@ const App = () => {
 
           <Route path="/admin-projects">
             {aUser ? <AdminProjects /> : <Redirect to="/admin-login" />}
+          </Route>
+
+          <Route path="/admin-project/id">
+            {aUser ? <AdminEachProject /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-summary/proposals">
