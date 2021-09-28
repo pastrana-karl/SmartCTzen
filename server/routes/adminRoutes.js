@@ -2,6 +2,9 @@ const router = require("express").Router();
 const adminController = require("../controllers/adminController");
 const Admin = require('../models/adminModel');
 
+
+router.get('/me', adminController.protectAdmin, adminController.getMe, adminController.getAdmin);
+
 //REGISTER
 router
     .route("/register")

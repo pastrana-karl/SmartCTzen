@@ -85,6 +85,22 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
     createSendToken(adminUser, 201, res);
 });
 
+exports.getMe = (req, res, next) => {
+    req.params.id = req.user.id;
+    next();
+};
+
+exports.getAdmin = catchAsync(async (req, res, next) => {
+    const admin = await Admin.findById(req.params.id);
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            admin
+        }
+    });
+});
+
 exports.protectAdmin = catchAsync(async (req, res, next) => {
     //1) Getting token and check if it's there
     let token;
@@ -198,4 +214,5 @@ exports.changeAdminPassword = (req, res, next) => {
     }).catch(err => {
         console.log(err)
     })
-}
+};
+

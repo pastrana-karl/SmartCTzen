@@ -73,29 +73,29 @@ exports.deleteReports = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.countReportsTotal = catchAsync(async (req, res, next) => {
-    const countReports = await Reports.aggregate([
-        {
-            $match: { status: 'Approved' }
-        },
-        {
-            $group: {
-                _id: null,
-                reportsTotal: { $sum: 1 }
-            }
-        },
-        {
-            $sort: {}
-        }
-    ]);
+// exports.countReportsTotal = catchAsync(async (req, res, next) => {
+//     const countReports = await Reports.aggregate([
+//         {
+//             $match: { status: 'Approved' }
+//         },
+//         {
+//             $group: {
+//                 _id: null,
+//                 reportsTotal: { $sum: 1 }
+//             }
+//         },
+//         {
+//             $sort: {}
+//         }
+//     ]);
 
-    res.status(200).json({
-        status: "success",
-        data: {
-            countReports
-        }
-    });
-});
+//     res.status(200).json({
+//         status: "success",
+//         data: {
+//             countReports
+//         }
+//     });
+// });
 
 exports.getReportsHistory = catchAsync(async (req, res, next) => {
     const report = await Reports.findById(req.params.id);
