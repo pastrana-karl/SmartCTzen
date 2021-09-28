@@ -36,8 +36,6 @@ function Home() {
         fetchCount();
     }, []);
 
-    console.log(`Here it is${users}`)
-
     useEffect(() => {
         const fetchAnnouncement = async () => {
             const res = await axios.get("/api/saAnnounce");
@@ -55,8 +53,6 @@ function Home() {
     
         fetchFeaturedMember();
     }, []);
-
-    console.log(announcement[0]);
 
     return (
         <>
@@ -102,6 +98,23 @@ function Home() {
                         </div> 
                     </Col>
                 </Row>
+
+                {announcement[0] !== undefined && 
+                    <>
+                        <div className = "homeAnnounemnets">
+                            <h4>Announcements</h4>
+                        </div>
+
+                        <div className = 'col-md-10 offset-md-0' id = 'home-announcements'>
+                            {announcement.map((message) => (
+                                <div  key={message._id}>
+                                    <h4>{message.username}: </h4>
+                                    <p>{message.message}</p>
+                                </div> )
+                            )}
+                        </div>
+                    </>
+                }
 
                 {feature[0] !== undefined && 
                     <>
@@ -195,23 +208,6 @@ function Home() {
                             </div>
                         ))}
                     </>
-                }
-
-                {announcement[0] !== undefined && 
-                <>
-                    <div className = "homeAnnounemnets">
-                        <h4>Announcements</h4>
-                    </div>
-
-                    <div className = 'col-md-10 offset-md-0' id = 'home-announcements'>
-                        {announcement.map((message) => (
-                            <div  key={message._id}>
-                                <h4>{message.username}: </h4>
-                                <p>{message.message}</p>
-                            </div> )
-                        )}
-                    </div>
-                </>
                 }
             </Container>
             <div className = 'sticky-bottom'>

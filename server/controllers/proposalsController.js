@@ -5,12 +5,22 @@ const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
-exports.aliasApprovedProposals = (req, res, next) => {
-    req.query.status = "approved";
+exports.getApprovedProposals = async (req, res, next) => {
+    try {
+        const acceptedProposals = await Proposals.find({status: "approved"});
+        res.status(200).json(acceptedProposals);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 };
 
-exports.aliasRejectedProposals = (req, res, next) => {
-    req.query.status = "rejected";
+exports.getRejectedProposals = async (req, res, next) => {
+    try {
+        const rejectedProposals = await Proposals.find({status: "rejected"});
+        res.status(200).json(rejectedProposals);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 };
 
 exports.getAllProposals = catchAsync(async (req, res, next) => {
@@ -99,4 +109,13 @@ exports.getProposalHistory = catchAsync(async (req, res, next) => {
                 }
             });
         })
+});
+
+exports.getTopProposals = catchAsync(async (req, res, next) => {
+    try {
+        const topProposals = await Proposals.find({status: 'pending'}).sort({'upvote': -1}).limit(10);
+        res.status(200).json(topProposals);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });

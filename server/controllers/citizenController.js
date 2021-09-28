@@ -51,55 +51,9 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 // Register DO NOTE ERASE
-// exports.registerCitizen = catchAsync(async (req, res, next) => {
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPass = await bcrypt.hash(req.body.password, salt);
-//     const newCitizen = await Citizen.create({
-//         firstname: req.body.firstname,
-//         lastname: req.body.lastname,
-//         middlename: req.body.middlename,
-//         suffix: req.body.suffix,
-//         sex: req.body.sex,
-//         birthdate: req.body.birthdate,
-//         fathername: req.body.fathername,
-//         mothername: req.body.mothername,
-//         street: req.body.street,
-//         barangay: req.body.barangay,
-//         city: req.body.city,
-//         province: req.body.province,
-//         zipcode: req.body.zipcode,
-//         region: req.body.region,
-//         validIDPic: req.body.validIDPic,
-//         residencyPic: req.body.residencyPic,
-//         birthCertPic: req.body.birthCertPic,
-//         email: req.body.email,
-//         password: req.body.password
-//         //passwordConfirm: req.body.passwordConfirm
-//     });
-
-//     // Remove password from the output
-//     // newCitizen.password = undefined;
-
-//     // res.status(201).json({
-//     //     status: 'success',
-//     //     token,
-//     //     data: {
-//     //         newCitizen
-//     //     }
-//     // });
-
-//     const citizen = await newCitizen.save();
-//     res.status(200).json(citizen);
-//     // createSendToken(newCitizen, 201, res);
-// });
-
-exports.getCitizen = catchAsync(async (req, res, next) => {
-    const citizen = await Citizen.findById(req.params.id);
-
-    res.status(200).json(citizen);
-});
-
 exports.registerCitizen = catchAsync(async (req, res, next) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.password, salt);
     const newCitizen = await Citizen.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -119,9 +73,7 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         residencyPic: req.body.residencyPic,
         birthCertPic: req.body.birthCertPic,
         email: req.body.email,
-        password: req.body.password,
-        status: req.body.status
-        // passwordConfirm: req.body.passwordConfirm
+        password: hashedPass
     });
 
     transporter.sendMail({
@@ -183,9 +135,44 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         `
     })
 
-
-    createSendToken(newCitizen, 201, res);
+    const citizen = await newCitizen.save();
+    res.status(200).json(citizen);
 });
+
+exports.getCitizen = catchAsync(async (req, res, next) => {
+    const citizen = await Citizen.findById(req.params.id);
+
+    res.status(200).json(citizen);
+});
+
+// exports.registerCitizen = catchAsync(async (req, res, next) => {
+//     const newCitizen = await Citizen.create({
+//         firstname: req.body.firstname,
+//         lastname: req.body.lastname,
+//         middlename: req.body.middlename,
+//         suffix: req.body.suffix,
+//         sex: req.body.sex,
+//         birthdate: req.body.birthdate,
+//         fathername: req.body.fathername,
+//         mothername: req.body.mothername,
+//         street: req.body.street,
+//         barangay: req.body.barangay,
+//         city: req.body.city,
+//         province: req.body.province,
+//         zipcode: req.body.zipcode,
+//         region: req.body.region,
+//         validIDPic: req.body.validIDPic,
+//         residencyPic: req.body.residencyPic,
+//         birthCertPic: req.body.birthCertPic,
+//         email: req.body.email,
+//         password: req.body.password,
+//         status: req.body.status
+//         // passwordConfirm: req.body.passwordConfirm
+//     });
+
+
+//     createSendToken(newCitizen, 201, res);
+// });
 
 exports.loginCitizen = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
