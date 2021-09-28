@@ -73,6 +73,7 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         residencyPic: req.body.residencyPic,
         birthCertPic: req.body.birthCertPic,
         email: req.body.email,
+        status: req.body.status,
         password: hashedPass
     });
 

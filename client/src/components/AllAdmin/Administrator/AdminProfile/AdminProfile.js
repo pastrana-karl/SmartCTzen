@@ -39,9 +39,9 @@ const AdminProfile = () => {
                         <ProfileIconCard />
                         <h2>Summary</h2>
                         <div className={classes.ButtonDiv}>
-                            <a href="/admin-summary/reports">
+                            <Link to = "/admin-summary/reports">
                                 <AdminProfileButton>Reports</AdminProfileButton>
-                            </a>
+                            </Link>
                             <Link to = '/admin-summary/proposals'>
                                 <AdminProfileButton>Proposals</AdminProfileButton>
                             </Link>

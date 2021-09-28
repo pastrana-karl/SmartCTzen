@@ -16,6 +16,14 @@ body {
   border-color: unset;
 }
 
+.registerInput-form #regionInput:focus {
+  outline: none;
+  box-shadow: none;
+  color: unset;
+  background-color: unset;
+  border-color: unset;
+}
+
 .registerInput-form .btn {
   letter-spacing: 1px;
 }
@@ -134,6 +142,10 @@ body {
   border: 2px solid #f21e08;
 }
 
+.registerInput-form #regionInput.input-error {
+  border: 2px solid #f21e08;
+}
+
 .registerInput-form .radioButton {
   display: 'flex';
 }
@@ -203,6 +215,19 @@ body {
   padding: 20px !important;
   font-size: 18px !important;
 }
+
+.registerInput-form #regionInput {
+  width: 100%;
+  display: block;
+  border: hidden !important;
+  background: #F0F0F3 !important;
+  box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
+  border-radius: 20px !important;
+  padding: 10px !important;
+  font-size: 18px !important;
+  cursor: pointer;
+}
+
 
 .regiterLoading-icons {
   display: flex;

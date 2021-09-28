@@ -30,7 +30,7 @@ const reportsSchema = new mongoose.Schema({
     // }
     status: {
         type: String,
-        enum: ['Need action', 'Confirmed', 'Resolved'],
+        enum: ['Need action', 'Confirmed', 'Resolved', 'Cancelled'],
         default: 'Need action'
     }
 });

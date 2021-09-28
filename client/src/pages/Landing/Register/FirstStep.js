@@ -211,7 +211,7 @@ const FirstStep = (props) => {
             ref={register({
               required: 'Middle name is required.',
               pattern: {
-                value: /^[a-zA-Z.]+$/,
+                value: /^[a-zA-Z.\s]+$/,
                 message: 'Middle name should contain only characters.'
               }
             })}

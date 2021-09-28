@@ -19,7 +19,6 @@ const ThirdStep = (props) => {
 
   const onSubmit = (data) => {
     props.updateCitizen(data);
-    // console.log(data.birthdate)
     props.history.push('/fourth');
   };
 
@@ -135,20 +134,75 @@ const ThirdStep = (props) => {
 
         <Form.Group controlId="region">
           <Form.Label>Region</Form.Label>
-          <Form.Control
-            type="text"
+          <br></br>
+          <select
             name="region"
-            placeholder="Region ..."
             autoComplete="off"
             ref={register({
               required: 'Region is required.',
               pattern: {
-                value: /^[a-zA-Z]+$/,
+                value: /^[a-zA-Z\s]+$/,
                 message: 'Region\'s name should contain only characters.'
               }
             })}
             className={`${errors.region ? 'input-error' : ''}`}
-          />
+            id='regionInput'
+          >
+            <option value="">
+              Select your region . . .
+            </option>
+            <option value="Region I">
+              Region I – Ilocos Region
+            </option>
+            <option value="Region II">
+              Region II – Cagayan Valley
+            </option>
+            <option value="Region III">
+              Region III – Central Luzon
+            </option>
+            <option value="Region IV">
+              Region IV‑A – CALABARZON
+            </option>
+            <option value="MIMAROPA">
+              MIMAROPA Region
+            </option>
+            <option value="Region V">
+              Region V – Bicol Region
+            </option>
+            <option value="Region VI">
+              Region VI – Western Visayas
+            </option>
+            <option value="Region VII">
+              Region VII – Central Visayas
+            </option>
+            <option value="Region VIII">
+              Region VIII – Eastern Visayas
+            </option>
+            <option value="Region IX">
+              Region IX – Zamboanga Peninsula
+            </option>
+            <option value="Region X">
+              Region X – Northern Mindanao
+            </option>
+            <option value="Region XI">
+              Region XI – Davao Region
+            </option>
+            <option value="Region XII">
+              Region XII – SOCCSKSARGEN
+            </option>
+            <option value="Region XIII">
+              Region XIII – Caraga
+            </option>
+            <option value="NCR">
+              NCR – National Capital Region
+            </option>
+            <option value="CAR">
+              CAR – Cordillera Administrative Region
+            </option>
+            <option value="BARMM">
+              BARMM – Bangsamoro Autonomous Region in Muslim Mindanao
+            </option>
+          </select>
           {errors.region && (
             <p className="registerErrorMsg">{errors.region.message}</p>
           )}

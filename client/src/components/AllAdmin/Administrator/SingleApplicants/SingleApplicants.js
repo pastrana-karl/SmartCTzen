@@ -41,7 +41,7 @@ const SingleApplicants = () => {
 
     }, [path]);
 
-    console.log(applicant)
+    console.log(birthCert[0])
     
     const handleAccept = async () => {
         try {
@@ -222,7 +222,7 @@ const SingleApplicants = () => {
                                 </Slider>
                         </div>
 
-                        {birthCert === null &&
+                        {birthCert[0] !== undefined &&
                             <> 
                                 <div  className = 'ApplicantVerification-header'>
                                     <h1>Birth Certificate</h1>
