@@ -101,7 +101,7 @@ const CitizenViewProposal = () => {
                 <Row className='citizenViewProposal-writecomment-container'>
                     <Col className='citizenViewProposal-comment'>
                         <Row className='citizenViewProposal-comment-img' c={9}>
-                            <img src='https://imgur.com/8zzpMVA.png'/>
+                            <img src='https://imgur.com/82XUVjV.png'/>
                         </Row>
                         <Row className='citizenViewProposal-comment-body'>
                             <Col>Kevin Gojocco</Col>
@@ -115,7 +115,7 @@ const CitizenViewProposal = () => {
                     </Col>
                     <Col className='citizenViewProposal-comment'>
                         <Row className='citizenViewProposal-comment-img' c={9}>
-                            <img src='https://imgur.com/DAhP9lb.png'/>
+                            <img src='https://imgur.com/urZfDtd.png'/>
                         </Row>
                         <Row className='citizenViewProposal-comment-body'>
                             <Col>John Doe</Col>

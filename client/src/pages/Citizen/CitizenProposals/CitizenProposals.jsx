@@ -14,7 +14,7 @@ const CitizenProposals = () => {
         const sendRequest = async () => {
             const response = await fetch('/api/proposals');
             const responseData = await response.json();
-            console.log(responseData)
+            // console.log(responseData)
             setProposals(responseData.data.proposals);
         };
         sendRequest();
@@ -118,7 +118,7 @@ const CitizenProposals = () => {
                                     <p><i className="fas fa-thumbs-up"/>14 </p><p><i className="fas fa-thumbs-down"/> 3</p>
                                     <i onClick={()=> deleteProposal(proposal._id)} className="fas fa-trash"></i>
                                 </div>
-                                <Link to={`/citizen-view-proposals`} onClick={()=> getProposalId(proposal._id)}>
+                                <Link className='proposalsViewMore' to={`/citizen-view-proposals`} onClick={()=> getProposalId(proposal._id)}>
                                     View More
                                 </Link>
                             </div>

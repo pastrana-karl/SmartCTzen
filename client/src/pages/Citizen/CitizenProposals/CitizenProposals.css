@@ -146,13 +146,24 @@ i{
     padding: 5px;
 }
 
+.proposalsViewMore{
+    color: #FFFFFF;
+    padding: 12px;
+    border-radius: 40px;
+    background: #FF5039;
+}
+.proposalsViewMore:hover{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
 .proposalShortImgContainer{
     display: flex;
     flex: 50%;
     padding: 20px;
     max-height: 500px;
     justify-content: center;
-    background: #F0F0F3;
+    background: #FFFFFF;
     box-shadow:  inset 5px 5px 10px #d4d4d4,
                 inset -5px -5px 10px #ffffff;
     border-radius: 40px;

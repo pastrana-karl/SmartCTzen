@@ -12,7 +12,7 @@ const CitizenNav = ({ location: { pathname } }) => {
   const isCitizenViewReports = pathname === '/citizen-view-reports';
   const isCitizenSubmitReports = pathname === '/citizen-submit-reports';
   const isCitizenProjects = pathname === '/citizen-projects';
-  const isCitizenViewProjects = pathname === '/citizen-view-projects';
+  const isCitizenViewProjects = pathname === '/citizen-view-project';
   const isCitizenCreateProposals = pathname === '/citizen-create-proposals';
   const isCitizenPassUpdate = pathname === '/citizen-pass-update';
   const isCitizenChatReport = pathname === '/citizen-chat-report';
