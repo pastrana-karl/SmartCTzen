@@ -28,6 +28,9 @@ const reportsSchema = new mongoose.Schema({
     //     type: String,
     //     required: [true, 'This field is required']
     // }
+    status: {
+        type: String,
+    }
 });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()

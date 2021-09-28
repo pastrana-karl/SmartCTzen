@@ -39,8 +39,11 @@ const CitizenCreateProposal = () => {
         userName: '',
         title: '',
         description: '',
-        // date: '',
-        location: ''
+        // createdAt: '',
+        location: '',
+        status:'Pending',
+        upvote:0,
+        downvote:0,
     };
     
     
@@ -62,7 +65,8 @@ const CitizenCreateProposal = () => {
         title: Yup.string().required('Required'),
         description: Yup.string().required('Required'),
         // date: Yup.string().required('Required'),
-        location: Yup.string().required("Required")
+        location: Yup.string().required("Required"),
+
     });
 
     return(

@@ -34,7 +34,8 @@ const CitizenSubmitReport = () => {
         title: '',
         description: '',
         // date: '',
-        location: ''
+        location: '',
+        status: 'Pending'
     };
     
     

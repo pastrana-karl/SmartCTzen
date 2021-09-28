@@ -115,7 +115,8 @@ const CitizenProposals = () => {
                                 </div>
                                 <p>{proposal.description} </p>
                                 <div className="proposalsBody">
-                                    <p><i className="fas fa-thumbs-up"/>14 </p><p><i className="fas fa-thumbs-down"/> 3</p>
+                                    <p><i className="fas fa-thumbs-up"/>{proposal.upvote}</p>
+                                    <p><i className="fas fa-thumbs-down"/>{proposal.downvote}</p>
                                     <i onClick={()=> deleteProposal(proposal._id)} className="fas fa-trash"></i>
                                 </div>
                                 <Link className='proposalsViewMore' to={`/citizen-view-proposals`} onClick={()=> getProposalId(proposal._id)}>

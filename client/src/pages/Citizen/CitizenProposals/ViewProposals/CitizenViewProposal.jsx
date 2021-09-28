@@ -1,21 +1,22 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 import { Row, Col, Button, Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Formik, Form, Field, validateYupSchema } from 'formik';
 import { Link } from 'react-router-dom';
 import './CitizenViewProposal.css';
 import FormikInput from '../../../../components/UI/Input/FormikInput/FormikInput';
+import { Context } from '../../../../context/Context';
 import * as Yup from 'yup';
 
 const CitizenViewProposal = () => {
     const [proposal, setProposal] = useState([]);
     const [upvoteclicked, upvotesetClicked] = useState(true);
     const [downclicked, downsetClicked] = useState(true);
-
+    const { user, dispatch } = useContext(Context);
+    const proposalId = localStorage.getItem('proposalid');
 
     useEffect(() => {
         const sendRequest = async () => {
-            const proposalId = localStorage.getItem('proposalid');
             // console.log(proposalId)
             const response = await fetch(`/api/proposals/${proposalId}`);
             // console.log(response)
@@ -36,13 +37,20 @@ const CitizenViewProposal = () => {
         comments: Yup.string()
     });
 
-    console.log(proposal);
+    // console.log(user.data.user);
     // console.log(proposal);
 
-    const toggleClick = async () =>{
+    //called when upvote/downvote is clicked
+    const castVote = async (proposalId) =>{
+        console.log(proposalId);
+        //if upvote is clicked, +1 to upvoted
         if(!upvoteclicked){
+            // const response = await () => patch(`/api/proposals/${proposalId}`){
+                
+            // }
             upvotesetClicked(true);
             downsetClicked(false);
+        //else +1 to downvoted
         }else{
             upvotesetClicked(false);
             downsetClicked(true);
@@ -68,17 +76,18 @@ const CitizenViewProposal = () => {
                     
                     <Col className='citizenViewProposal-auth'>
                             <p>Proposed by: {proposal.userName}</p>
-                            <p>Proposed on: {proposal.timestamp}</p>
+                            <p>Proposed on: {proposal.createdAt}</p>
+                            <p>Status: {proposal.status}</p>
                     </Col>
                     <Col className='citizenViewProposal-status'>Status: {proposal.status}</Col>
                     <Col className='citizenViewProposal-btn-container'>
                         <Row className='citizenViewProposal-btn-frame'>
                             {/* Set button to disabled when current user upvoted propopsal */}
-                            <Button disabled={!upvoteclicked} onClick={() => toggleClick()} className='citizenViewProposal-btn'>Upvote </Button>
+                            <Button disabled={!upvoteclicked} onClick={() => castVote(proposal._id)} className='citizenViewProposal-btn'>Upvote {proposal.upvote}</Button>
                         </Row>
                         <Row  className='citizenViewProposal-btn-frame'>
                             {/* Set button to disabled when current user downvoted propopsal */}
-                            <Button disabled={!downclicked} onClick={() => toggleClick()} className='citizenViewProposal-btn'>Downvote</Button>
+                            <Button disabled={!downclicked} onClick={() => castVote()} className='citizenViewProposal-btn'>Downvote {proposal.upvote}</Button>
                         </Row>
                     </Col>
                 </Row>
@@ -100,7 +109,7 @@ const CitizenViewProposal = () => {
                 </Row>
                 <Row className='citizenViewProposal-writecomment-container'>
                     <Col className='citizenViewProposal-comment'>
-                        <Row className='citizenViewProposal-comment-img' c={9}>
+                        <Row className='citizenViewProposal-comment-img'>
                             <img src='https://imgur.com/82XUVjV.png'/>
                         </Row>
                         <Row className='citizenViewProposal-comment-body'>

@@ -183,6 +183,9 @@
     flex-direction: column;
     align-items: flex-start;
 }
+.reportInfo {
+    text-align:left;
+}
 
 .citizenreports-info-status-container{
     display: flex;

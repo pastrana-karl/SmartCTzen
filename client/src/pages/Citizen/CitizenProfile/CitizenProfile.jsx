@@ -59,7 +59,7 @@ const CitizenProfile = () => {
             </div>
             <div  className = 'col-md-10 offset-md-1' id = 'citizenProfile-body'>
                 <div className = 'citizenProfile-name'> 
-                     {/* <p>{user.data.user.firstname + " " + user.data.user.middlename + " " + user.data.user.lastname}</p> */}
+                     <p>{user.data.user.firstname + " " + user.data.user.middlename + " " + user.data.user.lastname}</p>
                  </div>
                  <div className = 'citizenProfile-statsDesktop'>
                     <Row>
@@ -145,7 +145,7 @@ const CitizenProfile = () => {
                         onChange = {(e) => setFile(e.target.files[0])}
                     />
                 </Form.Group>
-                {/* 
+                
                 <Form.Group controlId="email">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
@@ -235,7 +235,7 @@ const CitizenProfile = () => {
                         disabled
                         placeholder={user.data.user.email}
                     />
-                </Form.Group> */}
+                </Form.Group>
             </Form>
             <Link to = '/citizen-pass-update' className = 'citizenProfile-passwordUpdate'><i className="editIcon far fa-edit"></i></Link>
         </Container>
