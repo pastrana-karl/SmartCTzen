@@ -23,6 +23,11 @@ const SAContentFeature = () => {
             <div className = 'SAcontent-feature'>
                 <h1>Features</h1>
             </div>
+
+            <div className = 'SAContent-addFeature'>
+                <Link to = '/SAAdd-feature'><i className="fas fa-plus-circle"></i></Link>
+            </div>
+
             {feature.map((newFeature) => (
                 <Row className = 'SAcontent-featureRow' key={newFeature._id}>
                     <Col className = 'SAcontent-featureDisplayVisibility'>
@@ -59,10 +64,6 @@ const SAContentFeature = () => {
                     </Col>
                 </Row>
             ))}
-
-            <div className = 'SAContent-addFeature'>
-                <Link to = '/SAAdd-feature'><i className="fas fa-plus-circle"></i></Link>
-            </div>
         </Container>
        </>
     )

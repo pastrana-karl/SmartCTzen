@@ -279,7 +279,11 @@ const SAContentHome = () => {
               <h4>Featured Members</h4>
             </div>
 
-            <div className = 'col-md-10 offset-md-1' id = 'SAHome-body'>
+            <div className = 'col-md-10 offset-md-1' id = 'SAHome-featuredBody'>
+              <div className = 'SAContent-addFeaturedMember'>
+                <Link to = '/SAContent-addFeaturedMember'><i className="fas fa-plus-circle"></i></Link>
+              </div>
+
               {featuredM.map((featured) => (
                 <div className = 'featuredMembers-imgContainer' key={featured._id}>
                     <div className = 'SAContent-homeImage'>
@@ -292,10 +296,6 @@ const SAContentHome = () => {
                     </div>
                 </div>)
               )}
-
-                <div className = 'SAContent-addFeaturedMember'>
-                    <Link to = '/SAContent-addFeaturedMember'><i className="fas fa-plus-circle"></i></Link>
-                </div>
             </div>
 
             <div className = 'eulaButton'>

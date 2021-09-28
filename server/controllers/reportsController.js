@@ -6,21 +6,28 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllReports = catchAsync(async (req, res, next) => {
+    //This does not return all the reports this requires a query when getting all reports there is no query
+    // const features = new APIFeatures(Reports.find(), req.query)
+    // .filter()
+    // .sort()
+    // .limit();
 
-    const features = new APIFeatures(Reports.find(), req.query)
-    .filter()
-    .sort()
-    .limit();
+    // //Execute query
+    // const reports = await features.query;
 
-    //Execute query
-    const reports = await features.query;
+    // res.status(200).json({
+    //     status: 'success',
+    //     data: {
+    //         reports
+    //     }
+    // });
 
-    res.status(200).json({
-        status: 'success',
-        data: {
-            reports
-        }
-    });
+    try {
+        const reports = await Reports.find();
+        res.status(200).json(reports);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
 //GET a Report
@@ -71,6 +78,33 @@ exports.deleteReports = catchAsync(async (req, res, next) => {
         status: "success",
         data: null
     });
+});
+
+exports.getResolvedReports = catchAsync(async (req, res, next) => {
+    try {
+        const resolvedReports = await Reports.find({status: 'Resolved'});
+        res.status(200).json(resolvedReports);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+exports.getConfirmedReports = catchAsync(async (req, res, next) => {
+    try {
+        const confirmedReports = await Reports.find({status: 'Confirmed'});
+        res.status(200).json(confirmedReports);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+exports.getCancelledReports = catchAsync(async (req, res, next) => {
+    try {
+        const cancelledReports = await Reports.find({status: 'Cancelled'});
+        res.status(200).json(cancelledReports);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
 // exports.countReportsTotal = catchAsync(async (req, res, next) => {

@@ -18,12 +18,12 @@ router
     .route("/:id")
     .put(superAdminController.UpdateSuperAdmin);
 
-//GET SPECIFIC FEATURED MEMBER
+//GET SPECIFIC SUPER ADMIN
 router
     .route("/:id")
     .get(superAdminController.GetSpecificSuperAdmin);
 
-//GET SPECIFIC FEATURED MEMBER
+//COMPARE PASSWORD
 router
     .route("/password-compare")
     .post(superAdminController.PassWordCompare);

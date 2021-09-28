@@ -40,27 +40,15 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 // Register BACKUP DO NOT ERASE
-// exports.registerAdmin = catchAsync(async (req, res, next) => {
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPass = await bcrypt.hash(req.body.password, salt);
-//     const newAdmin = new Admin({
-//         username: req.body.username,
-//         email: req.body.email,
-//         password: hashedPass,
-//         location: req.body.location,
-//         profilePic: req.body.profilePic,
-//     });
-
-//     const admin = await newAdmin.save();
-//     res.status(200).json(admin)
-// });
-
 exports.registerAdmin = catchAsync(async (req, res, next) => {
-    const newAdmin = await Admin.create({
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.password, salt);
+    const newAdmin = new Admin({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
+        password: hashedPass,
         location: req.body.location,
+        profilePic: req.body.profilePic,
     });
 
     transporter.sendMail({
@@ -126,8 +114,20 @@ exports.registerAdmin = catchAsync(async (req, res, next) => {
         `
     })
 
-    createSendToken(newAdmin, 201, res);
+    const admin = await newAdmin.save();
+    res.status(200).json(admin)
 });
+
+// exports.registerAdmin = catchAsync(async (req, res, next) => {
+//     const newAdmin = await Admin.create({
+//         username: req.body.username,
+//         email: req.body.email,
+//         password: req.body.password,
+//         location: req.body.location,
+//     });
+
+//     createSendToken(newAdmin, 201, res);
+// });
 
 exports.loginAdmin = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;

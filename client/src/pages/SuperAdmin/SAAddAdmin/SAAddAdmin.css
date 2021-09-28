@@ -46,35 +46,6 @@
     font-size: 18px;
 }
 
-.SAaddAdminImg {
-    display: flex;
-    justify-content: center;
-    margin-top: 5%;
-}
-
-.SAaddAdminImg-container {
-    width: 25vw;
-    display: flex;
-    justify-content: center;
-}
-
-.SAaddAdminImg-container img {
-    width: 100%;
-    object-fit: fill;
-    border-radius: 45px;
-    cursor: pointer;
-}
-
-.SAaddAdmin-uploadIcon {
-    font-size: 30px;
-    display: flex;
-    justify-content: center;
-}
-
-.SAaddAdmin-uploadIcon i {
-    cursor: pointer;
-}
-
 .SAaddAdmin-edit button.btn.btn-danger{
     border-radius: 10px;
     border-color: #fe5139;
@@ -151,9 +122,5 @@
 
     .SAAddAdminLoading {
         margin-top: 60%;  
-    }
-
-    .SAaddAdminImg-container {
-        width: 45vw;
     }
 }

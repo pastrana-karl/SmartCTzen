@@ -7,12 +7,10 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 const SAAddAdmin = () => {
-    const [file, setFile] = useState(null);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [location, setLocation] = useState("");
-    const [profilePic, setProfilePic] = useState("");
     const [redirect, setRedirect] = useState(false);
     const [loading, setLoading] =  useState(true);
 
@@ -25,26 +23,7 @@ const SAAddAdmin = () => {
             email,
             password,
             location,
-            profilePic,
         };
-
-        if (file) {
-            const data = new FormData();
-            const filename = Date.now() + file.name;
-            data.append("name", filename);
-            data.append("file", file);
-            data.append("upload_preset", "dev_prac");
-            data.append("cloud_name", "karlstorage");
-
-            try {
-                const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
-                newAdmin.profilePic = res.data.secure_url;
-            } catch (err) {
-                console.log(err)
-            }
-        } else {
-            setProfilePic("");
-        }
 
         try {
             await axios.post("/api/admin/register", newAdmin);
@@ -90,25 +69,7 @@ const SAAddAdmin = () => {
                     </div>
 
                     <div className = 'col-md-10 offset-md-1' id = 'SAaddAdmin-body'>
-                        <div className = 'SAaddAdminImg'>
-                            <div className = 'SAaddAdminImg-container'>
-                                <img src= {file && (URL.createObjectURL(file))} alt="" onClick={()=> window.open(URL.createObjectURL(file), "_blank")}></img>
-                            </div>
-                        </div>
                         <Form className = 'SAaddAdmin-edit' onSubmit = { handleSubmit }>
-                            <Form.Group>
-                                <div className="SAaddAdmin-uploadIcon">
-                                    <Form.Label htmlFor="fileInput"><i className="writeIcon fas fa-image"></i></Form.Label>
-                                </div>
-                                <input
-                                    type="file"
-                                    name="validIDPic" 
-                                    id="fileInput"  
-                                    style={{display:"none"}}
-                                    onChange={(e) => setFile(e.target.files[0])}
-                                />
-                            </Form.Group>
-
                             <Form.Group>
                             <Form.Label>User Name</Form.Label>
                             <Form.Control

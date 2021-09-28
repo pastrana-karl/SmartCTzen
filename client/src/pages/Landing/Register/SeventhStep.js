@@ -66,7 +66,6 @@ const SeventhStep = (props) => {
       if(`${validPhoto1}` === `undefined` && `${validPhoto2}` === `undefined`){
         const validImage = [];
         citizen.validIDPic = validImage;
-        console.log(validImage);
       }else if(`${validPhoto1}` !== `undefined` && `${validPhoto2}` === `undefined`){
         const validImage = [validPhoto1];
         const formData_1 = new FormData();
@@ -75,7 +74,6 @@ const SeventhStep = (props) => {
                 const res = await axios.post("/api/upload-images", formData_1);
                 const img1 = res.data.data[0].url;
                 const img = [img1];
-                console.log(img)
                 citizen.validIDPic = img;
             } catch (err) {
                 console.log(err);
@@ -89,7 +87,6 @@ const SeventhStep = (props) => {
                 const img1 = res.data.data[0].url;
                 const img2 = res.data.data[1].url;
                 const img = [img1, img2];
-                console.log(img)
                 citizen.validIDPic = img;
             } catch (err) {
                 console.log(err);
@@ -100,7 +97,6 @@ const SeventhStep = (props) => {
       if(`${residencyPhoto1}` === `undefined` && `${residencyPhoto2}` === `undefined`){
         const residencyImage = [];
         citizen.residencyPic = residencyImage;
-        console.log(residencyImage);
       }else if(`${residencyPhoto1}` !== `undefined` && `${residencyPhoto2}` === `undefined`){
         const residencyImage = [residencyPhoto1];
         const formData_2 = new FormData();
@@ -109,7 +105,6 @@ const SeventhStep = (props) => {
                 const res = await axios.post("/api/upload-images", formData_2);
                 const pic1 = res.data.data[0].url;
                 const pic = [pic1];
-                console.log(pic)
                 citizen.residencyPic = pic
             } catch (err) {
                 console.log(err);
@@ -123,7 +118,6 @@ const SeventhStep = (props) => {
                 const pic1 = res.data.data[0].url;
                 const pic2 = res.data.data[1].url;
                 const pic = [pic1, pic2];
-                console.log(pic)
                 citizen.residencyPic = pic
             } catch (err) {
                 console.log(err);
@@ -134,7 +128,6 @@ const SeventhStep = (props) => {
       if(`${birthPhoto1}` === `undefined` && `${birthPhoto2}` === `undefined`){
         const birthImage = [];
         citizen.birthCertPic = birthImage;
-        console.log(birthImage);
       }else if(`${birthPhoto1}` !== `undefined` && `${birthPhoto2}` === `undefined`){
         const birthImage = [birthPhoto1];
         const formData_3 = new FormData();
@@ -143,7 +136,6 @@ const SeventhStep = (props) => {
                 const res = await axios.post("/api/upload-images", formData_3);
                 const pho1 = res.data.data[0].url;
                 const pho = [pho1];
-                console.log(pho)
                 citizen.birthCertPic = pho
             } catch (err) {
                 console.log(err);
@@ -157,7 +149,6 @@ const SeventhStep = (props) => {
                 const pho1 = res.data.data[0].url;
                 const pho2 = res.data.data[1].url;
                 const pho = [pho1, pho2];
-                console.log(pho)
                 citizen.birthCertPic = pho
             } catch (err) {
                 console.log(err);
@@ -172,9 +163,6 @@ const SeventhStep = (props) => {
         birthCertPic: citizen.birthCertPic,
         status: false,
       };
-      
-      // console.log(citizen) Testing for data passing...
-      console.log(updatedData)
     
       await axios.post('/api/citizen/register', {
         ...citizen,

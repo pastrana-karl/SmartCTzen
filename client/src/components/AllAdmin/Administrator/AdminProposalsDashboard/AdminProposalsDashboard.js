@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
 
 import AdminLayout from '../AdminLayout/AdminLayout';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
@@ -8,6 +9,56 @@ import classes from './AdminProposalsDashboard.module.css';
 import Tables from '../../../UI/Tables/Tables';
 
 const AdminProposalsDashboard = () => {
+    const [topProposals, setTopProposals] = useState([]);
+    const [accepted, setAccepted] = useState([]);
+    const [rejected, setRejected] = useState([]);
+    let rCount = 0;
+    
+    useEffect(() => {
+        const fetchTopProposals = async () => {
+            const res = await axios.get('/api/proposals/topProposals');
+            setTopProposals(res.data);
+        }
+
+        fetchTopProposals();
+    }, []);
+
+    useEffect(() => {
+        
+        const fetchApproved = async () => {
+            const res = await axios.get('/api/proposals/approved');
+            let count = 0
+            
+            res.data.forEach(() => {
+            count += 1;
+            })
+
+            setAccepted(count);
+        }
+
+        fetchApproved();
+    }, []);
+
+    useEffect(() => {
+        const fetchRejected = async () => {
+            const res = await axios.get('/api/proposals/rejected');
+            let count = 0
+            
+            res.data.forEach(() => {
+            count += 1;
+            })
+
+            setRejected(count);
+        }
+
+        fetchRejected();
+    }, []);
+
+    console.log(topProposals);
+    console.log(accepted);
+    console.log(rejected);
+
+    
     return (
         <AdminLayout>
             <div className={classes.AdminProposalsDashboard}>
@@ -32,25 +83,27 @@ const AdminProposalsDashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>rank</td>
-                                <td>proposal id</td>
-                                <td>proposal title</td>
-                                <td>upvote</td>
-                                <td>downvote</td>
-                                <td>percentage</td>
-                            </tr>
+                            {topProposals.map((p) => (
+                                <tr key = {p._id}>
+                                    <td>{++rCount}</td>
+                                    <td>{p._id}</td>
+                                    <td>{p.title}</td>
+                                    <td>{p.upvote}</td>
+                                    <td>{p.downvote}</td>
+                                    <td>{Math.trunc(((p.upvote - p.downvote) / (p.upvote + p.downvote)) * 100)}%</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
                 <div className={classes.CardData}>
                     <CardSummary>
                         <h4 className={classes.SummaryCardHeader}>Approved Proposals</h4>
-                        <p className={classes.SummaryDataText}>10</p>
+                        <p className={classes.SummaryDataText}>{accepted}</p>
                     </CardSummary>
                     <CardSummary>
                         <h4 className={classes.SummaryCardHeader}>Rejected Proposals</h4>
-                        <p className={classes.SummaryDataText}>10</p>
+                        <p className={classes.SummaryDataText}>{rejected}</p>
                     </CardSummary>
                 </div>
             </div>
