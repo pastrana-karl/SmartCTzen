@@ -40,31 +40,94 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 // Register BACKUP DO NOT ERASE
-// exports.registerAdmin = catchAsync(async (req, res, next) => {
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPass = await bcrypt.hash(req.body.password, salt);
-//     const newAdmin = new Admin({
-//         username: req.body.username,
-//         email: req.body.email,
-//         password: hashedPass,
-//         location: req.body.location,
-//         profilePic: req.body.profilePic,
-//     });
-
-//     const admin = await newAdmin.save();
-//     res.status(200).json(admin)
-// });
-
 exports.registerAdmin = catchAsync(async (req, res, next) => {
-    const newAdmin = await Admin.create({
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.password, salt);
+    const newAdmin = new Admin({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
-        // passwordConfirm: req.body.passwordConfirm
+        password: hashedPass,
+        location: req.body.location,
+        profilePic: req.body.profilePic,
     });
 
-    createSendToken(newAdmin, 201, res);
+    transporter.sendMail({
+        to:newAdmin.email,
+        from:"smartct.management@gmail.com",
+        subject:"Administrator Account Created",
+        html:`
+        <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
+        <body style = "
+            padding: 50px;
+            margin: 0;
+        ">
+            <div style = "
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            ">
+                <div style = "
+                    box-sizing: border-box;
+                    padding: 50px;
+                    background: #F0F0F3;
+                    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                    border-radius: 20px;
+                ">
+                    <h3 style = "
+                        font-weight: bold;
+                        color: #fe5138;
+                        text-align: center;
+                    ">
+                        Welcome!
+                    </h3>
+
+                    <p style = "
+                        font-weight: bold;
+                        text-align: center;
+                        color: black;
+                    ">
+                        Your Administrator account is created.
+                        <br></br><br></br>
+                        Your default password is:<br></br>
+                        Password: $m4rtCTz3n
+                        <br></br><br></br>
+                        NOTE: CHANGE YOUR PASSWORD AFTER FIRST LOGIN.
+                    </p>
+                </div>
+            </div>
+            
+            <p style = "
+                font-weight: bold;
+                color: black;
+            ">
+                <br></br><br></br>
+                From: SmartCTzen Community
+                <br></br>
+                "Be a Smart Citizen!"
+            </p>
+        </body>
+        </html>
+        `
+    })
+
+    const admin = await newAdmin.save();
+    res.status(200).json(admin)
 });
+
+// exports.registerAdmin = catchAsync(async (req, res, next) => {
+//     const newAdmin = await Admin.create({
+//         username: req.body.username,
+//         email: req.body.email,
+//         password: req.body.password,
+//         location: req.body.location,
+//     });
+
+//     createSendToken(newAdmin, 201, res);
+// });
 
 exports.loginAdmin = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
@@ -83,6 +146,22 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
 
     //3) Check of everything ok, send token to client
     createSendToken(adminUser, 201, res);
+});
+
+exports.getMe = (req, res, next) => {
+    req.params.id = req.user.id;
+    next();
+};
+
+exports.getAdmin = catchAsync(async (req, res, next) => {
+    const admin = await Admin.findById(req.params.id);
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            admin
+        }
+    });
 });
 
 exports.protectAdmin = catchAsync(async (req, res, next) => {
@@ -119,7 +198,7 @@ exports.protectAdmin = catchAsync(async (req, res, next) => {
 
 });
 
-//Login BACKUP DO NOT ERASE
+// Login BACKUP DO NOT ERASE
 // exports.loginAdmin = catchAsync(async (req, res, next) => {
 //     const admin = await Admin.findOne({ email: req.body.email });
 
@@ -161,9 +240,57 @@ exports.forgotAdmin = (req, res, next) => {
                     to:admin.email,
                     from:"smartct.management@gmail.com",
                     subject:"Password Reset",
-                    html:`
-                    <p>You requested for password reset</p>
-                    <h5>click in this <a href ="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
+                    html: `
+                    <html lang="en">
+                    <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    </head>
+                    <body style = "
+                        padding: 50px;
+                        margin: 0;
+                    ">
+                        <div style = "
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        ">
+                            <div style = "
+                                box-sizing: border-box;
+                                padding: 50px;
+                                background: #F0F0F3;
+                                box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                                border-radius: 20px;
+                            ">
+                                <h3 style = "
+                                    font-weight: bold;
+                                    color: #fe5138;
+                                    text-align: center;
+                                ">
+                                    You requested for password reset
+                                </h3>
+
+                                <p style = "
+                                    font-weight: bold;
+                                    text-align: center;
+                                    color: black;
+                                ">
+                                    click in this <a href ="http://localhost:3000/admin-change/${token}">link</a> to reset password
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <p style = "
+                            font-weight: bold;
+                            color: black;
+                        ">
+                            <br></br><br></br>
+                            From: SmartCT Community
+                            <br></br>
+                            "Be a Smart Citizen!"
+                        </p>
+                    </body>
+                    </html>
                     `
                 })
 
@@ -176,7 +303,7 @@ exports.forgotAdmin = (req, res, next) => {
 //CHANGE PASSWORD
 
 exports.changeAdminPassword = (req, res, next) => {
-    const newPassword = req.body.password
+    const newPassword = req.body.newPassword
     const sentToken = req.body.token
 
     Admin.findOne({resetToken:sentToken, expireToken:{$gt:Date.now()}})
@@ -185,7 +312,7 @@ exports.changeAdminPassword = (req, res, next) => {
             return res.status(422).json({error: "Try again sessions expired!!"})
         }
 
-        const salt = await bcrypt.genSalt(10);
+        const salt = await bcrypt.genSalt(12);
         const hashedPass = await bcrypt.hash(newPassword, salt);
 
         Admin.password = hashedPass
@@ -198,4 +325,5 @@ exports.changeAdminPassword = (req, res, next) => {
     }).catch(err => {
         console.log(err)
     })
-}
+};
+

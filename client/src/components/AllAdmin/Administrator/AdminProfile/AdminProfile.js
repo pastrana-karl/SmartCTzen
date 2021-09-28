@@ -7,6 +7,7 @@ import ProfileIconCard from '../../../UI/Cards/ProfileIconCard/ProfileIconCard';
 import ProfileInput from '../../../UI/Input/ProfileInput/ProfileInput';
 import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
+import { Link } from 'react-router-dom';
 
 import classes from './AdminProfile.module.css';
 
@@ -38,8 +39,12 @@ const AdminProfile = () => {
                         <ProfileIconCard />
                         <h2>Summary</h2>
                         <div className={classes.ButtonDiv}>
-                            <AdminProfileButton>Reports</AdminProfileButton>
-                            <AdminProfileButton>Proposals</AdminProfileButton>
+                            <Link to = "/admin-summary/reports">
+                                <AdminProfileButton>Reports</AdminProfileButton>
+                            </Link>
+                            <Link to = '/admin-summary/proposals'>
+                                <AdminProfileButton>Proposals</AdminProfileButton>
+                            </Link>
                         </div>
                     </div>
                     <div>

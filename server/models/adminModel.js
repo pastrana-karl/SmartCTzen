@@ -45,7 +45,7 @@ const adminSchema = new mongoose.Schema({
 
     profilePic:{
         type:String,
-        default:"",
+        default:"https://www.pinclipart.com/picdir/big/157-1578186_user-profile-default-image-png-clipart.png",
     },
 }, 
 { timestamps: true }
@@ -53,13 +53,13 @@ const adminSchema = new mongoose.Schema({
 
 //insert slug
 
-adminSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
+// adminSchema.pre('save', async function(next) {
+//     if (!this.isModified('password')) return next();
 
-    this.password = await bcrypt.hash(this.password, 12);
-    this.passwordConfirm = undefined;
-    next();
-});
+//     this.password = await bcrypt.hash(this.password, 12);
+//     this.passwordConfirm = undefined;
+//     next();
+// });
 
 adminSchema.methods.correctPassword = async function(candidatePassword, adminPassword) {
     return await bcrypt.compare(candidatePassword, adminPassword);

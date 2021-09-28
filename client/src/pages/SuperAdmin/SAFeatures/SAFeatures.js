@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
 import { Link, useLocation, Redirect } from 'react-router-dom'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import './SAFeatures.css'
 
 const SAFeatures = () => {
@@ -29,9 +30,20 @@ const SAFeatures = () => {
         
         try {
             await axios.delete(`/api/SAFeatures/${feature}`);
-            setRedirect(true);
+            Swal.fire('Delete Successful!', "You've successfully deleted a featured member post.", 'success').then(
+                (result) => {
+                  if (result.isConfirmed || result.isDismissed) {
+                    setRedirect(true);
+                   }
+                }
+            );
         } catch (err) {
             console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: `${err.response.status}`,
+                text: `${err.response.data.message}`,
+            });
         }
     }
 

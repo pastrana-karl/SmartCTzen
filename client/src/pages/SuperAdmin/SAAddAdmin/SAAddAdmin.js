@@ -7,12 +7,10 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 const SAAddAdmin = () => {
-    const [file, setFile] = useState(null);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [location, setLocation] = useState("");
-    const [profilePic, setProfilePic] = useState("");
     const [redirect, setRedirect] = useState(false);
     const [loading, setLoading] =  useState(true);
 
@@ -25,26 +23,7 @@ const SAAddAdmin = () => {
             email,
             password,
             location,
-            profilePic,
         };
-
-        if (file) {
-            const data = new FormData();
-            const filename = Date.now() + file.name;
-            data.append("name", filename);
-            data.append("file", file);
-            data.append("upload_preset", "dev_prac");
-            data.append("cloud_name", "karlstorage");
-
-            try {
-                const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
-                newAdmin.profilePic = res.data.secure_url;
-            } catch (err) {
-                console.log(err)
-            }
-        } else {
-            setProfilePic("");
-        }
 
         try {
             await axios.post("/api/admin/register", newAdmin);
@@ -89,32 +68,15 @@ const SAAddAdmin = () => {
                         <h1>Register Admin</h1>
                     </div>
 
-                    <div className = 'col-md-10 offset-md-1' id = 'SAaddAmin-body'>
-                        <div className = 'SAaddAminImg'>
-                            <div className = 'SAaddAminImg-container'>
-                                <img src= {file && (URL.createObjectURL(file))} alt="" onClick={()=> window.open(URL.createObjectURL(file), "_blank")}></img>
-                            </div>
-                        </div>
-                        <Form className = 'SAaddAmin-edit' onSubmit = { handleSubmit }>
-                            <Form.Group>
-                                <div className="SAaddAmin-uploadIcon">
-                                    <Form.Label htmlFor="fileInput"><i className="writeIcon fas fa-image"></i></Form.Label>
-                                </div>
-                                <input
-                                    type="file"
-                                    name="validIDPic" 
-                                    id="fileInput"  
-                                    style={{display:"none"}}
-                                    onChange={(e) => setFile(e.target.files[0])}
-                                />
-                            </Form.Group>
-
+                    <div className = 'col-md-10 offset-md-1' id = 'SAaddAdmin-body'>
+                        <Form className = 'SAaddAdmin-edit' onSubmit = { handleSubmit }>
                             <Form.Group>
                             <Form.Label>User Name</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="userName"
                                 onChange = {e => setUsername(e.target.value)}
+                                required
                                 autoComplete="off"
                             />
                             </Form.Group>
@@ -125,6 +87,7 @@ const SAAddAdmin = () => {
                                 type="email"
                                 name="email"
                                 onChange = {e => setEmail(e.target.value)}
+                                required
                                 autoComplete="off"
                             />
                             </Form.Group>
@@ -135,6 +98,7 @@ const SAAddAdmin = () => {
                                 type="password"
                                 name="password"
                                 onChange = {e => setPassword(e.target.value)}
+                                required
                                 autoComplete="off"
                             />
                             </Form.Group>
@@ -145,6 +109,7 @@ const SAAddAdmin = () => {
                                 type="text"
                                 name="location"
                                 onChange = {e => setLocation(e.target.value)}
+                                required
                                 autoComplete="off"
                             />
                             </Form.Group>
@@ -153,10 +118,10 @@ const SAAddAdmin = () => {
                             <Button variant="danger" type="submit">
                                 Register
                             </Button>
-                            <Button className = 'SAaddAmin-reset' variant="outline-light" type="reset">
+                            <Button className = 'SAaddAdmin-reset' variant="outline-light" type="reset">
                                 Clear
                             </Button>
-                            <Link className="SAaddAmin-links" to="/SAManage-admin">Back</Link>
+                            <Link className="SAaddAdmin-links" to="/SAManage-admin">Back</Link>
                         </Form>
                     </div>
                 </Container>

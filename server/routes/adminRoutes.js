@@ -2,6 +2,9 @@ const router = require("express").Router();
 const adminController = require("../controllers/adminController");
 const Admin = require('../models/adminModel');
 
+
+router.get('/me', adminController.protectAdmin, adminController.getMe, adminController.getAdmin);
+
 //REGISTER
 router
     .route("/register")
@@ -41,9 +44,9 @@ router.get("/", async (req, res) => {
         let admins;
 
         if(adminName) {
-            admins = await Admin.find({ username:adminName }).collation({locale: "en", strength: 2})
+            admins = await Admin.find({ username:adminName }).collation({locale: "en", strength: 2});
         } else {
-            admins = await Admin.find();
+            admins = await Admin.find().sort({username:1});
         }
 
         res.status(200).json(admins);

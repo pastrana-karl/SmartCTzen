@@ -1,0 +1,41 @@
+.AdminReportsDashboard {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 150px;
+}
+
+
+.ReportsSummary {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.SummaryCard {
+    width: 500px;
+    display: grid;
+    column-gap: 200px;
+    row-gap: 50px;
+    grid-template-columns: repeat(2, 150px);
+}
+
+.SummaryCardHeader {
+    font-weight: bold;
+}
+
+.SummaryGraph {
+    width: 700px;
+}
+
+.SummaryDataText {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}
+

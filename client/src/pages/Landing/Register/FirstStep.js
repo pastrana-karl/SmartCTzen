@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
+import Swal from 'sweetalert2';
 import '@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker, { utils } from '@hassanmojab/react-modern-calendar-datepicker';
 import { Link } from 'react-router-dom';
@@ -14,15 +15,23 @@ const FirstStep = (props) => {
     const { citizen } = props;
 
     const { register, handleSubmit, errors } = useForm({
-    defaultValues: {
-        firstname: citizen.firstname,
-        lastname: citizen.lastname,
-        middlename: citizen.middlename,
-        suffix: citizen.suffix,
-        sex: citizen.sex,
-        birthdate: citizen.birthdate
-    }
+      defaultValues: {
+          firstname: citizen.firstname,
+          lastname: citizen.lastname,
+          middlename: citizen.middlename,
+          suffix: citizen.suffix,
+          sex: citizen.sex,
+          birthdate: citizen.birthdate
+      }
     });
+
+    const handleInfo = () => {
+      Swal.fire({
+        icon: 'info',
+        title: 'Age Limit',
+        text: 'User must be above 18 to create an account.',
+      });
+    }
 
     const formatInputValue = () => {
       const birth = startDate
@@ -124,7 +133,7 @@ const FirstStep = (props) => {
       }else if(`${startDate.year}` === `${present.year}`){
         citizen.birthdate = '';
         return ''
-      }else if(`${yearCheck}` <= 8){
+      }else if(`${yearCheck}` <= 18){
         citizen.birthdate = '';
         return ''
       }else if(`${startDate.year}` > `${present.year}`){
@@ -202,7 +211,7 @@ const FirstStep = (props) => {
             ref={register({
               required: 'Middle name is required.',
               pattern: {
-                value: /^[a-zA-Z.]+$/,
+                value: /^[a-zA-Z.\s]+$/,
                 message: 'Middle name should contain only characters.'
               }
             })}
@@ -252,7 +261,7 @@ const FirstStep = (props) => {
         </Form.Group>
 
         <Form.Group controlId="birthdate">
-          <Form.Label>Birth Date</Form.Label>
+          <Form.Label>Birth Date <i className="fas fa-info-circle" onClick = { handleInfo } id="infoIconFields"></i></Form.Label>
           <div style={{display: "none"}}>
             <Form.Control
               name="birthdate"

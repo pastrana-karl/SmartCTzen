@@ -6,23 +6,27 @@ const proposalsRouter = express.Router();
 
 //use this as the address in postman
 proposalsRouter
+    .route("/proposals/topProposals")
+    .get(proposalsController.getTopProposals);
+
+proposalsRouter
     .route("/proposals")
     .get(proposalsController.getAllProposals)
     .post(proposalsController.postProposal);
+
+proposalsRouter
+    .route("/proposals/approved")
+    .get(proposalsController.getApprovedProposals);
+
+proposalsRouter
+    .route("/proposals/rejected")
+    .get(proposalsController.getRejectedProposals);
 
 proposalsRouter
     .route("/proposals/:id")
     .get(proposalsController.getProposal)
     .patch(proposalsController.updateProposal)
     .delete(proposalsController.deleteProposal);
-
-proposalsRouter
-    .route("/proposals/approved")
-    .get(proposalsController.aliasApprovedProposals, proposalsController.getAllProposals);
-
-proposalsRouter
-    .route("/proposals/rejected")
-    .get(proposalsController.aliasRejectedProposals, proposalsController.getAllProposals);
 
 proposalsRouter
     .route("/proposals/:id/histories")

@@ -2,16 +2,25 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
+import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
 const SecondStep = (props) => {
     const { citizen } = props;
     const { register, handleSubmit, errors } = useForm({
-    defaultValues: {
-        fathername: citizen.fathername,
-        mothername: citizen.mothername
-    }
+      defaultValues: {
+          fathername: citizen.fathername,
+          mothername: citizen.mothername
+      }
     });
+
+    const handleInfo = () => {
+      Swal.fire({
+        icon: 'info',
+        title: 'Optional',
+        text: 'This field is required if your proof of residency document is not addressed to you.',
+      });
+    }
 
   const onSubmit = (data) => {
     props.updateCitizen(data);
@@ -24,7 +33,7 @@ const SecondStep = (props) => {
       <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }} id = 'register-panel'>
       <h2 style={{textAlign: "center", marginBottom: '15px'}}>Personal Information</h2>
         <Form.Group controlId="fathername">
-          <Form.Label>Father Name</Form.Label>
+          <Form.Label>Father Name <i className="fas fa-info-circle" onClick = { handleInfo } id="infoIconFields"></i></Form.Label>
           <Form.Control
             type="text"
             name="fathername"
@@ -44,7 +53,7 @@ const SecondStep = (props) => {
         </Form.Group>
 
         <Form.Group controlId="mothername">
-          <Form.Label>Mother Name</Form.Label>
+          <Form.Label>Mother Name <i className="fas fa-info-circle" onClick = { handleInfo } id="infoIconFields"></i></Form.Label>
           <Form.Control
             type="text"
             name="mothername"

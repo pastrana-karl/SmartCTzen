@@ -16,7 +16,7 @@
     font-weight: bold;
 }
 
-#SAaddAmin-body {
+#SAaddAdmin-body {
     width: 80%;
     margin: 5rem auto;
     box-sizing: border-box;
@@ -28,7 +28,7 @@
     row-gap: 20px;
 }
 
-.SAaddAmin-edit  {
+.SAaddAdmin-edit  {
     width: 100%;
     margin: 1.3rem auto;
     padding: 50px;
@@ -37,7 +37,7 @@
     row-gap: 20px;
 }
 
-.SAaddAmin-edit .form-control {
+.SAaddAdmin-edit .form-control {
     border: hidden;
     background: #F0F0F3;
     box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
@@ -46,48 +46,19 @@
     font-size: 18px;
 }
 
-.SAaddAminImg {
-    display: flex;
-    justify-content: center;
-    margin-top: 5%;
-}
-
-.SAaddAminImg-container {
-    width: 25vw;
-    display: flex;
-    justify-content: center;
-}
-
-.SAaddAminImg-container img {
-    width: 100%;
-    object-fit: fill;
-    border-radius: 45px;
-    cursor: pointer;
-}
-
-.SAaddAmin-uploadIcon {
-    font-size: 30px;
-    display: flex;
-    justify-content: center;
-}
-
-.SAaddAmin-uploadIcon i {
-    cursor: pointer;
-}
-
-.SAaddAmin-edit button.btn.btn-danger{
+.SAaddAdmin-edit button.btn.btn-danger{
     border-radius: 10px;
     border-color: #fe5139;
     background-color: #fe5139;
     outline: #fe5139;
 }
   
-.SAaddAmin-edit button.btn.btn-danger:hover{
+.SAaddAdmin-edit button.btn.btn-danger:hover{
     background-color: #Dc4733;
     border-color: #Dc4733;
 }
 
-.SAaddAmin-edit .SAaddAmin-reset {
+.SAaddAdmin-edit .SAaddAdmin-reset {
     outline: none !important;
     background: #F0F0F3;
     box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
@@ -95,19 +66,19 @@
     color: #fe5139;
 }
 
-.SAaddAmin-edit .SAaddAmin-reset:hover {
+.SAaddAdmin-edit .SAaddAdmin-reset:hover {
     background-color: white !important;
     color: #fe5139 !important;
 }
 
-.SAaddAmin-links {
+.SAaddAdmin-links {
     margin-top: 2%;
     text-decoration: none !important;
     text-align: center;
     color: #fe5139;
 }
 
-.SAaddAmin-links:hover {
+.SAaddAdmin-links:hover {
     color: #Dc4733;
 }
 
@@ -127,7 +98,7 @@
 }
 
 @media screen and (max-width: 600px) {
-    #SAaddAmin-body {
+    #SAaddAdmin-body {
         width: 100%;
         margin: 5rem auto;
         box-sizing: none;
@@ -139,21 +110,17 @@
         row-gap: 20px;
     }
 
-    .SAaddAmin-edit  {
+    .SAaddAdmin-edit  {
         padding: 30px;
         padding-top: 0;
         margin-top: 0;
     }
 
-    .SAaddAmin h1 {
-        font-size: 29px;
+    .SAaddAdmin h1 {
+        font-size: 28px;
     }
 
     .SAAddAdminLoading {
         margin-top: 60%;  
-    }
-
-    .SAaddAminImg-container {
-        width: 45vw;
     }
 }

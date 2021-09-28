@@ -10,6 +10,18 @@ reportsRouter
     .post(reportsController.postReports);
 
 reportsRouter
+    .route("/reports/resolved")
+    .get(reportsController.getResolvedReports);
+
+reportsRouter
+    .route("/reports/confirmed")
+    .get(reportsController.getConfirmedReports);
+
+reportsRouter
+    .route("/reports/cancelled")
+    .get(reportsController.getCancelledReports);
+
+reportsRouter
     .route("/reports/:id")
     .get(reportsController.getReport)
     .delete(reportsController.deleteReports);
@@ -17,5 +29,9 @@ reportsRouter
 reportsRouter
     .route("/reports/:id/histories")
     .get(reportsController.getReportsHistory);
+
+// reportsRouter
+//     .route("/reports/count")
+//     .get(reportsController.countReportsTotal);
 
 module.exports = reportsRouter;

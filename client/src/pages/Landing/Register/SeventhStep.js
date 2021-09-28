@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import axios from 'axios'
 import Swal from 'sweetalert2';
 import * as ReactBootStrap from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 const SeventhStep = (props) => {
   const { citizen } = props;
@@ -17,8 +17,38 @@ const SeventhStep = (props) => {
   });
 
   const [loading, setLoading] =  useState(true);
+  const [redirect, setRedirect] = useState(false);
+  const [agreement,setAgreement] = useState("");
+
+  useEffect(() => {
+    const fetchEula = async () => {
+        const res = await axios.get('/api/eula');
+        setAgreement(res.data[0].message);
+    }
+
+    fetchEula();
+  }, [])
+
+  const handleInfo = () => {
+    Swal.fire({
+      icon: 'info',
+      title: 'End-User License Agreement',
+      html: `<p style ='text-align: justify; white-space: pre-wrap;'>${agreement}</p>`,
+    });
+  }
 
   const onSubmit = async (data) => {
+
+    if(citizen.validIDPic === undefined || citizen.residencyPic === undefined) {
+      setRedirect(true);
+
+      Swal.fire({
+        icon: 'info',
+        title: `No Photo input . . .`,
+        text: `You will be redirected! Make sure to finish all the steps. (Refreshing the browser will cause all your data input to be gone)`,
+      });
+    }
+  
     setLoading(false);
 
     try {
@@ -36,7 +66,6 @@ const SeventhStep = (props) => {
       if(`${validPhoto1}` === `undefined` && `${validPhoto2}` === `undefined`){
         const validImage = [];
         citizen.validIDPic = validImage;
-        console.log(validImage);
       }else if(`${validPhoto1}` !== `undefined` && `${validPhoto2}` === `undefined`){
         const validImage = [validPhoto1];
         const formData_1 = new FormData();
@@ -45,7 +74,6 @@ const SeventhStep = (props) => {
                 const res = await axios.post("/api/upload-images", formData_1);
                 const img1 = res.data.data[0].url;
                 const img = [img1];
-                console.log(img)
                 citizen.validIDPic = img;
             } catch (err) {
                 console.log(err);
@@ -59,7 +87,6 @@ const SeventhStep = (props) => {
                 const img1 = res.data.data[0].url;
                 const img2 = res.data.data[1].url;
                 const img = [img1, img2];
-                console.log(img)
                 citizen.validIDPic = img;
             } catch (err) {
                 console.log(err);
@@ -70,7 +97,6 @@ const SeventhStep = (props) => {
       if(`${residencyPhoto1}` === `undefined` && `${residencyPhoto2}` === `undefined`){
         const residencyImage = [];
         citizen.residencyPic = residencyImage;
-        console.log(residencyImage);
       }else if(`${residencyPhoto1}` !== `undefined` && `${residencyPhoto2}` === `undefined`){
         const residencyImage = [residencyPhoto1];
         const formData_2 = new FormData();
@@ -79,7 +105,6 @@ const SeventhStep = (props) => {
                 const res = await axios.post("/api/upload-images", formData_2);
                 const pic1 = res.data.data[0].url;
                 const pic = [pic1];
-                console.log(pic)
                 citizen.residencyPic = pic
             } catch (err) {
                 console.log(err);
@@ -93,7 +118,6 @@ const SeventhStep = (props) => {
                 const pic1 = res.data.data[0].url;
                 const pic2 = res.data.data[1].url;
                 const pic = [pic1, pic2];
-                console.log(pic)
                 citizen.residencyPic = pic
             } catch (err) {
                 console.log(err);
@@ -104,7 +128,6 @@ const SeventhStep = (props) => {
       if(`${birthPhoto1}` === `undefined` && `${birthPhoto2}` === `undefined`){
         const birthImage = [];
         citizen.birthCertPic = birthImage;
-        console.log(birthImage);
       }else if(`${birthPhoto1}` !== `undefined` && `${birthPhoto2}` === `undefined`){
         const birthImage = [birthPhoto1];
         const formData_3 = new FormData();
@@ -113,7 +136,6 @@ const SeventhStep = (props) => {
                 const res = await axios.post("/api/upload-images", formData_3);
                 const pho1 = res.data.data[0].url;
                 const pho = [pho1];
-                console.log(pho)
                 citizen.birthCertPic = pho
             } catch (err) {
                 console.log(err);
@@ -127,7 +149,6 @@ const SeventhStep = (props) => {
                 const pho1 = res.data.data[0].url;
                 const pho2 = res.data.data[1].url;
                 const pho = [pho1, pho2];
-                console.log(pho)
                 citizen.birthCertPic = pho
             } catch (err) {
                 console.log(err);
@@ -142,9 +163,6 @@ const SeventhStep = (props) => {
         birthCertPic: citizen.birthCertPic,
         status: false,
       };
-      
-      // console.log(citizen) Testing for data passing...
-      console.log(updatedData)
     
       await axios.post('/api/citizen/register', {
         ...citizen,
@@ -160,15 +178,17 @@ const SeventhStep = (props) => {
               props.resetCitizen();
               props.history.push('/create-account');
              }
-          });
+          }
+        );
       }
     } catch (err) {
         if (err.response) {
+          console.log(err.response)
           if(loading === true){
             Swal.fire({
               icon: 'error',
-              title: 'Oops...',
-              text: 'something wrong!',
+              title: `${err.response.status}`,
+              text: `${err.response.data.message}`,
             });
             props.resetCitizen();
             props.history.push('/create-account');
@@ -180,6 +200,7 @@ const SeventhStep = (props) => {
 
   return (
     <>
+    { redirect && (<Redirect to = '/create-account' />) }
     {loading ? (
       <Form className="registerInput-form" onSubmit={handleSubmit(onSubmit)}>
       <motion.div className="col-md-6 offset-md-3" initial={{ x: '-100vw' }} animate={{ x: 0 }} transition={{ stiffness: 150 }} id = 'register-panel'>
@@ -223,6 +244,12 @@ const SeventhStep = (props) => {
           {errors.password && (
             <p className="registerErrorMsg">{errors.password.message}</p>
           )}
+        </Form.Group>
+
+        <p className = 'eulaText'><i className="fas fa-info-circle" onClick = { handleInfo } id="infoIconFields"></i> Click the 'info' icon to read end-user license agreement.</p>
+
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" required label="I've read and agree with the presented end-user license agreement." />
         </Form.Group>
 
         <Button variant="danger" type="submit">

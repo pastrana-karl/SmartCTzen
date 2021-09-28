@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import { Link, useLocation, Redirect } from 'react-router-dom'
 import './SAAnnouncements.css'
 
@@ -28,9 +29,20 @@ const SAAnnouncements = () => {
 
         try {
             await axios.delete(`/api/saAnnounce/${announceId}`);
-            setRedirect(true);
+            Swal.fire('Delete Successful!', "You've successfully deleted an announcement post.", 'success').then(
+                (result) => {
+                  if (result.isConfirmed || result.isDismissed) {
+                    setRedirect(true);
+                   }
+                }
+            );
         } catch (err) {
             console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: `${err.response.status}`,
+                text: `${err.response.data.message}`,
+            });
         }
     }
 

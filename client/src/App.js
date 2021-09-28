@@ -24,6 +24,8 @@ import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals'
 import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
 import CitizenProjects from './pages/Citizen/CitizenProjects/CitizenProjects';
 
+import AdminForgot from './components/AllAdmin/Administrator/AdminForgot/AdminForgot';
+import AdminEmail from './components/AllAdmin/Administrator/AdminEmail/AdminEmail';
 import AdminProfile from './components/AllAdmin/Administrator/AdminProfile/AdminProfile';
 import AdminLogin from './components/AllAdmin/Administrator/AdminLogin/AdminLogin';
 import AdminProposals from './components/AllAdmin/Administrator/AdminProposals/AdminProposals';
@@ -55,6 +57,7 @@ import SAEmail from './pages/SuperAdmin/SAEmail/SAEmail';
 import SAContentHome from './pages/SuperAdmin/SAContentHome/SAContentHome';
 import SAAnnouncements from './pages/SuperAdmin/SAAnnouncements/SAAnnouncements';
 import SAFeaturedMember from './pages/SuperAdmin/SAFeaturedMember/SAFeaturedMember';
+import SAEula from './pages/SuperAdmin/SAEula/SAEula';
 import SAAddFeaturedMember from './pages/SuperAdmin/SAAddFeaturedMember/SAAddFeaturedMember';
 import SAContentFeature from './pages/SuperAdmin/SAContentFeature/SAContentFeature';
 import SAAddFeature from './pages/SuperAdmin/SAAddFeature/SAAddFeature';
@@ -63,6 +66,8 @@ import SAManage from './pages/SuperAdmin/SAManage/SAManage';
 import SASearchAdmin from './pages/SuperAdmin/SASearchAdmin/SASearchAdmin';
 import SAAddAdmin from './pages/SuperAdmin/SAAddAdmin/SAAddAdmin';
 import SAAccount from './pages/SuperAdmin/SAAccount/SAAccount';
+import AdminReportsDashboard from './components/AllAdmin/Administrator/AdminReportsDashboard/AdminReportsDashboard';
+import AdminProposalsDashboard from './components/AllAdmin/Administrator/AdminProposalsDashboard/AdminProposalsDashboard';
 
 const App = () => {
 
@@ -113,11 +118,11 @@ const App = () => {
           </Route>
 
           <Route path="/forgot-password">
-            <CitizenForgot />
+            {user ? <Redirect to="/citizen-profile" /> : <CitizenForgot />}
           </Route>
 
-          <Route path="/change-password">
-            <CitizenEmail />
+          <Route path="/change-password/:token">
+            {user ? <Redirect to="/citizen-profile" /> : <CitizenEmail />}
           </Route>
 
           <Route
@@ -172,16 +177,16 @@ const App = () => {
 
           {/**************************** CITIZEN Routes ****************************/}
 
-          <Route path="/citizen-profile">
+          <Route path="/citizen-profile">  
             {user ? <CitizenProfile /> : <Redirect to="/" />}
           </Route>
 
           <Route path="/citizen-pass-update">
-            <CitizenPassUpdate />
+            {user ? <CitizenPassUpdate /> : <Redirect to="/" />}
           </Route>
 
           <Route path="/citizen-proposals">
-            <CitizenProposals/>
+            {user ? <CitizenProposals /> : <Redirect to="/" />}
           </Route>
 
           <Route path="/citizen-view-proposals">
@@ -189,82 +194,93 @@ const App = () => {
           </Route>
 
           <Route path="/citizen-create-proposals">
-            <CitizenCreateProposal/>
+            {user ? <CitizenCreateProposal /> : <Redirect to="/" />}
           </Route>
 
           <Route path="/citizen-reports">
-            <CitizenReports/>
+            {user ? <CitizenReports /> : <Redirect to="/" />}
           </Route> 
 
           <Route path="/citizen-view-reports">
-            <CitizenViewReport/>
+            {user ? <CitizenViewReport /> : <Redirect to="/" />}
           </Route> 
 
           <Route path="/citizen-submit-reports">
-            <CitizenSubmitReport/>
+            {user ? <CitizenSubmitReport /> : <Redirect to="/" />}
           </Route> 
 
           <Route path="/citizen-chat-report">
-            <CitizenChatReport/>
+            {user ? <CitizenChatReport /> : <Redirect to="/" />}
           </Route> 
 
           <Route path="/citizen-projects">
-            <CitizenProjects/>
+            {user ? <CitizenProjects /> : <Redirect to="/" />}
           </Route> 
 
-          {/**************************** ADMIN Routes ****************************/}
-
           <Route path="/citizen-view-project">
-            <CitizenViewProject/>
-          </Route>  
+            {user ? <CitizenViewProject /> : <Redirect to="/" />}
+          </Route> 
 
-          {/**************************** ADMIN Login ****************************/}
+          {/**************************** ADMIN Routes ****************************/} 
+
           <Route path="/admin-login">
             {aUser ? <Redirect to="/admin-profile" /> : <AdminLogin />}
           </Route>
 
+          <Route path="/admin-forgot">
+            <AdminForgot />
+          </Route>
+
+          <Route path="/admin-change/:token">
+            <AdminEmail />
+          </Route>
+
           <Route path="/admin-profile">
-            <AdminProfile />
+            {aUser ? <AdminProfile /> : <Redirect to="/admin-login" />}
           </Route>
           
           <Route path="/admin-proposals">
-            <AdminProposals />
+            {aUser ? <AdminProposals /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-create-proposals">
-            <AdminCreateProposals />
+            {aUser ? <AdminCreateProposals /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-reports">
-            <AdminReports />
+            {aUser ? <AdminReports /> : <Redirect to="/admin-login" />}
+          </Route>
+
+          <Route path="/admin-summary/reports">
+            {aUser ? <AdminReportsDashboard /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-messages">
-            <AdminMessages />
+            {aUser ? <AdminMessages /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-projects">
-            <AdminProjects />
+            {aUser ? <AdminProjects /> : <Redirect to="/admin-login" />}
+          </Route>
+
+          <Route path="/admin-summary/proposals">
+            {aUser ? <AdminProposalsDashboard /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-create-projects">
-            <AdminCreateProjects />
+            {aUser ? <AdminCreateProjects /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-users">
-            <AdminUsers />
-          </Route>
-
-          <Route path="/admin-logout">
-            <AdminLogout />
+            {aUser ? <AdminUsers /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/Applicants">
-            <Applicants />
+            {aUser ? <Applicants /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/Applicants-Verification">
-            <SingleApplicants />
+            {aUser ? <SingleApplicants /> : <Redirect to="/admin-login" />}
           </Route>
 
           {/**************************** SUPER ADMIN Routes ****************************/}
@@ -277,7 +293,7 @@ const App = () => {
             <SAForgot />
           </Route>
 
-          <Route path="/superAdmin-changePassword">
+          <Route path="/superAdmin-changePassword/:token">
             <SAEmail />
           </Route>
 
@@ -291,6 +307,10 @@ const App = () => {
 
           <Route path="/SAContent-FeaturedMember">
             {saUser ? <SAFeaturedMember /> : <Redirect to="/superAdmin-login" />}
+          </Route>
+
+          <Route path="/SAContent-Eula">
+            {saUser ? <SAEula /> : <Redirect to="/superAdmin-login" />}
           </Route>
 
           <Route path="/SAContent-addFeaturedMember">

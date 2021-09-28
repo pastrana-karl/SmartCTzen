@@ -7,6 +7,7 @@ const AppError = require('../utils/appError');
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const catchAsync = require('../utils/catchAsync');
+const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 
 
@@ -50,59 +51,9 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 // Register DO NOTE ERASE
-// exports.registerCitizen = catchAsync(async (req, res, next) => {
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPass = await bcrypt.hash(req.body.password, salt);
-//     const newCitizen = await Citizen.create({
-//         firstname: req.body.firstname,
-//         lastname: req.body.lastname,
-//         middlename: req.body.middlename,
-//         suffix: req.body.suffix,
-//         sex: req.body.sex,
-//         birthdate: req.body.birthdate,
-//         fathername: req.body.fathername,
-//         mothername: req.body.mothername,
-//         street: req.body.street,
-//         barangay: req.body.barangay,
-//         city: req.body.city,
-//         province: req.body.province,
-//         zipcode: req.body.zipcode,
-//         region: req.body.region,
-//         validIDPic: req.body.validIDPic,
-//         residencyPic: req.body.residencyPic,
-//         birthCertPic: req.body.birthCertPic,
-//         email: req.body.email,
-//         password: req.body.password
-//         //passwordConfirm: req.body.passwordConfirm
-//     });
-
-//     // Remove password from the output
-//     // newCitizen.password = undefined;
-
-//     // res.status(201).json({
-//     //     status: 'success',
-//     //     token,
-//     //     data: {
-//     //         newCitizen
-//     //     }
-//     // });
-
-//     const citizen = await newCitizen.save();
-//     res.status(200).json(citizen);
-//     // createSendToken(newCitizen, 201, res);
-// });
-
-exports.getCitizen = catchAsync(async (req, res, next) => {
-    const citizen = await Citizen.findById(req.params.id);
-
-    res.status(200).json({
-        status: 'success',
-        citizen
-
-    });
-});
-
 exports.registerCitizen = catchAsync(async (req, res, next) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.password, salt);
     const newCitizen = await Citizen.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -122,9 +73,8 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         residencyPic: req.body.residencyPic,
         birthCertPic: req.body.birthCertPic,
         email: req.body.email,
-        password: req.body.password,
-        status: req.body.status
-        // passwordConfirm: req.body.passwordConfirm
+        status: req.body.status,
+        password: hashedPass
     });
 
     transporter.sendMail({
@@ -186,9 +136,44 @@ exports.registerCitizen = catchAsync(async (req, res, next) => {
         `
     })
 
-
-    createSendToken(newCitizen, 201, res);
+    const citizen = await newCitizen.save();
+    res.status(200).json(citizen);
 });
+
+exports.getCitizen = catchAsync(async (req, res, next) => {
+    const citizen = await Citizen.findById(req.params.id);
+
+    res.status(200).json(citizen);
+});
+
+// exports.registerCitizen = catchAsync(async (req, res, next) => {
+//     const newCitizen = await Citizen.create({
+//         firstname: req.body.firstname,
+//         lastname: req.body.lastname,
+//         middlename: req.body.middlename,
+//         suffix: req.body.suffix,
+//         sex: req.body.sex,
+//         birthdate: req.body.birthdate,
+//         fathername: req.body.fathername,
+//         mothername: req.body.mothername,
+//         street: req.body.street,
+//         barangay: req.body.barangay,
+//         city: req.body.city,
+//         province: req.body.province,
+//         zipcode: req.body.zipcode,
+//         region: req.body.region,
+//         validIDPic: req.body.validIDPic,
+//         residencyPic: req.body.residencyPic,
+//         birthCertPic: req.body.birthCertPic,
+//         email: req.body.email,
+//         password: req.body.password,
+//         status: req.body.status
+//         // passwordConfirm: req.body.passwordConfirm
+//     });
+
+
+//     createSendToken(newCitizen, 201, res);
+// });
 
 exports.loginCitizen = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
@@ -379,70 +364,180 @@ exports.acceptApplicant = catchAsync(async (req, res, next) => {
 
 //REJECT APPLICANTS
 exports.rejectApplicant = catchAsync(async (req, res, next) => {
-try {
-    const rejectApplicant = await Citizen.findById(req.params.id);
-    await rejectApplicant.delete();
+    try {
+        const rejectApplicant = await Citizen.findById(req.params.id);
+        await rejectApplicant.delete();
 
-    transporter.sendMail({
-        to:rejectApplicant.email,
-        from:"smartct.management@gmail.com",
-        subject:"Registration Rejected",
-        html:`
-        <html lang="en">
-        <head>
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </head>
-        <body style = "
-            padding: 50px;
-            margin: 0;
-        ">
-            <div style = "
-                display: flex;
-                justify-content: center;
-                align-items: center;
+        transporter.sendMail({
+            to:rejectApplicant.email,
+            from:"smartct.management@gmail.com",
+            subject:"Registration Rejected",
+            html:`
+            <html lang="en">
+            <head>
+                <meta charset="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </head>
+            <body style = "
+                padding: 50px;
+                margin: 0;
             ">
                 <div style = "
-                    box-sizing: border-box;
-                    padding: 50px;
-                    background: #F0F0F3;
-                    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
-                    border-radius: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 ">
-                    <h3 style = "
-                        font-weight: bold;
-                        color: #fe5138;
-                        text-align: center;
+                    <div style = "
+                        box-sizing: border-box;
+                        padding: 50px;
+                        background: #F0F0F3;
+                        box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                        border-radius: 20px;
                     ">
-                        Sorry . . .
-                    </h3>
+                        <h3 style = "
+                            font-weight: bold;
+                            color: #fe5138;
+                            text-align: center;
+                        ">
+                            Sorry . . .
+                        </h3>
 
-                    <p style = "
-                        font-weight: bold;
-                        text-align: center;
-                        color: black;
-                    ">
-                        Your registration is rejected.
-                    </p>
+                        <p style = "
+                            font-weight: bold;
+                            text-align: center;
+                            color: black;
+                        ">
+                            Your registration is rejected.
+                        </p>
+                    </div>
                 </div>
-            </div>
-            
-            <p style = "
-                font-weight: bold;
-                color: black;
-            ">
-                <br></br><br></br>
-                From: Your SmartCTzen Administrator
-                <br></br>
-                "Be a Smart Citizen!"
-            </p>
-        </body>
-        </html>
-        `
-    })
+                
+                <p style = "
+                    font-weight: bold;
+                    color: black;
+                ">
+                    <br></br><br></br>
+                    From: Your SmartCTzen Administrator
+                    <br></br>
+                    "Be a Smart Citizen!"
+                </p>
+            </body>
+            </html>
+            `
+        })
 
-    res.status(200).json("Citizen has been rejected...");
-} catch (err) {
-    res.status(500).json(err);
-}
+        res.status(200).json("Citizen has been rejected...");
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
+
+//Change Password Request
+exports.PasswordChangeReq = (req, res, next) => {
+    crypto.randomBytes(32, (err, buffer) => {
+        if(err){
+            console.log(err)
+        }
+
+
+        const email = req.body.email;
+
+        const token = buffer.toString("hex")
+        Citizen.findOne({ email })
+        .then(citizen => {
+            if(!citizen){
+                return res.status(422).json({error: "User don't exist"})
+            }
+
+            citizen.resetToken = token
+            citizen.expireToken = Date.now() + 3600000
+            citizen.save().then((result) => {
+                transporter.sendMail({
+                    to:citizen.email,
+                    from:"smartct.management@gmail.com",
+                    subject:"Password Reset",
+                    html: `
+                    <html lang="en">
+                    <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    </head>
+                    <body style = "
+                        padding: 50px;
+                        margin: 0;
+                    ">
+                        <div style = "
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        ">
+                            <div style = "
+                                box-sizing: border-box;
+                                padding: 50px;
+                                background: #F0F0F3;
+                                box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                                border-radius: 20px;
+                            ">
+                                <h3 style = "
+                                    font-weight: bold;
+                                    color: #fe5138;
+                                    text-align: center;
+                                ">
+                                    You requested for password reset
+                                </h3>
+
+                                <p style = "
+                                    font-weight: bold;
+                                    text-align: center;
+                                    color: black;
+                                ">
+                                    click in this <a href ="http://localhost:3000/change-password/${token}">link</a> to reset password
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <p style = "
+                            font-weight: bold;
+                            color: black;
+                        ">
+                            <br></br><br></br>
+                            From: SmartCT Community
+                            <br></br>
+                            "Be a Smart Citizen!"
+                        </p>
+                    </body>
+                    </html>
+                    `
+                })
+
+                res.json({message: "Check your email!"})
+            })
+        })
+    })
+}
+
+//Change Password
+exports.ChangePassword = (req, res, next) => {
+    const newPassword = req.body.newPassword
+    const sentToken = req.body.token
+
+    Citizen.findOne({resetToken:sentToken, expireToken:{$gt:Date.now()}})
+    .then(async (citizen) => {
+        if(!citizen){
+            return res.status(422).json({error: "Try again sessions expired!!"})
+        }
+
+        const salt = await bcrypt.genSalt(12);
+        const hashedPass = await bcrypt.hash(newPassword, salt);
+
+        citizen.password = hashedPass
+        citizen.resetToken = undefined
+        citizen.expireToken = undefined
+
+        citizen.save().then((savedUser) => {
+            res.status(200).json(citizen)
+        })
+    }).catch(err => {
+        console.log(err)
+    })
+}

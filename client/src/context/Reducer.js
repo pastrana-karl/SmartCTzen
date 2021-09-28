@@ -138,6 +138,27 @@ const Reducer = (state, action) => {
             error: true,
         };
 
+        case "AUPDATE_START": return {
+            ...state,
+            isFetching: true,
+        };
+
+        case "AUPDATE_SUCCESS": return {
+            user: null,
+            saUser: null,
+            aUser: action.payload,
+            isFetching: false,
+            error: false,
+        };
+
+        case "AUPDATE_FAILURE": return {
+            user: null,
+            saUser: null,
+            aUser: state.aUser,
+            isFetching: false,
+            error: true,
+        };
+
         default: return state;
     }
 };

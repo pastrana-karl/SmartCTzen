@@ -54,6 +54,8 @@
     padding: 50px;
     font-size: 18px;
     margin: 50px auto;
+    height: 250px;
+    overflow: auto;
 }
 
 .SAmanage-searchHeader h4 {
@@ -88,12 +90,22 @@
     font-weight: bold;
 }
 
+@media screen and (max-width: 1200px) {
+    #SAmanage-resultVisibility {
+        display: none;
+    }    
+}
+
 @media screen and (max-width: 600px) {
     .SAmanage-addAdmin {
         font-size: 50px;
     }
 
     .SAmanage-header h1 {
-        font-size: 35px;
+        font-size: 28px;
     }
+
+    #SAmanage-resultVisibilityMobile {
+        display: none;
+    }    
 }

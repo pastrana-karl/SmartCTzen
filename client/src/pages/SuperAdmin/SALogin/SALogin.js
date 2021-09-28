@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import './SALogin.css';
 import { Link } from 'react-router-dom';
 import { Context } from '../../../context/Context';
+import Swal from 'sweetalert2'
 import axios from 'axios';
 
 const SALogin = () => {
@@ -24,7 +25,12 @@ const SALogin = () => {
 
         dispatch({ type: "SALOGIN_SUCCESS", payload: res.data });
     } catch (err) {
-        dispatch({ type: "SALOGIN_FAILURE" });
+      Swal.fire({
+        icon: 'error',
+        title: `${err.response.status}`,
+        text: `${err.response.data}`,
+      });
+      dispatch({ type: "SALOGIN_FAILURE" });
     }
   };
 
@@ -49,6 +55,7 @@ const SALogin = () => {
                     name="email"
                     placeholder="Enter your email address"
                     ref = { userRef }
+                    required
                     autoComplete="off"
                   />
                 </Form.Group>
@@ -60,12 +67,13 @@ const SALogin = () => {
                     name="password"
                     placeholder="Choose a password"
                     ref = { passwordRef }
+                    required
                     autoComplete="off"
                   />
                 </Form.Group>
 
                 <Button variant="danger" type="submit" disabled={ isFetching }>
-                  Submit
+                  Login
                 </Button>
 
                 <Link className="superAdminLogin-link" to="/superAdmin-forgot">Forgot Password?</Link>
