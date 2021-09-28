@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios'
 import { Redirect, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'
-import './SAEmail.css';
+import './AdminEmail.css';
 
 const SAEmail = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -12,12 +12,14 @@ const SAEmail = () => {
   const [redirect, setRedirect] = useState(false);
   const { token } = useParams()
 
+  console.log(token)
+
   const handleSubmit = async (e) => {
       e.preventDefault();
 
       if(newPassword === rNewPassword) {
         try {
-          await axios.post("/api/superAdmin/change-password", {
+          await axios.post("/api/admin/new-password", {
               newPassword,
               token
           });
@@ -48,18 +50,18 @@ const SAEmail = () => {
 
   return (
     <>
-      { redirect && (<Redirect to = '/superAdmin-login' />) }
+      { redirect && (<Redirect to = '/admin-login' />) }
       <Container>
-        <Row className = "superadminEmail-row">
+        <Row className = "adminEmail-row">
           <Col>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, stiffness: 150 }}>
-            <div className = 'superadminEmail-banner'>
+            <div className = 'adminEmail-banner'>
                   <h1>SmartCT</h1>
                   <p>Citizens x Technology</p>
             </div>
             </motion.div>
             <motion.div className="col-md-10 offset-md-1" initial={{ opacity: -3, x: '-100vw' }} animate={{ opacity: 1, x: 0 }} transition={{ stiffness: 150 }}>
-              <Form className="superadminEmail-input" onSubmit = { handleSubmit }>
+              <Form className="adminEmail-input" onSubmit = { handleSubmit }>
                 
                 <Form.Group>
                   <Form.Label>New Password</Form.Label>

@@ -1,0 +1,10 @@
+.eulaEdit {
+    display: flex;
+    justify-content: center;
+}
+
+.eulaIcon {
+    cursor: pointer;
+    color: #fe5139;
+    font-weight: bold;
+}

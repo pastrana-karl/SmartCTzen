@@ -297,6 +297,14 @@ const SAContentHome = () => {
                     <Link to = '/SAContent-addFeaturedMember'><i className="fas fa-plus-circle"></i></Link>
                 </div>
             </div>
+
+            <div className = 'eulaButton'>
+              <Link to = '/SAContent-Eula'>
+                <Button variant="danger">
+                  End-User License Agreement
+                </Button>
+              </Link>
+            </div>
         </Container>
         </>
     )

@@ -26,8 +26,8 @@ const AdminLayout = ( props ) => {
                     <NavigationItem link="/admin-messages" >Messages</NavigationItem>
                     <NavigationItem link="/admin-projects" >Projects</NavigationItem>
                     <NavigationItem link="/admin-users" >Users</NavigationItem>
-                    <NavigationItem link="/admin-applicants" >Applicants</NavigationItem>
-                    <NavigationItem  onClick={handleLogout} link="/admin-logout" >Logout</NavigationItem>
+                    <NavigationItem link="/Applicants" >Applicants</NavigationItem>
+                    <NavigationItem  onClick={handleLogout} link="/admin-login" >Logout</NavigationItem>
                 </NavigationItems>
             </Toolbar>
 

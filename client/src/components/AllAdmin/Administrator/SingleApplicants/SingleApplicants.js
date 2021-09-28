@@ -4,6 +4,7 @@ import { Link, Redirect, useLocation } from 'react-router-dom'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
+import Swal from 'sweetalert2'
 import axios from 'axios'
 import './SingleApplicants.css'
 
@@ -22,35 +23,63 @@ const SingleApplicants = () => {
     const location = useLocation();
     const path = location.pathname.split("/")[2];
     const [applicant, setApplicant] = useState([]);
+    const [validID, setValidID] = useState([]);
+    const [birthCert, setBirthCert] = useState([]);
+    const [residency, setResidency] = useState([]);
     const [redirect, setRedirect] = useState(false); 
 
     useEffect(() => {
         const getApplicant = async ()=>{
-            const res = await axios.get("/api/citizen/" + path);
-            setApplicant(res.data.citizen)
+            const res = await axios.get("/api/citizen/" + path)
+            setApplicant(res.data)
+            setValidID(res.data.validIDPic)
+            setResidency(res.data.residencyPic)
+            setBirthCert(res.data.birthCertPic)
         }
-
-        console.log(applicant)
 
         getApplicant();
 
-    },[path]);
+    }, [path]);
 
+    console.log(applicant)
+    
     const handleAccept = async () => {
         try {
             await axios.post("/api/citizen/" + path);
-            setRedirect(true);
+            Swal.fire('Applicant Accepted', "You've successfuly accepted an applicant.", 'success').then(
+                (result) => {
+                  if (result.isConfirmed || result.isDismissed) {
+                    setRedirect(true);
+                   }
+                }
+            );
         } catch (err) {
-            console.log(err);
+            console.log(err.response)
+            Swal.fire({
+                icon: 'error',
+                title: `${err.response.status}`,
+                text: `${err.response.data.error}`,
+            });
         }
     }
 
     const handleReject = async () => {
         try {
             await axios.delete(`/api/citizen/${path}`);
-            setRedirect(true);
+            Swal.fire('Applicant Rejected', "You've rejected an applicant.", 'success').then(
+                (result) => {
+                  if (result.isConfirmed || result.isDismissed) {
+                    setRedirect(true);
+                   }
+                }
+            );
         } catch (err) {
-            console.log(err);
+            console.log(err.response)
+            Swal.fire({
+                icon: 'error',
+                title: `${err.response.status}`,
+                text: `${err.response.data.error}`,
+            });
         }
     }
 
@@ -169,14 +198,13 @@ const SingleApplicants = () => {
                         </div>
 
                         <div className = 'applicantDocumentsImg'>
-                            <Slider {...settings}>
-                                <div>
-                                    <img src= 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt="" ></img>
-                                </div>
-                                <div>
-                                    <img src= 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt="" ></img>
-                                </div>
-                            </Slider>
+                                <Slider {...settings}>
+                                    {validID.map((pic) => (
+                                        <div key={pic}>
+                                            <img src= {pic} alt=""  onClick={()=> window.open(pic, "_blank")} ></img>
+                                        </div>
+                                    ))}
+                                </Slider>
                         </div>
 
                         <div  className = 'ApplicantVerification-header'>
@@ -185,32 +213,33 @@ const SingleApplicants = () => {
 
                         
                         <div className = 'applicantDocumentsImg'>
-                            <Slider {...settings}>
-                                <div>
-                                    <img src= 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt="" ></img>
-                                </div>
-                                <div>
-                                    <img src= 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt="" ></img>
-                                </div>
-                            </Slider>
+                                <Slider {...settings}>
+                                    {residency.map((pic) => (
+                                        <div key={pic}>
+                                            <img src= {pic} alt=""  onClick={()=> window.open(pic, "_blank")} ></img>
+                                        </div>
+                                    ))}
+                                </Slider>
                         </div>
 
-
-                        <div  className = 'ApplicantVerification-header'>
-                            <h1>Birth Certificate</h1>
-                        </div>
-
-                        
-                        <div className = 'applicantDocumentsImg'>
-                            <Slider {...settings}>
-                                <div>
-                                    <img src= 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt="" ></img>
+                        {birthCert === null &&
+                            <> 
+                                <div  className = 'ApplicantVerification-header'>
+                                    <h1>Birth Certificate</h1>
                                 </div>
-                                <div>
-                                    <img src= 'https://res.cloudinary.com/karlstorage/image/upload/v1631243465/free-img/sasjbg0hekrbn7vlc5eo.jpg' alt="" ></img>
+
+                                
+                                <div className = 'applicantDocumentsImg'>
+                                    <Slider {...settings}>
+                                        {birthCert.map((pic) => (
+                                            <div key={pic}>
+                                                <img src= {pic} alt=""  onClick={()=> window.open(pic, "_blank")} ></img>
+                                            </div>
+                                        ))}
+                                    </Slider>
                                 </div>
-                            </Slider>
-                        </div>
+                            </>
+                        }
                     </Form>
 
                     <div className = "applicantverification-buttonMargin">

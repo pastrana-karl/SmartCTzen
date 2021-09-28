@@ -11,6 +11,16 @@ router
     .route("/login")
     .post(citizenController.loginCitizen);
 
+//Forgot Password
+router
+    .route("/citizenForgot")
+    .post(citizenController.PasswordChangeReq);
+
+//Change Password
+router
+    .route("/citizenChange")
+    .post(citizenController.ChangePassword);
+
 //Get Citizen
 router
     .route("/:id")

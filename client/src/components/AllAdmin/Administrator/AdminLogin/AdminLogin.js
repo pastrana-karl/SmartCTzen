@@ -5,6 +5,7 @@ import LoginButton from '../../../UI/Buttons/LoginButton/LoginButton';
 import { loginCall } from '../../../../api_calls/adminApiCall';
 import { Context } from '../../../../context/Context';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import classes from './AdminLogin.module.css';
 
 const AdminLogin = () => {
@@ -39,6 +40,11 @@ const AdminLogin = () => {
 
         dispatch({ type: "ALOGIN_SUCCESS", payload: res.data });
     } catch (err) {
+        Swal.fire({
+            icon: 'error',
+            title: `${err.response.status}`,
+            text: `${err.response.data.message}`,
+        });
         dispatch({ type: "ALOGIN_FAILURE" });
     }
   };
@@ -94,7 +100,7 @@ const AdminLogin = () => {
                     <LoginButton type="submit"/>
                 </div>
                 <div className={classes.HyperlinkDiv}>
-                    <a href="/forgot-password" className={classes.Hyperlink}>
+                    <a href="/admin-forgot" className={classes.Hyperlink}>
                     Forgot Password
                     </a>
                 </div>
