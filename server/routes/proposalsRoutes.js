@@ -28,8 +28,4 @@ proposalsRouter
     .patch(proposalsController.updateProposal)
     .delete(proposalsController.deleteProposal);
 
-proposalsRouter
-    .route("/proposals/:id/histories")
-    .get(proposalsController.getProposalHistory);
-
 module.exports = proposalsRouter;

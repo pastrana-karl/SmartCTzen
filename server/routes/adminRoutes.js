@@ -25,7 +25,6 @@ router
     .route("/new-password")
     .post(adminController.changeAdminPassword);
 
-
 //GET SPECIFIC ADMIN
 router.get("/:id", async (req, res) => {
     try{
@@ -65,7 +64,6 @@ router.delete("/:id", async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 
 // router.post("/register", async (req, res) => {

@@ -20,8 +20,7 @@ const CitizenCreateProposal = () => {
     const citizenUser = useContext(Context);
     const [userId, setUserId] = useState();
     const history = useHistory();
-
-    // console.log(citizenUser);
+    const userType = citizenUser.user.data.user.userType;
 
     useEffect(() => {
         const getUserId = async () => {
@@ -48,7 +47,7 @@ const CitizenCreateProposal = () => {
         console.log('Form values', values);
 
         const userName = values.userName.replace('',userId)
-        const newValues = {...values, userName}
+        const newValues = {...values, userName, userType}
 
         const {...data} = newValues;
         const res = await axios.post('/api/proposals', data)

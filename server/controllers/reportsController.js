@@ -1,5 +1,3 @@
-const diffHistory = require("mongoose-audit-trail");
-
 const Reports = require("../models/reportsModel");
 const APIFeatures = require("../utils/apiFeatures");
 const AppError = require('../utils/appError');
@@ -130,20 +128,3 @@ exports.getCancelledReports = catchAsync(async (req, res, next) => {
 //         }
 //     });
 // });
-
-exports.getReportsHistory = catchAsync(async (req, res, next) => {
-    const report = await Reports.findById(req.params.id);
-
-    await diffHistory.getHistories("Reports", report._id, ["mobile"],
-        function (err,histories) {
-            if (err) {
-                return next(err);
-            }
-            res.status(200).json({
-                status: 'success',
-                data: {
-                    histories
-                }
-            });
-        })
-});

@@ -117,6 +117,11 @@ const citizenSchema = new mongoose.Schema({
     expireToken:{
         type: Date,
     },
+
+    userType:{
+        type:String,
+        default:"Citizen",
+    },
 }, 
 
 { timestamps: true }

@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
-const diffHistory = require("mongoose-audit-trail");
 
 const proposalsSchema = new mongoose.Schema({
     userId: {
+        type: String,
+    },
+    userType: {
         type: String,
     },
     userName: {
@@ -69,8 +71,6 @@ proposalsSchema.pre('save', function(next) {
             })
     */  
 });
-
-proposalsSchema.plugin(diffHistory.plugin);
 
 const Proposals = mongoose.model('Proposals', proposalsSchema);
 

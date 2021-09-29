@@ -47,6 +47,11 @@ const adminSchema = new mongoose.Schema({
         type:String,
         default:"https://www.pinclipart.com/picdir/big/157-1578186_user-profile-default-image-png-clipart.png",
     },
+
+    userType:{
+        type:String,
+        default:"Administrator",
+    },
 }, 
 { timestamps: true }
 );

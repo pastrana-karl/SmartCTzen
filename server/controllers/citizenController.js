@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util"); //built-in module
+const diffHistory = require('mongoose-audit-trail');
 
 const Citizen = require("../models/citizenModel");
 const APIFeatures = require('../utils/apiFeatures');

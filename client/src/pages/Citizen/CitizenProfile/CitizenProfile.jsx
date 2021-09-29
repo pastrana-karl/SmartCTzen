@@ -3,14 +3,30 @@ import { Context } from '../../../context/Context';
 import { Row, Col, Form, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 import './CitizenProfile.css';
 
 const CitizenProfile = () => {
     const { user, dispatch } = useContext(Context);
     const [file, setFile] = useState(null);
     const [profilePic, setProfilePic] = useState("");
+    const [logs, setLogs] = useState([]);
+    const citizen = user.data.user.firstname + " " + user.data.user.lastname;
 
-    console.log(user);
+    const showLogs = async () => {
+        const res = await axios.get(`/api/history/citizens/?user=${citizen}`);
+        setLogs(res.data);
+        Swal.fire({
+            icon: 'info',
+            title: 'Activity Logs',
+            html: `${
+                logs.map((L) => {
+                const date = new Date(L.createdAt).toLocaleDateString();
+                return "<div style ='text-align: justify'>Timestamp: " + date + " Reason: " + L.reason + " By: " + L.user + "<br/></div>";
+            })}`,
+        });
+    }
+
     const handleSubmit = async () => {
 
         dispatch({ type: "UPDATE_START" });
@@ -56,6 +72,9 @@ const CitizenProfile = () => {
             <div className="citizenProfile-changeImg">
                 <Form.Label  htmlFor="iconImg"><i className="fas fa-image"></i></Form.Label>
                 <i className="fas fa-upload" onClick = { handleSubmit }></i>
+            </div>
+            <div>
+                <i class="fas fa-history" onClick = { showLogs }></i>
             </div>
             <div  className = 'col-md-10 offset-md-1' id = 'citizenProfile-body'>
                 <div className = 'citizenProfile-name'> 

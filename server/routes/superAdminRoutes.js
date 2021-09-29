@@ -1,6 +1,4 @@
 const router = require("express").Router();
-const bcrypt = require("bcrypt");
-
 const superAdminController = require('../controllers/superAdminController');
 
 //REGISTER
