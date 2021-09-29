@@ -1,165 +1,132 @@
-import React, { useState } from 'react';
-import { Formik, Form, ErrorMessage } from 'formik';
+import React, { useContext } from 'react';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
-import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import AdminLayout from '../AdminLayout/AdminLayout';
+import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Input from '../../../UI/Input/Input';
-import FormikInput from '../../../UI/Input/FormikInput/FormikInput';
 import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
+import { Context } from '../../../../context/Context';
 
 import classes from './AdminCreateProposals.module.css';
 
 
-const initialValues = {
-    title: '',
-    description: '',
-    date: '',
-    location: ''
-};
+const AdminCreateProposals = () => {
+    const { aUser } = useContext(Context);
 
-const onSubmit = async (values) => {
-    console.log('Form values', values);
+    const validationSchema = Yup.object({
+        userName: Yup.string().required('Required!'),
+        title: Yup.string().required('Required!'),
+        description: Yup.string().required('Required!'),
+        location: Yup.string().required('Required!')
+    });
 
-    // await fetch('/api/initiatives', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         values
-    //     })
-    // });
-    const {...data} = values;
+    const formik = useFormik({
+        initialValues: {
+            userName: aUser.user.username,
+            title: '',
+            description: '',
+            location: '',
+        },
+        onSubmit: values => {
+            //const {...data} = values;
 
-    console.log(data);
-    const res = await axios.post('/api/initiatives', data)
-        .catch(err => {
-            console.log('Error: ', err.res.data);
-        });
-    
-};
+            console.log('Form data', values);
+            axios.post('/api/proposals/', values);
+        },
+        validationSchema
+    });
 
-// const validate = values => {
-//     let errors = {};
+    const message = '“When we succeed, we succeed because of our individual initiative, but also because we do things together.” -Barack Obama';
 
-//     if (!values.title) errors.title = "Required";
-//     if (!values.description) errors.description = "Required";
-//     if (!values.date) errors.date = "Required";
-//     if (!values.location) errors.location = "Required";
+    //console.log(aUser.user.username);
+    //console.log('Form values', formik.values); 
 
-//     return errors;
-// };
-
-const validationSchema = Yup.object({
-    title: Yup.string().required('Required'),
-    description: Yup.string().required('Required'),
-    date: Yup.string().required('Required'),
-    location: Yup.string().required("Required")
-});
-
-const AdminCreateProposals = ( props ) => {  
-    // const [inputProposalTitle, setInputProposalTitle] = useState();
-    // const [inputProposalDescription, setInputProposalDescription] = useState();
-    // const [inputProposalDate, setInputProposalDate] = useState();
-    // const [inputProposalLocation, setInputProposalLocation] = useState();
-    // const [inputProposalPhoto, serInputProposalPhoto] = useState();
-
-    // const formik = useFormik({
-    //     initialValues,
-    //     onSubmit,
-    //     validationSchema
-    // });
-
-    return (
-        <React.Fragment>
-            <AdminLayout>
-                <div className={classes.AdminCreateProposalsHeader}>
-                    <CardHeader>
-                        <h2 className={classes.Text}>Proposals</h2>
-                    </CardHeader>
+    return(
+        <AdminLayout>
+            <div className={classes.AdminCreateProposalsHeader}>
+                <CardHeader>
+                    <h2 className={classes.Text}>Proposals</h2>
+                </CardHeader>
+            </div>
+            <div className={classes.AdminCreateProposalsContentDiv}>
+                <form className={classes.AdminCreateProposalForm} onSubmit={formik.handleSubmit}>
+                    <div className={classes.AdminCreateProposalFormDiv}>
+                        <div className={classes.AdminCreateProposalsFormInput}>
+                            <label>Username</label>
+                            <Input
+                                type='text'
+                                id='username'
+                                name='username'
+                                placeholder='User'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.userName}
+                                disable
+                            />
+                            { formik.touched.userName && formik.errors.userName ? (
+                                <div className={classes.InputValidation}>{formik.errors.userName}</div>
+                                ) : null }
+                        </div>
+                        <div className={classes.AdminCreateProposalsFormInput}>
+                            <label>Proposal Title</label>
+                            <Input
+                                type='text'
+                                id='title'
+                                name='title'
+                                placeholder='Proposal Title'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.title}
+                            />
+                            { formik.touched.title && formik.errors.title ? (
+                                <div className={classes.InputValidation}>{formik.errors.title}</div>
+                                ) : null}
+                        </div>
+                        <div className={classes.AdminCreateProposalsFormInput}>
+                            <label>Description</label>
+                            <Input
+                                type='text'
+                                id='description'
+                                name='description'
+                                placeholder='Description'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.description}
+                            />
+                            { formik.touched.description && formik.errors.description ? (
+                                <div className={classes.InputValidation}>{formik.errors.description}</div>
+                                ) : null}
+                        </div>
+                        <div className={classes.AdminCreateProposalsFormInput}>
+                            <label>Location</label>
+                            <Input
+                                type='text'
+                                id='location'
+                                name='location'
+                                placeholder='Location'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.location}
+                            />
+                            { formik.touched.location && formik.errors.location ? (
+                                <div className={classes.InputValidation}>{formik.errors.location}</div>
+                                ) : null}
+                        </div>
+                    </div>
+                    <div className={classes.ButtonDiv}>
+                        <SubmitButton />
+                        <CancelButton />
+                    </div>
+                </form>
+                <div className={classes.QuoteDiv}>
+                    <p className={classes.Quote}>{message}</p>
                 </div>
-                <div className={classes.AdminCreateProposalsContentDiv}>
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchema}
-                        onSubmit={onSubmit}
-                    >
-                        <Form className={classes.AdminCreateProposalForm}>
-                            <div className={classes.AdminCreateProposalFormDiv}>
-                                <div className={classes.AdminCreateProposalsFormInput}>
-                                    <label>Proposal Title</label>
-                                    <FormikInput 
-                                        type="text"
-                                        placeholder="Proposal Title"
-                                        id="title"
-                                        name="title"
-                                    />
-                                    <ErrorMessage name="title">
-                                        {errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>}
-                                    </ErrorMessage>
-                                </div>
-                                <div className={classes.AdminCreateProposalsFormInput}>
-                                    <label>Description</label>
-                                    <FormikInput 
-                                        type="text"
-                                        placeholder="Description"
-                                        id="description"
-                                        name="description"
-                                        // {...formik.getFieldProps('description')}
-                                    />
-                                    <ErrorMessage name="name">
-                                        {
-                                            errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-                                        }
-                                    </ErrorMessage>
-                                    {/* {formik.touched.description && formik.errors.description ? <div className={classes.InputValidation}>{formik.errors.description}</div> : null} */}
-                                </div>
-                                <div className={classes.AdminCreateProposalsFormInput}>
-                                    <label>When</label>
-                                    <FormikInput 
-                                        type="text"
-                                        placeholder="When"
-                                        id="date"
-                                        name="date"
-                                        // {...formik.getFieldProps('date')}
-                                    />
-                                    <ErrorMessage name="date">
-                                        {
-                                            errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-                                        }
-                                    </ErrorMessage>
-                                    {/* {formik.touched.date && formik.errors.date ? <div className={classes.InputValidation}>{formik.errors.date}</div> : null} */}
-                                </div>
-                                <div className={classes.AdminCreateProposalsFormInput}>
-                                    <label>Where</label>
-                                    <FormikInput 
-                                        type="text"
-                                        placeholder="Where"
-                                        id="location"
-                                        name="location"
-                                        // {...formik.getFieldProps('location')}
-                                    />
-                                    <ErrorMessage name="location">
-                                        {
-                                            errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-                                        }
-                                    </ErrorMessage>
-                                    {/* {formik.touched.location && formik.errors.location ? <div className={classes.InputValidation}>{formik.errors.location}</div> : null} */}
-                                </div>
-                            </div>
-                            <div className={classes.ButtonDiv}>
-                                <SubmitButton />
-                                <CancelButton />
-                            </div>
-                        </Form>
-                    </Formik>
-                </div>
-            </AdminLayout>
-        </React.Fragment>
+            </div>
+        </AdminLayout>
     );
-};
+}
 
 export default AdminCreateProposals;

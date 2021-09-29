@@ -7,23 +7,34 @@
 .AdminCreateProposalFormDiv {
     display: grid;
     row-gap: 30px;
+
 }
 
 .AdminCreateProposalForm {
     display: grid;
     row-gap: 100px;
+    width: 100%;
+    max-width: 900px;
 }
 
-.AdminCreateProposalsContentDiv {
+/* .AdminCreateProposalsContentDiv {
     margin: 0px 100px 50px 100px;
     display: grid;
     grid-auto-flow: column;
     column-gap: 100px;
+} */
+
+.AdminCreateProposalsContentDiv {
+    margin: 0px 100px 50px 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .AdminCreateProposalsFormInput {
     display: grid;
 }
+
 
 .Text {
     display: flex;
@@ -33,11 +44,13 @@
 
 .QuoteDiv {
     box-sizing: border-box;
+    width: 200px;
 }
 
 .Quote {
-    width: 200px;
     text-orientation: upright;
+    font-size: 28px;
+    line-height: 60px;
 }
 
 .ButtonDiv {
@@ -51,3 +64,4 @@
     margin-top: 10px;
     color: red;
 }
+

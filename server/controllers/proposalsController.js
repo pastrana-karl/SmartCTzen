@@ -60,13 +60,13 @@ exports.getProposal = catchAsync(async (req, res, next) => {
 exports.postProposal = catchAsync(async (req, res, next) => {
     const newProposal = await Proposals.create(req.body);
 
-    console.log(newProposal)
+    console.log(newProposal);
 
     const newProposalHist = new diffCollection({
         collectionName: 'Proposal',
         user: newProposal.userName,
         reason: 'Created new proposal',
-    })
+    });
 
     await newProposalHist.save();
 

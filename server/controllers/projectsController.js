@@ -47,7 +47,7 @@ exports.postProjects = catchAsync(async (req, res, next) => {
     res.status(201).json({
         status: 'success',
         data: {
-            project: newProject
+            newProject
         }
     });
 });

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useFormik } from 'formik';
+import { Context } from '../../../../context/Context';
 
 import AdminLayout from '../AdminLayout/AdminLayout';
 import AdminProfileButton from '../../../UI/Buttons/AdminProfileButton/AdminProfileButton';
@@ -23,6 +24,8 @@ const onSubmit = values => {
 };
 
 const AdminProfile = () => {
+    const { aUser } = useContext(Context);
+
     const formik = useFormik({
         initialValues,
         onSubmit: values => {
@@ -30,7 +33,7 @@ const AdminProfile = () => {
         }
     });
 
-
+    console.log(aUser.user);
     return (
         <React.Fragment>
             <AdminLayout>
@@ -61,7 +64,7 @@ const AdminProfile = () => {
                                             name="city_municipality"
                                             readOnly="readOnly"
                                             onChange={formik.handleChange}
-                                            value={formik.values.city_municipality}
+                                            value={aUser.user.city}
                                         />
                                     </div>
                                     <div className={classes.InputDiv}>
@@ -73,7 +76,7 @@ const AdminProfile = () => {
                                             name="region"
                                             readOnly="readOnly"
                                             onChange={formik.handleChange}
-                                            value={formik.values.region}
+                                            value={aUser.user.region}
                                         />
                                     </div>
                                 </div>
@@ -94,7 +97,7 @@ const AdminProfile = () => {
                                             id="email"
                                             name="email"
                                             onChange={formik.handleChange}
-                                            value={formik.values.email}
+                                            value={aUser.user.email}
                                         />
                                     </div>
                                     <div className={classes.InputDiv}>
@@ -105,7 +108,7 @@ const AdminProfile = () => {
                                             id="password"
                                             name="password"
                                             onChange={formik.handleChange}
-                                            value={formik.values.password}
+                                            value={aUser.user.password}
                                         />
                                     </div>
                                 </div>

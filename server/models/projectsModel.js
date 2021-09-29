@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const slugify = require("slugify");
 
 const projectsSchema = new mongoose.Schema({
-    userId: {
+    userName: {
         type: String,
         // required: [true, 'This field is required']
     },
-    userType: {
-        type: String,
-    },
+    // userType: {
+    //     type: String,
+    // },
     title: {
         type: String,
         required: [true, 'This field is required']
