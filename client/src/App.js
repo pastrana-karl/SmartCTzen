@@ -241,7 +241,7 @@ const App = () => {
             {aUser ? <AdminProposals /> : <Redirect to="/admin-login" />}
           </Route>
           
-          <Route path="/admin-proposal/id">
+          <Route path="/admin-proposal/:id">
             {aUser ? <AdminEachProposal /> : <Redirect to="/admin-login" />}
           </Route>
 
@@ -253,7 +253,7 @@ const App = () => {
             {aUser ? <AdminReports /> : <Redirect to="/admin-login" />}
           </Route>
 
-          <Route path="/admin-report/id">
+          <Route path="/admin-report/:id">
             {aUser ? <AdminEachReport /> : <Redirect to="/admin-login" />}
           </Route>
 
@@ -269,7 +269,7 @@ const App = () => {
             {aUser ? <AdminProjects /> : <Redirect to="/admin-login" />}
           </Route>
 
-          <Route path="/admin-project/id">
+          <Route path="/admin-project/:id">
             {aUser ? <AdminEachProject /> : <Redirect to="/admin-login" />}
           </Route>
 

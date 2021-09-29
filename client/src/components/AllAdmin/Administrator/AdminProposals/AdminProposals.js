@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Tables from '../../../UI/Tables/Tables';
 import AdminLayout from '../AdminLayout/AdminLayout';
@@ -21,6 +21,8 @@ const AdminProposals = () => {
         sendRequest();
     }, []);
 
+    const string = 'watch?v=S_mgSHCWCmA';
+
     return (
         <React.Fragment>
             <AdminLayout>
@@ -34,12 +36,11 @@ const AdminProposals = () => {
                         <tr>            
                             <th>ID</th>  
                             <th>Title</th>
-                            <th>Date</th>
                             <th>Location</th>
-    ;
-                              <th>Upvote</th>
+                            <th>Upvote</th>
                             <th>Downvote</th>
                             <th>Status</th>
+                            <th>Link</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,11 +48,11 @@ const AdminProposals = () => {
                         <tr key={proposal._id}>
                             <td>{proposal._id}</td>
                             <td>{proposal.title}</td>
-                            <td>{proposal.date}</td>
                             <td>{proposal.location}</td>
                             <td>{proposal.upvote}</td>
                             <td>{proposal.downvote}</td>
                             <td>{proposal.status}</td>
+                            <td><Link to={'/admin-proposal/' + proposal._id}>Click here</Link></td>
                         </tr>
                         ))}
                     </tbody>

@@ -6,7 +6,6 @@ const reportsSchema = new mongoose.Schema({
     userName: {
         type: String
     },
-
     title: {
         type: String,
         required: [true, 'This field is required']
@@ -16,18 +15,18 @@ const reportsSchema = new mongoose.Schema({
         required: [true, 'This field is required']
     },
     slug: String,
-    // date: {
-    //     type: String,
-    //     required: [true, 'This field is required']
-    // },
+    date: {
+        type: Date,
+        default: Date.now()
+    },
     location: {
         type: String,
         required: [true, 'This field is required']
     },
-    // photo: {
-    //     type: String,
-    //     required: [true, 'This field is required']
-    // }
+    photo: {
+        type: String,
+        default: 'No Image',
+    },
     status: {
         type: String,
         enum: ['Need action', 'Confirmed', 'Resolved', 'Cancelled'],

@@ -36,13 +36,17 @@ const proposalsSchema = new mongoose.Schema({
         type: [String],
     },
     upvote: {
-        type: Number
+        type: Number,
+        default: 0
     },
     downvote: {
-        type: Number
+        type: Number,
+        default: 0
     },
     status: {
-        type: String
+        type: String,
+        enum: ['Needs Approval', 'Approved', 'Rejected'],
+        default: 'Needs Approval'
     },
     createdAt: {
         type: Date,

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import AdminLayout from '../AdminLayout/AdminLayout';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
@@ -6,20 +7,20 @@ import Tables from '../../../UI/Tables/Tables';
 
 import classes from './AdminReports.module.css';
 
-const AdminReports = ( props ) => {
+const AdminReports = () => {
     const [reports, setReports] = useState();
 
     useEffect(() => {
         const sendRequest = async () => {
             const response = await fetch('/api/reports');
-
             const responseData = await response.json();
 
-            setReports(responseData.data.reports);
+            setReports(responseData);
         };
         sendRequest();
     }, []);
 
+    console.log(reports);
     return (
         <React.Fragment>
             <AdminLayout>
@@ -34,9 +35,9 @@ const AdminReports = ( props ) => {
                             <th>Report ID</th>
                             <th>Report Title</th>
                             <th>Date Reported</th>
-                            <th>Time Reported</th>
                             <th>Location</th>
                             <th>Status</th>
+                            <th>Link</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,9 +46,9 @@ const AdminReports = ( props ) => {
                             <td>{report._id}</td>
                             <td>{report.title}</td>
                             <td>{report.date}</td>
-                            <td>Time</td>
                             <td>{report.location}</td>
                             <td>{report.status}</td>
+                            <td><Link to={'/admin-report/' + report._id}>Click here</Link></td>
                         </tr>
                         ))}
                     </tbody>
