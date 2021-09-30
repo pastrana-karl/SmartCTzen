@@ -200,40 +200,40 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
     }
 });
 
-exports.protect = catchAsync(async (req, res, next) => {
-    //1) Getting token and check if it's there
-    let token;
+// exports.protect = catchAsync(async (req, res, next) => {
+//     //1) Getting token and check if it's there
+//     let token;
 
-    const headerAuth = req.headers.authorization;
-    if (headerAuth && headerAuth.statsWith('Bearer')) {
-        token = req.headers.authorization.split(' ')[1];
-    }
+//     const headerAuth = req.headers.authorization;
+//     if (headerAuth && headerAuth.statsWith('Bearer')) {
+//         token = req.headers.authorization.split(' ')[1];
+//     }
 
-    console.log(token);
+//     console.log(token);
 
-    if (!token) {
-        return next(new AppError('Please login!', 401));
-    }
+//     if (!token) {
+//         return next(new AppError('Please login!', 401));
+//     }
 
-    //2) Verification token
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    console.log(decoded);
+//     //2) Verification token
+//     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+//     console.log(decoded);
 
-    //3) Check if user still exists
-    const freshCitizen = await Citizen.findById(decoded.id);
-    if (!freshCitizen) {
-        return next(new AppError('User no longer exists', 401));
-    }
+//     //3) Check if user still exists
+//     const freshCitizen = await Citizen.findById(decoded.id);
+//     if (!freshCitizen) {
+//         return next(new AppError('User no longer exists', 401));
+//     }
 
-    //4) Check if user changed password after the JWT was issued
-    if (freshCitizen.changedPasswordAfter(decoded.iat)) {
-        return next(new AppError('User recently changed password! Please login again', 401));
-    }
+//     //4) Check if user changed password after the JWT was issued
+//     if (freshCitizen.changedPasswordAfter(decoded.iat)) {
+//         return next(new AppError('User recently changed password! Please login again', 401));
+//     }
 
-    //GRANT ACCESS TO PROTECTED ROUTE
-    req.user = freshCitizen;
-    next();
-});
+//     //GRANT ACCESS TO PROTECTED ROUTE
+//     req.user = freshCitizen;
+//     next();
+// });
 
 //Login Backup DO NOT ERASE
 // exports.loginCitizen = catchAsync(async (req, res, next) => {

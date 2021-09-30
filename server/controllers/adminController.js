@@ -153,7 +153,50 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
     createSendToken(adminUser, 201, res);
 });
 
+exports.updateAdmin = catchAsync(async (req, res, next) => {
+    if (req.body.profilePic) {
+        const admin = await Admin.findByIdAndUpdate(req.params.id, {
+            $set: { "profilePic": req.body.profilePic }
+        },
+        { new: true });
 
+        const updatedProfile = new diffCollection({
+            collectionName: 'Admin',
+            userType: admin.userType,
+            user: admin.username,
+            reason: 'Updated Profile'
+        });
+
+        await updatedProfile.save();
+
+        res.status(200).json({data: { admin }, token});
+    }
+
+    if (req.body.newPassword) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPass = await bcrypt.hash(req.body.newPassword, salt);
+    
+        if (req.body.userId === req.params.id) {
+            const updatedUser = await Admin.findByIdAndUpdate(req.params.id, {
+                $set: { "password": hashedPass }
+            },
+            { new: true }
+            );
+
+            const updatedPassword = new diffCollection({
+                collectionName: 'Admin',
+                userType: updatedUser.userType,
+                user: updatedUser.username,
+                reason: 'Updated Password'
+            });
+
+            await updatedPassword.save();
+
+            const { password, ...user } = updatedUser._doc;
+            res.status(200).json({ data: { admin }, token });
+        }
+    }
+});
 
 exports.getAdmin = catchAsync(async (req, res, next) => {
     const admin = await Admin.findById(req.params.id);
@@ -166,39 +209,39 @@ exports.getAdmin = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.protectAdmin = catchAsync(async (req, res, next) => {
-    //1) Getting token and check if it's there
-    let token;
+// exports.protectAdmin = catchAsync(async (req, res, next) => {
+//     //1) Getting token and check if it's there
+//     let token;
 
-    const headerAuth = req.header.authorization;
-    if (headerAuth && headerAuth.startsWith('Bearer')) {
-        token = req.headers.authorization.split(' ')[1];
-    }
+//     const headerAuth = req.header.authorization;
+//     if (headerAuth && headerAuth.startsWith('Bearer')) {
+//         token = req.headers.authorization.split(' ')[1];
+//     }
 
-    if (!token) {
-        return next(new AppError("Please login!", 401));
-    }
+//     if (!token) {
+//         return next(new AppError("Please login!", 401));
+//     }
 
-    //2) Verification token
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-    console.log(decoded);
+//     //2) Verification token
+//     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+//     console.log(decoded);
 
-    //3) Check if user still exists
-    const freshAdmin = await Admin.findById(decoded.id);
-    if (!freshAdmin) {
-        return next(new AppError("User no longer exists", 401));
-    }
+//     //3) Check if user still exists
+//     const freshAdmin = await Admin.findById(decoded.id);
+//     if (!freshAdmin) {
+//         return next(new AppError("User no longer exists", 401));
+//     }
 
-    //4) Check if user changed password after the JWT was issued
-    if (freshAdmin.changedPasswordAfter(decoded.iat)) {
-        return next(new AppError('User recently changed password! Please login again', 401));
-    }
+//     //4) Check if user changed password after the JWT was issued
+//     if (freshAdmin.changedPasswordAfter(decoded.iat)) {
+//         return next(new AppError('User recently changed password! Please login again', 401));
+//     }
 
-    //GRANT ACCESS TO PROTECTED ROUTE
-    req.user = freshAdmin;
-    next();
+//     //GRANT ACCESS TO PROTECTED ROUTE
+//     req.user = freshAdmin;
+//     next();
 
-});
+// });
 
 // Login BACKUP DO NOT ERASE
 // exports.loginAdmin = catchAsync(async (req, res, next) => {

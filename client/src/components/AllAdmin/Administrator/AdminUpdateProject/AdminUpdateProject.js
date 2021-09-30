@@ -41,10 +41,10 @@ const AdminUpdateProject = () => {
         findProject();
       }, []);
 
-        const onSubmit = values => {
-            console.log('Form values', values);
-            axios.patch('/api/projects/' + params.id, values);
-        }
+    const onSubmit = values => {
+        console.log('Form values', values);
+        axios.patch('/api/projects/' + params.id, values);
+    }
 
     // const validationSchema = Yup.object({
     //     title: Yup.string().required('Required!'),

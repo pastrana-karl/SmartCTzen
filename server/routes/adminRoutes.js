@@ -25,6 +25,8 @@ router
     .route("/new-password")
     .post(adminController.changeAdminPassword);
 
+router.patch('/:id', adminController.updateAdmin);
+
 //GET SPECIFIC ADMIN
 router.get("/:id", async (req, res) => {
     try{
