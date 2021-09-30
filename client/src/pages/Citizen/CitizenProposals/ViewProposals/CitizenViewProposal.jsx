@@ -34,29 +34,6 @@ const CitizenViewProposal = () => {
     },[]);
 
     useEffect(()=>{
-        if(proposal.downvote){
-            const checkUser = async () => {
-                // Get UserId from context
-                const userId = user.data.user._id;
-                // Get UserId from upvotes Array (get proposal ID, get vote array)
-                const test = `{"${userId}":""}`;
-                //Compare the two
-                const upvotes = proposal.downvote;
-                const result = upvotes.includes(test);
-
-                // console.log(result); // true
-                //if true Disable Button
-                if(result==true){
-                    downsetClicked(true)
-                }else{
-                    downsetClicked(false)
-                }
-            };
-            checkUser();
-        }
-    },[proposal])
-
-    useEffect(()=>{
         if(proposal.upvote){
             const checkUser = async () => {
                 // Get UserId from context
@@ -79,14 +56,68 @@ const CitizenViewProposal = () => {
         }
     },[proposal])
 
-    // useEffect(()=>{
-    //     const checkIfEmpty = async () => {
-    //         console.log(proposal);
-    //     }
-    //     checkIfEmpty();
-    // })
+    useEffect(()=>{
+        if(proposal.downvote){
+            const checkUser = async () => {
+                // Get UserId from context
+                const userId = user.data.user._id;
+                // Get UserId from upvotes Array (get proposal ID, get vote array)
+                const test = `{"${userId}":""}`;
+                //Compare the two
+                const upvotes = proposal.downvote;
+                const result = upvotes.includes(test);
+
+                // console.log(result); // true
+                //if true Disable Button
+                if(result==true){
+                    downsetClicked(true)
+                }else{
+                    downsetClicked(false)
+                }
+            };
+            checkUser();
+        }
+    },[proposal])
 
     
+
+    const castUpVote = async (proposalId, userId) =>{
+        upvotesetClicked(true);
+
+        try{
+            // if(downsetClicked == true){
+                // const response = await axios.patch(`/api/proposals/removeDownVote/${proposalId}`, userId).then((result)=>{
+                //         if (result) {
+                //             console.log(result)
+                //             window.location.reload(false);
+                //         }
+                //     }
+                // );
+                const addUserVote = user.data.user._id;
+                const response2 = await axios.patch(`/api/proposals/upVote/${proposalId}`, addUserVote).then((result)=>{
+                    if (result) {
+                        console.log(result)
+                        window.location.reload(false);
+                        }
+                    }
+                );
+            // }
+            // else{
+            //     const addUserVote = user.data.user._id;
+            //     const response = await axios.patch(`/api/proposals/upVote/${proposalId}`, addUserVote).then((result)=>{
+            //             if (result) {
+            //                 console.log(result)
+            //                 window.location.reload(false);
+            //             }
+            //         }
+            //     );
+            // }
+        }
+        catch(err){
+            console.log(err.response)
+        }
+    }
+
 
     const initialValues = {
         comment:'',
@@ -96,63 +127,19 @@ const CitizenViewProposal = () => {
         comment: Yup.string().required("Required"),
     });
 
-    // const test = user.data.user._id;
-    // console.log("userid is a : ",typeof(test));
-    // console.log(proposal);
-
-    //called when upvote/downvote is clicked
-    const castUpVote = async (proposalId, userId) =>{
-        upvotesetClicked(true);
-
-        // bago irun yung nasa try dapat icheck muna
-        //removeDownVote if isclicked
-        try{
-            if(downclicked){
-                const response = await axios.patch(`/api/proposals/removeDownVote/${proposalId}`, userId).then((result)=>{
-                        if (result) {
-                            console.log(result)
-                            window.location.reload(false);
-                        }
-                    }
-                );
-                const addUserVote = user.data.user._id;
-                const response2 = await axios.patch(`/api/proposals/upVote/${proposalId}`, addUserVote).then((result)=>{
-                    if (result) {
-                        console.log(result)
-                        window.location.reload(false);
-                    }
-                }
-            );
-            }
-            else{
-                // console.log(proposalId);
-                const addUserVote = user.data.user._id;
-                //Add userId to proposals upvote array
-                const response = await axios.patch(`/api/proposals/upVote/${proposalId}`, addUserVote).then((result)=>{
-                        if (result) {
-                            console.log(result)
-                            window.location.reload(false);
-                        }
-                    }
-                );
-            }
-        }catch(err){
-            console.log(err.response)
-        }
-    }
 
     const castDownVote = async (proposalId, userId) =>{
         downsetClicked(true);
         try{
-            if(upvoteclicked){
+            // if(upvoteclicked == true){
                 
-                    const response = await axios.patch(`/api/proposals/removeUpVote/${proposalId}`, userId).then((result)=>{
-                            if (result) {
-                                console.log(result)
-                                window.location.reload(false);
-                            }
-                        }
-                    );
+                    // const response = await axios.patch(`/api/proposals/removeUpVote/${proposalId}`, userId).then((result)=>{
+                    //         if (result) {
+                    //             console.log(result)
+                    //             window.location.reload(false);
+                    //         }
+                    //     }
+                    // );
                     const addUserVote = user.data.user._id;
                     //Add userId to proposals upvote array
                     const response2 = await axios.patch(`/api/proposals/downVote/${proposalId}`, addUserVote).then((result)=>{
@@ -160,38 +147,27 @@ const CitizenViewProposal = () => {
                                 console.log(result)
                                 window.location.reload(false);
                             }
-                    }
-                );
-            }
-            else{
-                const addUserVote = user.data.user._id;
-                //Add userId to proposals upvote array
-                const response = await axios.patch(`/api/proposals/downVote/${proposalId}`, addUserVote).then((result)=>{
-                        if (result) {
-                            console.log(result)
-                            window.location.reload(false);
                         }
-                    }
-                );
-            }
+                    );
+            // }
+            // else{
+            //     const addUserVote = user.data.user._id;
+            //     //Add userId to proposals upvote array
+            //     const response = await axios.patch(`/api/proposals/downVote/${proposalId}`, addUserVote).then((result)=>{
+            //             if (result) {
+            //                 console.log(result)
+            //                 window.location.reload(false);
+            //             }
+            //         }
+            //     );
+            // }
         }
         catch(err){
             console.log(err)
         }
-
-        
-        // try{
-        //     const response = await axios.patch(`/api/proposals/removeUpVote/${proposalId}`, userId).then((result)=>{
-        //             if (result) {
-        //                 console.log(result)
-        //                 window.location.reload(false);
-        //             }
-        //         }
-        //     );
-        // }catch(err){
-        //     console.log(err.response)
-        // }
     }
+
+
     return(
         <Container className='citizenViewProposal-container'>
                 <Row className='citizenViewProposal-long'>
@@ -278,7 +254,6 @@ const CitizenViewProposal = () => {
                     </Col>
                 </Row>
         </Container>
-        
     );
 };
 

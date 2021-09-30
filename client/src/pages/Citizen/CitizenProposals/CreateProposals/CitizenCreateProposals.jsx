@@ -41,8 +41,8 @@ const CitizenCreateProposal = () => {
         // createdAt: '',
         location: '',
         status:'Pending',
-        upvote: [],
-        // downvote: '',
+        // upvote: [],
+        // downvote: [],
     };
     
     

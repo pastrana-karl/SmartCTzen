@@ -19,6 +19,10 @@ proposalsRouter
     .get(proposalsController.getApprovedProposals);
 
 proposalsRouter
+    .route("/proposals/testroute")
+    .get(proposalsController.testroute)
+
+proposalsRouter
     .route("/proposals/rejected")
     .get(proposalsController.getRejectedProposals);
 
@@ -26,17 +30,17 @@ proposalsRouter
     .route("/proposals/upVote/:id")
     .patch(proposalsController.upVote);
 
-proposalsRouter
-    .route("/proposals/downVote/:id")
-    .patch(proposalsController.downVote);
+// proposalsRouter
+//     .route("/proposals/downVote/:id")
+//     .patch(proposalsController.downVote);
 
-proposalsRouter
-    .route("/proposals/removeUpVote/:id")
-    .patch(proposalsController.removeUpVote);
+// proposalsRouter
+//     .route("/proposals/removeUpVote/:id")
+//     .patch(proposalsController.removeUpVote);
 
-proposalsRouter
-    .route("/proposals/removeDownVote/:id")
-    .patch(proposalsController.removeDownVote); 
+// proposalsRouter
+//     .route("/proposals/removeDownVote/:id")
+//     .patch(proposalsController.removeDownVote); 
 
 proposalsRouter
     .route("/proposals/:id")

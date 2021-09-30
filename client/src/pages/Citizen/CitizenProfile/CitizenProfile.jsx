@@ -100,7 +100,7 @@ const CitizenProfile = () => {
                     </div>
 
                     <div className="citizenProfile-changeImg">
-                        <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label>
+                        <Form.Label ><i className="fas fa-history" onClick = { showLogs }></i></Form.Label>
                     </div>
                 </>
             }
@@ -199,8 +199,7 @@ const CitizenProfile = () => {
                         onChange = {(e) => setFile(e.target.files[0])}
                     />
                 </Form.Group>
-                
-                <Form.Group controlId="email">
+
                 <Form.Group>
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
