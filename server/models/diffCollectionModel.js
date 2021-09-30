@@ -1,14 +1,10 @@
 const mongoose = require('mongoose');
 
-const diffCollectionSchema = new mongoose.Schema(
-{
+const diffCollectionSchema = new mongoose.Schema({
     collectionName: {
         type: String
     },
-    collectionId: {
-        type: String
-    },
-    diff: {
+    userType: {
         type: String
     },
     user: {

@@ -48,7 +48,6 @@ const CitizenSidebarWrap = styled.div`
 `;
 
 const CitizenSideBar = ({ location: { pathname } }) => {
-  const isProposals = pathname === '/citizen-proposals';
 
   const [sidebar, setSidebar] = useState(false);
 
@@ -56,7 +55,6 @@ const CitizenSideBar = ({ location: { pathname } }) => {
   
   return (
     <React.Fragment>
-      {isProposals ? (
         <>
        <CitizenNav>
          <CitizenNavIcon to='#'>
@@ -74,7 +72,6 @@ const CitizenSideBar = ({ location: { pathname } }) => {
          </CitizenSidebarWrap>
        </CitizenSidebarNav>
        </>
-      ) : (<></>)}
     </React.Fragment>
   )
 }

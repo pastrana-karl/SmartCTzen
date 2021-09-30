@@ -1,5 +1,3 @@
-const diffHistory = require('mongoose-audit-trail');
-
 const Proposals = require('../models/proposalsModel');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
@@ -60,10 +58,9 @@ exports.getProposal = catchAsync(async (req, res, next) => {
 exports.postProposal = catchAsync(async (req, res, next) => {
     const newProposal = await Proposals.create(req.body);
 
-    console.log(newProposal);
-
     const newProposalHist = new diffCollection({
         collectionName: 'Proposal',
+        userType: newProposal.userType,
         user: newProposal.userName,
         reason: 'Created new proposal',
     });

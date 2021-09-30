@@ -131,8 +131,8 @@ const SAAccount = () => {
                 
                 Array.from(document.querySelectorAll("input")).forEach(
                     input => (input.value = ""),
-                    setOldEmail(""),
-                    setNewEmail(""),
+                    setOldPassword(""),
+                    setNewPassword(""),
                 );
                 dispatch({ type: "SAUPDATE_SUCCESS", payload: res.data });
             } catch (err) {

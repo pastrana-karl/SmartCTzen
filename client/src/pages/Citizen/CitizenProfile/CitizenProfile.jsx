@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../../context/Context';
-import { Row, Col, Form, Button, Container } from 'react-bootstrap';
+import { Row, Col, Form, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import './CitizenProfile.css';
 
 const CitizenProfile = () => {
@@ -13,9 +13,16 @@ const CitizenProfile = () => {
     const [logs, setLogs] = useState([]);
     const citizen = user.data.user.firstname + " " + user.data.user.lastname;
 
+    useEffect(() => {
+        const fetchLogs = async () => {
+            const res = await axios.get(`/api/history/citizens/?user=${citizen}`);
+            setLogs(res.data);
+        }
+
+        fetchLogs();
+    }, [])
+
     const showLogs = async () => {
-        const res = await axios.get(`/api/history/citizens/?user=${citizen}`);
-        setLogs(res.data);
         Swal.fire({
             icon: 'info',
             title: 'Activity Logs',
@@ -69,16 +76,16 @@ const CitizenProfile = () => {
                     <img src= {file ? (URL.createObjectURL(file)) : `${user.data.user.profilePic}`} alt="" ></img>
                 </div>
             </div>
+
             <div className="citizenProfile-changeImg">
+                <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label>
                 <Form.Label  htmlFor="iconImg"><i className="fas fa-image"></i></Form.Label>
-                <i className="fas fa-upload" onClick = { handleSubmit }></i>
+                <Form.Label ><i className="fas fa-upload" onClick = { handleSubmit }></i></Form.Label>
             </div>
-            <div>
-                <i class="fas fa-history" onClick = { showLogs }></i>
-            </div>
+
             <div  className = 'col-md-10 offset-md-1' id = 'citizenProfile-body'>
                 <div className = 'citizenProfile-name'> 
-                     {/* <p>{user.data.user.firstname + " " + user.data.user.middlename + " " + user.data.user.lastname}</p> */}
+                     <p>{user.data.user.firstname + " " + user.data.user.middlename + " " + user.data.user.lastname}</p>
                  </div>
                  <div className = 'citizenProfile-statsDesktop'>
                     <Row>
@@ -164,7 +171,7 @@ const CitizenProfile = () => {
                         onChange = {(e) => setFile(e.target.files[0])}
                     />
                 </Form.Group>
-              {/*   <Form.Group controlId="email">
+                <Form.Group controlId="email">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'
@@ -241,19 +248,6 @@ const CitizenProfile = () => {
                         placeholder={user.data.user.street +" "+user.data.user.barangay +" "+user.data.user.city +" "+user.data.user.region}
                     />
                 </Form.Group>
-                
-                <h3>Login Credentials</h3>
-                <Form.Group controlId="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        className='citizenProfile-input'
-                        type="text"
-                        name="birthday"
-                        autoComplete="off"
-                        disabled
-                        placeholder={user.data.user.email}
-                    />
-                </Form.Group> */}
             </Form>
             <Link to = '/citizen-pass-update' className = 'citizenProfile-passwordUpdate'><i className="editIcon far fa-edit"></i></Link>
         </Container>

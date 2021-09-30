@@ -26,14 +26,14 @@ router
     .post(adminController.changeAdminPassword);
 
 //GET SPECIFIC ADMIN
-// router.get("/:id", async (req, res) => {
-//     try{
-//         const admin = await Admin.findById(req.params.id);
-//         res.status(200).json(admin);
-//     }catch(err){
-//          res.status(500).json(err);
-//     }
-// });
+router.get("/:id", async (req, res) => {
+    try{
+        const admin = await Admin.findById(req.params.id);
+        res.status(200).json(admin);
+    }catch(err){
+         res.status(500).json(err);
+    }
+});
 
 //DISPLAY ALL ADMIN
 router.get("/", async (req, res) => {

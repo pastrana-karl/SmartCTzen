@@ -7,23 +7,23 @@ import { Row, Col, Form, Button, Container} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 const CitizenReports = () => {
-    const [reports, setReports] = useState();
+    const [reports, setReports] = useState([]);
 
     useEffect(() => {
         const sendRequest = async () => {
             const response = await fetch('/api/reports');
             const responseData = await response.json();
-            setReports(responseData.data.reports);
+            setReports(responseData);
         };
         sendRequest();
-    });
+    }, []);
 
     const deletereport = async (reportlId) => {
         console.log(reportlId);
         const response = await axios.delete(`/api/reports/${reportlId}`);
         const refresh = await fetch('/api/reports');
         const responseData = await refresh.json();
-        setReports(responseData.data.reports);
+        setReports(responseData.data.report);
     }
 
     return(

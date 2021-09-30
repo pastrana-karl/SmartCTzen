@@ -2,9 +2,6 @@
     margin: 10% 10% 0% 10%;
 }
 
-
-
-
 .citizenPassUpdate-edit .form-control {
     border: hidden !important;
     background: #F0F0F3 !important;
@@ -39,7 +36,7 @@
     justify-content: center;
 }
 
-.citizenPassUpdate-Btn{
+button.citizenPassUpdate-Btn{
     padding: 15px 45px 15px 45px;
     border: hidden;
     background: #FF5039;
@@ -50,7 +47,7 @@
     justify-content: center;
 }
 
-.citizenPassUpdate-Btn:hover {
+button.citizenPassUpdate-Btn:hover {
     background: #Dc4733;
     color: #ffffff;
     text-decoration: none;
