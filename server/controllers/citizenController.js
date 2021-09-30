@@ -339,6 +339,15 @@ exports.acceptApplicant = catchAsync(async (req, res, next) => {
             $set: { "status": true }
         });
 
+        const adminAcceptApplicant = new diffCollection({
+            collectionName: 'Admin',
+            userType: req.body.usertype,
+            user: req.body.username,
+            reason: 'Accepted Applicant ' + acceptApplicant.firstname + ' ' + acceptApplicant.lastname,
+        });
+        
+        await adminAcceptApplicant.save();
+
         transporter.sendMail({
             to:acceptApplicant.email,
             from:"smartct.management@gmail.com",
@@ -409,6 +418,16 @@ exports.acceptApplicant = catchAsync(async (req, res, next) => {
 exports.rejectApplicant = catchAsync(async (req, res, next) => {
     try {
         const rejectApplicant = await Citizen.findById(req.params.id);
+
+        const adminRejectApplicant = new diffCollection({
+            collectionName: 'Admin',
+            userType: req.body.usertype,
+            user: req.body.username,
+            reason: 'Rejected Applicant ' + rejectApplicant.firstname + ' ' + rejectApplicant.lastname,
+        });
+        
+        await adminRejectApplicant.save();
+
         await rejectApplicant.delete();
 
         transporter.sendMail({

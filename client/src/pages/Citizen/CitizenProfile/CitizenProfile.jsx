@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../../context/Context';
-import { Row, Col, Form, Container } from 'react-bootstrap';
+import { Row, Col, Form, Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -11,6 +11,7 @@ const CitizenProfile = () => {
     const [file, setFile] = useState(null);
     const [profilePic, setProfilePic] = useState("");
     const [logs, setLogs] = useState([]);
+    const [iconUpload, setIconUpload] = useState(false);
     const citizen = user.data.user.firstname + " " + user.data.user.lastname;
 
     useEffect(() => {
@@ -21,6 +22,10 @@ const CitizenProfile = () => {
 
         fetchLogs();
     }, [])
+
+    const setIconTrue = () => {
+        setIconUpload(true);
+    }
 
     const showLogs = async () => {
         Swal.fire({
@@ -34,7 +39,8 @@ const CitizenProfile = () => {
         });
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         dispatch({ type: "UPDATE_START" });
         const updateAccount = {
@@ -51,22 +57,32 @@ const CitizenProfile = () => {
             try {
                 const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
                 updateAccount.profilePic = res.data.secure_url;
+
+                try {
+                    const res = await axios.put("/api/citizen/" + user.data.user._id, updateAccount);
+                    dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Updated!',
+                        text: 'Profile Picture Changed',
+                    });
+        
+                    setIconUpload(false);
+                } catch (err) {
+                    console.log(err);
+                    dispatch({ type: "UPDATE_FAILURE" })
+                }
             } catch (err) {
                 console.log(err)
             }
         } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Photo is requried!',
+                text: 'Upload a photo',
+            });
+            setIconUpload(false);
             setProfilePic("");
-        }
-
-        console.log(updateAccount.profilePic)
-
-        try {
-            const res = await axios.put("/api/citizen/" + user.data.user._id, updateAccount);
-            console.log(res.data)
-            dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
-        } catch (err) {
-            console.log(err);
-            dispatch({ type: "UPDATE_FAILURE" })
         }
     }
     return(
@@ -76,12 +92,25 @@ const CitizenProfile = () => {
                     <img src= {file ? (URL.createObjectURL(file)) : `${user.data.user.profilePic}`} alt="" ></img>
                 </div>
             </div>
+            
+            {iconUpload === false &&
+                <>
+                    <div className = 'citizenProfile-changeLink'>
+                        <p onClick = { setIconTrue }>Change Profile Picture?</p>
+                    </div>
 
-            <div className="citizenProfile-changeImg">
-                <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label>
-                <Form.Label  htmlFor="iconImg"><i className="fas fa-image"></i></Form.Label>
-                <Form.Label ><i className="fas fa-upload" onClick = { handleSubmit }></i></Form.Label>
-            </div>
+                    <div className="citizenProfile-changeImg">
+                        <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label>
+                    </div>
+                </>
+            }
+
+            {iconUpload &&
+                <div className="citizenProfile-changeImg">
+                    <Form.Label  htmlFor="iconImg"><i className="fas fa-image"></i></Form.Label>
+                    <Form.Label  htmlFor="btnImg"><i className="fas fa-upload"></i></Form.Label>
+                </div>
+            }
 
             <div  className = 'col-md-10 offset-md-1' id = 'citizenProfile-body'>
                 <div className = 'citizenProfile-name'> 
@@ -159,7 +188,7 @@ const CitizenProfile = () => {
                 </div>
             </div>
             
-            <Form className = 'citizenProfile-edit'>
+            <Form className = 'citizenProfile-edit' onSubmit = { handleSubmit }>
                 <h3>Personal Information</h3>
                  <Form.Group>
                     <Form.Control
@@ -167,11 +196,10 @@ const CitizenProfile = () => {
                         type="file"
                         name="citizenImg"
                         style = {{display: "none"}}
-                        required
                         onChange = {(e) => setFile(e.target.files[0])}
                     />
                 </Form.Group>
-                <Form.Group controlId="email">
+                <Form.Group>
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'
@@ -182,7 +210,7 @@ const CitizenProfile = () => {
                         placeholder={user.data.user.lastname}
                     />
                 </Form.Group>
-                <Form.Group controlId="email">
+                <Form.Group>
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'
@@ -193,7 +221,7 @@ const CitizenProfile = () => {
                         placeholder={user.data.user.firstname}
                     />
                 </Form.Group>
-                <Form.Group controlId="email">
+                <Form.Group>
                     <Form.Label>Middle Name</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'
@@ -204,7 +232,7 @@ const CitizenProfile = () => {
                         placeholder={user.data.user.middlename}
                     />
                 </Form.Group>
-                <Form.Group controlId="email">
+                <Form.Group>
                     <Form.Label>Suffix</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'
@@ -215,7 +243,7 @@ const CitizenProfile = () => {
                         placeholder={user.data.user.suffix}
                     />
                 </Form.Group>
-                <Form.Group controlId="email">
+                <Form.Group>
                     <Form.Label>Sex</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'
@@ -226,7 +254,7 @@ const CitizenProfile = () => {
                         placeholder={user.data.user.sex}
                     />
                 </Form.Group>
-                <Form.Group controlId="email">
+                <Form.Group>
                     <Form.Label>Birth Date</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'
@@ -237,7 +265,7 @@ const CitizenProfile = () => {
                         placeholder={user.data.user.birthdate}
                     />
                 </Form.Group>
-                <Form.Group controlId="email">
+                <Form.Group>
                     <Form.Label>Full Address</Form.Label>
                     <Form.Control
                         className='citizenProfile-input'
@@ -248,6 +276,8 @@ const CitizenProfile = () => {
                         placeholder={user.data.user.street +" "+user.data.user.barangay +" "+user.data.user.city +" "+user.data.user.region}
                     />
                 </Form.Group>
+
+                <Button id="btnImg" type = 'submit' style={{display:'none'}}></Button>
             </Form>
             <Link to = '/citizen-pass-update' className = 'citizenProfile-passwordUpdate'><i className="editIcon far fa-edit"></i></Link>
         </Container>

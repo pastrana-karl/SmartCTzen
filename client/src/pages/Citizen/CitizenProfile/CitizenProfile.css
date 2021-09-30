@@ -140,6 +140,19 @@
     display: none;
 }
 
+.citizenProfile-changeLink p {
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ff5138;
+}
+
+.citizenProfile-changeLink p {
+    color: #Dc4733;
+}
+
+
+
 @media screen and (max-width: 600px) {
     .citizenProfile-statsDesktop {
         display: none;
