@@ -2,6 +2,7 @@ const Reports = require("../models/reportsModel");
 const APIFeatures = require("../utils/apiFeatures");
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+const diffCollection = require("../models/diffCollectionModel");
 
 exports.getAllReports = catchAsync(async (req, res, next) => {
     //This does not return all the reports this requires a query when getting all reports there is no query
@@ -42,6 +43,17 @@ exports.getReport = catchAsync(async (req, res, next) => {
 
 exports.postReports = catchAsync(async (req, res, next) => {
     const newReport = await Reports.create(req.body);
+
+    console.log(newReport)
+
+    const newReportHist = new diffCollection({
+        collectionName: 'Reports',
+        userType: newReport.userType,
+        user: newReport.userName,
+        reason: 'Created new Report',
+    });
+    
+    await newReportHist.save();
 
     res.status(201).json({
         status: 'success',

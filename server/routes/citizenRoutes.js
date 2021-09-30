@@ -11,6 +11,11 @@ router
     .route("/login")
     .post(citizenController.loginCitizen);
 
+//COMPARE PASSWORD
+router
+    .route("/password-citizenCompare")
+    .post(citizenController.PassWordCompare);
+
 //Forgot Password
 router
     .route("/citizenForgot")
@@ -21,15 +26,15 @@ router
     .route("/citizenChange")
     .post(citizenController.ChangePassword);
 
-//Get Citizen
-router
-    .route("/:id")
-    .get(citizenController.getCitizen);
-
 //Update Citizen
 router
     .route("/:id")
     .put(citizenController.UpdateCitizen);
+
+//Get Citizen
+router
+    .route("/:id")
+    .get(citizenController.getCitizen);
     
 //Get Applicants
 router
