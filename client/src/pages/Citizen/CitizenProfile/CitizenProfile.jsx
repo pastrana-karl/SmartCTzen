@@ -200,7 +200,6 @@ const CitizenProfile = () => {
                     />
                 </Form.Group>
                 
-                <Form.Group controlId="email">
                 <Form.Group>
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
