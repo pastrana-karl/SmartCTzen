@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {ObjectId} = mongoose.Schema.Types;
 const slugify = require("slugify");
 
 const proposalsSchema = new mongoose.Schema({
@@ -37,14 +38,12 @@ const proposalsSchema = new mongoose.Schema({
     images: { 
         type: [String],
     },
-    upvote: {
-        type: Number,
-        default: 0
-    },
-    downvote: {
-        type: Number,
-        default: 0
-    },
+    upvote:[
+        {type: String}
+    ],
+    downvote:[
+        {type: String}
+    ],
     status: {
         type: String,
         enum: ['Needs Approval', 'Approved', 'Rejected'],

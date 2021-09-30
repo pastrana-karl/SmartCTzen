@@ -40,6 +40,7 @@ import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreate
 
 import CitizenPassUpdate from './pages/Citizen/CitizenProfile/CitizenPassUpdate/CitizenPassUpdate';
 import CitizenCreateProposal from './pages/Citizen/CitizenProposals/CreateProposals/CitizenCreateProposals';
+import CitizenViewProposal from './pages/Citizen/CitizenProposals/ViewProposals/CitizenViewProposal';
 import CitizenViewReport from './pages/Citizen/CitizenReports/ViewReports/CitizenViewReport';
 import CitizenSubmitReport from './pages/Citizen/CitizenReports/SubmitReport/CitizenSubmitReport';
 import CitizenChatReport from './pages/Citizen/CitizenReports/ChatReports/CitizenChatReport';
@@ -187,6 +188,10 @@ const App = () => {
 
           <Route path="/citizen-proposals">
             {user ? <CitizenProposals /> : <Redirect to="/" />}
+          </Route>
+
+          <Route path="/citizen-view-proposals">
+            <CitizenViewProposal/>
           </Route>
 
           <Route path="/citizen-create-proposals">

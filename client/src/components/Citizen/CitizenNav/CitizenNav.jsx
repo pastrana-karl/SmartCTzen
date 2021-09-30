@@ -7,11 +7,12 @@ import { Nav } from 'react-bootstrap';
 const CitizenNav = ({ location: { pathname } }) => {
   const isCitizenProfile = pathname === '/citizen-profile';
   const isCitizenProposals = pathname === '/citizen-proposals';
+  const isCitizenViewProposals = pathname === '/citizen-view-proposals';
   const isCitizenReports = pathname === '/citizen-reports';
   const isCitizenViewReports = pathname === '/citizen-view-reports';
   const isCitizenSubmitReports = pathname === '/citizen-submit-reports';
   const isCitizenProjects = pathname === '/citizen-projects';
-  const isCitizenViewProjects = pathname === '/citizen-view-projects';
+  const isCitizenViewProjects = pathname === '/citizen-view-project';
   const isCitizenCreateProposals = pathname === '/citizen-create-proposals';
   const isCitizenPassUpdate = pathname === '/citizen-pass-update';
   const isCitizenChatReport = pathname === '/citizen-chat-report';
@@ -25,7 +26,7 @@ const CitizenNav = ({ location: { pathname } }) => {
   return (
     <React.Fragment>
       {isCitizenProfile || isCitizenProposals || isCitizenReports || isCitizenProjects || isCitizenCreateProposals 
-      || isCitizenPassUpdate || isCitizenChatReport || isCitizenSubmitReports || isCitizenViewReports || isCitizenViewProjects ? (
+      || isCitizenPassUpdate || isCitizenChatReport || isCitizenSubmitReports || isCitizenViewReports || isCitizenViewProjects|| isCitizenViewProposals ? (
       <nav className="navbar navbar-expand-lg fixed-top citizenNavbar-mainbg">
         <button 
           className="navbar-toggler"

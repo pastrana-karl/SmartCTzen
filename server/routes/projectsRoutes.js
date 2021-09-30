@@ -15,6 +15,10 @@ projectsRouter
     .patch(projectsController.patchProject);
 
 projectsRouter
+    .route("/projects/viewCount/:id")
+    .patch(projectsController.viewCount);
+
+projectsRouter
     .route("/projects/accomplished")
     .get(projectsController.aliasAccomplishedProjects);
 

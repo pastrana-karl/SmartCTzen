@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Form, Container, Button } from 'react-bootstrap'
-import { Link, Redirect, useLocation } from 'react-router-dom'
-import "slick-carousel/slick/slick.css"; 
+import React, { useContext, useEffect, useState } from 'react';
+import { Form, Container, Button } from 'react-bootstrap';
+import { Link, Redirect, useLocation } from 'react-router-dom';
+import "slick-carousel/slick/slick.css";
+import { Context } from '../../../../context/Context';
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
-import Swal from 'sweetalert2'
-import axios from 'axios'
-import './SingleApplicants.css'
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import './SingleApplicants.css';
 
 const SingleApplicants = () => {
     const settings = {
@@ -26,7 +27,8 @@ const SingleApplicants = () => {
     const [validID, setValidID] = useState([]);
     const [birthCert, setBirthCert] = useState([]);
     const [residency, setResidency] = useState([]);
-    const [redirect, setRedirect] = useState(false); 
+    const [redirect, setRedirect] = useState(false);
+    const { aUser } = useContext(Context); 
 
     useEffect(() => {
         const getApplicant = async ()=>{
@@ -40,12 +42,15 @@ const SingleApplicants = () => {
         getApplicant();
 
     }, [path]);
-
-    console.log(birthCert[0])
     
     const handleAccept = async () => {
+        const admin = {
+            username: aUser.user.username,
+            usertype: aUser.user.userType
+        }
+
         try {
-            await axios.post("/api/citizen/" + path);
+            await axios.post("/api/citizen/" + path, admin);
             Swal.fire('Applicant Accepted', "You've successfuly accepted an applicant.", 'success').then(
                 (result) => {
                   if (result.isConfirmed || result.isDismissed) {
@@ -64,8 +69,13 @@ const SingleApplicants = () => {
     }
 
     const handleReject = async () => {
+        const admin = {
+            username: aUser.user.username,
+            usertype: aUser.user.userType
+        }
+
         try {
-            await axios.delete(`/api/citizen/${path}`);
+            await axios.delete(`/api/citizen/${path}`, { data: admin });
             Swal.fire('Applicant Rejected', "You've rejected an applicant.", 'success').then(
                 (result) => {
                   if (result.isConfirmed || result.isDismissed) {

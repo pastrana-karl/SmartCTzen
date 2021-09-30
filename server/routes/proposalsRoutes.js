@@ -8,7 +8,7 @@ const proposalsRouter = express.Router();
 proposalsRouter
     .route("/proposals/topProposals")
     .get(proposalsController.getTopProposals);
-
+ 
 proposalsRouter
     .route("/proposals")
     .get(proposalsController.getAllProposals)
@@ -23,9 +23,25 @@ proposalsRouter
     .get(proposalsController.getRejectedProposals);
 
 proposalsRouter
+    .route("/proposals/upVote/:id")
+    .patch(proposalsController.upVote);
+
+proposalsRouter
+    .route("/proposals/downVote/:id")
+    .patch(proposalsController.downVote);
+
+proposalsRouter
+    .route("/proposals/removeUpVote/:id")
+    .patch(proposalsController.removeUpVote);
+
+proposalsRouter
+    .route("/proposals/removeDownVote/:id")
+    .patch(proposalsController.removeDownVote); 
+
+proposalsRouter
     .route("/proposals/:id")
     .get(proposalsController.getProposal)
-    .patch(proposalsController.updateProposal)
+    .put(proposalsController.updateProposal)
     .delete(proposalsController.deleteProposal);
 
 proposalsRouter.patch("/proposals/approve/:id", proposalsController.approveProposal);

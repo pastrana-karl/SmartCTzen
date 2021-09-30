@@ -5,6 +5,7 @@
 
 
 .citizenSubmitReport-edit .form-control {
+    max-width: 700px;
     border: hidden !important;
     background: #F0F0F3 !important;
     box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
@@ -124,6 +125,17 @@
     text-decoration: none;
 }
 
+.ButtonDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    margin: 40px;
+}
+.InputValidation {
+    margin-top: 10px;
+    color: red;
+}
 
 @media screen and (max-width: 992px) {
     .citizenSubmitReport-container {

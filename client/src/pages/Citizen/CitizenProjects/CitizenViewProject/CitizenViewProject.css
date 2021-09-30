@@ -1,3 +1,89 @@
 .citizenViewProject-container {
     margin: 13% auto;
+    display: flex;
+    max-width: 80% !important;
+    flex-direction: column;
+    align-items: center;
+    
 }
+
+p{
+    font-size: 18px;
+}
+
+.citizenViewProject-long{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+}
+
+.citizenViewProject-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: black;
+}
+
+.citizenViewProject-title h1{
+    margin-right: 10px;
+}
+
+.citizenViewProject-title i{
+    font-size: 22px;
+}
+
+.citizenViewProject-auth {
+    display: flex;
+    text-align: justify;
+}
+
+.citizenViewProject-auth p{
+    margin-right: 10px;
+}
+
+.citizenViewProject-description {
+    color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.citizenViewProject-description p {
+    display: inline-flex;
+    text-align: justify;
+    padding: 0px;
+}
+
+.citizenViewProject-footer {
+    color: black;
+
+}
+
+.citizenViewProject-details {
+    display: inline-flex;
+    text-align: justify;
+    padding: 5px;
+}
+
+.citizenViewProject-img-frame{
+    display: flex;
+    max-width: inherit;
+    max-height: inherit;
+    margin-bottom: 10px;
+}
+
+.citizenViewProject-img{
+    border-radius: 40px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.citizenViewProject-status{
+    margin-bottom: 10px;
+}
+

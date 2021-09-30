@@ -26,6 +26,19 @@ const CitizenReports = () => {
         setReports(responseData.data.report);
     }
 
+    //ALL Category
+    //onClick={() => categoryAll(status:lahat ng status na meron)}  initialize nalang ng local array na ["Pending","Confirmed","Cancelled","Resolved"] 
+    //const categoryAll = async (status) =>{}
+    // dito icocompare mo yung local content array to all proposal status
+    // if nag true ididsplay natin
+    
+    //Confirmed/Cancelled/Resolved Category
+    //onClick={() => categoryConfirmed/Cancelled/Resolved(status:Confirmed/Cancelled/Resolved)}
+    //const categoryConfirmed/Cancelled/Resolved = async (status) =>{}
+    // dito icocompare mo yung Confirmed/Cancelled/Resolved na status to all proposals
+    // if nag true ididsplay natin
+
+
     return(
         <Container className='citizenreports-Container'>
             <Row className='citizenreports-catbar-container'>
@@ -79,11 +92,11 @@ const CitizenReports = () => {
                                 <span className='reportInfo'>Desc : {report.description}</span>
                                 <span className='reportInfo'>Reported By : {report.userName}</span>
                                 <span className='reportInfo'>Date Submitted: Sept 20, 2021</span>
-                                {/* <span className='reportInfo'><i onClick={()=> deletereport(report._id)} className="fas fa-trash"></i></span> */}
+                                <span className='reportInfo'><i onClick={()=> deletereport(report._id)} className="fas fa-trash"></i></span>
 
                             </Col>
                             <Col className='citizenreports-info-status-container'>
-                                <span className='reportInfo'>Status: Confirmed</span>
+                                <span className='reportInfo'>Status: {report.status}</span>
                             </Col>
                         </Row>
                     </Col>

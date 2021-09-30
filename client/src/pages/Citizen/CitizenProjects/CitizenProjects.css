@@ -106,6 +106,7 @@
 }
 
 .citizenprojects-shortinfo-status{
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
 }
@@ -122,6 +123,17 @@
     font-size: 25px;
 }
 
+.citizenprojects-viewmore{
+    color: #FFFFFF;
+    padding: 12px;
+    border-radius: 40px;
+    background: #FF5039;
+}
+
+.citizenprojects-viewmore:hover{
+    color: #FFFFFF;
+    text-decoration: none;
+}
 
 .citizenprojects-shortinfo-img-container{
     display: flex;

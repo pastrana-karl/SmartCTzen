@@ -66,6 +66,20 @@ exports.patchProject = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.viewCount = catchAsync(async (req, res, next)=> {
+    const viewcount = await Projects.findByIdAndUpdate(req.params.id, req.body + 1,{
+        new: true,
+        runValidators: true
+    });
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            viewcount
+        }
+    })
+})
+
 exports.deleteProject = catchAsync(async (req, res, next) => {
     const project = await Projects.findByIdAndDelete(req.params.id);
 

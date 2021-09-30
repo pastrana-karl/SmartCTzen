@@ -1,14 +1,17 @@
 .citizenPassUpdate-container {
-    margin: 10% 10% 0% 10%;
+    margin: 15% 10% auto;
+    align-content: center;
 }
 
 .citizenPassUpdate-edit .form-control {
+    max-width: 700px;
     border: hidden !important;
     background: #F0F0F3 !important;
     box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
     border-radius: 20px !important;
     padding: 30px 20px 30px 20px !important;
     font-size: 18px !important;
+    
 }
 
 .citizenPassUpdate-edit h3 {
@@ -22,6 +25,8 @@
 
 .citizenPassUpdate-edit .form-label{
     font-size: 20px;
+    
+    
 }
 
 .citizenPassUpdate-BtnContainer{
@@ -88,6 +93,7 @@ button.citizenPassUpdate-Btn:hover {
 
     .citizenPassUpdate-edit {
         padding: 40px 50px;
+        max-width: 300px;
     }
 
     .citizenPassUpdate-edit h3 {
