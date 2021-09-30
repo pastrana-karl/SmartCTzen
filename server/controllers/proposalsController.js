@@ -67,6 +67,8 @@ exports.postProposal = catchAsync(async (req, res, next) => {
     });
 });
 
+
+
 exports.updateProposal = catchAsync(async (req, res, next) => {
     const proposal = await Proposals.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -77,6 +79,136 @@ exports.updateProposal = catchAsync(async (req, res, next) => {
         status: "success",
         data: {
             proposal
+        }
+    });
+});
+
+exports.upVote = catchAsync(async (req, res, next) => {
+    const proposal = await Proposals.findByIdAndUpdate(
+        req.params.id
+        ,{
+            $push:{
+                upvote: JSON.stringify(req.body)
+            }
+        },{
+            new:true,
+            runValidators:true
+        },function(err,model){
+            if(err){
+                console.log(err);
+            }else{
+                console.log("Vote Recieved! ID: ", model)
+            }});
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            proposal
+        }
+    });
+});
+
+// exports.downVote = catchAsync(async (req, res, next) => {
+//     const downvote = await Proposals.findByIdAndUpdate(
+//         req.params.id
+//         ,{
+//             $push:{
+//                 downvote: JSON.stringify(req.body)
+//             }
+//         },{
+//             new:true,
+//             runValidators:true
+//         },function(err,model){
+//             if(err){
+//                 console.log(err);
+//             }else{
+//                 console.log("Vote Recieved! ID: ", model)
+//             }});
+
+//     res.status(200).json({
+//         status: "success",
+//         data: {
+//             downvote
+//         }
+//     });
+// });
+
+exports.downVote = catchAsync(async (req, res, next) => {
+    try{
+    const proposal = await Proposals.findByIdAndUpdate(
+        req.params.id
+        ,{$push:{
+                "downvote": JSON.stringify(req.body)
+            }
+        },{
+            new:true,
+            runValidators:true
+        },function(err,model){
+            if(err){
+                console.log(err);
+            }else{
+                console.log("Vote Recieved! ID: ", model)
+            }});
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            proposal
+        }
+    });
+    }catch(err){
+        console.log(err);
+    }
+});
+
+exports.removeUpVote = catchAsync(async (req, res, next) => {
+    const upvote = await Proposals.findByIdAndUpdate(
+        req.params.id
+        ,{
+            $pull:{
+                upvote: JSON.stringify(req.body)
+            }
+        },{
+            new:true,
+            runValidators:true
+        },function(err,model){
+            if(err){
+                console.log(err);
+            }else{
+                console.log("Vote Removed ", model)
+            }});
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            upvote
+        }
+    });
+});
+
+
+
+exports.removeDownVote = catchAsync(async (req, res, next) => {
+    const downvote = await Proposals.findByIdAndUpdate(
+        req.params.id
+        ,{
+            $pull:{
+                downvote: JSON.stringify(req.body)
+            }
+        },{
+            new:true,
+            runValidators:true
+        },function(err,model){
+            if(err){
+                console.log(err);
+            }else{
+                console.log("Vote Removed ", model)
+            }});
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            downvote
         }
     });
 });

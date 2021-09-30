@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {ObjectId} = mongoose.Schema.Types;
 const slugify = require("slugify");
 const diffHistory = require("mongoose-audit-trail");
 
@@ -35,12 +36,12 @@ const proposalsSchema = new mongoose.Schema({
     images: { 
         type: [String],
     },
-    upvote: {
-        type: Number
-    },
-    downvote: {
-        type: Number
-    },
+    upvote:[
+        {type: String}
+    ],
+    downvote:[
+        {type: String}
+    ],
     status: {
         type: String
     },

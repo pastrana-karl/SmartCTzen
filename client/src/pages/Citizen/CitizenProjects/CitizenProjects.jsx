@@ -21,6 +21,37 @@ const CitizenProjects = () => {
         localStorage.setItem('projectid', projectId);
     }
 
+        //ALL Category
+    //onClick={() => categoryAll(status:lahat ng status na meron)}  initialize nalang ng local array na ["Accomplished","Ongoing"] 
+    //const categoryAll = async (status) =>{}
+    // dito icocompare mo yung local content array to all proposal status
+    // if nag true ididsplay natin
+    
+    //Accomplished/Ongoing Category
+    //onClick={() => categoryAccomplished/Ongoing(status:Accomplished/Ongoing)}
+    //const categoryAccomplished/Ongoing = async (status) =>{}
+    // dito icocompare mo yung Accomplished/Ongoing na status to all proposals
+    // if nag true ididsplay natin
+
+
+    // const viewCountUp = async (project.id) =>{
+    //     
+    //     try{
+    //         // console.log(project.id);
+    //         const addCount = 1;
+    //         //Add userId to proposals upvote array
+    //         const response = await axios.patch(`/api/projects/viewCount/${projectId}`, addCount).then((result)=>{
+    //                 if (result) {
+    //                     console.log(result)
+    //                     // window.location.reload(false);
+    //                 }
+    //             }
+    //         );
+    //     }catch(err){
+    //         console.log(err.response)
+    //     }
+    // }
+
     return (
         <div className='citizenprojects-container' >
             <Row className='citizenprojects-catbar-container'>
@@ -51,6 +82,7 @@ const CitizenProjects = () => {
                             <i className="fas fa-eye"/> <span>{views}</span>
                         </div>
                     </Row>
+                    {/* onClick{()=> viewCountUp(project._id)} */}
                     <Link className='citizenprojects-viewmore' to={`/citizen-view-project`} onClick={()=> getProjectId(project._id)}>
                         View More
                     </Link>

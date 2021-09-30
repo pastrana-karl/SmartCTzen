@@ -134,7 +134,10 @@ p{
 .citizenViewProposal-writecomment:focus{
     outline: none;
 }
-
+.InputValidation {
+    margin-top: 10px;
+    color: red;
+}
 .citizenViewProposal-comment{
     margin: 0px 0px 30px 0px;
     padding: 30px;

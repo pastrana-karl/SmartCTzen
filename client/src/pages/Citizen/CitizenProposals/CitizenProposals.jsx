@@ -33,13 +33,32 @@ const CitizenProposals = () => {
         localStorage.setItem('proposalid', proposalId);
     }
     
+    
+    //ALL Category
+    //onClick={() => categoryAll(status:lahat ng status na meron)}  initialize nalang ng local array na ["Pending","Approved","Rejected"] 
+    //const categoryAll = async (status) =>{}
+    // dito icocompare mo yung local content array to all proposal status
+    // if nag true ididsplay natin
+    
+    //APPROVED/REJECTED Category
+    //onClick={() => categoryApproved/Rejected(status:Approved/Rejected)}
+    //const categoryApproved/Rejected = async (status) =>{}
+    // dito icocompare mo yung Approved/Rejected na status to all proposals
+    // if nag true ididsplay natin
+
+    //OWN Category
+    //onClick={() => categoryOwn(user.data.user._id)}
+    //const categoryOwn = async (userId) =>{}
+    //dito icocompare mo ang userId mo sa lahat ng userIds na meron sa proposals
+    //if nag true ididisplay
+
 
     return(
         <Container className="proposalsContainer">
             <div className="proposalsMain">
                 <Row className='citizenproposals-catbar-container'>
-                    <Col className='citizenproposals-catbar'>
-                        <Link className='citizenproposals-catbar-item' to='/'>All</Link>
+                    <Col className='citizenproposals-catbar'> 
+                        <Link className='citizenproposals-catbar-item' to='/'>All</Link> 
                         <Link className='citizenproposals-catbar-item' to='/'>Approved</Link>
                         <Link className='citizenproposals-catbar-item' to='/'>Rejected</Link>
                         <Link className='citizenproposals-catbar-item' to='/'>My Proposals</Link>
@@ -115,8 +134,8 @@ const CitizenProposals = () => {
                                 </div>
                                 <p>{proposal.description} </p>
                                 <div className="proposalsBody">
-                                    <p><i className="fas fa-thumbs-up"/>{proposal.upvote}</p>
-                                    <p><i className="fas fa-thumbs-down"/>{proposal.downvote}</p>
+                                    <p><i className="fas fa-thumbs-up"/>{proposal.upvote.length ? proposal.upvote.length : 0}</p>
+                                    <p><i className="fas fa-thumbs-down"/>{0}</p>
                                     <i onClick={()=> deleteProposal(proposal._id)} className="fas fa-trash"></i>
                                 </div>
                                 <Link className='proposalsViewMore' to={`/citizen-view-proposals`} onClick={()=> getProposalId(proposal._id)}>

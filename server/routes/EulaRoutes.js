@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try{
         const updatedEula = await Eula.findByIdAndUpdate(req.params.id,{
-            $set: { "message": req.body.message }
+            $set: { "message": req.body.message}
         },
         { new:true }
         );

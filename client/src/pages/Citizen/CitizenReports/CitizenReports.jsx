@@ -26,6 +26,19 @@ const CitizenReports = () => {
         setReports(responseData.data.reports);
     }
 
+    //ALL Category
+    //onClick={() => categoryAll(status:lahat ng status na meron)}  initialize nalang ng local array na ["Pending","Confirmed","Cancelled","Resolved"] 
+    //const categoryAll = async (status) =>{}
+    // dito icocompare mo yung local content array to all proposal status
+    // if nag true ididsplay natin
+    
+    //Confirmed/Cancelled/Resolved Category
+    //onClick={() => categoryConfirmed/Cancelled/Resolved(status:Confirmed/Cancelled/Resolved)}
+    //const categoryConfirmed/Cancelled/Resolved = async (status) =>{}
+    // dito icocompare mo yung Confirmed/Cancelled/Resolved na status to all proposals
+    // if nag true ididsplay natin
+
+
     return(
         <Container className='citizenreports-Container'>
             <Row className='citizenreports-catbar-container'>
