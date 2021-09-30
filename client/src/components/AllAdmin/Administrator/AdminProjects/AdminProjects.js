@@ -59,6 +59,11 @@ const AdminProjects = ( props ) => {
                         ))}
                     </tbody>
                 </Tables>
+                <div>
+                    <Link to='/admin-create-projects'>
+                        <h3>Create Projects</h3>
+                    </Link>
+                </div>
             </AdminLayout>
         </React.Fragment>
     );

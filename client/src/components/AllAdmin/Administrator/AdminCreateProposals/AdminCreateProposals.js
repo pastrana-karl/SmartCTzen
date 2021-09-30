@@ -25,7 +25,7 @@ const AdminCreateProposals = () => {
 
     const formik = useFormik({
         initialValues: {
-            userName: aUser.user.username,
+            userName: '',
             title: '',
             description: '',
             location: '',
@@ -60,7 +60,7 @@ const AdminCreateProposals = () => {
                                 type='text'
                                 id='userName'
                                 name='userName'
-                                placeholder='User'
+                                placeholder='Username'
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={formik.values.userName}

@@ -24,6 +24,7 @@ reportsRouter
 reportsRouter
     .route("/reports/:id")
     .get(reportsController.getReport)
+    .patch(reportsController.patchReports)
     .delete(reportsController.deleteReports);
 
 // reportsRouter

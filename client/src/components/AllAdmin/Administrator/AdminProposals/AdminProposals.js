@@ -57,6 +57,11 @@ const AdminProposals = () => {
                         ))}
                     </tbody>
                 </Tables>
+                <div>
+                    <Link to='/admin-create-proposals'>
+                        <h3>Create Proposals</h3>
+                    </Link>
+                </div>
             </AdminLayout>
         </React.Fragment>
     );
