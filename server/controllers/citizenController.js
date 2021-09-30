@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util"); //built-in module
-
+const diffCollection = require("../models/diffCollectionModel");
 const Citizen = require("../models/citizenModel");
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
@@ -256,20 +256,63 @@ exports.protect = catchAsync(async (req, res, next) => {
 //     res.status(200).json(others);
 // });
 
-
+//UPDATE CITIZEN
 exports.UpdateCitizen = catchAsync(async (req, res, next) => {
     const token = req.body.token;
-    try{
-        const user = await Citizen.findByIdAndUpdate(req.params.id,{
-            $set: { "profilePic": req.body.profilePic }
-        },
-        { new:true }
-        );
-        res.status(200).json({data: { user }, token});
-    }catch(err){
-        res.status(500).json(err);
+
+    if(req.body.profilePic) {
+        try{
+            const user = await Citizen.findByIdAndUpdate(req.params.id,{
+                $set: { "profilePic": req.body.profilePic }
+            },
+            { new:true }
+            );
+
+            const updatedProfile = new diffCollection({
+                collectionName: 'Citizen',
+                userType: user.userType,
+                user: user.firstname + " " + user.lastname,
+                reason: 'Updated Profile',
+            });
+            
+            await updatedProfile.save();
+
+            res.status(200).json({data: { user }, token});
+        }catch(err){
+            res.status(500).json(err);
+        }
+    }
+
+    if(req.body.newPassword) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPass = await bcrypt.hash(req.body.newPassword, salt);
+
+        if(req.body.userId === req.params.id){
+            try{
+                const updatedUser = await Citizen.findByIdAndUpdate(req.params.id,{
+                    $set: { "password": hashedPass }
+                },
+                { new:true }
+                );
+
+                const updatedPassword = new diffCollection({
+                    collectionName: 'Citizen',
+                    userType: updatedUser.userType,
+                    user: updatedUser.firstname + " " + updatedUser.lastname,
+                    reason: 'Updated Password',
+                });
+                
+                await updatedPassword.save();
+
+                const { password, ...user } = updatedUser._doc;
+                res.status(200).json({data: { user }, token});
+            }catch(err){
+                res.status(500).json(err);
+            }
+        }
     }
 });
+
 //GET ALL APPLICANTS
 exports.applicants = catchAsync(async (req, res, next) => {
     const applicantStatus = req.query.status;
@@ -295,6 +338,15 @@ exports.acceptApplicant = catchAsync(async (req, res, next) => {
         const acceptApplicant = await Citizen.findByIdAndUpdate(req.params.id,{
             $set: { "status": true }
         });
+
+        const adminAcceptApplicant = new diffCollection({
+            collectionName: 'Admin',
+            userType: req.body.usertype,
+            user: req.body.username,
+            reason: 'Accepted Applicant ' + acceptApplicant.firstname + ' ' + acceptApplicant.lastname,
+        });
+        
+        await adminAcceptApplicant.save();
 
         transporter.sendMail({
             to:acceptApplicant.email,
@@ -366,6 +418,16 @@ exports.acceptApplicant = catchAsync(async (req, res, next) => {
 exports.rejectApplicant = catchAsync(async (req, res, next) => {
     try {
         const rejectApplicant = await Citizen.findById(req.params.id);
+
+        const adminRejectApplicant = new diffCollection({
+            collectionName: 'Admin',
+            userType: req.body.usertype,
+            user: req.body.username,
+            reason: 'Rejected Applicant ' + rejectApplicant.firstname + ' ' + rejectApplicant.lastname,
+        });
+        
+        await adminRejectApplicant.save();
+
         await rejectApplicant.delete();
 
         transporter.sendMail({
@@ -430,6 +492,20 @@ exports.rejectApplicant = catchAsync(async (req, res, next) => {
     } catch (err) {
         res.status(500).json(err);
     }
+});
+
+//Compare Password
+exports.PassWordCompare = catchAsync(async (req, res, next) => {
+    const citizen = await Citizen.findById(req.body.userId);
+
+    const validated = await bcrypt.compare(req.body.oldPassword, citizen.password);
+
+    if(!validated)
+    {
+        return res.status(400).json("Your Old Password is Wrong!!");
+    }
+    
+    res.status(200).json("Correct Password!");
 });
 
 //Change Password Request

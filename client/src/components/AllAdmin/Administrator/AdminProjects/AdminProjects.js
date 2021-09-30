@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useParams } from 'react';
+import { Link } from 'react-router-dom';
 
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Tables from '../../../UI/Tables/Tables';
@@ -8,18 +9,19 @@ import classes from './AdminProjects.module.css';
 
 const AdminProjects = ( props ) => {
     const [projects, setProjects] = useState();    
+    // const { handle } = useParams();
 
     useEffect(() => {
         const sendRequest = async () => {
             const response = await fetch('/api/projects');
-
             const responseData = await response.json();
-
             setProjects(responseData.data.projects);
         };
         sendRequest();
-    });
+    }, []);
 
+    //const string = 'watch?v=S_mgSHCWCmA';
+    console.log(projects);
     return (
         <React.Fragment>
             <AdminLayout>
@@ -37,6 +39,7 @@ const AdminProjects = ( props ) => {
                             <th>Time</th>
                             <th>Location</th>
                             <th>Status</th>
+                            <th>Link</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,10 +51,19 @@ const AdminProjects = ( props ) => {
                             <td>Time</td>
                             <td>{project.location}</td>
                             <td>{project.status}</td>
+                            {/* <td><a href={'/admin-project/:id'}>Click here</a></td> */}
+                            <td>
+                                <Link to={'/admin-project/' + project._id}>Click here</Link>
+                            </td>
                         </tr>
                         ))}
                     </tbody>
                 </Tables>
+                <div>
+                    <Link to='/admin-create-projects'>
+                        <h3>Create Projects</h3>
+                    </Link>
+                </div>
             </AdminLayout>
         </React.Fragment>
     );

@@ -44,8 +44,6 @@ proposalsRouter
     .put(proposalsController.updateProposal)
     .delete(proposalsController.deleteProposal);
 
-proposalsRouter
-    .route("/proposals/:id/histories")
-    .get(proposalsController.getProposalHistory);
+proposalsRouter.patch("/proposals/approve/:id", proposalsController.approveProposal);
 
 module.exports = proposalsRouter;

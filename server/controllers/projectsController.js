@@ -47,7 +47,7 @@ exports.postProjects = catchAsync(async (req, res, next) => {
     res.status(201).json({
         status: 'success',
         data: {
-            project: newProject
+            newProject
         }
     });
 });
@@ -91,41 +91,4 @@ exports.deleteProject = catchAsync(async (req, res, next) => {
         status: "success",
         data: null
     });
-});
-
-exports.getProjectHistory = catchAsync(async (req, res, next) => {
-    const project = await Projects.findById(req.params.id);
-    
-    await diffHistory.getHistories("Projects", project._id, ["mobile"], 
-        function (err, histories) {
-            if (err) {
-                return next(err);
-            }
-            res.status(200).json({
-                status: 'success',
-                data: {
-                    histories
-                }
-            });
-        })
-});
-
-exports.saveProjectHistory = catchAsync(async (req, res, next) => {
-    const project = await Projects.findById(req.params.id);
-    
-    await diffHistory.getHistories("Projects", project._id, ["mobile"], 
-        function (err, histories) {
-            if (err) {
-                return next(err);
-            }
-           
-            const newProjectHistory = diffCollection.create(histories);
-
-            res.status(201).json({
-                status: 'success',
-                data: {
-                    newProjectHistory
-                }
-            });
-        })
 });

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 const CitizenProposals = () => {
-    const [proposals, setProposals] = useState();
+    const [proposals, setProposals] = useState([]);
 
 
     useEffect(() => {

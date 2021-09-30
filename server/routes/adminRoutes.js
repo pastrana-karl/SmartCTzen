@@ -3,7 +3,7 @@ const adminController = require("../controllers/adminController");
 const Admin = require('../models/adminModel');
 
 
-router.get('/me', adminController.protectAdmin, adminController.getMe, adminController.getAdmin);
+router.get('/me', adminController.getMe, adminController.getAdmin);
 
 //REGISTER
 router
@@ -24,7 +24,6 @@ router
 router
     .route("/new-password")
     .post(adminController.changeAdminPassword);
-
 
 //GET SPECIFIC ADMIN
 router.get("/:id", async (req, res) => {
@@ -65,7 +64,6 @@ router.delete("/:id", async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 
 // router.post("/register", async (req, res) => {

@@ -3,25 +3,29 @@ const slugify = require("slugify");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
-const adminSchema = new mongoose.Schema({
-    username:{
-        type:String,
-        unique:true,
+const adminSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      unique: true,
     },
 
-    email:{
-        type:String,
-        unique:true,
+    email: {
+      type: String,
+      unique: true,
     },
 
-    password:{
-        type:String,
+    password: {
+      type: String,
     },
 
-    location:{
-        type:String,
+    city: {
+      type: String,
     },
 
+    region: {
+      type: String,
+    },
     // passwordConfirm: {
     //     type: String,
     //     required: [true, "This field is required"],
@@ -35,20 +39,26 @@ const adminSchema = new mongoose.Schema({
 
     // passwordChangedAt: Date,
 
-    resetToken:{
-        type:String,
+    resetToken: {
+      type: String,
     },
 
-    expireToken:{
-        type:Date,
+    expireToken: {
+      type: Date,
     },
 
-    profilePic:{
-        type:String,
-        default:"https://www.pinclipart.com/picdir/big/157-1578186_user-profile-default-image-png-clipart.png",
+    profilePic: {
+      type: String,
+      default:
+        "https://www.pinclipart.com/picdir/big/157-1578186_user-profile-default-image-png-clipart.png",
     },
-}, 
-{ timestamps: true }
+
+    userType: {
+      type: String,
+      default: "Administrator",
+    },
+  },
+  { timestamps: true }
 );
 
 //insert slug
@@ -61,19 +71,22 @@ const adminSchema = new mongoose.Schema({
 //     next();
 // });
 
-adminSchema.methods.correctPassword = async function(candidatePassword, adminPassword) {
-    return await bcrypt.compare(candidatePassword, adminPassword);
+adminSchema.methods.correctPassword = async function (
+  candidatePassword,
+  adminPassword
+) {
+  return await bcrypt.compare(candidatePassword, adminPassword);
 };
 
-adminSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
-    if(this.passwordChangedAt) {
-        const changedTimestamp = parseInt(this.passwordChangedAt.getTime()) / 1000;
+adminSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(this.passwordChangedAt.getTime()) / 1000;
 
-        console.log(changedTimestamp, JWTTimestamp);
-        return JWTTimestamp < changedTimestamp;
-    }
+    console.log(changedTimestamp, JWTTimestamp);
+    return JWTTimestamp < changedTimestamp;
+  }
 
-    return false;
+  return false;
 };
 
 // module.exports = mongoose.model("Admin", adminSchema);

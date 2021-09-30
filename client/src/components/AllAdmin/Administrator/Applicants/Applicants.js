@@ -27,7 +27,7 @@ const Applicants = () => {
     console.log(applicantID)
     return (
         <>
-        <AdminLayout />
+        <AdminLayout>
             <Container>
                 <div  className = 'Applicants-header'>
                     <h1>Applicants</h1>
@@ -58,8 +58,9 @@ const Applicants = () => {
                     )}
                 </div>
             </Container>
+          </AdminLayout>
         </>
     )
 }
 
-export default Applicants
+export default Applicants;

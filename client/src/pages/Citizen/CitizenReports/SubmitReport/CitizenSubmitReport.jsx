@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Row, Col, Button, Container } from 'react-bootstrap';
 import { Formik, Form, ErrorMessage } from 'formik';
-import { Link, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Context } from '../../../../context/Context';
@@ -15,7 +15,8 @@ import classes from '../../CitizenProposals/CreateProposals/CitizenCreateProposa
 const CitizenSubmitReport = () => {
     const citizenUser = useContext(Context);
     const [userId, setUserId] = useState();
-    const history = useHistory();
+    const [redirect, setRedirect] = useState(false);
+    const userType = citizenUser.user.data.user.userType;
 
     useEffect(() => {
         const getUserId = async () => {
@@ -43,14 +44,14 @@ const CitizenSubmitReport = () => {
         console.log('Form values', values);
 
         const userName = values.userName.replace('',userId)
-        const newValues = {...values, userName}
+        const newValues = {...values, userName, userType}
     
         const {...data} = newValues;
-        const res = await axios.post('/api/reports', data)
-            .catch(err => {
-                console.log('Error: ', err.res.data);
-            });
-        console.log(res);
+        const res = await axios.post('/api/reports', data).catch(err => {
+            console.log('Error: ', err.res.data);
+        });
+
+        setRedirect(true);
     };
     
     const validationSchema = Yup.object({
@@ -64,7 +65,9 @@ const CitizenSubmitReport = () => {
 
     return(
         <React.Fragment>
-            <Container className="citizenSubmitReport-container">
+            {/* <Container className="citizenSubmitReport-container"> */}
+            { redirect && (<Redirect to = '/citizen-reports' />) }
+            <Container className={classes.CitizenCreateProposalContentContainer}>
                 {/* <div className = 'col-lg-10 offset-lg-1'> */}
                 <Row>
                     <div className="citizen-header">

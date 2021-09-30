@@ -18,7 +18,6 @@ import SixthStep from './pages/Landing/Register/SixthStep';
 import SeventhStep from './pages/Landing/Register/SeventhStep';
 
 import CitizenNavBar from './components/Citizen/CitizenNav/CitizenNav';
-import CitizenProposalsSideBar from './components/Citizen/CitizenCatNav/CitizenSideBar';
 import CitizenProfile from './pages/Citizen/CitizenProfile/CitizenProfile';
 import CitizenProposals from './pages/Citizen/CitizenProposals/CitizenProposals';
 import CitizenReports from './pages/Citizen/CitizenReports/CitizenReports';
@@ -46,7 +45,6 @@ import CitizenViewReport from './pages/Citizen/CitizenReports/ViewReports/Citize
 import CitizenSubmitReport from './pages/Citizen/CitizenReports/SubmitReport/CitizenSubmitReport';
 import CitizenChatReport from './pages/Citizen/CitizenReports/ChatReports/CitizenChatReport';
 import CitizenViewProject from './pages/Citizen/CitizenProjects/CitizenViewProject/CitizenViewProject';
-import CitizenLogout from './pages/Citizen/CitizenLogout/CitizenLogout';
 import ProposalNav from './components/Citizen/ProposalNav/ProposalNav';
 import ReportsNav from './components/Citizen/ReportsNav/ReportsNav';
 
@@ -68,6 +66,10 @@ import SAAddAdmin from './pages/SuperAdmin/SAAddAdmin/SAAddAdmin';
 import SAAccount from './pages/SuperAdmin/SAAccount/SAAccount';
 import AdminReportsDashboard from './components/AllAdmin/Administrator/AdminReportsDashboard/AdminReportsDashboard';
 import AdminProposalsDashboard from './components/AllAdmin/Administrator/AdminProposalsDashboard/AdminProposalsDashboard';
+import AdminEachProposal from './components/AllAdmin/Administrator/AdminEachProposal/AdminEachProposal';
+import AdminEachProject from './components/AllAdmin/Administrator/AdminEachProject/AdminEachProject';
+import AdminEachReport from './components/AllAdmin/Administrator/AdminEachReport/AdminEachReport';
+import AdminUpdateProject from './components/AllAdmin/Administrator/AdminUpdateProject/AdminUpdateProject';
 
 const App = () => {
 
@@ -100,7 +102,6 @@ const App = () => {
 
       <CitizenNavBar />
       {/* <ProposalNav /> */}
-      <CitizenProposalsSideBar />
 
       <SANavBar />
 
@@ -242,6 +243,10 @@ const App = () => {
           <Route path="/admin-proposals">
             {aUser ? <AdminProposals /> : <Redirect to="/admin-login" />}
           </Route>
+          
+          <Route path="/admin-proposal/:id">
+            {aUser ? <AdminEachProposal /> : <Redirect to="/admin-login" />}
+          </Route>
 
           <Route path="/admin-create-proposals">
             {aUser ? <AdminCreateProposals /> : <Redirect to="/admin-login" />}
@@ -249,6 +254,10 @@ const App = () => {
 
           <Route path="/admin-reports">
             {aUser ? <AdminReports /> : <Redirect to="/admin-login" />}
+          </Route>
+
+          <Route path="/admin-report/:id">
+            {aUser ? <AdminEachReport /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-summary/reports">
@@ -263,12 +272,20 @@ const App = () => {
             {aUser ? <AdminProjects /> : <Redirect to="/admin-login" />}
           </Route>
 
+          <Route path="/admin-project/:id">
+            {aUser ? <AdminEachProject /> : <Redirect to="/admin-login" />}
+          </Route>
+
           <Route path="/admin-summary/proposals">
             {aUser ? <AdminProposalsDashboard /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-create-projects">
             {aUser ? <AdminCreateProjects /> : <Redirect to="/admin-login" />}
+          </Route>
+
+          <Route path="/admin-update-project/:id">
+            {aUser ? <AdminUpdateProject /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-users">

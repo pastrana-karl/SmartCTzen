@@ -21,6 +21,7 @@
     border-radius: 360px;
     object-fit: cover;
     margin: 5rem auto;
+    margin-bottom: 5%;
     box-sizing: border-box;
     padding: 20px;
     background: #F0F0F3;
@@ -97,6 +98,7 @@
 .citizenProfile-edit h3 {
     font-weight: bold;
     margin: 5% 0 5% 0;
+    text-align: center;
 }
 
 .citizenProfile-edit {
@@ -110,10 +112,15 @@
 .citizenProfile-changeImg{
     display: flex;
     justify-content: center;
+
 }
 .citizenProfile-changeImg .form-label{
     padding: 0px 30px;
     font-size: 32px;
+}
+
+.citizenProfile-changeImg .form-label i{
+    cursor: pointer;
 }
 
 .citizenProfile-passwordUpdate {
@@ -132,6 +139,19 @@
 .citizenProfile-statsMobile {
     display: none;
 }
+
+.citizenProfile-changeLink p {
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ff5138;
+}
+
+.citizenProfile-changeLink p {
+    color: #Dc4733;
+}
+
+
 
 @media screen and (max-width: 600px) {
     .citizenProfile-statsDesktop {

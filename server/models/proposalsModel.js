@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 const {ObjectId} = mongoose.Schema.Types;
 const slugify = require("slugify");
-const diffHistory = require("mongoose-audit-trail");
 
 const proposalsSchema = new mongoose.Schema({
     userId: {
+        type: String,
+    },
+    userType: {
         type: String,
     },
     userName: {
@@ -43,7 +45,9 @@ const proposalsSchema = new mongoose.Schema({
         {type: String}
     ],
     status: {
-        type: String
+        type: String,
+        enum: ['Needs Approval', 'Approved', 'Rejected'],
+        default: 'Needs Approval'
     },
     createdAt: {
         type: Date,
@@ -66,8 +70,6 @@ proposalsSchema.pre('save', function(next) {
             })
     */  
 });
-
-proposalsSchema.plugin(diffHistory.plugin);
 
 const Proposals = mongoose.model('Proposals', proposalsSchema);
 

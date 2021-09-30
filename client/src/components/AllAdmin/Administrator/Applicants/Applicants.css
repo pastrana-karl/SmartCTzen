@@ -49,6 +49,19 @@ div.Applicants-searchTitle.col {
     color: black;
 }
 
+.ApplicantsHeader {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 200px;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}
+
+
 @media screen and (max-width: 1200px) {
     .Applicants-searchTitle h4 {
         font-size: 15px;

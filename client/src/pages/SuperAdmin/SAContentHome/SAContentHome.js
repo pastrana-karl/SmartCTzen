@@ -170,7 +170,7 @@ const SAContentHome = () => {
           text: '',
         });
       } catch (err) {
-        console.log(err)
+        console.log(err.response)
         Swal.fire({
           icon: 'error',
           title: `${err.response.status}`,

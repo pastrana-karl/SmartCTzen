@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 import { Row, Col, Container } from 'react-bootstrap';
 import CardHeader from '../../../../components/UI/Cards/CardHeader/CardHeader';
 import Input from '../../../../components/UI/Input/Input';
@@ -19,9 +19,8 @@ import axios from 'axios';
 const CitizenCreateProposal = () => {
     const citizenUser = useContext(Context);
     const [userId, setUserId] = useState();
-    const history = useHistory();
-
-    // console.log(citizenUser);
+    const [redirect, setRedirect] = useState(false);
+    const userType = citizenUser.user.data.user.userType;
 
     useEffect(() => {
         const getUserId = async () => {
@@ -51,13 +50,14 @@ const CitizenCreateProposal = () => {
         console.log('Form values', values);
 
         const userName = values.userName.replace('',userId)
-        const newValues = {...values, userName}
+        const newValues = {...values, userName, userType}
 
         const {...data} = newValues;
-        const res = await axios.post('/api/proposals', data)
-            .catch(err => {
-                console.log('Error: ', err.res.data);
-            });
+        const res = await axios.post('/api/proposals', data).catch(err => {
+            console.log('Error: ', err.res.data);
+        });
+
+        setRedirect(true);
     };
     
     const validationSchema = Yup.object({
@@ -70,7 +70,8 @@ const CitizenCreateProposal = () => {
     });
 
     return(
-        <React.Fragment>
+        <>
+            { redirect && (<Redirect to = '/citizen-proposals' />) }
             <Container className={classes.CitizenCreateProposalContentContainer}>
                 {/* <div className = 'col-lg-10 offset-lg-1'> */}
                 <Row>
@@ -188,7 +189,7 @@ const CitizenCreateProposal = () => {
                 </Row>
                 {/* </div> */}
             </Container>
-        </React.Fragment>
+        </>
 
     //  {/* <React.Fragment> */}
     //          {/* <div className={classes.CitizenCreateProposalContentDiv}> */}

@@ -8,8 +8,13 @@ const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
+const diffHistory = require('mongoose-audit-trail');
 
 //Sendgrid key
+exports.getMe = catchAsync(async (req, res, next) => {
+    req.params.id = req.user.id;
+    next();
+});
 
 const signToken = id => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -148,10 +153,7 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
     createSendToken(adminUser, 201, res);
 });
 
-exports.getMe = (req, res, next) => {
-    req.params.id = req.user.id;
-    next();
-};
+
 
 exports.getAdmin = catchAsync(async (req, res, next) => {
     const admin = await Admin.findById(req.params.id);

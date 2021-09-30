@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
-const diffHistory = require("mongoose-audit-trail");
 
 const reportsSchema = new mongoose.Schema({
     userName: {
         type: String
     },
-
+    userType: {
+        type: String,
+    },
     title: {
         type: String,
         required: [true, 'This field is required']
@@ -16,18 +17,18 @@ const reportsSchema = new mongoose.Schema({
         required: [true, 'This field is required']
     },
     slug: String,
-    // date: {
-    //     type: String,
-    //     required: [true, 'This field is required']
-    // },
+    date: {
+        type: Date,
+        default: Date.now()
+    },
     location: {
         type: String,
         required: [true, 'This field is required']
     },
-    // photo: {
-    //     type: String,
-    //     required: [true, 'This field is required']
-    // }
+    photo: {
+        type: String,
+        default: 'No Image',
+    },
     status: {
         type: String,
         enum: ['Need action', 'Confirmed', 'Resolved', 'Cancelled'],
@@ -47,8 +48,6 @@ reportsSchema.pre('save', function(next) {
             })
     */  
 });
-
-reportsSchema.plugin(diffHistory.plugin);
 
 const Reports = mongoose.model('Reports', reportsSchema);
 

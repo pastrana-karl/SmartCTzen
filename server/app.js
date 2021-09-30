@@ -22,7 +22,8 @@ const SAFeaturedMember = require("./routes/SAFeaturedMemberRoutes");
 const SAFeatures = require("./routes/SAFeaturesRoutes");
 const conversationsRoutes = require('./routes/conversationsRoutes');
 const messagesRoutes = require('./routes/messagesRoutes');
-const EulaRoutes = require('./routes/EulaRoutes')
+const EulaRoutes = require('./routes/EulaRoutes');
+const historyRoutes = require('./routes/historyRoutes');
 
 const app = express();
 
@@ -92,6 +93,7 @@ app.use('/api/eula', EulaRoutes);
 app.use('/api/SAFeatures', SAFeatures);
 app.use('/api', conversationsRoutes);
 app.use('/api', messagesRoutes);
+app.use('/api/history', historyRoutes);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on the server`, 404));
