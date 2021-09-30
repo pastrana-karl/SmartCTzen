@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+
 import CardHeader from "../../../UI/Cards/CardHeader/CardHeader";
 import AdminLayout from "../AdminLayout/AdminLayout";
 import classes from "./AdminEachProposal.module.css";
@@ -18,6 +20,18 @@ const AdminEachProposal = () => {
     }
     findProposal();
   }, []);
+  
+  const approveProposal = () => {
+    axios.patch('/api/proposals/' + params.id, {
+      status: 'Approved'
+    });
+  };
+
+  const rejectProposal = () => {
+    axios.patch('/api/proposals/' + params.id, {
+      status: 'Rejected'
+    });
+  };
 
   return (
     <AdminLayout>
@@ -41,8 +55,8 @@ const AdminEachProposal = () => {
         </div>
       </div>
       <div className={classes.ButtonDiv}>
-          <button className={classes.Button}>Approve</button>
-          <button className={classes.Button}>Reject</button>
+          <button className={classes.Button} onClick={approveProposal}>Approve</button>
+          <button className={classes.Button} onClick={rejectProposal}>Reject</button>
       </div>
     </AdminLayout>
   );

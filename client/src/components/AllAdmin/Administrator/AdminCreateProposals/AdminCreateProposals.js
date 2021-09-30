@@ -58,8 +58,8 @@ const AdminCreateProposals = () => {
                             <label>Username</label>
                             <Input
                                 type='text'
-                                id='username'
-                                name='username'
+                                id='userName'
+                                name='userName'
                                 placeholder='User'
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}

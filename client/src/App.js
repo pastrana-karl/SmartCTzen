@@ -70,6 +70,7 @@ import AdminProposalsDashboard from './components/AllAdmin/Administrator/AdminPr
 import AdminEachProposal from './components/AllAdmin/Administrator/AdminEachProposal/AdminEachProposal';
 import AdminEachProject from './components/AllAdmin/Administrator/AdminEachProject/AdminEachProject';
 import AdminEachReport from './components/AllAdmin/Administrator/AdminEachReport/AdminEachReport';
+import AdminUpdateProject from './components/AllAdmin/Administrator/AdminUpdateProject/AdminUpdateProject';
 
 const App = () => {
 
@@ -279,6 +280,10 @@ const App = () => {
 
           <Route path="/admin-create-projects">
             {aUser ? <AdminCreateProjects /> : <Redirect to="/admin-login" />}
+          </Route>
+
+          <Route path="/admin-update-project/:id">
+            {aUser ? <AdminUpdateProject /> : <Redirect to="/admin-login" />}
           </Route>
 
           <Route path="/admin-users">

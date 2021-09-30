@@ -33,7 +33,7 @@ const AdminCreateProjects = () => {
             //const {...data} = values;
 
             console.log('Form data', values);
-            //axios.post('/api/projects/', values);
+            axios.post('/api/projects/', values);
                 // .catch(err => {
                 //     console.log('Error: ', err);
                 // });
@@ -41,7 +41,7 @@ const AdminCreateProjects = () => {
         validationSchema
     });
 
-    console.log(aUser)
+    
     return (
         <AdminLayout>
             <div className={classes.AdminCreateProjectsHeader}>
@@ -56,8 +56,8 @@ const AdminCreateProjects = () => {
                             <label>Username</label>
                             <Input
                                 type='text'
-                                id='username'
-                                name='username'
+                                id='userName'
+                                name='userName'
                                 placeholder='User'
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}

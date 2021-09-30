@@ -2,13 +2,16 @@ const mongoose = require("mongoose");
 const slugify = require("slugify");
 
 const projectsSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+    },
+    userType: {
+        type: String,
+    },
     userName: {
         type: String,
         // required: [true, 'This field is required']
     },
-    // userType: {
-    //     type: String,
-    // },
     title: {
         type: String,
         required: [true, 'This field is required']
@@ -18,11 +21,15 @@ const projectsSchema = new mongoose.Schema({
         required: [true, 'This field is required']
     },
     slug: String,
-    date:  {
-        type: String,
-        required: [true, 'This field is required']
+    date: {
+        type: Date,
+        default: Date.now(),
     },
-    status: String,
+    status: {
+        type: String,
+        enum: ['Ongoing', 'Accomplished'],
+        default: 'Ongoing'
+    },
     location:  {
         type: String,
         required: [true, 'This field is required']
