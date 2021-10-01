@@ -14,7 +14,7 @@ const CitizenConversations = ({conversation, currentUser}) => {
             try {
                 const res = await axios.get('/api/admin/' + adminId);
                 setAdminUser(res.data);
-                // console.log(res);
+                //console.log(res);
             } catch(err) {
                 console.log(err);
             }

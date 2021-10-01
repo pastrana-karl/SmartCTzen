@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import classes from './CitizenChatOnline.module.css';
 
-const CitizenChatOnline = () => {
+const CitizenChatOnline = ({currentId, setCurrentChat}) => {
     const [allAdmins, setAllAdmins] = useState();
 
     useEffect(() => {
@@ -16,12 +16,22 @@ const CitizenChatOnline = () => {
         sendRequest();
     }, []);
 
-   // console.log(allAdmins);
+    const handleClick = async (user) => {
+        try {
+            const res = await fetch(`/api/conversations/${currentId}/${user._id}` );
+            setCurrentChat(res)
+            //console.log(res);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+   console.log(allAdmins);
 
     return ( 
         <div className={classes.ChatOnline}>
             {allAdmins && allAdmins.map((admin) => (
-            <div className={classes.ChatOnlineAdmin} key={admin._id}> 
+            <div className={classes.ChatOnlineAdmin} key={admin._id}  onClick={() => handleClick(admin)}> 
                 <div className={classes.ChatOnlineImageContainer}>
                 <img 
                     className={classes.ChatOnlineImage}
@@ -29,7 +39,7 @@ const CitizenChatOnline = () => {
                 />
                 <div className={classes.ChatOnlineBadge}></div>
                 </div>
-                <span className={classes.ChatOnlineName}>Josh Holmes</span>
+                <span className={classes.ChatOnlineName}>{admin.username}</span>
             </div>
             ))}
         </div>

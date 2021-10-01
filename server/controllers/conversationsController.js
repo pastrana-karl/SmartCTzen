@@ -23,3 +23,11 @@ exports.getConversation = catchAsync(async (req, res, next) => {
     
     res.status(200).json(conversation);
 });
+
+//get conversation includes two userId
+exports.getConvoWithId = catchAsync(async (req, res, next) => {
+    const conversation = await Conversations.findOne({
+        members: { $all: [req.params.firstUserId, req.params.secondUserId] },
+    });
+    res.status(200).json(conversation);
+});

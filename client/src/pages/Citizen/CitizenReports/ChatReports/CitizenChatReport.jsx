@@ -50,7 +50,7 @@ const CitizenChatReport = ( props ) => {
             try {
                 const res = await axios.get("/api/conversations/" + user.data?.user?._id);
                 setConversations(res.data);
-                // console.log(res);
+                console.log(res);
             } catch(err) {
                 console.log(err);
             }
@@ -76,7 +76,7 @@ const CitizenChatReport = ( props ) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const message = {
-            sender: user._id,
+            sender: user.data.user._id,
             text: newMessage,
             conversationId: currentChat._id
         }
@@ -97,7 +97,7 @@ const CitizenChatReport = ( props ) => {
         }
     };
 
-    //console.log(user);
+    // console.log(user.data.user._id);
     
     return(
         <React.Fragment>
@@ -127,7 +127,7 @@ const CitizenChatReport = ( props ) => {
                                 {
                                     chatMessages.map(m => (
                                         <div>
-                                            <CitizenMessage messages={m} own={m.sender === user?.user?._id} />
+                                            <CitizenMessage messages={m} own={m.sender === user.data?.user?._id} />
                                         </div>
                                     ))
                                 }
@@ -145,7 +145,10 @@ const CitizenChatReport = ( props ) => {
                     </div>
                     {/* Admins */}
                     <div className={classes.AdminList}>
-                        <CitizenChatOnline />
+                        <CitizenChatOnline
+                            currentId={user.data.user._id}
+                            setCurrentChat={setCurrentChat}
+                        />
                     </div>
                 </div>
             </div>
