@@ -9,6 +9,8 @@ proposalsRouter
     .route("/proposals/topProposals")
     .get(proposalsController.getTopProposals);
  
+// proposalsRouter.post('create-proposals', proposalsController.postProposal);
+
 proposalsRouter
     .route("/proposals")
     .get(proposalsController.getAllProposals)

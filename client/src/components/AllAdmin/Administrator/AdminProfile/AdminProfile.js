@@ -71,7 +71,7 @@ const AdminProfile = () => {
         }
 
         if (file) {
-            const data = FormData();
+            const data = new FormData();
             const filename = Date.now() + file.name;
             data.append("name", filename);
             data.append("file", file);
@@ -108,11 +108,9 @@ const AdminProfile = () => {
             setIconUpload(false);
             setProfilePic("");
         }
-
-        //axios.patch('/api/admin/:id' + aUser.user._id);
     }
 
-    //console.log(aUser.user._id);
+
     return (
         // <React.Fragment>
         //     <AdminLayout>

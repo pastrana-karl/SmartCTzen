@@ -58,14 +58,14 @@ exports.getProposal = catchAsync(async (req, res, next) => {
 exports.postProposal = catchAsync(async (req, res, next) => {
     const newProposal = await Proposals.create(req.body);
 
-    const newProposalHist = new diffCollection({
-        collectionName: 'Proposal',
-        userType: newProposal.userType,
-        user: newProposal.userName,
-        reason: 'Created new proposal',
-    });
+    // const newProposalHist = new diffCollection({
+    //     collectionName: 'Proposal',
+    //     userType: newProposal.userType,
+    //     user: newProposal.userName,
+    //     reason: 'Created new proposal',
+    // });
 
-    await newProposalHist.save();
+    // await newProposalHist.save();
 
     res.status(201).json({
         status: 'success',

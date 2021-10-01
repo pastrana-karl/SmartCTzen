@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 import AdminLayout from '../AdminLayout/AdminLayout';
@@ -14,34 +16,43 @@ import classes from './AdminCreateProjects.module.css';
 
 const AdminCreateProjects = () => {
     const { aUser } = useContext(Context);
+    const { register, handleSubmit } = useForm();
 
-    const validationSchema = Yup.object({
-        userName: Yup.string().required('Required!'),
-        title: Yup.string().required('Required!'),
-        description: Yup.string().required('Required!'),
-        location: Yup.string().required('Required!')
-    });
+    const onSubmit = async (data) => {
+        const createProposal = {
+            data
+        };
 
-    const formik = useFormik({
-        initialValues: {
-            userName: aUser.user.username,
-            title: '',
-            description: '',
-            location: '',
-        },
-        onSubmit: values => {
-            //const {...data} = values;
+        const formData = new FormData();
+        const filename = Date.now() + data.coverImage[0].name;
+        formData.append('name', filename);
+        formData.append('coverImage', data.coverImage[0]);
+        formData.append("upload_preset", "dev_prac");
+        formData.append("cloud_name", "karlstorage");
 
-            console.log('Form data', values);
-            axios.post('/api/projects/', values);
-                // .catch(err => {
-                //     console.log('Error: ', err);
-                // });
-        },
-        validationSchema
-    });
+        try {
+            const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", formData);
+           data.coverImage[0].name = res.data.secure_url;
 
-    
+            try {
+                const res = await axios.post('/api/proposals', data);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Updated',
+                    text: 'Proposal submitted'
+                });
+            } catch (err) {
+                console.log(err);
+            }
+
+        } catch (err) {
+            console.log (err);
+        }
+
+        //await axios.post('/api/proposals', formData);
+        console.log(data.coverImage[0].name);
+    }
+
     return (
         <AdminLayout>
             <div className={classes.AdminCreateProjectsHeader}>
@@ -50,68 +61,62 @@ const AdminCreateProjects = () => {
                 </CardHeader>
             </div>
             <div className={classes.AdminCreateProjectsContentDiv}>
-                <form className={classes.AdminCreateProjectsForm} onSubmit={formik.handleSubmit}>
+                <form className={classes.AdminCreateProjectsForm} onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.AdminCreateProjectsFormDiv}>
                         <div className={classes.AdminCreateProjectsFormInput}>
                             <label>Username</label>
-                            <Input
+                            <input
+                                className={classes.Input}
                                 type='text'
                                 id='userName'
                                 name='userName'
-                                placeholder='User'
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.userName}
-                                disable
+                                placeholder='Username'
+                                value={aUser.user.username}
+                                ref={register}
                             />
-                            { formik.touched.userName && formik.errors.userName ? (
-                                <div className={classes.InputValidation}>{formik.errors.userName}</div>
-                                ) : null }
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
-                            <label>Project Title</label>
-                            <Input
+                            <label>Proposal Title</label>
+                            <input
+                                className={classes.Input}
                                 type='text'
                                 id='title'
                                 name='title'
-                                placeholder='Project Title'
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.title}
+                                placeholder='Proposal Title'
+                                ref={register}
                             />
-                            { formik.touched.title && formik.errors.title ? (
-                                <div className={classes.InputValidation}>{formik.errors.title}</div>
-                                ) : null }
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
                             <label>Description</label>
-                            <Input
+                            <input
+                                className={classes.Input}
                                 type='text'
                                 id='description'
                                 name='description'
                                 placeholder='Description'
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.description}
+                                ref={register}
                             />
-                            { formik.touched.description && formik.errors.description ? (
-                                <div className={classes.InputValidation}>{formik.errors.description}</div>
-                                ) : null }
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
                             <label>Location</label>
-                            <Input
+                            <input  
+                                className={classes.Input}
                                 type='text'
                                 id='location'
                                 name='location'
                                 placeholder='Location'
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.location}
+                                ref={register}
                             />
-                            { formik.touched.location && formik.errors.location ? (
-                                <div className={classes.InputValidation}>{formik.errors.location}</div>
-                                ) : null }
+                        </div>
+                        <div className={classes.AdminCreateProjectsFormInput}>
+                            <label>Image</label>
+                            <input
+                                type='file'
+                                id='coverImage'
+                                name='coverImage'
+                                placeholder='Insert Image'
+                                ref={register}
+                            />
                         </div>
                     </div>
                     <div className={classes.ButtonDiv}>
@@ -119,12 +124,129 @@ const AdminCreateProjects = () => {
                         <CancelButton />
                     </div>
                 </form>
+                <div className={classes.QuoteDiv}>
+                    <p className={classes.Quote}></p>
+                </div>
             </div>
         </AdminLayout>
-    );
-};
+    )
+}
 
 export default AdminCreateProjects;
+
+// const AdminCreateProjects = () => {
+//     const { aUser } = useContext(Context);
+
+//     const validationSchema = Yup.object({
+//         userName: Yup.string().required('Required!'),
+//         title: Yup.string().required('Required!'),
+//         description: Yup.string().required('Required!'),
+//         location: Yup.string().required('Required!')
+//     });
+
+//     const formik = useFormik({
+//         initialValues: {
+//             userName: '',
+//             title: '',
+//             description: '',
+//             location: '',
+//         },
+//         onSubmit: values => {
+//             //const {...data} = values;
+
+//             console.log('Form data', values);
+//             axios.post('/api/projects/', values);
+//                 // .catch(err => {
+//                 //     console.log('Error: ', err);
+//                 // });
+//         },
+//         validationSchema
+//     });
+
+    
+//     return (
+//         <AdminLayout>
+//             <div className={classes.AdminCreateProjectsHeader}>
+//                 <CardHeader>
+//                     <h2 className={classes.Text}>Projects</h2>
+//                 </CardHeader>
+//             </div>
+//             <div className={classes.AdminCreateProjectsContentDiv}>
+//                 <form className={classes.AdminCreateProjectsForm} onSubmit={formik.handleSubmit}>
+//                     <div className={classes.AdminCreateProjectsFormDiv}>
+//                         <div className={classes.AdminCreateProjectsFormInput}>
+//                             <label>Username</label>
+//                             <Input
+//                                 type='text'
+//                                 id='userName'
+//                                 name='userName'
+//                                 placeholder='User'
+//                                 onChange={formik.handleChange}
+//                                 onBlur={formik.handleBlur}
+//                                 value={formik.values.userName}
+//                                 disable
+//                             />
+//                             { formik.touched.userName && formik.errors.userName ? (
+//                                 <div className={classes.InputValidation}>{formik.errors.userName}</div>
+//                                 ) : null }
+//                         </div>
+//                         <div className={classes.AdminCreateProjectsFormInput}>
+//                             <label>Project Title</label>
+//                             <Input
+//                                 type='text'
+//                                 id='title'
+//                                 name='title'
+//                                 placeholder='Project Title'
+//                                 onChange={formik.handleChange}
+//                                 onBlur={formik.handleBlur}
+//                                 value={formik.values.title}
+//                             />
+//                             { formik.touched.title && formik.errors.title ? (
+//                                 <div className={classes.InputValidation}>{formik.errors.title}</div>
+//                                 ) : null }
+//                         </div>
+//                         <div className={classes.AdminCreateProjectsFormInput}>
+//                             <label>Description</label>
+//                             <Input
+//                                 type='text'
+//                                 id='description'
+//                                 name='description'
+//                                 placeholder='Description'
+//                                 onChange={formik.handleChange}
+//                                 onBlur={formik.handleBlur}
+//                                 value={formik.values.description}
+//                             />
+//                             { formik.touched.description && formik.errors.description ? (
+//                                 <div className={classes.InputValidation}>{formik.errors.description}</div>
+//                                 ) : null }
+//                         </div>
+//                         <div className={classes.AdminCreateProjectsFormInput}>
+//                             <label>Location</label>
+//                             <Input
+//                                 type='text'
+//                                 id='location'
+//                                 name='location'
+//                                 placeholder='Location'
+//                                 onChange={formik.handleChange}
+//                                 onBlur={formik.handleBlur}
+//                                 value={formik.values.location}
+//                             />
+//                             { formik.touched.location && formik.errors.location ? (
+//                                 <div className={classes.InputValidation}>{formik.errors.location}</div>
+//                                 ) : null }
+//                         </div>
+//                     </div>
+//                     <div className={classes.ButtonDiv}>
+//                         <SubmitButton />
+//                         <CancelButton />
+//                     </div>
+//                 </form>
+//             </div>
+//         </AdminLayout>
+//     );
+// };
+
+// export default AdminCreateProjects;
 
 // import React from 'react';
 // import { Formik, Form, ErrorMessage } from 'formik';
