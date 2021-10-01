@@ -19,23 +19,29 @@ const AdminCreateProjects = () => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async (data) => {
-        const createProposal = {
-            data
+        const coverImage = '';
+
+        const createProject = {
+            userName: data.userName,
+            title: data.title,
+            description: data.description,
+            location: data.location,
+            coverImage
         };
 
         const formData = new FormData();
         const filename = Date.now() + data.coverImage[0].name;
         formData.append('name', filename);
-        formData.append('coverImage', data.coverImage[0]);
+        formData.append('file', data.coverImage[0]);
         formData.append("upload_preset", "dev_prac");
         formData.append("cloud_name", "karlstorage");
 
         try {
             const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", formData);
-           data.coverImage[0].name = res.data.secure_url;
+            createProject.coverImage = res.data.secure_url;
 
             try {
-                const res = await axios.post('/api/proposals', data);
+                const res = await axios.post('/api/proposals', createProject);
                 Swal.fire({
                     icon: 'success',
                     title: 'Updated',
@@ -49,8 +55,8 @@ const AdminCreateProjects = () => {
             console.log (err);
         }
 
-        //await axios.post('/api/proposals', formData);
-        console.log(data.coverImage[0].name);
+        // await axios.post('/api/proposals', formData);
+        // console.log(data.coverImage[0].name);
     }
 
     return (
@@ -71,12 +77,12 @@ const AdminCreateProjects = () => {
                                 id='userName'
                                 name='userName'
                                 placeholder='Username'
-                                value={aUser.user.username}
+                                defaultValue={aUser.user.username}
                                 ref={register}
                             />
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
-                            <label>Proposal Title</label>
+                            <label>Project Title</label>
                             <input
                                 className={classes.Input}
                                 type='text'

@@ -20,6 +20,7 @@ const AdminEachProposal = () => {
     }
     findProposal();
   }, []);
+
   
   const approveProposal = () => {
     axios.patch('/api/proposals/' + params.id, {
@@ -32,6 +33,8 @@ const AdminEachProposal = () => {
       status: 'Rejected'
     });
   };
+
+  console.log(currentProposal);
 
   return (
     <AdminLayout>
@@ -48,10 +51,9 @@ const AdminEachProposal = () => {
               {currentProposal.description}
             </p>
           </div>
-          <p>Image Source</p>
-        </div>
-        <div className={classes.Gallery}>
-            <h5>Image Placeholder</h5>
+          <div className={classes.Gallery}>
+            <img src={currentProposal.coverImage} />
+          </div>
         </div>
       </div>
       <div className={classes.ButtonDiv}>

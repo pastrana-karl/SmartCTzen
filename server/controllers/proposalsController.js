@@ -65,12 +65,11 @@ exports.postProposal = catchAsync(async (req, res, next) => {
     //     reason: 'Created new proposal',
     // });
 
-    // await newProposalHist.save();
-
+    const proposal = await newProposal.save();
     res.status(201).json({
         status: 'success',
         data: {
-            newProposal
+            proposal
         }
     });
 });

@@ -19,24 +19,32 @@ const AdminCreateProposals = () => {
     const { register, handleSubmit } = useForm();
 
 
+
     const onSubmit = async (data) => {
+        const coverImage = '';
+
         const createProposal = {
-            data
+            userName: data.userName,
+            title: data.title,
+            description: data.description,
+            location: data.location,
+            coverImage,
         };
 
         const formData = new FormData();
         const filename = Date.now() + data.coverImage[0].name;
         formData.append('name', filename);
-        formData.append('coverImage', data.coverImage[0]);
+        formData.append('file', data.coverImage[0]);
         formData.append("upload_preset", "dev_prac");
         formData.append("cloud_name", "karlstorage");
 
         try {
             const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", formData);
-           data.coverImage[0].name = res.data.secure_url;
+            createProposal.coverImage = res.data.secure_url;
+            // console.log(data);
 
             try {
-                const res = await axios.post('/api/proposals', data);
+                const res = await axios.post('/api/proposals/', createProposal);
                 Swal.fire({
                     icon: 'success',
                     title: 'Updated',
@@ -50,8 +58,9 @@ const AdminCreateProposals = () => {
             console.log (err);
         }
 
-        //await axios.post('/api/proposals', formData);
-        console.log(data.coverImage[0].name);
+        // await axios.post('/api/proposals', formData);
+        // console.log(data);
+        // console.log('data-image' + data.coverImage[0]);
     }
 
     return (
@@ -72,8 +81,9 @@ const AdminCreateProposals = () => {
                                 id='userName'
                                 name='userName'
                                 placeholder='Username'
-                                value={aUser.user.username}
+                                defaultValue={aUser.user.username}
                                 ref={register}
+                                readOnly
                             />
                         </div>
                         <div className={classes.AdminCreateProposalsFormInput}>

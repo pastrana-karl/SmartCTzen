@@ -17,11 +17,13 @@
 .ProposalDiv {
     display: grid;
     row-gap: 80px;
+    margin: 0 50px;
 }
 
 .ProposalInfo {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    
 }
 
 .DescriptionContainer {

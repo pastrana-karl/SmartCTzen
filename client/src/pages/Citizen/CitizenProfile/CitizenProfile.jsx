@@ -58,6 +58,7 @@ const CitizenProfile = () => {
                 const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
                 updateAccount.profilePic = res.data.secure_url;
 
+                console.log(file.name);
                 try {
                     const res = await axios.put("/api/citizen/" + user.data.user._id, updateAccount);
                     dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
@@ -100,7 +101,7 @@ const CitizenProfile = () => {
                     </div>
 
                     <div className="citizenProfile-changeImg">
-                        <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label>
+                        <Form.Label ><i className="fas fa-history" onClick = { showLogs }></i></Form.Label>
                     </div>
                 </>
             }

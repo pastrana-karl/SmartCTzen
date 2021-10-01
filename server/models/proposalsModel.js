@@ -21,7 +21,6 @@ const proposalsSchema = new mongoose.Schema({
     description:  {
         type: String,
         required: [true, 'This field is required'],
-        trim: true
     },
     // date:  {
     //     type: String,
