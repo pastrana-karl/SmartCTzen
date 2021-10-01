@@ -36,7 +36,7 @@ const AdminEachProject = () => {
     console.log(response);
   };
   
-  console.log(params.id);
+  console.log(currentProject.coverImage);
   return (
     <AdminLayout>
       <div className={classes.AdminEachProject}>
@@ -52,10 +52,9 @@ const AdminEachProject = () => {
              {currentProject.description}
             </p>
           </div>
-          <p>Image Source</p>
-        </div>
-        <div className={classes.Gallery}>
-            <h5>Image Placeholder</h5>
+          <div className={classes.Gallery}>
+            <img src={currentProject.coverImage} className={classes.Image} />
+          </div>
         </div>
       </div>
       <div className={classes.ButtonDiv}>

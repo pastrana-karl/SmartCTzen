@@ -1,3 +1,7 @@
+.Container {
+    padding: 200px 50px;
+}
+
 .AdminMessages {
     display: flex;
     justify-content: center;
@@ -22,6 +26,7 @@
     box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
     border-radius: 30px;
     height: 700px;
+    margin-right: 50px;
 }
 
 .AdminChatWrapper {
@@ -63,15 +68,16 @@
 }
 
 .ChatMessageInput {
+    outline: none;
+    border: none;
     width: 90%;
     height: 90px;
     padding: 20px;
-    border-radius: 30px;
 
     background: #F0F0F3;
     box-shadow:  inset 5px 5px 10px #d4d4d4,
                 inset -5px -5px 10px #ffffff;
-    border-radius: 40px;
+    border-radius: 30px;
 }
 
 .ChatSubmitButton {
@@ -82,4 +88,8 @@
     cursor: pointer;
     background-color: #FF5039;
     color: white
+}
+
+.AdminList {
+    flex: 2
 }

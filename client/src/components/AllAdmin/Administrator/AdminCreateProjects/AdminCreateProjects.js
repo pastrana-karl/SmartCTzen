@@ -41,7 +41,7 @@ const AdminCreateProjects = () => {
             createProject.coverImage = res.data.secure_url;
 
             try {
-                const res = await axios.post('/api/proposals', createProject);
+                const res = await axios.post('/api/projects', createProject);
                 Swal.fire({
                     icon: 'success',
                     title: 'Updated',

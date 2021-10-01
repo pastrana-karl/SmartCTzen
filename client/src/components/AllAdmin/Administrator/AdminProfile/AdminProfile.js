@@ -47,11 +47,13 @@ const AdminProfile = () => {
     const formik = useFormik({
         initialValues,
         onSubmit: values => {
-            if (values.email !== aUser.user.email) {
+            if (values.email !== aUser.data.user.email) {
+                console.log("Incorrect email")
                 return false;
             }
     
             console.log('Form data', values)
+            axios.patch('/api/admin/' + aUser.data.user._id, values);
         }
     });
 
@@ -64,7 +66,7 @@ const AdminProfile = () => {
     const uploadPhotoHandler = async (e) => {
         e.preventDefault();
 
-        dispatch({ type: "UPDATE_START" });
+        dispatch({ type: "AUPDATE_START" });
         const updateAccount = {
             profilePic,
             token: aUser.token,
@@ -83,8 +85,8 @@ const AdminProfile = () => {
                 updateAccount.profilePic = res.data.secure_url;
 
                 try {
-                    const res = await axios.patch("/api/admin/" + aUser.user._id, updateAccount);
-                    dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
+                    const res = await axios.patch("/api/admin/" + aUser.data.user._id, updateAccount);
+                    dispatch({ type: "AUPDATE_SUCCESS", payload: res.data });
                     Swal.fire({
                         icon: 'success',
                         title: 'Updated!',
@@ -94,7 +96,7 @@ const AdminProfile = () => {
                     setIconUpload(false);
                 } catch (err) {
                     console.log(err);
-                    dispatch({ type: "UPDATE_FAILURE" })
+                    dispatch({ type: "AUPDATE_FAILURE" })
                 }
             } catch (err) {
                 console.log(err)
@@ -110,7 +112,7 @@ const AdminProfile = () => {
         }
     }
 
-
+    console.log(aUser);
     return (
         // <React.Fragment>
         //     <AdminLayout>
@@ -206,7 +208,7 @@ const AdminProfile = () => {
                     <div className={classes.AdminProfile}>
                         <div className={classes.AdminAccountShadow}>
                             <div className={classes.AdminAccountImage}>
-                                <img src= {file ? (URL.createObjectURL(file)) : `${aUser.user.profilePic}`} alt="" ></img>
+                                <img src= {file ? (URL.createObjectURL(file)) : `${aUser.data.user.profilePic}`} alt="" ></img>
                             </div>
                         </div>
 
@@ -231,7 +233,6 @@ const AdminProfile = () => {
                         }
 
                         <Form className={classes.AdminProfileEdit} onSubmit={ uploadPhotoHandler }>
-                            <h3>Personal Information</h3>
                             <Form.Group>
                                 <Form.Control
                                     id="iconImg"
@@ -244,6 +245,7 @@ const AdminProfile = () => {
                             <Button id="btnImg" type='submit' style={{display:'none'}}></Button>
                         </Form>
 
+                        <h3>{aUser.data.user.username}</h3>
                         <h2>Summary</h2>
                         <div className={classes.ButtonDiv}>
                             <Link to = "/admin-summary/reports">
@@ -262,13 +264,13 @@ const AdminProfile = () => {
                                     <div className={classes.InputDiv}>
                                         <label htmlFor="city_municipality">City/Municipality</label>
                                         <div className={classes.PseudoInput}>
-                                            {aUser.user.city}
+                                            {aUser.data.user.city}
                                         </div>
                                     </div>
                                     <div className={classes.InputDiv}>
                                         <label htmlFor="region">Region</label>
                                         <div className={classes.PseudoInput}>
-                                            {aUser.user.region}
+                                            {aUser.data.user.region}
                                         </div>
                                     </div>
                                 </div>

@@ -34,7 +34,7 @@ const AdminEachProposal = () => {
     });
   };
 
-  console.log(currentProposal);
+  console.log(currentProposal.coverImage);
 
   return (
     <AdminLayout>
@@ -52,7 +52,7 @@ const AdminEachProposal = () => {
             </p>
           </div>
           <div className={classes.Gallery}>
-            <img src={currentProposal.coverImage} />
+            <img src={currentProposal.coverImage} className={classes.Image} />
           </div>
         </div>
       </div>

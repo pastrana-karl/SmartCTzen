@@ -91,12 +91,13 @@ const CitizenChatReport = ( props ) => {
     
     return(
         <React.Fragment>
-            <AdminLayout>
+            <div className={classes.Container}>
                 <div className={classes.AdminMessages}>
                     <CardHeader>
                         <h2 className={classes.Text}>Messages</h2>
                     </CardHeader>
                 </div>
+                {/* List of chats */}
                 <div className={classes.Messenger}>
                     <div className={classes.AdminChatMenu}>
                         <input
@@ -109,6 +110,7 @@ const CitizenChatReport = ( props ) => {
                             </div>
                         ))}
                     </div>
+                    {/* Chatbox */}
                     <div className={classes.AdminChat}>
                         <div className={classes.AdminChatWrapper}>
                             <div className={classes.AdminChatBoxTop}>
@@ -131,8 +133,14 @@ const CitizenChatReport = ( props ) => {
                             </div>
                         </div>
                     </div>
+                    {/* Admins */}
+                    <div className={classes.AdminList}>
+                        <div>
+                            Holmes
+                        </div>
+                    </div>
                 </div>
-            </AdminLayout>
+            </div>
         </React.Fragment>
     );
 

@@ -37,7 +37,7 @@ const AdminMessages = ( props ) => {
     }, [arrivalMessage, currentChat]);
 
     useEffect(() => {
-        socket.current.emit("addUser", aUser.user._id);
+        socket.current.emit("addUser", aUser.data.user._id);
         socket.current.on("getUsers", aUser => {
             console.log(aUser);
         });
@@ -48,7 +48,7 @@ const AdminMessages = ( props ) => {
     useEffect(() => {
         const getConversations = async () => {
             try {
-                const res = await axios.get("/api/conversations/" + aUser?.user?._id);
+                const res = await axios.get("/api/conversations/" + aUser.data?.user?._id);
                 setConversations(res.data);
                 //console.log(res);
             } catch(err) {
@@ -57,7 +57,7 @@ const AdminMessages = ( props ) => {
         };
 
         getConversations();
-    }, [aUser?.user?._id]);
+    }, [aUser.data?.user?._id]);
 
     useEffect(() => {
         const getMessages = async () => {
@@ -74,7 +74,7 @@ const AdminMessages = ( props ) => {
 
    //console.log(currentChat);
    
-
+    console.log(aUser.data.user._id);
    const handleSubmit = async (e) => {
         e.preventDefault();
         const message = {
@@ -126,7 +126,7 @@ const AdminMessages = ( props ) => {
                         {
                             conversations.map(c => (
                                 <div onClick={() => setCurrentChat(c)}>
-                                    <AdminConversations conversation={c} currentUser={aUser?.user}  />
+                                    <AdminConversations conversation={c} currentUser={aUser.data?.user}  />
                                 </div>
                             ))
                         }
@@ -139,7 +139,7 @@ const AdminMessages = ( props ) => {
                                     <div className={classes.AdminChatBoxTop}>
                                         {chatMessages.map(m => (
                                             <div ref={scrollRef}>
-                                                <AdminMessage messages={m} own={m.sender === aUser?.user?._id} />
+                                                <AdminMessage messages={m} own={m.sender === aUser.data.user?._id} />
                                             </div>
                                         ))}
                                     </div>

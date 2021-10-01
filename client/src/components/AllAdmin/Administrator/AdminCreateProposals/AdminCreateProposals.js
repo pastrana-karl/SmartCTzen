@@ -81,7 +81,7 @@ const AdminCreateProposals = () => {
                                 id='userName'
                                 name='userName'
                                 placeholder='Username'
-                                defaultValue={aUser.user.username}
+                                defaultValue={aUser.data.user.username}
                                 ref={register}
                                 readOnly
                             />

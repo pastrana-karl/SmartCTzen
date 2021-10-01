@@ -40,7 +40,7 @@ const createSendToken = (user, statusCode, res) => {
     res.status(statusCode).json({
         status: 'success',
         token,
-        user
+        data: { user }
     });
 };
 
@@ -154,22 +154,24 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
 });
 
 exports.updateAdmin = catchAsync(async (req, res, next) => {
+    const token = req.body.token;
+    
     if (req.body.profilePic) {
-        const admin = await Admin.findByIdAndUpdate(req.params.id, {
+        const user = await Admin.findByIdAndUpdate(req.params.id, {
             $set: { "profilePic": req.body.profilePic }
         },
         { new: true });
 
         const updatedProfile = new diffCollection({
             collectionName: 'Admin',
-            userType: admin.userType,
-            user: admin.username,
+            userType: user.userType,
+            user: user.username,
             reason: 'Updated Profile'
         });
 
         await updatedProfile.save();
 
-        res.status(200).json({data: { admin }, token});
+        res.status(200).json({data: { user }, token});
     }
 
     if (req.body.newPassword) {
@@ -193,7 +195,7 @@ exports.updateAdmin = catchAsync(async (req, res, next) => {
             await updatedPassword.save();
 
             const { password, ...user } = updatedUser._doc;
-            res.status(200).json({ data: { admin }, token });
+            res.status(200).json({ data: { user }, token });
         }
     }
 });
