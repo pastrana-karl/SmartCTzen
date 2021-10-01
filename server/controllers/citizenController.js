@@ -313,22 +313,37 @@ exports.UpdateCitizen = catchAsync(async (req, res, next) => {
     }
 });
 
-//GET ALL APPLICANTS
+//GET ALL USERS/APPLICANTS
 exports.applicants = catchAsync(async (req, res, next) => {
     const applicantStatus = req.query.status;
-
-    try{
-        let citizenUser;
-
-        if(applicantStatus) {
-            citizenUser = await Citizen.find({ status:applicantStatus }).collation({locale: "en", strength: 2})
-        } else {
-            res.status(404).json("There are no current applicants...");
+    if(applicantStatus === false) {
+        try{
+            let citizenUser;
+    
+            if(applicantStatus) {
+                citizenUser = await Citizen.find({ status:applicantStatus }).collation({locale: "en", strength: 2})
+            } else {
+                res.status(404).json("There are no current applicants...");
+            }
+    
+            res.status(200).json(citizenUser);
+        }catch(err){
+             res.status(500).json(err);
         }
-
-        res.status(200).json(citizenUser);
-    }catch(err){
-         res.status(500).json(err);
+    } else {
+        try{
+            let citizenUser;
+    
+            if(applicantStatus) {
+                citizenUser = await Citizen.find({ status:applicantStatus }).collation({locale: "en", strength: 2})
+            } else {
+                res.status(404).json("There are no users...");
+            }
+    
+            res.status(200).json(citizenUser);
+        }catch(err){
+             res.status(500).json(err);
+        }
     }
 });
 

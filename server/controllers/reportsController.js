@@ -21,11 +21,20 @@ exports.getAllReports = catchAsync(async (req, res, next) => {
     //     }
     // });
 
-    try {
-        const reports = await Reports.find();
-        res.status(200).json(reports);
-    } catch (err) {
-        res.status(500).json(err);
+    if(req.query.user) {
+        try {
+            const reports = await Reports.find({ userName:req.query.user });
+            res.status(200).json(reports);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    } else {
+        try {
+            const reports = await Reports.find();
+            res.status(200).json(reports);
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 });
 
@@ -100,11 +109,20 @@ exports.getResolvedReports = catchAsync(async (req, res, next) => {
 });
 
 exports.getConfirmedReports = catchAsync(async (req, res, next) => {
-    try {
-        const confirmedReports = await Reports.find({status: 'Confirmed'});
-        res.status(200).json(confirmedReports);
-    } catch (err) {
-        res.status(500).json(err);
+    if(req.query.user) {
+        try {
+            const confirmedReports = await Reports.find({ userName: req.query.user, status: 'Confirmed' });
+            res.status(200).json(confirmedReports);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    } else {
+        try {
+            const confirmedReports = await Reports.find({status: 'Confirmed'});
+            res.status(200).json(confirmedReports);
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 });
 

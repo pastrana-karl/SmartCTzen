@@ -24,7 +24,6 @@ const Applicants = () => {
         getApplicant();
     }, [])
 
-    console.log(applicantID)
     return (
         <>
         <AdminLayout>

@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../../context/Context';
 import { Row, Col, Form, Container, Button } from 'react-bootstrap';
+import * as ReactBootStrap from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import ReactTooltip from "react-tooltip";
 import './CitizenProfile.css';
 
 const CitizenProfile = () => {
@@ -12,6 +14,12 @@ const CitizenProfile = () => {
     const [profilePic, setProfilePic] = useState("");
     const [logs, setLogs] = useState([]);
     const [iconUpload, setIconUpload] = useState(false);
+    const [reports, setReports] = useState([]);
+    const [proposals, setProposals] = useState([]);
+    const [verifiedReports, setVerifiedReports] = useState([]);
+    const [approvedProposals, setApprovedProposals] = useState([]);
+    const [loading, setLoading] =  useState(true);
+    
     const citizen = user.data.user.firstname + " " + user.data.user.lastname;
 
     useEffect(() => {
@@ -20,7 +28,54 @@ const CitizenProfile = () => {
             setLogs(res.data);
         }
 
+        const fetchReports = async () => {
+            const res = await axios.get(`/api/reports/?user=${citizen}`);
+            let count = 0
+            
+            res.data.forEach(() => {
+            count += 1;
+            })
+
+            setReports(count);
+        }
+
+        const fetchProposals = async () => {
+            const res = await axios.get(`/api/proposals/?user=${citizen}`);
+            let count = 0
+            
+            res.data.data.proposals.forEach(() => {
+            count += 1;
+            })
+
+            setProposals(count);
+        }
+
+        const fetchVerifiedReports = async () => {
+            const res = await axios.get(`/api/reports/confirmed/?user=${citizen}`);
+            let count = 0
+            
+            res.data.forEach(() => {
+            count += 1;
+            })
+            setVerifiedReports(count);
+        }
+
+        const fetchApprovedProposals = async () => {
+            const res = await axios.get(`/api/proposals/approved/?user=${citizen}`);
+            let count = 0
+            
+            res.data.forEach(() => {
+            count += 1;
+            })
+
+            setApprovedProposals(count);
+        }
+
         fetchLogs();
+        fetchReports();
+        fetchProposals();
+        fetchVerifiedReports();
+        fetchApprovedProposals();
     }, [])
 
     const setIconTrue = () => {
@@ -48,6 +103,7 @@ const CitizenProfile = () => {
             token: user.token,
         }
         if (file) {
+            setLoading(false);
             const data = new FormData();
             const filename = Date.now() + file.name;
             data.append("name", filename);
@@ -67,13 +123,15 @@ const CitizenProfile = () => {
                         title: 'Updated!',
                         text: 'Profile Picture Changed',
                     });
-        
+                    setLoading(true);
                     setIconUpload(false);
                 } catch (err) {
                     console.log(err);
                     dispatch({ type: "UPDATE_FAILURE" })
+                    setLoading(true);
                 }
             } catch (err) {
+                setLoading(true);
                 console.log(err)
             }
         } else {
@@ -84,9 +142,12 @@ const CitizenProfile = () => {
             });
             setIconUpload(false);
             setProfilePic("");
+            setLoading(true);
         }
     }
     return(
+        <>
+        {loading ? (
         <Container className = 'citizenProfile-container'>
             <div className = 'citizenAccountImg-shadow'>
                 <div className = 'citizenAccountImg'>
@@ -109,7 +170,11 @@ const CitizenProfile = () => {
             {iconUpload &&
                 <div className="citizenProfile-changeImg">
                     <Form.Label  htmlFor="iconImg"><i className="fas fa-image"></i></Form.Label>
-                    <Form.Label  htmlFor="btnImg"><i className="fas fa-upload"></i></Form.Label>
+
+                    <ReactTooltip id="infoBtn" place="top" effect="solid">
+                        If button is clicked and not submitting please input photo again. . .
+                    </ReactTooltip>
+                    <Form.Label  data-tip data-for="infoBtn" htmlFor="btnImg"><i className="fas fa-upload"></i></Form.Label>
                 </div>
             }
 
@@ -119,31 +184,51 @@ const CitizenProfile = () => {
                  </div>
                  <div className = 'citizenProfile-statsDesktop'>
                     <Row>
-                        <Col className = 'citizenProfile-Badge'>
-                            <div className = 'citizenProfile-BadgeImg'>
-                                    <img src='' alt="badge"></img> 
-                             </div>
+                        {approvedProposals === 10 || verifiedReports === 5 ? (
+                            <Col className = 'citizenProfile-Badge'>
                             <h4>Badge</h4>
+                            {verifiedReports === 5 &&
+                            <>
+                                <ReactTooltip id="reportsBadge" place="top" effect="solid">
+                                    You have reached five (5) verified reports!
+                                </ReactTooltip>
+                                <div className = 'citizenProfile-BadgeImg'>
+                                    <img data-tip data-for="reportsBadge" src='https://res.cloudinary.com/karlstorage/image/upload/v1633067410/free-img/lxegqxd9012mtsfbr0wk.png' alt="badge"></img> 
+                                </div>
+                            </>
+                            }
+
+                            {approvedProposals === 10 &&
+                            <>
+                                <ReactTooltip id="proposalsBadge" place="top" effect="solid">
+                                    You have reached ten (10) verified proposals!
+                                </ReactTooltip>
+                                <div className = 'citizenProfile-BadgeImg'>
+                                    <img data-tip data-for="proposalsBadge" src="https://res.cloudinary.com/karlstorage/image/upload/v1633067410/free-img/swr8qrfxityadpnchoft.png" alt="badge"></img>
+                                </div>
+                            </>
+                            }
                         </Col>
+                        ) : (<></>)}
                         <Col>
                             <Row>
                                 <Col className = 'citizenProfile-Stats'>
                                     <h4>Proposals Created</h4>
-                                    <p>1</p>
+                                    <p>{ proposals }</p>
                                 </Col>
                                 <Col className = 'citizenProfile-Stats'>
                                     <h4>Approved Proposals</h4>
-                                    <p>1</p>
+                                    <p>{ approvedProposals }</p>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col className = 'citizenProfile-Stats'>
                                     <h4>Verified Reports</h4>
-                                    <p>1</p>
+                                    <p>{ verifiedReports }</p>
                                 </Col>
                                 <Col className = 'citizenProfile-Stats'>
-                                    <h4>Voted Proposals</h4>
-                                    <p>1</p>
+                                    <h4>Reports Created</h4>
+                                    <p>{ reports }</p>
                                 </Col>
                             </Row>
                         </Col>
@@ -151,38 +236,59 @@ const CitizenProfile = () => {
                 </div>
                 <div className = 'citizenProfile-statsMobile'>
                     <Col>
-                        <Row className = 'citizenProfile-Badge'>
-                            <Col>
-                                <Row>
-                                    <div className = 'citizenProfile-BadgeImg'>
-                                        <img src="https://imgur.com/vxihw43.png" alt="badge"></img>
-                                    </div>
-                                </Row>
-                                <Row><h4>KEVIN</h4></Row>
-                            </Col>
-                        </Row>
-                        <Row className = 'citizenProfile-StatsMD'>
+                        {approvedProposals === 10 || verifiedReports === 5 ? (
+                            <Row className = 'citizenProfile-Badge'>
                                 <Col>
-                                    <Row><h4>Proposals Created</h4></Row>
-                                    <Row><p>1</p></Row>
+                                    <Row>
+                                        <Row><h4>Badge</h4></Row>
+                                        {verifiedReports === 5 &&
+                                        <>
+                                            <ReactTooltip id="reportsBadge" place="top" effect="solid">
+                                                You have reached five (5) verified reports!
+                                            </ReactTooltip>
+                                            <div className = 'citizenProfile-BadgeImg'>
+                                                <img data-tip data-for="reportsBadge" src='https://res.cloudinary.com/karlstorage/image/upload/v1633067410/free-img/lxegqxd9012mtsfbr0wk.png' alt="badge"></img> 
+                                            </div>
+                                        </>
+                                        }
+
+                                        {approvedProposals === 10 &&
+                                        <>
+                                            <ReactTooltip id="proposalsBadge" place="top" effect="solid">
+                                                You have reached ten (10) verified proposals!
+                                            </ReactTooltip>
+                                            <div className = 'citizenProfile-BadgeImg'>
+                                                    <img data-tip data-for="proposalsBadge" src="https://res.cloudinary.com/karlstorage/image/upload/v1633067410/free-img/swr8qrfxityadpnchoft.png" alt="badge"></img>
+                                            </div>
+                                        </>
+                                        }
+                                    </Row>
                                 </Col>
+                            </Row>
+                        ) : (<></>)}
+                        
+                        <Row className = 'citizenProfile-StatsMD'>
+                            <Col>
+                                <Row><h4>Proposals Created</h4></Row>
+                                <Row><p>{ proposals }</p></Row>
+                            </Col>
                         </Row>
                         <Row className = 'citizenProfile-StatsMD'>
                             <Col>
                             <Row><h4>Approved Proposals</h4></Row>
-                            <Row><p>1</p></Row>
+                            <Row><p>{ approvedProposals }</p></Row>
                             </Col>
                         </Row>
                         <Row className = 'citizenProfile-StatsMD'>
                             <Col>
                                 <Row><h4>Verified Reports</h4></Row>
-                                <Row><p>1</p></Row>
+                                <Row><p>{ verifiedReports }</p></Row>
                             </Col>
                         </Row>
                         <Row className = 'citizenProfile-StatsMD'>
                             <Col>
-                                <Row><h4>Voted Proposals</h4></Row>
-                                <Row><p>1</p></Row>
+                                <Row><h4>Reports Created</h4></Row>
+                                <Row><p>{ reports }</p></Row>
                             </Col>
                         </Row>
                     </Col>
@@ -192,10 +298,11 @@ const CitizenProfile = () => {
             <Form className = 'citizenProfile-edit' onSubmit = { handleSubmit }>
                 <h3>Personal Information</h3>
                   <Form.Group>
-                    <Form.Control
+                    <input
                         id="iconImg"
                         type="file"
                         name="citizenImg"
+                        required
                         style = {{display: "none"}}
                         onChange = {(e) => setFile(e.target.files[0])}
                     />
@@ -278,201 +385,28 @@ const CitizenProfile = () => {
                         placeholder={user.data.user.street +" "+user.data.user.barangay +" "+user.data.user.city +" "+user.data.user.region}
                     />
                 </Form.Group>
-                
-                <h3>Login Credentials</h3>
-                <Form.Group controlId="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        className='citizenProfile-input'
-                        type="text"
-                        name="birthday"
-                        autoComplete="off"
-                        disabled
-                        placeholder={user.data.user.email}
-                    />
-                </Form.Group>
 
                 <Button id="btnImg" type = 'submit' style={{display:'none'}}></Button>
             </Form>
             <Link to = '/citizen-pass-update' className = 'citizenProfile-passwordUpdate'><i className="editIcon far fa-edit"></i></Link>
         </Container>
+        ) : (
+            <div className = 'citizenProfileLoading'>
+              <h2>Processing Please Wait</h2>
+              <div>
+                <ReactBootStrap.Spinner animation="grow" variant="primary" />
+                <ReactBootStrap.Spinner animation="grow" variant="secondary" />
+                <ReactBootStrap.Spinner animation="grow" variant="success" />
+                <ReactBootStrap.Spinner animation="grow" variant="danger" />
+                <ReactBootStrap.Spinner animation="grow" variant="warning" />
+                <ReactBootStrap.Spinner animation="grow" variant="info" />
+                <ReactBootStrap.Spinner animation="grow" variant="light" />
+                <ReactBootStrap.Spinner animation="grow" variant="dark" />
+              </div>
+            </div>
+        )}
+        </>
     );
 };
 
 export default CitizenProfile;
-// import React, { useState } from 'react';
-// import { useFormik } from 'formik';
-// import ProfileIconCard from '../../../UI/Cards/ProfileIconCard/ProfileIconCard';
-// import ProfileInput from '../../../UI/Input/ProfileInput/ProfileInput';
-// import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
-// import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
-// import classes from './CitizenProfile.module.css';
-// const initialValues = {
-//     last_name: '',
-//     first_name: '',
-//     middle_name: '',
-//     suffix: '',
-//     sex: '',
-//     birthdate: '',
-//     address:'',
-//     email: '',
-//     password: ''
-// }
-// const onSubmit = values => {
-//     console.log('Form data', values)
-// };
-// const CitizenProfile = () => {
-//     const formik = useFormik({
-//         initialValues,
-//         onSubmit: values => {
-//             console.log('Form values', values)
-//         }
-//     });
-
-//     return (
-//         <React.Fragment>
-//             <CitizenLayout>
-//                 <div className={classes.Content}>
-//                     <div className={classes.CitizenProfile}>
-//                         <ProfileIconCard />
-                        
-//                         <div className={classes.ButtonDiv}>
-//                             <CitizenProfileButton>Proposals Created</CitizenProfileButton>
-//                             <CitizenProfileButton>Approved Proposals</CitizenProfileButton>
-//                             <CitizenProfileButton>Verified Reports</CitizenProfileButton>
-//                             <CitizenProfileButton>Voted Proposals</CitizenProfileButton>
-//                         </div>
-//                     </div>
-//                     <div>
-//                         <h2>Personal Information</h2>
-//                         <div>
-//                             <form className={classes.CitizenProfileFormDiv}>
-//                                 <div>
-//                                     <div className={classes.InputDiv}>
-//                                         <label htmlFor="last_name">Last Name</label>
-//                                         <ProfileInput
-//                                             placeholder="Last Name"
-//                                             type="text"
-//                                             id="last_name"
-//                                             name="last_name"
-//                                             readOnly="readOnly"
-//                                             onChange={formik.handleChange}
-//                                             value={formik.values.last_name}
-//                                         />
-//                                     </div>
-//                                     <div className={classes.InputDiv}>
-//                                         <label htmlFor="first_name">First Name</label>
-//                                         <ProfileInput
-//                                             placeholder="First Name"
-//                                             type="text"
-//                                             id="first_name"
-//                                             name="first_name"
-//                                             readOnly="readOnly"
-//                                             onChange={formik.handleChange}
-//                                             value={formik.values.first_name}
-//                                         />
-//                                     </div>
-//                                     <div className={classes.InputDiv}>
-//                                         <label htmlFor="middle_name">Middle Name</label>
-//                                         <ProfileInput
-//                                             placeholder="Middle Name"
-//                                             type="text"
-//                                             id="middle_name"
-//                                             name="middle_name"
-//                                             readOnly="readOnly"
-//                                             onChange={formik.handleChange}
-//                                             value={formik.values.middle_name}
-//                                         />
-//                                     </div>
-//                                     <div className={classes.InputDiv}>
-//                                         <label htmlFor="suffix">Suffix</label>
-//                                         <ProfileInput
-//                                             placeholder="Suffix"
-//                                             type="text"
-//                                             id="suffix"
-//                                             name="suffix"
-//                                             readOnly="readOnly"
-//                                             onChange={formik.handleChange}
-//                                             value={formik.values.suffix}
-//                                         />
-//                                     </div>
-//                                     <div className={classes.InputDiv}>
-//                                         <label htmlFor="sex">Sex</label>
-//                                         <ProfileInput
-//                                             placeholder="sex"
-//                                             type="text"
-//                                             id="sex"
-//                                             name="sex"
-//                                             readOnly="readOnly"
-//                                             onChange={formik.handleChange}
-//                                             value={formik.values.sex}
-//                                         />
-//                                     </div>
-//                                     <div className={classes.InputDiv}>
-//                                         <label htmlFor="birthdate">Birthdate</label>
-//                                         <ProfileInput
-//                                             placeholder="Birthdate"
-//                                             type="text"
-//                                             id="birthdate"
-//                                             name="birthdate"
-//                                             readOnly="readOnly"
-//                                             onChange={formik.handleChange}
-//                                             value={formik.values.birthdate}
-//                                         />
-//                                     </div>
-//                                     <div className={classes.InputDiv}>
-//                                         <label htmlFor="address">Full Addreses</label>
-//                                         <ProfileInput
-//                                             placeholder="Address"
-//                                             type="text"
-//                                             id="address"
-//                                             name="address"
-//                                             readOnly="readOnly"
-//                                             onChange={formik.handleChange}
-//                                             value={formik.values.address}
-//                                         />
-//                                     </div>
-//                                 </div>
-//                             </form>
-//                         </div>
-//                         {/* LOGIN CREDENTIALS */}
-//                         <h2>Login Credentials</h2>
-//                         <div>
-//                             <form onSubmit={formik.handleSubmit}>
-//                                 <div className={classes.CitizenProfileFormDiv}>
-//                                     <div className={classes.InputDiv}>
-//                                         <label>Email Address</label>
-//                                         <ProfileInput
-//                                             placeholder="Email address"
-//                                             type="email"
-//                                             id="email"
-//                                             name="email"
-//                                             onChange={formik.handleChange}
-//                                             value={formik.values.email}
-//                                         />
-//                                     </div>
-//                                     <div className={classes.InputDiv}>
-//                                         <label>Password</label>
-//                                         <ProfileInput
-//                                             placeholder="Password"
-//                                             type="password"
-//                                             id="password"
-//                                             name="password"
-//                                             onChange={formik.handleChange}
-//                                             value={formik.values.password}
-//                                         />
-//                                     </div>
-//                                 </div>
-//                                 <div className={classes.ButtonDiv}>
-//                                     <SubmitButton />
-//                                     <CancelButton />
-//                                 </div>
-//                             </form>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </CitizenLayout>
-//         </React.Fragment>
-//     );
-// }
-// export default CitizenProfile;
