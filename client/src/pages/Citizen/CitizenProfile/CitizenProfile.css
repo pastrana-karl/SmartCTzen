@@ -60,19 +60,24 @@
     padding: 20px;
     background: #F0F0F3;
     box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
-    display: grid;
-    row-gap: 20px;
 }
 
 .citizenProfile-Badge h4 {
     font-weight: bold;
-    margin: 0px 0px 0px !important;
+    margin: 0px 0px 0px 0px !important;
 }
 
 .citizenProfile-BadgeImg {
     display: flex;
     justify-content: center;
     
+}
+
+.citizenProfile-BadgeImg img {
+    cursor: pointer;
+    object-fit: cover;
+    width: 20%;
+    height: 20%;
 }
 
 .citizenProfile-name {
@@ -151,7 +156,20 @@
     color: #Dc4733;
 }
 
+.citizenProfileLoading {
+  color: #777;
+  text-align: center;
+}
 
+.citizenProfileLoading h2 {
+  margin-top: 10%;
+}
+
+@media screen and (maX-width: 1200px) {
+    .citizenProfileLoading {
+        margin-top: 20%;  
+    }
+}
 
 @media screen and (max-width: 600px) {
     .citizenProfile-statsDesktop {
@@ -189,4 +207,8 @@
         padding: 22px;
         font-size: 18px;
     }
+
+    .citizenProfileLoading {
+        margin-top: 60%;  
+    } 
 }

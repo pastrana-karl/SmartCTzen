@@ -5,17 +5,26 @@ const catchAsync = require('../utils/catchAsync');
 const diffCollection = require("../models/diffCollectionModel");
 
 exports.getApprovedProposals = async (req, res, next) => {
-    try {
-        const acceptedProposals = await Proposals.find({status: "approved"});
-        res.status(200).json(acceptedProposals);
-    } catch (err) {
-        res.status(500).json(err);
+    if(req.query.user) {
+        try {
+            const acceptedProposals = await Proposals.find({ userName: req.query.user, status: "Approved"});
+            res.status(200).json(acceptedProposals);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    } else {
+        try {
+            const acceptedProposals = await Proposals.find({ status: "Approved"});
+            res.status(200).json(acceptedProposals);
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 };
 
 exports.getRejectedProposals = async (req, res, next) => {
     try {
-        const rejectedProposals = await Proposals.find({status: "rejected"});
+        const rejectedProposals = await Proposals.find({status: "Rejected"});
         res.status(200).json(rejectedProposals);
     } catch (err) {
         res.status(500).json(err);
@@ -23,21 +32,49 @@ exports.getRejectedProposals = async (req, res, next) => {
 };
 
 exports.getAllProposals = catchAsync(async (req, res, next) => {
+    //This does not return all the reports this requires a query when getting all reports there is no query
     //Execute query
-    const features = new APIFeatures(Proposals.find(), req.query)
-    .filter()
-    .sort()
-    .limit();
+    // const features = new APIFeatures(Proposals.find(), req.query)
+    // .filter()
+    // .sort()
+    // .limit();
 
-    const proposals = await features.query;
+    // const proposals = await features.query;
 
-    //Send response
-    res.status(200).json({
-        status: 'success',
-        data: {
-            proposals
+    // //Send response
+    // res.status(200).json({
+    //     status: 'success',
+    //     data: {
+    //         proposals
+    //     }
+    // });
+
+    
+    if(req.query.user) {
+        try {
+            const proposals = await Proposals.find({ userName:req.query.user });
+            res.status(200).json({
+                status: 'success',
+                data: {
+                    proposals
+                }
+            });
+        } catch (err) {
+            res.status(500).json(err);
         }
-    });
+    } else {
+        try {
+            const proposals = await Proposals.find();
+            res.status(200).json({
+                status: 'success',
+                data: {
+                    proposals
+                }
+            });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
 });
 
 exports.getProposal = catchAsync(async (req, res, next) => {
@@ -251,7 +288,7 @@ exports.deleteProposal = catchAsync(async (req, res, next) => {
 
 exports.getTopProposals = catchAsync(async (req, res, next) => {
     try {
-        const topProposals = await Proposals.find({status: 'pending'}).sort({'upvote': -1}).limit(10);
+        const topProposals = await Proposals.find({status: 'Pending'}).sort({'upvote': -1}).limit(10);
         res.status(200).json(topProposals);
     } catch (err) {
         res.status(500).json(err);

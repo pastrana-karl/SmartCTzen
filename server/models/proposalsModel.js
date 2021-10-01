@@ -45,8 +45,8 @@ const proposalsSchema = new mongoose.Schema({
     ],
     status: {
         type: String,
-        enum: ['Needs Approval', 'Approved', 'Rejected'],
-        default: 'Needs Approval'
+        enum: ['Pending', 'Approved', 'Rejected'],
+        default: 'Pending'
     },
     createdAt: {
         type: Date,
