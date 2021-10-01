@@ -317,6 +317,16 @@ exports.changeAdminPassword = (req, res, next) => {
         })
     }).catch(err => {
         console.log(err)
-    })
+    });
 };
 
+// exports.getAllAdmins = catchAsync(async (req, res, next) => {
+//     const admin = await Admin.find();
+
+//     res.status(200).json({
+//         status: 'success',
+//         data: {
+//             admin
+//         }
+//     });
+// })

@@ -10,6 +10,7 @@ import { Context } from '../../../../context/Context';
 
 import './CitizenChatReport.module.css';
 import classes from './CitizenChatReport.module.css';
+import CitizenChatOnline from './ChatOnline/CitizenChatOnline';
 
 const CitizenChatReport = ( props ) => {
     const [conversations, setConversations] = useState([]);
@@ -135,9 +136,7 @@ const CitizenChatReport = ( props ) => {
                     </div>
                     {/* Admins */}
                     <div className={classes.AdminList}>
-                        <div>
-                            Holmes
-                        </div>
+                        <CitizenChatOnline />
                     </div>
                 </div>
             </div>
