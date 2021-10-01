@@ -72,24 +72,24 @@ const AdminMessages = ( props ) => {
         getMessages();
     }, [currentChat]);
 
-   //console.log(currentChat);
+    // console.log(currentChat);
    
-    console.log(aUser.data.user._id);
+    // console.log(aUser.data.user._id);
    const handleSubmit = async (e) => {
         e.preventDefault();
         const message = {
-            sender: aUser.user._id,
+            sender: aUser.data.user._id,
             text: newMessage,
             conversationId: currentChat._id
         };
 
-        // const receiverId = currentChat.members.find(member => member !== aUser.user._id);
+        const receiverId = currentChat.members.find(member => member !== aUser.data.user._id);
         
-        // socket.current.emit("sendMessage", {
-        //     senderId: aUser.user._id,
-        //     receiverId,
-        //     text: newMessage
-        // });
+        socket.current.emit("sendMessage", {
+            senderId: aUser.data.user._id,
+            receiverId,
+            text: newMessage
+        });
 
         try {
             const res = await axios.post("/api/messages/", message);

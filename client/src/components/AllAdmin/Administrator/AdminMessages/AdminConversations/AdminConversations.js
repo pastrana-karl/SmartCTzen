@@ -24,7 +24,8 @@ const AdminConversations = ({conversation, currentUser}) => {
         getUser();
     }, [currentUser, conversation]);
 
-    console.log(citizenUser._id);
+    //console.log(citizenUser);
+    //console.log(citizenUser._id);
     return(
         <div className={classes.AdminConversations}>
             <img 

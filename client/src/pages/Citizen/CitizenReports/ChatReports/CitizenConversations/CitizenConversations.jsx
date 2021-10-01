@@ -23,7 +23,7 @@ const CitizenConversations = ({conversation, currentUser}) => {
     }, [currentUser, conversation]);
 
     
-    console.log(currentUser);
+    //console.log(currentUser);
 
     return(
         <div className={classes.CitizenConversations}>

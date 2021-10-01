@@ -3,6 +3,11 @@
     align-items: center;
     font-weight: 500;
     cursor: pointer;
+    padding: 10px 10px;
+}
+
+.ChatOnlineAdmin:hover {
+    background-color: lightgray;
 }
 
 .ChatOnlineImageContainer {
