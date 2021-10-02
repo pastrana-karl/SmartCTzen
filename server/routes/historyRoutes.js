@@ -11,4 +11,14 @@ router.get('/citizens', async (req, res) => {
     }
 });
 
+router.get('/administrator', async (req, res) => {
+    try {
+        const adminHis = await History.find({ userType:req.query.userType }).sort({createdAt: -1});
+        console.log(adminHis)
+        res.status(200).json(adminHis);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 module.exports = router;

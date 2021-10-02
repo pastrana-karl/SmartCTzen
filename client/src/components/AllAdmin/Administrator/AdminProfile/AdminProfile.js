@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Row, Col, Form, Container, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -30,6 +30,7 @@ const AdminProfile = () => {
     const [file, setFile] = useState(null);
     const [profilePic, setProfilePic] = useState("");
     const [iconUpload, setIconUpload] = useState(false);
+    const [logs, setLogs] = useState([]);
 
     // const onSubmit = values => {
     //     if (values.email !== aUser.user.email) {
@@ -38,6 +39,15 @@ const AdminProfile = () => {
 
     //     console.log('Form data', values);
     // };
+
+    useEffect(() => {
+        const fetchLogs = async () => {
+            const res = await axios.get(`/api/history/administrator/?userType=Administrator`);
+            setLogs(res.data);
+        }
+
+        fetchLogs();
+    }, [])
 
     const initialValues = {
         email: '',
@@ -57,7 +67,17 @@ const AdminProfile = () => {
         }
     });
 
-    
+    const showLogs = async () => {
+        Swal.fire({
+            icon: 'info',
+            title: 'Activity Logs',
+            html: `${
+                logs.map((L) => {
+                const date = new Date(L.createdAt).toLocaleDateString();
+                return "<p style ='text-align: justify'>Timestamp: " + date + " Reason: " + L.reason + " By: " + L.user + "<br/></p>";
+            }).join('')}`,
+        });
+    }
 
     const setIconTrue = () => {
         setIconUpload(true);
@@ -219,8 +239,7 @@ const AdminProfile = () => {
                                 </div>
 
                                 <div className={classes.AdminProfileChangeImg}>
-                                    <Form.Label ><i class="fas fa-history" ></i></Form.Label>
-                                    {/* <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label> */}
+                                    <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label>
                                 </div>
                             </>
                         }
