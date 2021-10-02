@@ -3,23 +3,20 @@ import { Formik, Form, ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
 import { Redirect } from 'react-router';
 import { Row, Col, Container } from 'react-bootstrap';
-import CardHeader from '../../../../components/UI/Cards/CardHeader/CardHeader';
-import Input from '../../../../components/UI/Input/Input';
 import FormikInput from '../../../../components/UI/Input/FormikInput/FormikInput';
 import SubmitButton from '../../../../components/UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../../components/UI/Buttons/CancelButton/CancelButton';
+import Swal from 'sweetalert2';
 import { Context } from '../../../../context/Context';
-
-
 import classes from './CitizenCreateProposals.module.css';
 import axios from 'axios';
-
 
 
 const CitizenCreateProposal = () => {
     const citizenUser = useContext(Context);
     const [userId, setUserId] = useState();
     const [redirect, setRedirect] = useState(false);
+    const [file, setFile] = useState(null);
     const userType = citizenUser.user.data.user.userType;
 
     useEffect(() => {
@@ -35,14 +32,13 @@ const CitizenCreateProposal = () => {
 
     console.log(userId);  
     const initialValues = {
+        userId: citizenUser.user.data.user._id,
         userName: '',
         title: '',
         description: '',
-        // createdAt: '',
         location: '',
         status:'Pending',
-        upvote: [],
-        // downvote: '',
+    
     };
     
     
@@ -51,24 +47,58 @@ const CitizenCreateProposal = () => {
 
         const userName = values.userName.replace('',userId)
         const newValues = {...values, userName, userType}
+        const images = "";
 
-        const {...data} = newValues;
-        const res = await axios.post('/api/proposals', data).catch(err => {
-            console.log('Error: ', err.res.data);
-        });
+        const proposalData = {
+            description: newValues.description,
+            location: newValues.location,
+            status: newValues.status,
+            title: newValues.title,
+            userId: newValues.userId,
+            userName: newValues.userName,
+            userType: newValues.userType,
+            images,
+        }
 
-        setRedirect(true);
+        if (file) {
+            const data = new FormData();
+            const filename = Date.now() + file.name;
+            data.append("name", filename);
+            data.append("file", file);
+            data.append("upload_preset", "dev_prac");
+            data.append("cloud_name", "karlstorage");
+            try {
+                const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
+                proposalData.images = res.data.secure_url;
+
+                try {
+                    const res = await axios.post('/api/proposals', proposalData).catch(err => {
+                        console.log('Error: ', err.res.data);
+                    });
+                    
+                    setRedirect(true);
+                } catch (err) {
+                    console.log(err)
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Photo is requried!',
+                text: 'Upload a photo',
+            });
+        }
     };
     
     const validationSchema = Yup.object({
         userName: Yup.string(),
         title: Yup.string().required('Required'),
         description: Yup.string().required('Required'),
-        // date: Yup.string().required('Required'),
         location: Yup.string().required("Required"),
-
     });
-
+    // console.log(citizenUser.user.data.user._id);
     return(
         <>
             { redirect && (<Redirect to = '/citizen-proposals' />) }
@@ -107,7 +137,7 @@ const CitizenCreateProposal = () => {
                                                 id="description"
                                                 name="description"
                                             />
-                                            <ErrorMessage name="name">
+                                            <ErrorMessage name="description">
                                                 {
                                                     errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
                                                 }
@@ -156,23 +186,30 @@ const CitizenCreateProposal = () => {
                                         </ErrorMessage>
                                     </Col>
                                 </Row>
-                                <Row>
-                                    {/* <Col className={classes.CitizenCreateProposalFormInput} >
-                                        <label>Photo</label>
-                                        <FormikInput 
-                                            type="text"
-                                            placeholder="Photo"
-                                            id="photo"
-                                            name="photo"
+                                <Row className={classes.citizensubmitreportphotoinput}>
+                                    <Col className={classes.CitizenCreateProposalFormInput} >
+                                        <label style={{textAlign: 'center', marginTop: '5%'}}>Photo</label>
+
+                                        <div className = 'CitizenCreateProposalImg'>
+                                            {file && <img src = { (URL.createObjectURL(file)) } alt = '' onClick={()=> window.open(URL.createObjectURL(file), "_blank")}/>}
+                                        </div>
+
+                                        <label  htmlFor="images"><i className="fas fa-image"></i></label>
+
+                                        <Field 
+                                            type="file"
+                                            id="images"
+                                            name="images"
+                                            style={{display: 'none'}}
+                                            onChange = {(e) => setFile(e.target.files[0])}
                                         />
-                                        <ErrorMessage name="photo">
+                                        <ErrorMessage name="images">
                                             {
                                                 errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
                                             }
                                         </ErrorMessage>
-                                    </Col> */}
-                                    <Col>
                                     </Col>
+                                    
                                 </Row>
                                 <Row>
                                     <Col>

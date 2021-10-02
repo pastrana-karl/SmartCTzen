@@ -13,6 +13,12 @@ const bcrypt = require("bcrypt");
 
 //Sendgrid key
 
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth:{
+        api_key:"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"
+    }
+}))
+
 /**
  * 
  * The catchAsync() function will be our error handler so you don't

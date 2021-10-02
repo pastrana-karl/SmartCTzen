@@ -5,20 +5,11 @@ const catchAsync = require('../utils/catchAsync');
 const diffCollection = require("../models/diffCollectionModel");
 
 exports.getApprovedProposals = async (req, res, next) => {
-    if(req.query.user) {
-        try {
-            const acceptedProposals = await Proposals.find({ userName: req.query.user, status: "Approved"});
-            res.status(200).json(acceptedProposals);
-        } catch (err) {
-            res.status(500).json(err);
-        }
-    } else {
-        try {
-            const acceptedProposals = await Proposals.find({ status: "Approved"});
-            res.status(200).json(acceptedProposals);
-        } catch (err) {
-            res.status(500).json(err);
-        }
+    try {
+        const acceptedProposals = await Proposals.find({status: "Approved"});
+        res.status(200).json(acceptedProposals);
+    } catch (err) {
+        res.status(500).json(err);
     }
 };
 
@@ -26,6 +17,16 @@ exports.getRejectedProposals = async (req, res, next) => {
     try {
         const rejectedProposals = await Proposals.find({status: "Rejected"});
         res.status(200).json(rejectedProposals);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
+exports.getOwnProposals = async (req, res, next) => {
+    console.log(req.params.id);
+    try {
+        const ownProposals = await Proposals.find({userId:req.params.id});
+        res.status(200).json(ownProposals);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -111,8 +112,6 @@ exports.postProposal = catchAsync(async (req, res, next) => {
     });
 });
 
-
-
 exports.updateProposal = catchAsync(async (req, res, next) => {
     const proposal = await Proposals.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -127,37 +126,13 @@ exports.updateProposal = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.upVote = catchAsync(async (req, res, next) => {
-    const proposal = await Proposals.findByIdAndUpdate(
-        req.params.id
-        ,{
-            $push:{
-                upvote: JSON.stringify(req.body)
-            }
-        },{
-            new:true,
-            runValidators:true
-        },function(err,model){
-            if(err){
-                console.log(err);
-            }else{
-                console.log("Vote Recieved! ID: ", model)
-            }});
-
-    res.status(200).json({
-        status: "success",
-        data: {
-            proposal
-        }
-    });
-});
-
-// exports.downVote = catchAsync(async (req, res, next) => {
-//     const downvote = await Proposals.findByIdAndUpdate(
+// exports.upVote = catchAsync(async (req, res, next) => {
+//     const proposal = await Proposals.findByIdAndUpdate(
 //         req.params.id
 //         ,{
 //             $push:{
-//                 downvote: JSON.stringify(req.body)
+//                 // upvote: JSON.stringify(req.body)
+//                 upvote: req.body
 //             }
 //         },{
 //             new:true,
@@ -172,37 +147,116 @@ exports.upVote = catchAsync(async (req, res, next) => {
 //     res.status(200).json({
 //         status: "success",
 //         data: {
-//             downvote
+//             proposal
 //         }
 //     });
 // });
 
-exports.downVote = catchAsync(async (req, res, next) => {
-    try{
-    const proposal = await Proposals.findByIdAndUpdate(
-        req.params.id
-        ,{$push:{
-                "downvote": JSON.stringify(req.body)
-            }
-        },{
-            new:true,
-            runValidators:true
-        },function(err,model){
-            if(err){
-                console.log(err);
-            }else{
-                console.log("Vote Recieved! ID: ", model)
-            }});
+        
+exports.testroute = catchAsync(async (req, res, next)=>{
+    // const tes = Proposals.
+    // findOne({userId:''}),
+    // populate('userId').exec(function(err,story){
+    //     if(err)
+    //         return handleError(err);
+    //     console.log("User is, ", story)
+    // });
+    // res.status(200).json({
+    //     status: 'Success',
+    //     data: {
+    //         tes
+    //     } 
+    // });
+});
 
-    res.status(200).json({
-        status: "success",
-        data: {
-            proposal
+exports.upVote = catchAsync(async (req, res, next) => {
+    // const proposal = await Proposals.findByIdAndUpdate(
+    //     req.params.id
+    //     ,{
+    //         $push:{
+    //             upvote: JSON.stringify(req.body)
+               
+    //         }
+    //     },{
+    //         new:true,
+    //         runValidators:true
+    //     },function(err,model){
+    //         if(err){
+    //             console.log(err);
+    //         }else{
+    //             console.log("Vote Received! ID: ", model)
+    //         }});
+
+    // res.status(200).json({
+    //     status: "success",
+    //     data: {
+    //         proposal
+    //     }
+    // });
+    const proposalid = req.params.id;
+    const upvote = req.body.upvote;
+
+    const result = Proposals.findByIdAndUpdate(proposalid,{$push:{upvote:upvote}},function(err,proposal){
+        if(err){
+            console.log(err)
+        }else{
+            res.status(200).json({
+                status: "success",
+                data:{
+                    proposal
+                }
+            })
         }
-    });
-    }catch(err){
-        console.log(err);
-    }
+    })
+    // res.status(200).json({
+    //     status: "success",
+    //     data:{
+    //         upvote
+    //     }
+    // });
+});
+
+exports.downVote = catchAsync(async (req, res, next) => {
+//     try{
+//     const proposal = await Proposals.findByIdAndUpdate(
+//         req.params.id
+//         ,{$push:{
+//                 "downvote": JSON.stringify(req.body)
+//             }
+//         },{
+//             new:true,
+//             runValidators:true
+//         },function(err,model){
+//             if(err){
+//                 console.log(err);
+//             }else{
+//                 console.log("Vote Recieved! ID: ", model)
+//             }});
+
+//     res.status(200).json({
+//         status: "success",
+//         data: {
+//             proposal
+//         }
+//     });
+//     }catch(err){
+//         console.log(err);
+//     }
+    const proposalid = req.params.id;
+    const downvote = req.body.downvote;
+
+    const result = Proposals.findByIdAndUpdate(proposalid,{$push:{downvote:downvote}},function(err,proposal){
+        if(err){
+            console.log(err)
+        }else{
+            res.status(200).json({
+                status: "success",
+                data:{
+                    proposal
+                }
+            })
+        }
+    })
 });
 
 exports.removeUpVote = catchAsync(async (req, res, next) => {
@@ -210,7 +264,7 @@ exports.removeUpVote = catchAsync(async (req, res, next) => {
         req.params.id
         ,{
             $pull:{
-                upvote: JSON.stringify(req.body)
+                upvote:req.body.upvote
             }
         },{
             new:true,
@@ -230,14 +284,12 @@ exports.removeUpVote = catchAsync(async (req, res, next) => {
     });
 });
 
-
-
 exports.removeDownVote = catchAsync(async (req, res, next) => {
     const downvote = await Proposals.findByIdAndUpdate(
         req.params.id
         ,{
             $pull:{
-                downvote: JSON.stringify(req.body)
+                downvote: req.body.downvote
             }
         },{
             new:true,
@@ -255,6 +307,36 @@ exports.removeDownVote = catchAsync(async (req, res, next) => {
             downvote
         }
     });
+});
+
+
+
+exports.postProposalComment = catchAsync(async (req, res, next) => {
+    const proposal = req.params.id;
+    const comment = {
+        user:req.body.user,
+        message:req.body.message
+    }
+
+    const result = Proposals.findByIdAndUpdate(
+        proposal,
+        { $push : { comments : [
+            comment
+        ]}},
+        { new:true },
+        function(err,proposal){
+            if(err){
+                console.log(err);
+            }else{
+                res.status(200).json({
+                    status: "success",
+                    data: {
+                        proposal
+                    }
+                })
+            }
+        }
+    )
 });
 
 // exports.approveProposal = catchAsync(async (req, res, next) => {

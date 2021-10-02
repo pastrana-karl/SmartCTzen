@@ -5,36 +5,11 @@ const catchAsync = require('../utils/catchAsync');
 const diffCollection = require("../models/diffCollectionModel");
 
 exports.getAllReports = catchAsync(async (req, res, next) => {
-    //This does not return all the reports this requires a query when getting all reports there is no query
-    // const features = new APIFeatures(Reports.find(), req.query)
-    // .filter()
-    // .sort()
-    // .limit();
-
-    // //Execute query
-    // const reports = await features.query;
-
-    // res.status(200).json({
-    //     status: 'success',
-    //     data: {
-    //         reports
-    //     }
-    // });
-
-    if(req.query.user) {
-        try {
-            const reports = await Reports.find({ userName:req.query.user });
-            res.status(200).json(reports);
-        } catch (err) {
-            res.status(500).json(err);
-        }
-    } else {
-        try {
-            const reports = await Reports.find();
-            res.status(200).json(reports);
-        } catch (err) {
-            res.status(500).json(err);
-        }
+    try {
+        const reports = await Reports.find();
+        res.status(200).json(reports);
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
 

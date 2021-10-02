@@ -6,13 +6,23 @@ const APIFeatures = require("../utils/apiFeatures");
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
-exports.aliasAccomplishedProjects = (req, res, next) => {
-    req.query.status = "accomplished";
-};
+exports.getAccomplishedProjects = catchAsync(async (req, res, next) => {
+    try {
+        const accomplishedProjects = await Projects.find({status: 'Accomplished'});
+        res.status(200).json(accomplishedProjects);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
-exports.aliasOngoingProjects = (req, res, next) => {
-    req.query.status = "ongoing";
-};
+exports.getOngoingProjects = catchAsync(async (req, res, next) => {
+    try {
+        const ongoingProjects = await Projects.find({status: 'Ongoing'});
+        res.status(200).json(ongoingProjects);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 exports.getAllProjects = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Projects.find(), req.query)
@@ -52,8 +62,23 @@ exports.postProjects = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.updateViewCount = catchAsync(async (req, res) => {
+    try {
+        const viewCounter = await Projects.findById(req.params.id);
+        const countUpdate = viewCounter.viewCount + 1;
+
+        const project = await Projects.findByIdAndUpdate(req.params.id,{
+            $set:  { "viewCount": countUpdate }
+        })
+
+        res.status(200).json(project);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 exports.patchProject = catchAsync(async (req, res, next) => {
-    const project = await Projects.findByIdAndUpdate(req.params.id, req.body, {
+    const project = await Projects.findByIdAndUpdate(req.params.id, req.body.viewCount, {
         new: true,
         runValidators: true
     });
@@ -66,19 +91,6 @@ exports.patchProject = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.viewCount = catchAsync(async (req, res, next)=> {
-    const viewcount = await Projects.findByIdAndUpdate(req.params.id, req.body + 1,{
-        new: true,
-        runValidators: true
-    });
-
-    res.status(200).json({
-        status: "success",
-        data: {
-            viewcount
-        }
-    })
-})
 
 exports.deleteProject = catchAsync(async (req, res, next) => {
     const project = await Projects.findByIdAndDelete(req.params.id);

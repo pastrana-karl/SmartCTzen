@@ -42,6 +42,22 @@
     display: flex;
     padding: 10px;
     flex-direction: column;
+    overflow-wrap: break-word;
+}
+.CitizenCreateProposalPhoto {
+    display: flex;
+    justify-content: center;
+}
+.CitizenCreateProposalPhotoInput {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    flex-direction: column;
+    overflow-wrap: break-word;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
 }
 
 .Text {

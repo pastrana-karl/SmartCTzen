@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-const {ObjectId} = mongoose.Schema.Types;
 const slugify = require("slugify");
 
 const proposalsSchema = new mongoose.Schema({
     userId: {
-        type: String,
+        type: String
     },
     userType: {
         type: String,
@@ -22,10 +21,6 @@ const proposalsSchema = new mongoose.Schema({
         type: String,
         required: [true, 'This field is required'],
     },
-    // date:  {
-    //     type: String,
-    //     required: [true, 'This field is required'],
-    // },
     location:  {
         type: String,
         required: [true, 'This field is required'],
@@ -35,7 +30,7 @@ const proposalsSchema = new mongoose.Schema({
         type: String
     },
     images: { 
-        type: [String],
+        type: String,
     },
     upvote:[
         {type: String}
@@ -48,13 +43,16 @@ const proposalsSchema = new mongoose.Schema({
         enum: ['Pending', 'Approved', 'Rejected'],
         default: 'Pending'
     },
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-        select: false
-    }
-});
-
+    comments:[
+        {
+            user :{type: String},
+            message:{type: String}
+        }
+    ]
+}, { timestamps: true });
+// [
+//     {"kevin","this is a good proposal"}, {"ivann","i agree, we can improve on this"}
+// ]
 
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()

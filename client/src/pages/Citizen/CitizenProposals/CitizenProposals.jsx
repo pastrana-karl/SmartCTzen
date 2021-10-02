@@ -1,13 +1,19 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 import './CitizenProposals.css';
 import { Row, Col, Container} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { Context } from '../../../context/Context';
 
 
 const CitizenProposals = () => {
+    const user = useContext(Context)
     const [proposals, setProposals] = useState([]);
+    // const [proposals, setProposals] = useState([]);
+    // const [proposals, setProposals] = useState([]);
+    // const [proposals, setProposals] = useState([]);
 
 
     useEffect(() => {
@@ -36,32 +42,67 @@ const CitizenProposals = () => {
     
     //ALL Category
     //onClick={() => categoryAll(status:lahat ng status na meron)}  initialize nalang ng local array na ["Pending","Approved","Rejected"] 
+    const categoryAll = async () => {
+        const response = await fetch('/api/proposals');
+        const responseData = await response.json();
+        // console.log(responseData)
+        setProposals(responseData.data.proposals);
+    }
+    
     //const categoryAll = async (status) =>{}
     // dito icocompare mo yung local content array to all proposal status
     // if nag true ididsplay natin
-    
+
+    const categoryApproved = async () => {
+        const response = await fetch('/api/proposals/approved');
+        const responseData = await response.json();
+        // console.log(responseData)
+        setProposals(responseData);
+        // console.log(responseData)
+    }
+
+    const categoryRejected = async () => {
+        const response = await axios.get('/api/proposals/rejected');
+        // const responseData = await response.json();
+        // console.log(response.data)
+        setProposals(response.data);
+    }
     //APPROVED/REJECTED Category
     //onClick={() => categoryApproved/Rejected(status:Approved/Rejected)}
     //const categoryApproved/Rejected = async (status) =>{}
     // dito icocompare mo yung Approved/Rejected na status to all proposals
     // if nag true ididsplay natin
 
+    const categoryOwn = async () => {
+        // const currentuserid = user.user.data.user._id;
+        // const useridfilter = {
+        //     citizenId: currentuserid,
+        // }
+        // const response = await fetch('/api/proposals', userId);
+        // const responseData = await response.json();
+        // // console.log(responseData)
+        // setProposals(responseData.data.proposals);
+        const response = await axios.get(`/api/proposals/self/${user.user.data.user._id}`);
+        // // const responseData = await response.json();
+        // console.log(response.data);
+        setProposals(response.data);
+    }
     //OWN Category
     //onClick={() => categoryOwn(user.data.user._id)}
     //const categoryOwn = async (userId) =>{}
     //dito icocompare mo ang userId mo sa lahat ng userIds na meron sa proposals
     //if nag true ididisplay
-
+    console.log(user.user.data.user._id);
 
     return(
         <Container className="proposalsContainer">
             <div className="proposalsMain">
                 <Row className='citizenproposals-catbar-container'>
                     <Col className='citizenproposals-catbar'> 
-                        <Link className='citizenproposals-catbar-item' to='/'>All</Link> 
-                        <Link className='citizenproposals-catbar-item' to='/'>Approved</Link>
-                        <Link className='citizenproposals-catbar-item' to='/'>Rejected</Link>
-                        <Link className='citizenproposals-catbar-item' to='/'>My Proposals</Link>
+                        <button className='citizenproposals-catbar-item' onClick={() => categoryAll()}>All</button> 
+                        <button className='citizenproposals-catbar-item' onClick={() => categoryApproved()}>Approved</button>
+                        <button className='citizenproposals-catbar-item' onClick={() => categoryRejected()}>Rejected</button>
+                        <button className='citizenproposals-catbar-item' onClick={() => categoryOwn()}>My Proposals</button>
                     </Col>
                 </Row>
                 {/* <div className="proposalsCreateBtnContainer"> */}
@@ -132,19 +173,23 @@ const CitizenProposals = () => {
                                         {proposal.userName}
                                     </div>
                                 </div>
-                                <p>{proposal.description} </p>
+                                    <p>{proposal.description} </p>
                                 <div className="proposalsBody">
-                                    <p><i className="fas fa-thumbs-up"/>{proposal.upvote.length ? proposal.upvote.length : 0}</p>
-                                    <p><i className="fas fa-thumbs-down"/>{0}</p>
+                                    <i className="fas fa-thumbs-up"/>{proposal.upvote.length ? proposal.upvote.length : 0}
+                                    <i className="fas fa-thumbs-down"/>{proposal.downvote.length ? proposal.downvote.length : 0}
                                     <i onClick={()=> deleteProposal(proposal._id)} className="fas fa-trash"></i>
                                 </div>
+                                {proposal.status === "Rejected" ?  
+                                null
+                                :
                                 <Link className='proposalsViewMore' to={`/citizen-view-proposals`} onClick={()=> getProposalId(proposal._id)}>
                                     View More
                                 </Link>
+                                }
                             </div>
                             <div className="proposalShortImgContainer">
                                 <div className="proposalShortImgFrame">
-                                    <img src="https://th.bing.com/th/id/R.b647d58e6001e77b9471b110f44c2641?rik=Kariecnl8cUg1g&riu=http%3a%2f%2ffilipinoaustralianjournal.com.au%2fwp-content%2fuploads%2f2016%2f03%2fphilippine-tricycles.jpg&ehk=%2fECLwkRpQ1vL3g8sFPsT8JnrucAFmfXhwjRaYgXJmxw%3d&risl=&pid=ImgRaw&r=0" alt="" className="proposalImg" />
+                                    <img src={proposal.images} alt="" className="proposalImg" />
                                 </div>
                             </div>
                         </div>

@@ -26,7 +26,7 @@ const projectsSchema = new mongoose.Schema({
         enum: ['Ongoing', 'Accomplished'],
         default: 'Ongoing'
     },
-    location:  {
+    location: {
         type: String,
         required: [true, 'This field is required']
     },
@@ -35,12 +35,10 @@ const projectsSchema = new mongoose.Schema({
         // required: [true, 'This field is required']
     },
     viewCount:{
-        type: Number
-    }
-},
-{
-    timestamps: true
-});
+        type: Number,
+        default: 0,
+    },
+}, { timestamps: true });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 projectsSchema.pre('save', function(next) {

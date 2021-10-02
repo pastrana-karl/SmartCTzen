@@ -1,21 +1,22 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Row, Col, Button, Container } from 'react-bootstrap';
-import { Formik, Form, ErrorMessage } from 'formik';
-import { Redirect } from 'react-router-dom';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
-import { Context } from '../../../../context/Context';
+import { Redirect } from 'react-router-dom';
+import { Row, Col, Container } from 'react-bootstrap';
 import FormikInput from '../../../../components/UI/Input/FormikInput/FormikInput';
 import SubmitButton from '../../../../components/UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../../components/UI/Buttons/CancelButton/CancelButton';
-import './CitizenSubmitReport.css';
+import Swal from 'sweetalert2';
+import { Context } from '../../../../context/Context';
 import classes from '../../CitizenProposals/CreateProposals/CitizenCreateProposals.module.css';
-
+import axios from 'axios';
+import './CitizenSubmitReport.css';
 
 const CitizenSubmitReport = () => {
     const citizenUser = useContext(Context);
     const [userId, setUserId] = useState();
     const [redirect, setRedirect] = useState(false);
+    const [file, setFile] = useState(null);
     const userType = citizenUser.user.data.user.userType;
 
     useEffect(() => {
@@ -29,14 +30,15 @@ const CitizenSubmitReport = () => {
         getUserId();
     },[]);
 
-    console.log("test2");
+    console.log(userId);  
     const initialValues = {
-        userName:'',
+        userId: citizenUser.user.data.user._id,
+        userName: '',
         title: '',
         description: '',
-        // date: '',
         location: '',
-        status: 'Pending'
+        status:'Pending',
+    
     };
     
     
@@ -45,30 +47,62 @@ const CitizenSubmitReport = () => {
 
         const userName = values.userName.replace('',userId)
         const newValues = {...values, userName, userType}
-    
-        const {...data} = newValues;
-        const res = await axios.post('/api/reports', data).catch(err => {
-            console.log('Error: ', err.res.data);
-        });
+        const images = "";
 
-        setRedirect(true);
+        const reportData = {
+            description: newValues.description,
+            location: newValues.location,
+            status: newValues.status,
+            title: newValues.title,
+            userId: newValues.userId,
+            userName: newValues.userName,
+            userType: newValues.userType,
+            images,
+        }
+
+        if (file) {
+            const data = new FormData();
+            const filename = Date.now() + file.name;
+            data.append("name", filename);
+            data.append("file", file);
+            data.append("upload_preset", "dev_prac");
+            data.append("cloud_name", "karlstorage");
+            try {
+                const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
+                reportData.images = res.data.secure_url;
+
+                try {
+                    const res = await axios.post('/api/reports', reportData).catch(err => {
+                        console.log('Error: ', err.res.data);
+                    });
+                    
+                    setRedirect(true);
+                } catch (err) {
+                    console.log(err)
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Photo is requried!',
+                text: 'Upload a photo',
+            });
+        }
     };
     
     const validationSchema = Yup.object({
-        //get user
         userName: Yup.string(),
         title: Yup.string().required('Required'),
         description: Yup.string().required('Required'),
-        // date: Yup.string().required('Required'),
-        location: Yup.string().required("Required")
+        location: Yup.string().required("Required"),
     });
 
     return(
         <React.Fragment>
-            {/* <Container className="citizenSubmitReport-container"> */}
             { redirect && (<Redirect to = '/citizen-reports' />) }
-            <Container className={classes.CitizenCreateProposalContentContainer}>
-                {/* <div className = 'col-lg-10 offset-lg-1'> */}
+            <Container className="citizenSubmitReport-container">
                 <Row>
                     <div className="citizen-header">
                         <h1>Found a Problem? Go Submit a Report</h1>
@@ -93,8 +127,6 @@ const CitizenSubmitReport = () => {
                                             <ErrorMessage name="title">
                                                 {errorMsg => <div className="InputValidation">{errorMsg}</div>}
                                             </ErrorMessage>
-                                        {/* </Row>
-                                        <Row className="citizenSubmitReport-input"> */}
                                             <label>Description</label>
                                             <FormikInput 
                                                 type="text"
@@ -102,7 +134,7 @@ const CitizenSubmitReport = () => {
                                                 id="description"
                                                 name="description"
                                             />
-                                            <ErrorMessage name="name">
+                                            <ErrorMessage name="description">
                                                 {
                                                     errorMsg => <div className="InputValidation">{errorMsg}</div>
                                                 }
@@ -114,20 +146,6 @@ const CitizenSubmitReport = () => {
                                     </Col>
                                 </Row>
                                 <Row >
-                                    {/* <Col className={classes.CitizenCreateProposalFormInput}>
-                                        <label>When to Start Hopefully</label>
-                                        <FormikInput 
-                                        type="text"
-                                        placeholder="Date of Start hopefully"
-                                        id="date"
-                                        name="date"
-                                        />
-                                        <ErrorMessage name="date">
-                                            {
-                                                errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-                                            }
-                                        </ErrorMessage>
-                                    </Col> */}
                                     <Col className="citizenSubmitReport-input">
                                         <label>Location</label>
                                         <FormikInput 
@@ -143,22 +161,28 @@ const CitizenSubmitReport = () => {
                                         </ErrorMessage>
                                     </Col>
                                 </Row>
-                                <Row>
-                                    {/* <Col className={classes.CitizenCreateProposalFormInput} >
-                                        <label>Photo</label>
-                                        <FormikInput 
-                                            type="text"
-                                            placeholder="Photo"
-                                            id="photo"
-                                            name="photo"
+                                <Row className={classes.CitizenCreateProposalPhotoInput}>
+                                    <Col className={classes.CitizenCreateProposalFormInput} >
+                                        <label style={{textAlign: 'center', marginTop: '5%'}}>Photo</label>
+
+                                        <div className = 'CitizenCreateProposalImg'>
+                                            {file && <img src = { (URL.createObjectURL(file)) } alt = '' onClick={()=> window.open(URL.createObjectURL(file), "_blank")}/>}
+                                        </div>
+
+                                        <label  htmlFor="images"><i className="fas fa-image"></i></label>
+
+                                        <Field 
+                                            type="file"
+                                            id="images"
+                                            name="images"
+                                            style={{display: 'none'}}
+                                            onChange = {(e) => setFile(e.target.files[0])}
                                         />
-                                        <ErrorMessage name="photo">
+                                        <ErrorMessage name="images">
                                             {
                                                 errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
                                             }
                                         </ErrorMessage>
-                                    </Col> */}
-                                    <Col>
                                     </Col>
                                 </Row>
                                 <Row>
@@ -174,83 +198,8 @@ const CitizenSubmitReport = () => {
                         </Form>
                     </Formik>  
                 </Row>
-                {/* </div> */}
             </Container>
         </React.Fragment>
-        // <React.Fragment>
-        //     <Container className = 'citizenSubmitReport-container'>
-        //         <div className='citizen-header'>
-        //             <h3>Found a Problem? Go Submit a Report</h3>
-        //         </div>
-        //         {/* <Row className='citizenSubmitReport-row-container'> */}
-        //         <Row>
-        //             <Col className='citizenSubmitReportForm'>
-        //                 {/* <Form className = 'citizenSubmitReport-edit'> */}
-        //                 <Form>
-        //                     <Form.Group controlId="email">
-        //                         <Form.Label>Report Title</Form.Label>
-        //                         <Form.Control
-        //                             className='citizenSubmitReport-input'
-        //                             type="text"
-        //                             name="cpass"
-        //                             autoComplete="off"
-        //                         />
-        //                     </Form.Group>
-        //                     <Form.Group controlId="email">
-        //                         <Form.Label>Description</Form.Label>
-        //                         <Form.Control
-        //                             className='citizenSubmitReport-input'
-        //                             type="text"
-        //                             name="cpass"
-        //                             autoComplete="off"
-        //                         />
-        //                     </Form.Group>
-        //                     <Form.Group controlId="email">
-        //                         <Form.Label>Location</Form.Label>
-        //                         <Form.Control
-        //                             className='citizenSubmitReport-input'
-        //                             type="text"
-        //                             name="cpass"
-        //                             autoComplete="off"
-        //                         />
-        //                     </Form.Group>
-        //                     <Form.Group controlId="email">
-        //                         <Form.Label>Photo</Form.Label>
-        //                         <Form.Control
-        //                             className='citizenSubmitReport-input'
-        //                             type="text"
-        //                             name="cpass"
-        //                             autoComplete="off"
-        //                         />
-        //                     </Form.Group>
-        //                     {/* <Form.Group controlId="email">
-        //                         <Form.Label>Where It Happened Bro?</Form.Label>
-        //                         <Form.Control
-        //                             className='citizenSubmitReport-input'
-        //                             type="text"
-        //                             name="cpass"
-        //                             autoComplete="off"
-        //                         />
-        //                     </Form.Group> */}
-        //                 </Form>
-        //             </Col>
-        //             <Col className='citizenSubmitReportQuote'>
-        //                 <div className='quotebox'>
-        //                     <h4>Reporting a problem or an issue is your <span className="text-highlight">ambag</span></h4>
-        //                 </div>
-        //             </Col>
-        //         </Row>    
-        //             <Row className='btn-container'>
-        //                 <Col className='btnContainerCenter'>
-        //                     <Link to = '/citizen-reports' className = 'citizenSubmitReport-BtnCancel'>Cancel</Link>
-        //                 </Col>
-        //                 <Col className='btnContainerCenter'>
-        //                     <SubmitButton/>
-        //                 </Col>
-        //             </Row>
-                
-        //     </Container>
-        // </React.Fragment>
     );
 };
 
