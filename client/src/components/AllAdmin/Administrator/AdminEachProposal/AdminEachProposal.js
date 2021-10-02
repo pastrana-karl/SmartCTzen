@@ -39,6 +39,15 @@ const AdminEachProposal = () => {
     console.log('Delete')
   };
 
+  const upVoteProposal = () => {
+    axios.patch('/api/proposals/upVote/' + params.id);
+    console.log('Upvote');
+  }
+
+  const downVoteProposals = () => {
+    axios.patch('/api/proposals/downVote/' + params.id);
+    console.log('Downvote');
+  }
   //console.log(currentProposal.coverImage);
 
   return (
@@ -60,6 +69,10 @@ const AdminEachProposal = () => {
             <img src={currentProposal.coverImage} className={classes.Image} />
           </div>
         </div>
+      </div>
+      <div className={classes.VoteDiv}>
+        <button className={classes.VoteButton} onClick={upVoteProposal}>Upvote</button>
+        <button className={classes.VoteButton} onClick={downVoteProposals}>Downvote</button>
       </div>
       <div className={classes.ButtonDiv}>
           <button className={classes.Button} onClick={approveProposal}>Approve</button>
