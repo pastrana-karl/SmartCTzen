@@ -4,6 +4,7 @@ import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Tables from '../../../UI/Tables/Tables';
 import AdminLayout from '../AdminLayout/AdminLayout';
 
+import { Context } from '../../../../context/Context';
 
 import classes from './AdminProposals.module.css';
 

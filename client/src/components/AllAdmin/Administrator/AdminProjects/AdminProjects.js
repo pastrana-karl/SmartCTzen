@@ -36,7 +36,6 @@ const AdminProjects = ( props ) => {
                         <tr>
                             <th>Project ID</th>
                             <th>Project Title</th>
-                            <th>Date</th>
                             <th>Location</th>
                             <th>Status</th>
                             <th>Created at</th>
@@ -49,7 +48,6 @@ const AdminProjects = ( props ) => {
                         <tr key={project._id}>
                             <td>{project._id}</td>
                             <td>{project.title}</td>
-                            <td>{project.date}</td>
                             <td>{project.location}</td>
                             <td>{project.status}</td>
                             <td>{format(project.createdAt)}</td>

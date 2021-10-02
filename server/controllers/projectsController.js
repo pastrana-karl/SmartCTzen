@@ -91,6 +91,19 @@ exports.patchProject = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.updateProject = catchAsync(async (req, res, next) => {
+    const project = await Projects.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            project
+        }
+    });
+});
 
 exports.deleteProject = catchAsync(async (req, res, next) => {
     const project = await Projects.findByIdAndDelete(req.params.id);

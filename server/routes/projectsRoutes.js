@@ -26,4 +26,8 @@ projectsRouter
     .get(projectsController.getProject)
     .patch(projectsController.patchProject);
 
+projectsRouter
+    .route("/update-projects/:id")
+    .put(projectsController.updateProject);
+
 module.exports = projectsRouter;
