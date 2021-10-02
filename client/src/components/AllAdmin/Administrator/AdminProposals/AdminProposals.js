@@ -4,6 +4,7 @@ import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Tables from '../../../UI/Tables/Tables';
 import AdminLayout from '../AdminLayout/AdminLayout';
 
+
 import classes from './AdminProposals.module.css';
 
 const AdminProposals = () => {
@@ -40,6 +41,7 @@ const AdminProposals = () => {
                             <th>Upvote</th>
                             <th>Downvote</th>
                             <th>Status</th>
+                            <th>Created at</th>
                             <th>Link</th>
                         </tr>
                     </thead>
@@ -49,9 +51,10 @@ const AdminProposals = () => {
                             <td>{proposal._id}</td>
                             <td>{proposal.title}</td>
                             <td>{proposal.location}</td>
-                            <td>{proposal.upvote}</td>
-                            <td>{proposal.downvote}</td>
+                            <td>{proposal.upvote.length}</td>
+                            <td>{proposal.downvote.length}</td>
                             <td>{proposal.status}</td>
+                            <td>{proposal.createdAt}</td>
                             <td><Link to={'/admin-proposal/' + proposal._id}>Click here</Link></td>
                         </tr>
                         ))}

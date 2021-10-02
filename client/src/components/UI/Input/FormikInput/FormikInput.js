@@ -9,6 +9,7 @@ const FormikInput = ( props ) => (
         id={props.id}
         name={props.name} 
         className={classes.FormikInput}
+        component={props.component}
     />
 );
 

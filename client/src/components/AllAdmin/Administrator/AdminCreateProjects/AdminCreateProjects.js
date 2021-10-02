@@ -88,16 +88,16 @@ const AdminCreateProjects = () => {
                                 type='text'
                                 id='title'
                                 name='title'
-                                placeholder='Proposal Title'
+                                placeholder='Project Title'
                                 ref={register({ required: "Required!" })}
                             />
                             {errors.title && <p className={classes.InputValidation}>{errors.title.message}</p>}
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
                             <label>Description</label>
-                            <input
-                                className={classes.Input}
-                                type='text'
+                            <textarea
+                                className={classes.Textarea}
+                                type='textfield'
                                 id='description'
                                 name='description'
                                 placeholder='Description'

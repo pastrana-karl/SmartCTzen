@@ -21,10 +21,6 @@ const projectsSchema = new mongoose.Schema({
         required: [true, 'This field is required']
     },
     slug: String,
-    date: {
-        type: Date,
-        default: Date.now(),
-    },
     status: {
         type: String,
         enum: ['Ongoing', 'Accomplished'],
@@ -41,6 +37,9 @@ const projectsSchema = new mongoose.Schema({
     viewCount:{
         type: Number
     }
+},
+{
+    timestamps: true
 });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()

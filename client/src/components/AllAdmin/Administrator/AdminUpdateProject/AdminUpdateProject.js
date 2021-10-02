@@ -156,8 +156,10 @@ const AdminUpdateProject = () => {
                             <div className={classes.AdminUpdateProjectsFormInput}>
                                 <label>Description</label>
                                 <Field
-                                    className={classes.FormikInput}
+                                    className={classes.Textarea}
                                     type='text'
+                                    component='textarea'
+                                    rows={4}
                                     id='description'
                                     name='description'
                                     placeholder='Description'
@@ -174,6 +176,16 @@ const AdminUpdateProject = () => {
                                     placeholder='Location'
                                 />
                                 <ErrorMessage name='location' />
+                            </div>
+                            <div className={classes.AdminUpdateProjectsFormInput}>
+                                <label>Location</label>
+                                <Field
+                                    type='file'
+                                    id='file'
+                                    name='file'
+                                    placeholder='File'
+                                />
+                                <ErrorMessage name='file' />
                             </div>
                         </div>
                         <div className={classes.ButtonDiv}>

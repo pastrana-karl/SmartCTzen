@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useParams } from 'react';
 import { Link } from 'react-router-dom';
+import { format } from 'timeago.js';
 
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Tables from '../../../UI/Tables/Tables';
@@ -36,9 +37,10 @@ const AdminProjects = ( props ) => {
                             <th>Project ID</th>
                             <th>Project Title</th>
                             <th>Date</th>
-                            <th>Time</th>
                             <th>Location</th>
                             <th>Status</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
                             <th>Link</th>
                         </tr>
                     </thead>
@@ -48,10 +50,10 @@ const AdminProjects = ( props ) => {
                             <td>{project._id}</td>
                             <td>{project.title}</td>
                             <td>{project.date}</td>
-                            <td>Time</td>
                             <td>{project.location}</td>
                             <td>{project.status}</td>
-                            {/* <td><a href={'/admin-project/:id'}>Click here</a></td> */}
+                            <td>{format(project.createdAt)}</td>
+                            <td>{format(project.updatedAt)}</td>
                             <td>
                                 <Link to={'/admin-project/' + project._id}>Click here</Link>
                             </td>
