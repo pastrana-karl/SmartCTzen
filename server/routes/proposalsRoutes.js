@@ -31,10 +31,7 @@ proposalsRouter
 proposalsRouter
     .route("/proposals/self/:id")
     .get(proposalsController.getOwnProposals);
-
-// proposalsRouter
-//     .route("/proposals/upVote/:id")
-//     .patch(proposalsController.upVote);
+    
 proposalsRouter
     .route("/proposals/upVote/:id")
     .patch(proposalsController.upVote);

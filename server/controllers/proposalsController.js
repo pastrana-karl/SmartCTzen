@@ -309,15 +309,9 @@ exports.removeDownVote = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.postProposalComment = catchAsync(async (req, res, next) => {
-    // const newProposal = await Proposals.create(req.body);
 
-    // const newProposalHist = new diffCollection({
-    //     collectionName: 'Proposal',
-    //     userType: newProposal.userType,
-    //     user: newProposal.userName,
-    //     reason: 'Created new proposal',
-    // });
+
+exports.postProposalComment = catchAsync(async (req, res, next) => {
     const proposal = req.params.id;
     const comment = {
         user:req.body.user,
@@ -343,18 +337,10 @@ exports.postProposalComment = catchAsync(async (req, res, next) => {
             }
         }
     )
-    // await newProposalHist.save();
-    // res.status(200).json({
-    //     status: 'success',
-    //     data: {
-    //         comments
-    //     }
-    // });
 });
 
-
-exports.approveProposal = catchAsync(async (req, res, next) => {
-    const proposal = await Proposals.findById(req.params.id);
+// exports.approveProposal = catchAsync(async (req, res, next) => {
+//     const proposal = await Proposals.findById(req.params.id);
 
 //     const approveProposal = Proposals.findByIdAndUpdate(
 //         req.params.id, {
