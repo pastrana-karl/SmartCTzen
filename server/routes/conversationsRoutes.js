@@ -14,6 +14,6 @@ conversationsRouter
 
 conversationsRouter
     .route('/conversations/:firstUserId/:secondUserId')
-    .get(conversationsController.getConvoWithId);
+    .get(conversationsController.getConvoWithId)
 
 module.exports = conversationsRouter;

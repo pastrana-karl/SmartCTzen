@@ -77,7 +77,6 @@ const AdminCreateProjects = () => {
                                 id='userName'
                                 name='userName'
                                 placeholder='Username'
-                                defaultValue={aUser.user.username}
                                 ref={register}
                             />
                         </div>

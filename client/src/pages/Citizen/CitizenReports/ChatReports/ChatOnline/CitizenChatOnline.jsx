@@ -19,14 +19,14 @@ const CitizenChatOnline = ({currentId, setCurrentChat}) => {
     const handleClick = async (user) => {
         try {
             const res = await fetch(`/api/conversations/${currentId}/${user._id}` );
-            setCurrentChat(res)
-            //console.log(res);
+            //setCurrentChat(res)
+            console.log(res);
         } catch (err) {
             console.log(err);
         }
     }
 
-   console.log(allAdmins);
+   //console.log(allAdmins);
 
     return ( 
         <div className={classes.ChatOnline}>

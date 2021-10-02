@@ -6,8 +6,6 @@
 
 .MessageTop {
     display: flex;
-    width: 100%;
-    max-width: 400px
 }
 
 .MessageImg {
@@ -19,7 +17,7 @@
 }
 
 .MessageText {
-    max-width: 600px;
+    max-width: 500px;
     padding: 13px 13px 13px 13px;
     border-radius: 25px;
     background-color: lightgray;

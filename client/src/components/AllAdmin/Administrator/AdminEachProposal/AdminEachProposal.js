@@ -34,7 +34,12 @@ const AdminEachProposal = () => {
     });
   };
 
-  console.log(currentProposal.coverImage);
+  const deleteProposal = () => {
+    axios.delete('/api/proposals/' + params.id);
+    console.log('Delete')
+  };
+
+  //console.log(currentProposal.coverImage);
 
   return (
     <AdminLayout>
@@ -59,6 +64,7 @@ const AdminEachProposal = () => {
       <div className={classes.ButtonDiv}>
           <button className={classes.Button} onClick={approveProposal}>Approve</button>
           <button className={classes.Button} onClick={rejectProposal}>Reject</button>
+          <button className={classes.Button} onClick={deleteProposal}>Delete</button>
       </div>
     </AdminLayout>
   );

@@ -257,18 +257,32 @@ exports.removeDownVote = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.approveProposal = catchAsync(async (req, res, next) => {
-    const proposal = await Proposals.findById(req.params.id);
+// exports.approveProposal = catchAsync(async (req, res, next) => {
+//     const proposal = await Proposals.findById(req.params.id);
 
-    const approveProposal = Proposals.findByIdAndUpdate(
-        req.params.id, {
-            status: proposal.status['Approved']
-        }
-    );
+//     const approveProposal = Proposals.findByIdAndUpdate(
+//         req.params.id, {
+//             status: proposal.status['Approved']
+//         }
+//     );
+
+//     res.status(200).json({
+//         data: {
+//             approveProposal
+//         }
+//     });
+// });
+
+exports.patchProposal = catchAsync(async (req, res, next) => {
+    const proposal = await Proposals.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
 
     res.status(200).json({
+        status: "success",
         data: {
-            approveProposal
+            proposal
         }
     });
 });

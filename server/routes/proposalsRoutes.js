@@ -46,6 +46,6 @@ proposalsRouter
     .put(proposalsController.updateProposal)
     .delete(proposalsController.deleteProposal);
 
-proposalsRouter.patch("/proposals/approve/:id", proposalsController.approveProposal);
+proposalsRouter.patch("/proposals/:id", proposalsController.patchProposal);
 
 module.exports = proposalsRouter;

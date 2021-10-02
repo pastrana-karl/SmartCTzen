@@ -58,11 +58,7 @@ const AdminEachProject = () => {
         </div>
       </div>
       <div className={classes.ButtonDiv}>
-          <button 
-            className={classes.Button} 
-            onClick={ongoing} 
-            disabled={disable}
-            >Ongoing</button>
+          <button className={classes.Button} onClick={ongoing} disabled={disable}>Ongoing</button>
           <button className={classes.Button} onClick={accomplished}>Accomplished</button>
           <Link to={'/admin-update-project/' + params.id}>
             <button className={classes.Button}>Update</button>
