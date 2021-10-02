@@ -6,7 +6,27 @@ body {
     -moz-osx-font-smoothing: grayscale;
   }
   
-  code {
+code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-      monospace;
-  }
+    monospace;
+}
+
+.citizen-backButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  background: #fe5139;
+  padding: 15px 45px 15px 45px;
+  border: hidden;
+  box-shadow: -10px -10px 30px #FFFFFF, 10px 10px 30px rgba(174, 174, 192, 0.4);
+  border-radius: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.citizen-backButton:hover {
+  background: #Dc4733;
+  color: white;
+  text-decoration: none;
+}

@@ -10,20 +10,20 @@ projectsRouter
     .post(projectsController.postProjects);
 
 projectsRouter
-    .route("/projects/:id")
-    .get(projectsController.getProject)
-    .patch(projectsController.patchProject);
-
-projectsRouter
-    .route("/projects/viewCount/:id")
-    .patch(projectsController.viewCount);
-
-projectsRouter
     .route("/projects/accomplished")
-    .get(projectsController.aliasAccomplishedProjects);
+    .get(projectsController.getAccomplishedProjects);
 
 projectsRouter
     .route("/projects/ongoing")
-    .get(projectsController.aliasOngoingProjects);
+    .get(projectsController.getOngoingProjects);
+
+projectsRouter
+    .route("/projects/updateViewCount/:id")
+    .post(projectsController.updateViewCount);
+
+projectsRouter
+    .route("/projects/:id")
+    .get(projectsController.getProject)
+    .patch(projectsController.patchProject);
 
 module.exports = projectsRouter;

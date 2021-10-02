@@ -34,6 +34,7 @@
     background: linear-gradient(145deg, #d8d8db);
     box-shadow:  7px 7px 7px #d6d6d8,
                 -7px -7px 7px #ffffff;
+        border: hidden !important;
 }
 
 .citizenreports-catbar-item:hover{
@@ -157,13 +158,17 @@
     padding: 0px !important;
     width: 100%;
     height: auto;
+    justify-content: center;
+    /* object-fit: cover; */
     overflow: hidden;
 }
 
 .citizenreports-img {
+    /* object-fit: cover; */
     object-fit: cover;
     width: 100%;
-    height: auto;
+    height: 250px;
+    
 }
 
 .citizenreports-title-container {

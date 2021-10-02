@@ -27,20 +27,32 @@ proposalsRouter
     .get(proposalsController.getRejectedProposals);
 
 proposalsRouter
+    .route("/proposals/self/:id")
+    .get(proposalsController.getOwnProposals);
+
+// proposalsRouter
+//     .route("/proposals/upVote/:id")
+//     .patch(proposalsController.upVote);
+proposalsRouter
     .route("/proposals/upVote/:id")
     .patch(proposalsController.upVote);
 
-// proposalsRouter
-//     .route("/proposals/downVote/:id")
-//     .patch(proposalsController.downVote);
+proposalsRouter
+    .route("/proposals/downVote/:id")
+    .patch(proposalsController.downVote);
 
-// proposalsRouter
-//     .route("/proposals/removeUpVote/:id")
-//     .patch(proposalsController.removeUpVote);
+proposalsRouter
+    .route("/proposals/removeUpVote/:id")
+    .patch(proposalsController.removeUpVote);
 
-// proposalsRouter
-//     .route("/proposals/removeDownVote/:id")
-//     .patch(proposalsController.removeDownVote); 
+proposalsRouter
+    .route("/proposals/removeDownVote/:id")
+    .patch(proposalsController.removeDownVote); 
+
+proposalsRouter
+    .route("/proposals/comments/:id")
+    .patch(proposalsController.postProposalComment);
+
 
 proposalsRouter
     .route("/proposals/:id")

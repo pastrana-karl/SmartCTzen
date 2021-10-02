@@ -32,6 +32,7 @@ i{
     box-shadow:  inset 5px 5px 10px #d4d4d4,
                 inset -5px -5px 10px #ffffff;
     border-radius: 40px;
+    
 }
 
 .citizenproposals-catbar-item{
@@ -46,6 +47,7 @@ i{
     background: linear-gradient(145deg, #d8d8db);
     box-shadow:  7px 7px 7px #d6d6d8,
                 -7px -7px 7px #ffffff;
+     border: hidden !important;         
 }
 
 .citizenproposals-catbar-item:hover{
@@ -144,6 +146,23 @@ i{
     display: inline-flex;
     text-align: justify;
     padding: 5px;
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 4;
+   -webkit-box-orient: vertical;
+}
+
+.proposalsBody{
+    display: inline-flex;
+    text-align: justify;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+i {
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .proposalsViewMore{
@@ -231,7 +250,7 @@ i{
     }
 
     .proposalShortImgContainer{
-        display: flex;
+        display: inline-block;
         padding: 20px;
         max-height: 300px;
     }
@@ -242,11 +261,25 @@ i{
         transition: 0.1ms;
     }
 
+    
+    .citizenproposals-catbar-container{
+        display: block;
+
+    }
+
+
+    .citizenproposals-catbar{
+        max-width: 600px;
+        display: block;
+        /* overflow-x:hidden;
+        overflow-y: scroll; */
+        white-space: break-spaces;
+    }
 }
 
 @media screen and (max-width: 600px) {
     .proposalShortImgContainer{
-        display: flex;
+        display: block;
         padding: 20px;
         max-height: 200px;
     }

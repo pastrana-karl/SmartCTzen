@@ -16,25 +16,24 @@ const reportsSchema = new mongoose.Schema({
         type: String,
         required: [true, 'This field is required']
     },
-    slug: String,
-    date: {
-        type: Date,
-        default: Date.now()
-    },
+    // slug: String,
     location: {
         type: String,
         required: [true, 'This field is required']
     },
-    photo: {
+    // photo: {
+    //     type: String,
+    //     default: 'No Image',
+    // },
+    images: { 
         type: String,
-        default: 'No Image',
     },
     status: {
         type: String,
         enum: ['Pending', 'Confirmed', 'Resolved', 'Cancelled'],
         default: 'Pending'
     }
-});
+}, { timestamps: true });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 reportsSchema.pre('save', function(next) {

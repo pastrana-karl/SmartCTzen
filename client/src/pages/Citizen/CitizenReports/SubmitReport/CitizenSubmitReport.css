@@ -53,6 +53,21 @@
     margin: 0px;
     color: #ff5138;
 }
+
+.citizensubmitreport-photoinput {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    flex-direction: column;
+    overflow-wrap: break-word;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+}
+
+
+
 .citizenSubmitReport-container h4 {
     font-weight: bold;
     margin: 0px;

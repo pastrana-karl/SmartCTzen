@@ -26,27 +26,43 @@ const CitizenReports = () => {
         setReports(responseData.data.report);
     }
 
-    //ALL Category
-    //onClick={() => categoryAll(status:lahat ng status na meron)}  initialize nalang ng local array na ["Pending","Confirmed","Cancelled","Resolved"] 
-    //const categoryAll = async (status) =>{}
-    // dito icocompare mo yung local content array to all proposal status
-    // if nag true ididsplay natin
+    const categoryAll = async () => {
+        const response = await fetch('/api/reports');
+        const responseData = await response.json();
+        // console.log(responseData)
+        setReports(responseData.data.reports);
+    }
+
+    const categoryConfirmed = async () => {
+        const response = await fetch('/api/reports/confirmed');
+        const responseData = await response.json();
+        // console.log(responseData)
+        setReports(responseData);   
+    }
+
+    const categoryCancelled = async () => {
+        const response = await fetch('/api/reports/cancelled');
+        const responseData = await response.json();
+        // console.log(responseData)
+        setReports(responseData);   
+    }
     
-    //Confirmed/Cancelled/Resolved Category
-    //onClick={() => categoryConfirmed/Cancelled/Resolved(status:Confirmed/Cancelled/Resolved)}
-    //const categoryConfirmed/Cancelled/Resolved = async (status) =>{}
-    // dito icocompare mo yung Confirmed/Cancelled/Resolved na status to all proposals
-    // if nag true ididsplay natin
+    const categoryResolved = async () => {
+        const response = await fetch('/api/reports/resolved');
+        const responseData = await response.json();
+        // console.log(responseData)
+        setReports(responseData);   
+    }
 
 
     return(
         <Container className='citizenreports-Container'>
             <Row className='citizenreports-catbar-container'>
                 <Col className='citizenreports-catbar'>
-                    <Link className='citizenreports-catbar-item' to='/'>All</Link>
-                    <Link className='citizenreports-catbar-item' to='/'>Confirmed</Link>
-                    <Link className='citizenreports-catbar-item' to='/'>Cancelled</Link>
-                    <Link className='citizenreports-catbar-item' to='/'>Resolved</Link>
+                    <button className='citizenreports-catbar-item' onClick={() => categoryAll()}>All</button>
+                    <button className='citizenreports-catbar-item' onClick={() => categoryConfirmed()}>Confirmed</button>
+                    <button className='citizenreports-catbar-item' onClick={() => categoryCancelled()}>Cancelled</button>
+                    <button className='citizenreports-catbar-item' onClick={() => categoryResolved()}>Resolved</button>
                 </Col>
             </Row>
             <Row className='citizenreports-btn-container'>
@@ -80,7 +96,7 @@ const CitizenReports = () => {
             {reports && reports.map(report => (
                 <Row className='citizenreports-short' key={report._id}>
                     <Col className='citizenreports-img-container'>
-                        <img className='citizenreports-img' alt='citizenreports-img'src="https://th.bing.com/th/id/OIP.YLpvvCgXD0sI6X5dg0i6UgHaE7?pid=ImgDet&rs=1"/>
+                        <img className='citizenreports-img' alt='citizenreports-img'src={report.images} onClick={()=> window.open(report.images, "_blank")}/>
                     </Col>
                     <Col>
                         <Row className='citizenreports-title-container'>
@@ -91,8 +107,8 @@ const CitizenReports = () => {
                                 <span className='reportInfo'>Where: {report.location}</span>
                                 <span className='reportInfo'>Desc : {report.description}</span>
                                 <span className='reportInfo'>Reported By : {report.userName}</span>
-                                <span className='reportInfo'>Date Submitted: Sept 20, 2021</span>
-                                <span className='reportInfo'><i onClick={()=> deletereport(report._id)} className="fas fa-trash"></i></span>
+                                <span className='reportInfo'>Date Submitted: {new Date(report.createdAt).toLocaleDateString()}</span>
+                                {/* <span className='reportInfo'><i onClick={()=> deletereport(report._id)} className="fas fa-trash"></i></span> */}
 
                             </Col>
                             <Col className='citizenreports-info-status-container'>

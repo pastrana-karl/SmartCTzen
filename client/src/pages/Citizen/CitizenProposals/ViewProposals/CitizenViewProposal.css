@@ -116,8 +116,28 @@ p{
     flex-direction: column;
     width: 100%;
 }
-.citizenViewProposal-writecomment-container form{
-    width: inherit;
+.citizenViewProposal-inputcomment-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* display: flex; */
+    /* flex-direction: row;
+    width: 100%; */
+    align-content: center;
+}
+.citizenViewProposal-inputcomment-container form{
+    display: flex;
+    /* flex:80%; */
+    /* float: left; */
+    width: 100%;
+}
+.buttonContainer{
+    display: flex;
+    padding: 15px;
+    /* flex:80%; */
+    /* float: right; */
+    /* width:100%; */
+    align-items: center;
 }
 
 .citizenViewProposal-writecomment{
