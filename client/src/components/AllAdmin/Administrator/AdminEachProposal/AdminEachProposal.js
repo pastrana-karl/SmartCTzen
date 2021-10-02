@@ -20,6 +20,7 @@ const AdminEachProposal = () => {
     }
     findProposal();
   }, []);
+
   
   const approveProposal = () => {
     axios.patch('/api/proposals/' + params.id, {
@@ -32,6 +33,22 @@ const AdminEachProposal = () => {
       status: 'Rejected'
     });
   };
+
+  const deleteProposal = () => {
+    axios.delete('/api/proposals/' + params.id);
+    console.log('Delete')
+  };
+
+  const upVoteProposal = () => {
+    axios.patch('/api/proposals/upVote/' + params.id);
+    console.log('Upvote');
+  }
+
+  const downVoteProposals = () => {
+    axios.patch('/api/proposals/downVote/' + params.id);
+    console.log('Downvote');
+  }
+  //console.log(currentProposal.coverImage);
 
   return (
     <AdminLayout>
@@ -48,15 +65,19 @@ const AdminEachProposal = () => {
               {currentProposal.description}
             </p>
           </div>
-          <p>Image Source</p>
+          <div className={classes.Gallery}>
+            <img src={currentProposal.coverImage} className={classes.Image} />
+          </div>
         </div>
-        <div className={classes.Gallery}>
-            <h5>Image Placeholder</h5>
-        </div>
+      </div>
+      <div className={classes.VoteDiv}>
+        <button className={classes.VoteButton} onClick={upVoteProposal}>Upvote</button>
+        <button className={classes.VoteButton} onClick={downVoteProposals}>Downvote</button>
       </div>
       <div className={classes.ButtonDiv}>
           <button className={classes.Button} onClick={approveProposal}>Approve</button>
           <button className={classes.Button} onClick={rejectProposal}>Reject</button>
+          <button className={classes.Button} onClick={deleteProposal}>Delete</button>
       </div>
     </AdminLayout>
   );

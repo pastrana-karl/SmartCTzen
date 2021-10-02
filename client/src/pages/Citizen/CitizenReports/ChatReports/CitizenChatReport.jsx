@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext, useReducer } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 
@@ -10,6 +10,7 @@ import { Context } from '../../../../context/Context';
 
 import './CitizenChatReport.module.css';
 import classes from './CitizenChatReport.module.css';
+import CitizenChatOnline from './ChatOnline/CitizenChatOnline';
 
 const CitizenChatReport = ( props ) => {
     const [conversations, setConversations] = useState([]);
@@ -40,23 +41,23 @@ const CitizenChatReport = ( props ) => {
     useEffect(() => {
         socket.current.emit("addUser", user.data.user._id);
         socket.current.on("getUsers", user => {
-            console.log(user);
+           console.log(user);
         });
     }, [user]);
 
     useEffect(() => {
         const getConversations = async () => {
             try {
-                const res = await axios.get("/api/conversations/" + user?.data?.user?._id);
+                const res = await axios.get("/api/conversations/" + user.data?.user?._id);
                 setConversations(res.data);
-                // console.log(res);
+                console.log(res);
             } catch(err) {
                 console.log(err);
             }
         };
 
         getConversations();
-    }, [user?.data?.user?._id]);
+    }, [user.data?.user?._id]);
 
     useEffect(() => {
         const getMessages = async () => {
@@ -71,13 +72,22 @@ const CitizenChatReport = ( props ) => {
         getMessages();
     }, [currentChat]);
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const message = {
-            sender: user._id,
+            sender: user.data.user._id,
             text: newMessage,
             conversationId: currentChat._id
         }
+
+        const receiverId = currentChat.members.find(member => member !== user.data.user._id);
+
+        socket.current.emit("sendMessage", {
+            senderId: user.data.user._id,
+            receiverId,
+            text: newMessage 
+        });
 
         try {
             const res = await axios.post("/api/messages/", message);
@@ -87,16 +97,17 @@ const CitizenChatReport = ( props ) => {
         }
     };
 
-    console.log(currentChat);
+    // console.log(user.data.user._id);
     
     return(
         <React.Fragment>
-            <AdminLayout>
+            <div className={classes.Container}>
                 <div className={classes.AdminMessages}>
                     <CardHeader>
                         <h2 className={classes.Text}>Messages</h2>
                     </CardHeader>
                 </div>
+                {/* List of chats */}
                 <div className={classes.Messenger}>
                     <div className={classes.AdminChatMenu}>
                         <input
@@ -109,13 +120,14 @@ const CitizenChatReport = ( props ) => {
                             </div>
                         ))}
                     </div>
+                    {/* Chatbox */}
                     <div className={classes.AdminChat}>
                         <div className={classes.AdminChatWrapper}>
                             <div className={classes.AdminChatBoxTop}>
                                 {
                                     chatMessages.map(m => (
                                         <div>
-                                            <CitizenMessage messages={m} own={m.sender === user?.user?._id} />
+                                            <CitizenMessage messages={m} own={m.sender === user.data?.user?._id} />
                                         </div>
                                     ))
                                 }
@@ -131,8 +143,15 @@ const CitizenChatReport = ( props ) => {
                             </div>
                         </div>
                     </div>
+                    {/* Admins */}
+                    <div className={classes.AdminList}>
+                        <CitizenChatOnline
+                            currentId={user.data.user._id}
+                            setCurrentChat={setCurrentChat}
+                        />
+                    </div>
                 </div>
-            </AdminLayout>
+            </div>
         </React.Fragment>
     );
 

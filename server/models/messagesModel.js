@@ -8,7 +8,8 @@ const MessagesSchema = new mongoose.Schema({
         type: String
     },
     text: {
-        type: String
+        type: String,
+        default: 'Start conversation'
     }
 },
 {

@@ -40,6 +40,11 @@ const AdminEachReport = () => {
     console.log(res);
   }
 
+  const deleteReport = async () => {
+    const res = await axios.delete('/api/reports/' + params.id);
+    console.log('Delete Reports');
+  }
+
   //console.log(currentReport);
   return (
     <AdminLayout>
@@ -66,6 +71,7 @@ const AdminEachReport = () => {
           <button className={classes.Button} onClick={confirmReport}>Confirm</button>
           <button className={classes.Button} onClick={cancelReport}>Cancel</button>
           <button className={classes.Button} onClick={resolveReport}>Resolved</button>
+          <button className={classes.Button} onClick={deleteReport}>Delete</button>
       </div>
     </AdminLayout>
   );

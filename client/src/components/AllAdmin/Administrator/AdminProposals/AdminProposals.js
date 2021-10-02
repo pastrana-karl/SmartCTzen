@@ -57,9 +57,9 @@ const AdminProposals = () => {
                         ))}
                     </tbody>
                 </Tables>
-                <div>
+                <div className={classes.ButtonDiv}>
                     <Link to='/admin-create-proposals'>
-                        <h3>Create Proposals</h3>
+                        <button className={classes.Button}>Create Proposals</button>
                     </Link>
                 </div>
             </AdminLayout>

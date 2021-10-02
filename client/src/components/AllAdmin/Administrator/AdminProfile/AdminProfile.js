@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Row, Col, Form, Container, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -30,6 +30,7 @@ const AdminProfile = () => {
     const [file, setFile] = useState(null);
     const [profilePic, setProfilePic] = useState("");
     const [iconUpload, setIconUpload] = useState(false);
+    const [logs, setLogs] = useState([]);
 
     // const onSubmit = values => {
     //     if (values.email !== aUser.user.email) {
@@ -39,6 +40,15 @@ const AdminProfile = () => {
     //     console.log('Form data', values);
     // };
 
+    useEffect(() => {
+        const fetchLogs = async () => {
+            const res = await axios.get(`/api/history/administrator/?userType=Administrator`);
+            setLogs(res.data);
+        }
+
+        fetchLogs();
+    }, [])
+
     const initialValues = {
         email: '',
         password: ''
@@ -47,15 +57,27 @@ const AdminProfile = () => {
     const formik = useFormik({
         initialValues,
         onSubmit: values => {
-            if (values.email !== aUser.user.email) {
+            if (values.email !== aUser.data.user.email) {
+                console.log("Incorrect email")
                 return false;
             }
     
             console.log('Form data', values)
+            axios.patch('/api/admin/' + aUser.data.user._id, values);
         }
     });
 
-    
+    const showLogs = async () => {
+        Swal.fire({
+            icon: 'info',
+            title: 'Activity Logs',
+            html: `${
+                logs.map((L) => {
+                const date = new Date(L.createdAt).toLocaleDateString();
+                return "<p style ='text-align: justify'>Timestamp: " + date + " Reason: " + L.reason + " By: " + L.user + "<br/></p>";
+            }).join('')}`,
+        });
+    }
 
     const setIconTrue = () => {
         setIconUpload(true);
@@ -64,14 +86,14 @@ const AdminProfile = () => {
     const uploadPhotoHandler = async (e) => {
         e.preventDefault();
 
-        dispatch({ type: "UPDATE_START" });
+        dispatch({ type: "AUPDATE_START" });
         const updateAccount = {
             profilePic,
             token: aUser.token,
         }
 
         if (file) {
-            const data = FormData();
+            const data = new FormData();
             const filename = Date.now() + file.name;
             data.append("name", filename);
             data.append("file", file);
@@ -83,8 +105,8 @@ const AdminProfile = () => {
                 updateAccount.profilePic = res.data.secure_url;
 
                 try {
-                    const res = await axios.patch("/api/admin/" + aUser.user._id, updateAccount);
-                    dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
+                    const res = await axios.patch("/api/admin/" + aUser.data.user._id, updateAccount);
+                    dispatch({ type: "AUPDATE_SUCCESS", payload: res.data });
                     Swal.fire({
                         icon: 'success',
                         title: 'Updated!',
@@ -94,7 +116,7 @@ const AdminProfile = () => {
                     setIconUpload(false);
                 } catch (err) {
                     console.log(err);
-                    dispatch({ type: "UPDATE_FAILURE" })
+                    dispatch({ type: "AUPDATE_FAILURE" })
                 }
             } catch (err) {
                 console.log(err)
@@ -108,11 +130,9 @@ const AdminProfile = () => {
             setIconUpload(false);
             setProfilePic("");
         }
-
-        //axios.patch('/api/admin/:id' + aUser.user._id);
     }
 
-    //console.log(aUser.user._id);
+    console.log(aUser);
     return (
         // <React.Fragment>
         //     <AdminLayout>
@@ -208,7 +228,7 @@ const AdminProfile = () => {
                     <div className={classes.AdminProfile}>
                         <div className={classes.AdminAccountShadow}>
                             <div className={classes.AdminAccountImage}>
-                                <img src= {file ? (URL.createObjectURL(file)) : `${aUser.user.profilePic}`} alt="" ></img>
+                                <img src= {file ? (URL.createObjectURL(file)) : `${aUser.data.user.profilePic}`} alt="" ></img>
                             </div>
                         </div>
 
@@ -219,8 +239,7 @@ const AdminProfile = () => {
                                 </div>
 
                                 <div className={classes.AdminProfileChangeImg}>
-                                    <Form.Label ><i class="fas fa-history" ></i></Form.Label>
-                                    {/* <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label> */}
+                                    <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label>
                                 </div>
                             </>
                         }
@@ -233,7 +252,6 @@ const AdminProfile = () => {
                         }
 
                         <Form className={classes.AdminProfileEdit} onSubmit={ uploadPhotoHandler }>
-                            <h3>Personal Information</h3>
                             <Form.Group>
                                 <Form.Control
                                     id="iconImg"
@@ -246,6 +264,7 @@ const AdminProfile = () => {
                             <Button id="btnImg" type='submit' style={{display:'none'}}></Button>
                         </Form>
 
+                        <h3>{aUser.data.user.username}</h3>
                         <h2>Summary</h2>
                         <div className={classes.ButtonDiv}>
                             <Link to = "/admin-summary/reports">
@@ -264,13 +283,13 @@ const AdminProfile = () => {
                                     <div className={classes.InputDiv}>
                                         <label htmlFor="city_municipality">City/Municipality</label>
                                         <div className={classes.PseudoInput}>
-                                            {aUser.user.city}
+                                            {aUser.data.user.city}
                                         </div>
                                     </div>
                                     <div className={classes.InputDiv}>
                                         <label htmlFor="region">Region</label>
                                         <div className={classes.PseudoInput}>
-                                            {aUser.user.region}
+                                            {aUser.data.user.region}
                                         </div>
                                     </div>
                                 </div>

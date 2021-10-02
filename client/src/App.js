@@ -34,7 +34,7 @@ import AdminProjects from './components/AllAdmin/Administrator/AdminProjects/Adm
 import AdminUsers from './components/AllAdmin/Administrator/AdminUsers/AdminUsers';
 import Applicants from './components/AllAdmin/Administrator/Applicants/Applicants';
 import SingleApplicants from './components/AllAdmin/Administrator/SingleApplicants/SingleApplicants';
-import AdminLogout from './components/AllAdmin/Administrator/AdminLogout/AdminLogout';
+import SingleUsers from './components/AllAdmin/Administrator/SingleUsers/SingleUsers';
 import AdminCreateProposals from './components/AllAdmin/Administrator/AdminCreateProposals/AdminCreateProposals';
 import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreateProjects/AdminCreateProjects';
 
@@ -298,6 +298,10 @@ const App = () => {
 
           <Route path="/Applicants-Verification">
             {aUser ? <SingleApplicants /> : <Redirect to="/admin-login" />}
+          </Route>
+
+          <Route path="/Admin-viewUsers">
+            {aUser ? <SingleUsers /> : <Redirect to="/admin-login" />}
           </Route>
 
           {/**************************** SUPER ADMIN Routes ****************************/}

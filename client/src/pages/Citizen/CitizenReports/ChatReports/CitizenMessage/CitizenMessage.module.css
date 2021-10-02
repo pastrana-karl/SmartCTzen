@@ -17,11 +17,11 @@
 }
 
 .MessageText {
-    max-width: 600px;
+    max-width: 500px;
     padding: 13px 13px 13px 13px;
     border-radius: 25px;
-    background-color: #FF5039;
-    color: #FFFFFF;
+    background-color: lightgray;
+    color: black;
 }
 
 .MessageBottom {
@@ -36,7 +36,7 @@
 }
 
 .MessageOwn .MessageText {
-    background-color: lightgray;
-    color: black;
+    background-color: #FF5039;
+    color: #FFFFFF;
 }
 

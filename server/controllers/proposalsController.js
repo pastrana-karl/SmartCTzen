@@ -33,21 +33,49 @@ exports.getOwnProposals = async (req, res, next) => {
 };
 
 exports.getAllProposals = catchAsync(async (req, res, next) => {
+    //This does not return all the reports this requires a query when getting all reports there is no query
     //Execute query
-    const features = new APIFeatures(Proposals.find(), req.query)
-    .filter()
-    .sort()
-    .limit();
+    // const features = new APIFeatures(Proposals.find(), req.query)
+    // .filter()
+    // .sort()
+    // .limit();
 
-    const proposals = await features.query;
+    // const proposals = await features.query;
 
-    //Send response
-    res.status(200).json({
-        status: 'success',
-        data: {
-            proposals
+    // //Send response
+    // res.status(200).json({
+    //     status: 'success',
+    //     data: {
+    //         proposals
+    //     }
+    // });
+
+    
+    if(req.query.user) {
+        try {
+            const proposals = await Proposals.find({ userName:req.query.user });
+            res.status(200).json({
+                status: 'success',
+                data: {
+                    proposals
+                }
+            });
+        } catch (err) {
+            res.status(500).json(err);
         }
-    });
+    } else {
+        try {
+            const proposals = await Proposals.find();
+            res.status(200).json({
+                status: 'success',
+                data: {
+                    proposals
+                }
+            });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
 });
 
 exports.getProposal = catchAsync(async (req, res, next) => {
@@ -68,19 +96,18 @@ exports.getProposal = catchAsync(async (req, res, next) => {
 exports.postProposal = catchAsync(async (req, res, next) => {
     const newProposal = await Proposals.create(req.body);
 
-    const newProposalHist = new diffCollection({
-        collectionName: 'Proposal',
-        userType: newProposal.userType,
-        user: newProposal.userName,
-        reason: 'Created new proposal',
-    });
+    // const newProposalHist = new diffCollection({
+    //     collectionName: 'Proposal',
+    //     userType: newProposal.userType,
+    //     user: newProposal.userName,
+    //     reason: 'Created new proposal',
+    // });
 
-    await newProposalHist.save();
-
+    const proposal = await newProposal.save();
     res.status(201).json({
         status: 'success',
         data: {
-            newProposal
+            proposal
         }
     });
 });
@@ -329,15 +356,29 @@ exports.postProposalComment = catchAsync(async (req, res, next) => {
 exports.approveProposal = catchAsync(async (req, res, next) => {
     const proposal = await Proposals.findById(req.params.id);
 
-    const approveProposal = Proposals.findByIdAndUpdate(
-        req.params.id, {
-            status: proposal.status['Approved']
-        }
-    );
+//     const approveProposal = Proposals.findByIdAndUpdate(
+//         req.params.id, {
+//             status: proposal.status['Approved']
+//         }
+//     );
+
+//     res.status(200).json({
+//         data: {
+//             approveProposal
+//         }
+//     });
+// });
+
+exports.patchProposal = catchAsync(async (req, res, next) => {
+    const proposal = await Proposals.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
 
     res.status(200).json({
+        status: "success",
         data: {
-            approveProposal
+            proposal
         }
     });
 });
@@ -357,7 +398,7 @@ exports.deleteProposal = catchAsync(async (req, res, next) => {
 
 exports.getTopProposals = catchAsync(async (req, res, next) => {
     try {
-        const topProposals = await Proposals.find({status: 'pending'}).sort({'upvote': -1}).limit(10);
+        const topProposals = await Proposals.find({status: 'Pending'}).sort({'upvote': -1}).limit(10);
         res.status(200).json(topProposals);
     } catch (err) {
         res.status(500).json(err);

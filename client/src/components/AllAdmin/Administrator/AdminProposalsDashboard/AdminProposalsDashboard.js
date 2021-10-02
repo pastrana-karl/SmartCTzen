@@ -88,9 +88,9 @@ const AdminProposalsDashboard = () => {
                                     <td>{++rCount}</td>
                                     <td>{p._id}</td>
                                     <td>{p.title}</td>
-                                    <td>{p.upvote}</td>
-                                    <td>{p.downvote}</td>
-                                    <td>{Math.trunc(((p.upvote - p.downvote) / (p.upvote + p.downvote)) * 100)}%</td>
+                                    <td>{p.upvote.length}</td>
+                                    <td>{p.downvote.length}</td>
+                                    <td>{Math.trunc(((p.upvote.length - p.downvote.length) / (p.upvote.length + p.downvote.length)) * 100)}%</td>
                                 </tr>
                             ))}
                         </tbody>

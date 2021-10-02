@@ -9,6 +9,8 @@ proposalsRouter
     .route("/proposals/topProposals")
     .get(proposalsController.getTopProposals);
  
+// proposalsRouter.post('create-proposals', proposalsController.postProposal);
+
 proposalsRouter
     .route("/proposals")
     .get(proposalsController.getAllProposals)
@@ -60,6 +62,6 @@ proposalsRouter
     .put(proposalsController.updateProposal)
     .delete(proposalsController.deleteProposal);
 
-proposalsRouter.patch("/proposals/approve/:id", proposalsController.approveProposal);
+proposalsRouter.patch("/proposals/:id", proposalsController.patchProposal);
 
 module.exports = proposalsRouter;

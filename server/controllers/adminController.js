@@ -40,7 +40,7 @@ const createSendToken = (user, statusCode, res) => {
     res.status(statusCode).json({
         status: 'success',
         token,
-        user
+        data: { user }
     });
 };
 
@@ -154,22 +154,24 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
 });
 
 exports.updateAdmin = catchAsync(async (req, res, next) => {
+    const token = req.body.token;
+    
     if (req.body.profilePic) {
-        const admin = await Admin.findByIdAndUpdate(req.params.id, {
+        const user = await Admin.findByIdAndUpdate(req.params.id, {
             $set: { "profilePic": req.body.profilePic }
         },
         { new: true });
 
         const updatedProfile = new diffCollection({
             collectionName: 'Admin',
-            userType: admin.userType,
-            user: admin.username,
+            userType: user.userType,
+            user: user.username,
             reason: 'Updated Profile'
         });
 
         await updatedProfile.save();
 
-        res.status(200).json({data: { admin }, token});
+        res.status(200).json({data: { user }, token});
     }
 
     if (req.body.newPassword) {
@@ -193,7 +195,7 @@ exports.updateAdmin = catchAsync(async (req, res, next) => {
             await updatedPassword.save();
 
             const { password, ...user } = updatedUser._doc;
-            res.status(200).json({ data: { admin }, token });
+            res.status(200).json({ data: { user }, token });
         }
     }
 });
@@ -208,60 +210,6 @@ exports.getAdmin = catchAsync(async (req, res, next) => {
         }
     });
 });
-
-// exports.protectAdmin = catchAsync(async (req, res, next) => {
-//     //1) Getting token and check if it's there
-//     let token;
-
-//     const headerAuth = req.header.authorization;
-//     if (headerAuth && headerAuth.startsWith('Bearer')) {
-//         token = req.headers.authorization.split(' ')[1];
-//     }
-
-//     if (!token) {
-//         return next(new AppError("Please login!", 401));
-//     }
-
-//     //2) Verification token
-//     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-//     console.log(decoded);
-
-//     //3) Check if user still exists
-//     const freshAdmin = await Admin.findById(decoded.id);
-//     if (!freshAdmin) {
-//         return next(new AppError("User no longer exists", 401));
-//     }
-
-//     //4) Check if user changed password after the JWT was issued
-//     if (freshAdmin.changedPasswordAfter(decoded.iat)) {
-//         return next(new AppError('User recently changed password! Please login again', 401));
-//     }
-
-//     //GRANT ACCESS TO PROTECTED ROUTE
-//     req.user = freshAdmin;
-//     next();
-
-// });
-
-// Login BACKUP DO NOT ERASE
-// exports.loginAdmin = catchAsync(async (req, res, next) => {
-//     const admin = await Admin.findOne({ email: req.body.email });
-
-//     if(!admin)
-//     {
-//         return res.status(400).json("Wrong Credentials!!");
-//     }
-
-//     const validated = await bcrypt.compare(req.body.password, admin.password);
-
-//     if(!validated)
-//     {
-//         return res.status(400).json("Wrong Credentials!!");
-//     }
-
-//     const { password, ...others } = admin._doc;
-//     res.status(200).json(others);
-// });
 
 //FORGOT PASSWORD
 
@@ -369,6 +317,16 @@ exports.changeAdminPassword = (req, res, next) => {
         })
     }).catch(err => {
         console.log(err)
-    })
+    });
 };
 
+// exports.getAllAdmins = catchAsync(async (req, res, next) => {
+//     const admin = await Admin.find();
+
+//     res.status(200).json({
+//         status: 'success',
+//         data: {
+//             admin
+//         }
+//     });
+// })
