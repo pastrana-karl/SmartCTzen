@@ -89,8 +89,8 @@ const CitizenProfile = () => {
             html: `${
                 logs.map((L) => {
                 const date = new Date(L.createdAt).toLocaleDateString();
-                return "<div style ='text-align: justify'>Timestamp: " + date + " Reason: " + L.reason + " By: " + L.user + "<br/></div>";
-            })}`,
+                return "<p style ='text-align: justify'>Timestamp: " + date + " Reason: " + L.reason + " By: " + L.user + "<br/></p>";
+            }).join('')}`,
         });
     }
 
