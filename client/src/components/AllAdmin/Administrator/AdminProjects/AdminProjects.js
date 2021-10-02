@@ -59,9 +59,9 @@ const AdminProjects = ( props ) => {
                         ))}
                     </tbody>
                 </Tables>
-                <div>
+                <div className={classes.ButtonDiv}>
                     <Link to='/admin-create-projects'>
-                        <h3>Create Projects</h3>
+                        <button className={classes.Button}>Create Projects</button>
                     </Link>
                 </div>
             </AdminLayout>

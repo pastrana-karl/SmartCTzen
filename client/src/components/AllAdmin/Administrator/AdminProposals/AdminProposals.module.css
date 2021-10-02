@@ -9,3 +9,27 @@
     justify-content: center;
     color: #FF5039;
 }
+
+.Button {
+    border: hidden;
+    padding: 15px 50px;
+    background: #F0F0F3;
+    box-shadow: -10px -10px 30px #FFFFFF, 10px 10px 30px rgba(174, 174, 192, 0.4);
+    border-radius: 30px;
+    color:#FF5039;
+}
+
+.Button:hover {
+    color: black;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+.ButtonDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}

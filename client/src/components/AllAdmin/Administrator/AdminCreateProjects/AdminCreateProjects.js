@@ -16,7 +16,7 @@ import classes from './AdminCreateProjects.module.css';
 
 const AdminCreateProjects = () => {
     const { aUser } = useContext(Context);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, errors } = useForm();
 
     const onSubmit = async (data) => {
         const coverImage = '';
@@ -77,8 +77,9 @@ const AdminCreateProjects = () => {
                                 id='userName'
                                 name='userName'
                                 placeholder='Username'
-                                ref={register}
+                                ref={register({ required: "Required!" })}
                             />
+                            {errors.userName && <p className={classes.InputValidation}>{errors.userName.message}</p>}
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
                             <label>Project Title</label>
@@ -88,8 +89,9 @@ const AdminCreateProjects = () => {
                                 id='title'
                                 name='title'
                                 placeholder='Proposal Title'
-                                ref={register}
+                                ref={register({ required: "Required!" })}
                             />
+                            {errors.title && <p className={classes.InputValidation}>{errors.title.message}</p>}
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
                             <label>Description</label>
@@ -99,8 +101,9 @@ const AdminCreateProjects = () => {
                                 id='description'
                                 name='description'
                                 placeholder='Description'
-                                ref={register}
+                                ref={register({ required: "Required!" })}
                             />
+                            {errors.description && <p className={classes.InputValidation}>{errors.description.message}</p>}
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
                             <label>Location</label>
@@ -110,8 +113,9 @@ const AdminCreateProjects = () => {
                                 id='location'
                                 name='location'
                                 placeholder='Location'
-                                ref={register}
+                                ref={register({ required: "Required!" })}
                             />
+                            {errors.location && <p className={classes.InputValidation}>{errors.location.message}</p>}
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
                             <label>Image</label>
@@ -120,8 +124,9 @@ const AdminCreateProjects = () => {
                                 id='coverImage'
                                 name='coverImage'
                                 placeholder='Insert Image'
-                                ref={register}
+                                ref={register({ required: "Required!" })}
                             />
+                            {errors.coverImage && <p className={classes.InputValidation}>{errors.coverImage.message}</p>}
                         </div>
                     </div>
                     <div className={classes.ButtonDiv}>

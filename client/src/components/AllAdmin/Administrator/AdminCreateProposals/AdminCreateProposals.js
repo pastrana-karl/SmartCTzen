@@ -16,9 +16,7 @@ import Swal from 'sweetalert2';
 
 const AdminCreateProposals = () => {
     const { aUser } = useContext(Context);
-    const { register, handleSubmit } = useForm();
-
-
+    const { register, handleSubmit, errors } = useForm();
 
     const onSubmit = async (data) => {
         const coverImage = '';
@@ -94,8 +92,9 @@ const AdminCreateProposals = () => {
                                 id='title'
                                 name='title'
                                 placeholder='Proposal Title'
-                                ref={register}
+                                ref={register({ required: "Required!" })}
                             />
+                            {errors.title && <p className={classes.InputValidation}>{errors.title.message}</p>}
                         </div>
                         <div className={classes.AdminCreateProposalsFormInput}>
                             <label>Description</label>
@@ -105,8 +104,9 @@ const AdminCreateProposals = () => {
                                 id='description'
                                 name='description'
                                 placeholder='Description'
-                                ref={register}
+                                ref={register({ required: "Required!" })}
                             />
+                            {errors.description && <p className={classes.InputValidation}>{errors.description.message}</p>}
                         </div>
                         <div className={classes.AdminCreateProposalsFormInput}>
                             <label>Location</label>
@@ -116,8 +116,9 @@ const AdminCreateProposals = () => {
                                 id='location'
                                 name='location'
                                 placeholder='Location'
-                                ref={register}
+                                ref={register({ required: "Required!" })}
                             />
+                            {errors.location && <p className={classes.InputValidation}>{errors.location.message}</p>}
                         </div>
                         <div className={classes.AdminCreateProposalsFormInput}>
                             <label>Image</label>
@@ -126,8 +127,9 @@ const AdminCreateProposals = () => {
                                 id='coverImage'
                                 name='coverImage'
                                 placeholder='Insert Image'
-                                ref={register}
+                                ref={register({ required: "Required!" })}
                             />
+                            {errors.coverImage && <p className={classes.InputValidation}>{errors.coverImage.message}</p>}
                         </div>
                     </div>
                     <div className={classes.ButtonDiv}>
