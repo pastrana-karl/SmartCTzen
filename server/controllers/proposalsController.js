@@ -327,6 +327,8 @@ exports.postProposalComment = catchAsync(async (req, res, next) => {
         message:req.body.message
     }
 
+    console.log(comment);
+
     const result = Proposals.findByIdAndUpdate(
         proposal,
         { $push : { comments : [

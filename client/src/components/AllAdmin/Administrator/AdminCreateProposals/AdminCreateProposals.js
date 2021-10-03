@@ -1,12 +1,9 @@
 import React, { useContext, useState } from 'react';
-// import { useFormik } from 'formik';
 import { useForm } from 'react-hook-form';
-import * as Yup from 'yup';
 import axios from 'axios';
 
 import AdminLayout from '../AdminLayout/AdminLayout';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
-import Input from '../../../UI/Input/Input';
 import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
 import { Context } from '../../../../context/Context';
