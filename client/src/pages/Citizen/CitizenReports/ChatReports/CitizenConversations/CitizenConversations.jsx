@@ -23,13 +23,13 @@ const CitizenConversations = ({conversation, currentUser}) => {
     }, [currentUser, conversation]);
 
     
-    //console.log(currentUser);
+    console.log(adminUser);
 
     return(
         <div className={classes.CitizenConversations}>
             <img 
                 className={classes.CitizenConversationsImg}
-                src={currentUser.data.user.profilePic}
+                src={adminUser?.profilePic}
                 alt="sample-image"
             />
             <span className={classes.ConversationName}>{adminUser?.username}</span>

@@ -17,23 +17,29 @@ const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
         sendRequest();
     }, []);
 
-    // useEffect(() => {
-    //     setSelectedAdmin(allAdmins.filter(a => admin.includes(a._id)));
-    // }, [admin]);
-
-   //console.log(selectedAdmin);
-
     const handleClick = async (user) => {
         try {
             const res = await axios.get(`/api/conversations/${currentId}/${user._id}` );
             setCurrentChat(res.data);
             console.log(res.data);
+
+            if (res.data !== null) {
+                return;
+            } else {
+                const newConvo = await axios.post('/api/conversations/', {
+                    senderID: currentId,
+                    receiverID: user._id
+                });
+                console.log(newConvo.data.savedConversation);
+            }
+
+
         } catch (err) {
             console.log(err);
         }
     } 
 
-   //console.log(allAdmins);
+   
 
     return ( 
         <div className={classes.ChatOnline}>
