@@ -3,35 +3,41 @@ import React, { useEffect, useState } from 'react';
 
 import classes from './CitizenChatOnline.module.css';
 
-const CitizenChatOnline = ({currentId, setCurrentChat}) => {
-    const [allAdmins, setAllAdmins] = useState();
+const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
+    const [allAdmins, setAllAdmins] = useState([]);
+    const [selectedAdmin, setSelectedAdmin] = useState([]);
 
     useEffect(() => {
         const sendRequest = async () => {
             const response = await fetch('/api/admin');
             const responseData = await response.json();
             setAllAdmins(responseData);
-            // console.log(responseData.data)
+           // console.log(responseData)
         }
         sendRequest();
     }, []);
 
+    // useEffect(() => {
+    //     setSelectedAdmin(allAdmins.filter(a => admin.includes(a._id)));
+    // }, [admin]);
+
+   //console.log(selectedAdmin);
+
     const handleClick = async (user) => {
         try {
             const res = await axios.get(`/api/conversations/${currentId}/${user._id}` );
-            //const resData = await res.json();
-            setCurrentChat(res)
+            setCurrentChat(res.data);
             console.log(res.data);
         } catch (err) {
             console.log(err);
         }
-    }
+    } 
 
    //console.log(allAdmins);
 
     return ( 
         <div className={classes.ChatOnline}>
-            {allAdmins && allAdmins.map((admin) => (
+            {allAdmins.map((admin) => (
             <div className={classes.ChatOnlineAdmin} key={admin._id}  onClick={() => handleClick(admin)}> 
                 <div className={classes.ChatOnlineImageContainer}>
                 <img 

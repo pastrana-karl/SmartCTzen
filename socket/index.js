@@ -33,11 +33,16 @@ io.on("connection", (socket) => {
 
     //send and get message
     socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-        const user = getUser(receiverId);
-        io.to(user.socketId).emit("getMessage", {
+            const user = getUser(receiverId);
+
+        try {
+            io.to(user.socketId).emit("getMessage", {
             senderId,
             text
-        });
+            });
+        } catch (err) {
+            console.log('One of the user is not connected');
+        }
         // console.log(receiverId.socketId);
     });
 

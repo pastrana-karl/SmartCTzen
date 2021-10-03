@@ -18,6 +18,8 @@ const CitizenChatReport = ( props ) => {
     const [chatMessages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [allAdmins, setAllAdmins] = useState([]);
+    const [admin, setAdmin] = useState([]);
     const socket = useRef();
     const { user } = useContext(Context);
     const scrollRef = useRef();
@@ -33,6 +35,16 @@ const CitizenChatReport = ( props ) => {
         });
     }, []);
 
+    // useEffect(() => {
+    //     const sendRequest = async () => {
+    //         const response = await fetch('/api/admin');
+    //         const responseData = await response.json();
+    //         setAllAdmins(responseData);
+    //        // console.log(responseData)
+    //     }
+    //     sendRequest();
+    // }, []);
+
     useEffect(() => {
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
         setMessages(prev => [...prev, arrivalMessage]);
@@ -40,8 +52,8 @@ const CitizenChatReport = ( props ) => {
 
     useEffect(() => {
         socket.current.emit("addUser", user.data.user._id);
-        socket.current.on("getUsers", user => {
-           console.log(user);
+        socket.current.on("getUsers", users => {
+            console.log(users);
         });
     }, [user]);
 
@@ -185,12 +197,13 @@ const CitizenChatReport = ( props ) => {
                     {/* Admins */}
                     <div className={classes.AdminList}>
                         <CitizenChatOnline
+                            admin={admin}
                             currentId={user.data.user._id}
                             setCurrentChat={setCurrentChat}
                         />
                     </div>
                 </div>
-            </div>
+            </div> 
         </React.Fragment>
     );
 
