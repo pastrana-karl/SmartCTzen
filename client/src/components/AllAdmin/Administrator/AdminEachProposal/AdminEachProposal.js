@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
 import axios from "axios";
 
 import SubmitButton from "../../../UI/Buttons/SubmitButton/SubmitButton";
@@ -13,6 +14,7 @@ import classes from "./AdminEachProposal.module.css";
 const AdminEachProposal = () => {
   const [currentProposal, setCurrentProposal] = useState([]);
   const [comments, setComments] = useState();
+  const [redirect, setRedirect] = useState(false)
   const { aUser } = useContext(Context);
   const { register, handleSubmit, errors } = useForm();
 

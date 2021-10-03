@@ -9,14 +9,16 @@ let users = [];
 const addUser = (userId, socketId) => {
     !users.some((user) => user.userId === userId) &&
     users.push({ userId, socketId });
+    //console.log(userId);
 };
 
 const removeUser = (socketId) => {
     users = users.filter(user => user.socketId !== socketId);
 };
 
-const getUser = (userId, socketId) => {
-    return users.find(user => user.userId === userId);
+const getUser = (userId) => {
+    //console.log(userId);
+    return users.find((user) => user.userId === userId);
 };
 
 io.on("connection", (socket) => {
@@ -36,6 +38,7 @@ io.on("connection", (socket) => {
             senderId,
             text
         });
+        // console.log(receiverId.socketId);
     });
 
     //when disconnect

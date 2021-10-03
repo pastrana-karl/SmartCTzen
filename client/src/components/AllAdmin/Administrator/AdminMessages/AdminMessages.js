@@ -21,7 +21,7 @@ const AdminMessages = ( props ) => {
     const scrollRef = useRef();
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8900");
+        socket.current = io("ws://localhost:8800");
         socket.current.on("getMessage", data => {
             setArrivalMessage({
                 sender: data.senderId,
@@ -57,7 +57,7 @@ const AdminMessages = ( props ) => {
         };
 
         getConversations();
-    }, [aUser.data?.user?._id]);
+    }, [aUser.data.user._id]);
 
     useEffect(() => {
         const getMessages = async () => {
@@ -90,6 +90,8 @@ const AdminMessages = ( props ) => {
             receiverId,
             text: newMessage
         });
+
+        console.log(receiverId);
 
         try {
             const res = await axios.post("/api/messages/", message);

@@ -28,7 +28,7 @@ const historyRoutes = require('./routes/historyRoutes');
 const app = express();
 
 //Set Security HTTP Headers
-app.use(helmet());
+// app.use(helmet());
 
 //Middleware
 app.use(express.urlencoded({extended: false})); //parse body coming from a form
