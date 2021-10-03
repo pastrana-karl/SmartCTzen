@@ -3,27 +3,15 @@ import { useFormik } from 'formik';
 import { Row, Col, Form, Container, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-
 import { Context } from '../../../../context/Context';
-
 import AdminLayout from '../AdminLayout/AdminLayout';
 import AdminProfileButton from '../../../UI/Buttons/AdminProfileButton/AdminProfileButton';
-import ProfileIconCard from '../../../UI/Cards/ProfileIconCard/ProfileIconCard';
 import ProfileInput from '../../../UI/Input/ProfileInput/ProfileInput';
 import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
 import { Link } from 'react-router-dom';
-
 import classes from './AdminProfile.module.css';
-import { propTypes } from 'react-bootstrap/esm/Image';
-import TextError from '../../../UI/Text/TextError';
 import axios from 'axios';
-
-
-const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email format').required('Required!'),
-    password: Yup.string().required('Required!')
-});
 
 const AdminProfile = () => {
     const { aUser, dispatch } = useContext(Context);
@@ -31,14 +19,8 @@ const AdminProfile = () => {
     const [profilePic, setProfilePic] = useState("");
     const [iconUpload, setIconUpload] = useState(false);
     const [logs, setLogs] = useState([]);
-
-    // const onSubmit = values => {
-    //     if (values.email !== aUser.user.email) {
-    //         return false;
-    //     }
-
-    //     console.log('Form data', values);
-    // };
+    const [newPassword, setNewPassword] = useState("");
+    const [oldPassword, setOldPassword] = useState("");
 
     useEffect(() => {
         const fetchLogs = async () => {
@@ -48,24 +30,6 @@ const AdminProfile = () => {
 
         fetchLogs();
     }, [])
-
-    const initialValues = {
-        email: '',
-        password: ''
-    }
-
-    const formik = useFormik({
-        initialValues,
-        onSubmit: values => {
-            if (values.email !== aUser.data.user.email) {
-                console.log("Incorrect email")
-                return false;
-            }
-    
-            console.log('Form data', values)
-            axios.patch('/api/admin/' + aUser.data.user._id, values);
-        }
-    });
 
     const showLogs = async () => {
         Swal.fire({
@@ -83,6 +47,7 @@ const AdminProfile = () => {
         setIconUpload(true);
     }
 
+    //Update Profile Picture
     const uploadPhotoHandler = async (e) => {
         e.preventDefault();
 
@@ -105,7 +70,7 @@ const AdminProfile = () => {
                 updateAccount.profilePic = res.data.secure_url;
 
                 try {
-                    const res = await axios.patch("/api/admin/" + aUser.data.user._id, updateAccount);
+                    const res = await axios.put("/api/admin/" + aUser.data.user._id, updateAccount);
                     dispatch({ type: "AUPDATE_SUCCESS", payload: res.data });
                     Swal.fire({
                         icon: 'success',
@@ -132,97 +97,59 @@ const AdminProfile = () => {
         }
     }
 
-    console.log(aUser);
+    //Update Password
+    const passwordUpdate = async (e) => {
+        e.preventDefault();
+
+        const checkPass = {
+            userId: aUser.data.user._id,
+            oldPassword,
+        }
+
+        try {
+            await axios.post("/api/admin/password-adminCompare", checkPass)
+
+            dispatch({ type: "AUPDATE_START" })
+            const updateAccount = {
+                userId: aUser.data.user._id,
+                newPassword,
+                token: aUser.token,
+            }
+            try {
+                const res = await axios.put("/api/admin/" + aUser.data.user._id, updateAccount);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Update Successfull',
+                    text: '',
+                });
+                
+                Array.from(document.querySelectorAll("input")).forEach(
+                    input => (input.value = ""),
+                    setOldPassword(""),
+                    setNewPassword(""),
+                );
+                
+                dispatch({ type: "AUPDATE_SUCCESS", payload: res.data });
+            } catch (err) {
+                console.log(err);
+                Swal.fire({
+                    icon: 'error',
+                    title: `${err.response.status}`,
+                    text: `${err.response.data.message}`,
+                });
+                dispatch({ type: "AUPDATE_FAILURE" })
+            }
+        } catch (err) {
+            console.log(err)
+            Swal.fire({
+                icon: 'error',
+                title: `${err.response.status}`,
+                text: `${err.response.data}`,
+            });
+        }
+    }
+
     return (
-        // <React.Fragment>
-        //     <AdminLayout>
-        //         <div className={classes.Content}>
-        //             <div className={classes.AdminProfile}>
-        //                 <ProfileIconCard />
-        //                 <h2>Summary</h2>
-        //                 <div className={classes.ButtonDiv}>
-        //                     <Link to = "/admin-summary/reports">
-        //                         <AdminProfileButton>Reports</AdminProfileButton>
-        //                     </Link>
-        //                     <Link to = '/admin-summary/proposals'>
-        //                         <AdminProfileButton>Proposals</AdminProfileButton>
-        //                     </Link>
-        //                 </div>
-        //             </div>
-        //             <div>
-        //                 <h2>Personal Information</h2>
-        //                 <div>
-        //                     <form className={classes.AdminProfileFormDiv}>
-        //                         <div>
-        //                             <div className={classes.InputDiv}>
-        //                                 <label htmlFor="city_municipality">City/Municipality</label>
-        //                                 <ProfileInput
-        //                                     placeholder="City/Municipality"
-        //                                     type="text"
-        //                                     id="city_municipality"
-        //                                     name="city_municipality"
-        //                                     readOnly="readOnly"
-        //                                     onChange={formik.handleChange}
-        //                                     value={aUser.user.city}
-        //                                 />
-        //                             </div>
-        //                             <div className={classes.InputDiv}>
-        //                                 <label htmlFor="region">Region</label>
-        //                                 <ProfileInput
-        //                                     placeholder="Region"
-        //                                     type="text"
-        //                                     id="region"
-        //                                     name="region"
-        //                                     readOnly="readOnly"
-        //                                     onChange={formik.handleChange}
-        //                                     value={aUser.user.region}
-        //                                 />
-        //                             </div>
-        //                         </div>
-        //                     </form>
-        //                 </div>
-
-        //                 {/* LOGIN CREDENTIALS */}
-
-                        // <h2>Login Credentials</h2>
-                        // <div>
-                        //     <form onSubmit={formik.handleSubmit}>
-                        //         <div className={classes.AdminProfileFormDiv}>
-                        //             <div className={classes.InputDiv}>
-                        //                 <label>Email Address</label>
-                        //                 <ProfileInput
-                        //                     placeholder="Email address"
-                        //                     type="email"
-                        //                     id="email"
-                        //                     name="email"
-                        //                     onChange={formik.handleChange}
-                        //                     value={aUser.user.email}
-                        //                 />
-                        //             </div>
-                        //             <div className={classes.InputDiv}>
-                        //                 <label>Password</label>
-                        //                 <ProfileInput
-                        //                     placeholder="Password"
-                        //                     type="password"
-                        //                     id="password"
-                        //                     name="password"
-                        //                     onChange={formik.handleChange}
-                        //                     value={aUser.user.password}
-                        //                 />
-                        //             </div>
-                        //         </div>
-                        //         <div className={classes.ButtonDiv}>
-                        //             <SubmitButton />
-                        //             <CancelButton />
-                        //         </div>
-                        //     </form>
-                        // </div>
-        //             </div>
-        //         </div>
-        //     </AdminLayout>
-        // </React.Fragment>
-
-
             <AdminLayout>
                 <div className={classes.Content}>
                     <div className={classes.AdminProfile}>
@@ -296,78 +223,39 @@ const AdminProfile = () => {
                             </div>
                         </div>
 
-                        <h2>Login Credentials</h2>
+                        <h2>Update Password</h2>
                         <div>
-                            <form onSubmit={formik.handleSubmit}>
-                                <div className={classes.AdminProfileFormDiv}>
-                                    <div className={classes.InputDiv}>
-                                        <label>Email Address</label>
-                                        <ProfileInput
-                                            placeholder="Email address"
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            onChange={formik.handleChange}
-                                        />
-                                    </div>
-                                    <div className={classes.InputDiv}>
-                                        <label>Password</label>
-                                        <ProfileInput
-                                            placeholder="Password"
-                                            type="password"
-                                            id="password"
-                                            name="password"
-                                            onChange={formik.handleChange}
-                                        />
-                                    </div>
-                                </div>
-                                <div className={classes.ButtonDiv}>
-                                    <SubmitButton />
-                                    <CancelButton />
-                                </div>
-                            </form>
+                            <Form className={classes.AdminProfileFormDiv} onSubmit = { passwordUpdate }>
+                                <Form.Group className={classes.InputDiv}>
+                                    <Form.Label>Current Password</Form.Label>
+                                    <Form.Control
+                                        className={classes.PseudoInput}
+                                        type="password"
+                                        name="cpass"
+                                        autoComplete="off"
+                                        required
+                                        onChange = {e => setOldPassword(e.target.value)}
+                                    />
+                                </Form.Group>
+                                <Form.Group className={classes.InputDiv}>
+                                    <Form.Label>New Password</Form.Label>
+                                    <Form.Control
+                                        className={classes.PseudoInput}
+                                        type="password"
+                                        name="cpass"
+                                        autoComplete="off"
+                                        required
+                                        onChange = {e => setNewPassword(e.target.value)}
+                                    />
+                                </Form.Group>
+                                
+                                <Row className='citizenPassUpdate-BtnContainer'>
+                                    <Col className='BtnContainerCenter'>
+                                        <Button className = 'citizenPassUpdate-Btn' variant = "danger" type = 'submit'>Change</Button>
+                                    </Col>
+                                </Row>
+                            </Form>
                         </div>
-
-                        {/* LOGIN CREDENTIALS */}
-
-                        {/* <h6>Fill this up to change password</h6>
-                        <div>
-                            <Formik
-                                initialValues={initialValues}
-                                validationSchema={validationSchema}
-                                onSubmit={onSubmit}>
-                                <Form>
-                                    <div className={classes.AdminProfileFormDiv}>
-                                        <div className={classes.InputDiv}>
-                                            <label>Email Address</label>
-                                            <Field
-                                                className={classes.FormikInput}
-                                                placeholder="Email address"
-                                                type="email"
-                                                id="email"
-                                                name="email"
-                                            />
-                                            <ErrorMessage name='email' component={TextError} />
-                                        </div>
-                                        <div className={classes.InputDiv}>
-                                            <label>Password</label>
-                                            <Field
-                                                className={classes.FormikInput}
-                                                placeholder="Password"
-                                                type="password"
-                                                id="password"
-                                                name="password"
-                                            />
-                                            <ErrorMessage name='password' component={TextError} />
-                                        </div>
-                                    </div>
-                                    <div className={classes.ButtonDiv}>
-                                        <SubmitButton />
-                                        <CancelButton />
-                                    </div>
-                                </Form>
-                            </Formik>
-                        </div> */}
                     </div>
                 </div>
             </AdminLayout>

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
+import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import AdminLayout from '../AdminLayout/AdminLayout';
-import axios from 'axios'
-import '../Applicants/Applicants.css'
+import axios from 'axios';
+import './AdminUsers.css';
 
 const AdminUsers = () => {
     const [citizenUser, setCitizenUser] = useState([]);
@@ -29,27 +28,27 @@ const AdminUsers = () => {
         <>
             <AdminLayout>
                 <Container>
-                    <div  className = 'Applicants-header'>
+                    <div  className = 'acceptedUsers-header'>
                         <h1>Users</h1>
                     </div>
 
-                    <div  className = 'col-md-10 offset-md-1' id = 'Applicants-body'>
+                    <div  className = 'col-md-10 offset-md-1' id = 'acceptedUsers-body'>
                         {citizenID !== undefined && citizenID !== null ? (
                         <>
                             <Row>
-                                <Col className='Applicants-searchTitle'><h4>Lastname</h4></Col>
-                                <Col className='Applicants-searchTitle'><h4>Firstname</h4></Col>
-                                <Col className='Applicants-searchTitle'><h4>Status</h4></Col>
-                                <Col className='Applicants-searchTitle' id = 'applicantEmail'><h4>Email</h4></Col>
-                                <Col className='Applicants-searchTitle'></Col>
+                                <Col className='acceptedUsers-searchTitle'><h4>Lastname</h4></Col>
+                                <Col className='acceptedUsers-searchTitle'><h4>Firstname</h4></Col>
+                                <Col className='acceptedUsers-searchTitle'><h4>Status</h4></Col>
+                                <Col className='acceptedUsers-searchTitle' id = 'acceptedUserEmail'><h4>Email</h4></Col>
+                                <Col className='acceptedUsers-searchTitle'></Col>
                             </Row>
                             {citizenUser.map((A) => (
                                 <Row key={A._id}>
-                                    <Col className='Applicants-searchResult'><h4>{A.lastname}</h4></Col>
-                                    <Col className='Applicants-searchResult'><h4>{A.firstname}</h4></Col>
-                                    <Col className='Applicants-searchResult'><h4>Approved</h4></Col>
-                                    <Col className='Applicants-searchResult' id = 'applicantEmail'><h4>{A.email}</h4></Col>
-                                    <Col className='Applicants-searchResult'><h4><Link to = {`/Admin-viewUsers/${A._id}`}><i className="fas fa-external-link-alt"></i></Link></h4></Col>
+                                    <Col className='acceptedUsers-searchResult'><h4>{A.lastname}</h4></Col>
+                                    <Col className='acceptedUsers-searchResult'><h4>{A.firstname}</h4></Col>
+                                    <Col className='acceptedUsers-searchResult'><h4>Approved</h4></Col>
+                                    <Col className='acceptedUsers-searchResult' id = 'acceptedUserEmail'><h4>{A.email}</h4></Col>
+                                    <Col className='acceptedUsers-searchResult'><h4><Link to = {`/Admin-viewUsers/${A._id}`}><i className="fas fa-external-link-alt"></i></Link></h4></Col>
                                 </Row>
                             ))}
                         </>

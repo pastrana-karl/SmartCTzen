@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Form, Container, Button } from 'react-bootstrap';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { Form, Container } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import { Context } from '../../../../context/Context';
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
-import Swal from 'sweetalert2';
 import axios from 'axios';
 import './SingleUsers.css';
 
@@ -27,8 +26,6 @@ const SingleUsers = () => {
     const [validID, setValidID] = useState([]);
     const [birthCert, setBirthCert] = useState([]);
     const [residency, setResidency] = useState([]);
-    const [redirect, setRedirect] = useState(false);
-    const { aUser } = useContext(Context); 
 
     useEffect(() => {
         const getApplicant = async ()=>{
@@ -42,67 +39,16 @@ const SingleUsers = () => {
         getApplicant();
 
     }, [path]);
-    
-    const handleAccept = async () => {
-        const admin = {
-            username: aUser.user.username,
-            usertype: aUser.user.userType
-        }
-
-        try {
-            await axios.post("/api/citizen/" + path, admin);
-            Swal.fire('Applicant Accepted', "You've successfuly accepted an applicant.", 'success').then(
-                (result) => {
-                  if (result.isConfirmed || result.isDismissed) {
-                    setRedirect(true);
-                   }
-                }
-            );
-        } catch (err) {
-            console.log(err.response)
-            Swal.fire({
-                icon: 'error',
-                title: `${err.response.status}`,
-                text: `${err.response.data.error}`,
-            });
-        }
-    }
-
-    const handleReject = async () => {
-        const admin = {
-            username: aUser.user.username,
-            usertype: aUser.user.userType
-        }
-
-        try {
-            await axios.delete(`/api/citizen/${path}`, { data: admin });
-            Swal.fire('Applicant Rejected', "You've rejected an applicant.", 'success').then(
-                (result) => {
-                  if (result.isConfirmed || result.isDismissed) {
-                    setRedirect(true);
-                   }
-                }
-            );
-        } catch (err) {
-            console.log(err.response)
-            Swal.fire({
-                icon: 'error',
-                title: `${err.response.status}`,
-                text: `${err.response.data.error}`,
-            });
-        }
-    }
 
     return (
         <>
-            { redirect && (<Redirect to = '/Applicants' />) }
-            <Container className = 'Applicant-verificationContainer'>
-                <div  className = 'ApplicantVerification-header'>
+            <Container className = 'acceptedUser-Container'>
+                <div  className = 'acceptedSingleUsers-header'>
                     <h1>SmartCTzen User</h1>
                 </div>
 
-                <div className = 'ApplicantVerification-body'>
-                    <Form className="ApplicantVerification-form">
+                <div className = 'acceptedSingleUsers-body'>
+                    <Form className="acceptedSingleUsers-form">
                         <Form.Group>
                         <Form.Label>First name</Form.Label>
                         <Form.Control
@@ -203,11 +149,11 @@ const SingleUsers = () => {
                         />
                         </Form.Group>
                         
-                        <div  className = 'ApplicantVerification-header'>
+                        <div  className = 'acceptedSingleUsers-header'>
                             <h1>Valid ID</h1>
                         </div>
 
-                        <div className = 'applicantDocumentsImg'>
+                        <div className = 'acceptedUsersDocumentsImg'>
                                 <Slider {...settings}>
                                     {validID.map((pic) => (
                                         <div key={pic}>
@@ -217,12 +163,12 @@ const SingleUsers = () => {
                                 </Slider>
                         </div>
 
-                        <div  className = 'ApplicantVerification-header'>
+                        <div  className = 'acceptedSingleUsers-header'>
                             <h1>Proof of Residency</h1>
                         </div>
 
                         
-                        <div className = 'applicantDocumentsImg'>
+                        <div className = 'acceptedUsersDocumentsImg'>
                                 <Slider {...settings}>
                                     {residency.map((pic) => (
                                         <div key={pic}>
@@ -234,12 +180,12 @@ const SingleUsers = () => {
 
                         {birthCert[0] !== undefined &&
                             <> 
-                                <div  className = 'ApplicantVerification-header'>
+                                <div  className = 'acceptedSingleUsers-header'>
                                     <h1>Birth Certificate</h1>
                                 </div>
 
                                 
-                                <div className = 'applicantDocumentsImg'>
+                                <div className = 'acceptedUsersDocumentsImg'>
                                     <Slider {...settings}>
                                         {birthCert.map((pic) => (
                                             <div key={pic}>
@@ -252,7 +198,7 @@ const SingleUsers = () => {
                         }
                     </Form>
 
-                    <Link to = '/admin-users' className = 'ApplicantVerificationLink'>Back</Link>
+                    <Link to = '/admin-users' className = 'acceptedSingleUsersLink'>Back</Link>
                 </div>
             </Container>
         </>

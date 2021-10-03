@@ -5,11 +5,20 @@ const catchAsync = require('../utils/catchAsync');
 const diffCollection = require("../models/diffCollectionModel");
 
 exports.getAllReports = catchAsync(async (req, res, next) => {
-    try {
-        const reports = await Reports.find();
-        res.status(200).json(reports);
-    } catch (err) {
-        res.status(500).json(err);
+    if(req.query.user) {
+        try {
+            const reports = await Reports.find({ userName:req.query.user });
+            res.status(200).json(reports);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    } else {
+        try {
+            const reports = await Reports.find();
+            res.status(200).json(reports);
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 });
 

@@ -22,6 +22,8 @@ const CitizenProfile = () => {
     
     const citizen = user.data.user.firstname + " " + user.data.user.lastname;
 
+    console.log(citizen)
+
     useEffect(() => {
         const fetchLogs = async () => {
             const res = await axios.get(`/api/history/citizens/?user=${citizen}`);

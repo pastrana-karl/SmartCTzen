@@ -5,11 +5,20 @@ const catchAsync = require('../utils/catchAsync');
 const diffCollection = require("../models/diffCollectionModel");
 
 exports.getApprovedProposals = async (req, res, next) => {
-    try {
-        const acceptedProposals = await Proposals.find({status: "Approved"});
-        res.status(200).json(acceptedProposals);
-    } catch (err) {
-        res.status(500).json(err);
+    if(req.query.user) {
+        try {
+            const acceptedProposals = await Proposals.find({ userName: req.query.user, status: 'Approved' });
+            res.status(200).json(acceptedProposals);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    } else {
+        try {
+            const acceptedProposals = await Proposals.find({status: "Approved"});
+            res.status(200).json(acceptedProposals);
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 };
 

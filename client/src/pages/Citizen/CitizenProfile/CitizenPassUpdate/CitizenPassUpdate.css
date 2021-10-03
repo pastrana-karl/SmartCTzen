@@ -11,7 +11,6 @@
     border-radius: 20px !important;
     padding: 30px 20px 30px 20px !important;
     font-size: 18px !important;
-    
 }
 
 .citizenPassUpdate-edit h3 {
@@ -25,8 +24,6 @@
 
 .citizenPassUpdate-edit .form-label{
     font-size: 20px;
-    
-    
 }
 
 .citizenPassUpdate-BtnContainer{
@@ -86,8 +83,6 @@ button.citizenPassUpdate-Btn:hover {
     color: #Dc4733;
     text-decoration: none;
 }
-
-
 
 @media screen and (max-width: 600px) {
 
