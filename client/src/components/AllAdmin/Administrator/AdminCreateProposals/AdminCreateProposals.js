@@ -1,22 +1,21 @@
 import React, { useContext, useState } from 'react';
-// import { useFormik } from 'formik';
+import * as ReactBootStrap from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import * as Yup from 'yup';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-
 import AdminLayout from '../AdminLayout/AdminLayout';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
-import Input from '../../../UI/Input/Input';
 import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
 import { Context } from '../../../../context/Context';
-
 import classes from './AdminCreateProposals.module.css';
 import Swal from 'sweetalert2';
 
 const AdminCreateProposals = () => {
     const { aUser } = useContext(Context);
     const { register, handleSubmit, errors } = useForm();
+    const [redirect, setRedirect] = useState(false);
+    const [loading, setLoading] =  useState(true);
 
     const onSubmit = async (data) => {
         const coverImage = '';
@@ -26,9 +25,11 @@ const AdminCreateProposals = () => {
             title: data.title,
             description: data.description,
             location: data.location,
+            userType: aUser.data.user.userType,
             coverImage,
         };
 
+        setLoading(false);
         const formData = new FormData();
         const filename = Date.now() + data.coverImage[0].name;
         formData.append('name', filename);
@@ -39,29 +40,32 @@ const AdminCreateProposals = () => {
         try {
             const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", formData);
             createProposal.coverImage = res.data.secure_url;
-            // console.log(data);
 
             try {
                 const res = await axios.post('/api/proposals/', createProposal);
                 Swal.fire({
                     icon: 'success',
-                    title: 'Updated',
-                    text: 'Proposal submitted'
+                    title: 'Proposal Created!',
+                    text: 'Your proposal is been posted . . .'
                 });
+
+                setLoading(true);
+                setRedirect(true);
             } catch (err) {
                 console.log(err);
+                setLoading(true);
             }
 
         } catch (err) {
             console.log (err);
+            setLoading(true);
         }
-
-        // await axios.post('/api/proposals', formData);
-        // console.log(data);
-        // console.log('data-image' + data.coverImage[0]);
     }
 
     return (
+        <>
+        { redirect && (<Redirect to = '/admin-proposals' />) }
+        {loading ? (
         <AdminLayout>
             <div className={classes.AdminCreateProposalsHeader}>
                 <CardHeader>
@@ -141,7 +145,26 @@ const AdminCreateProposals = () => {
                     <p className={classes.Quote}></p>
                 </div>
             </div>
-        </AdminLayout>
+            </AdminLayout>
+            ) : (
+                    <div style = {{
+                        color: '#777',
+                        textAlign: 'center',
+                    }}>
+                      <h2 style = {{marginTop: '10%'}}>Processing Please Wait</h2>
+                      <div>
+                        <ReactBootStrap.Spinner animation="grow" variant="primary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="secondary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="success" />
+                        <ReactBootStrap.Spinner animation="grow" variant="danger" />
+                        <ReactBootStrap.Spinner animation="grow" variant="warning" />
+                        <ReactBootStrap.Spinner animation="grow" variant="info" />
+                        <ReactBootStrap.Spinner animation="grow" variant="light" />
+                        <ReactBootStrap.Spinner animation="grow" variant="dark" />
+                      </div>
+                    </div>
+            )}
+        </>
     );
 }
 

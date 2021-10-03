@@ -1,13 +1,16 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, Redirect } from "react-router-dom";
 import CardHeader from "../../../UI/Cards/CardHeader/CardHeader";
 import AdminLayout from "../AdminLayout/AdminLayout";
 import classes from "./AdminEachReport.module.css";
+import { Context } from "../../../../context/Context";
 
 const AdminEachReport = () => {
   const [currentReport, setCurrentReport] = useState([]);
   const params = useParams();
+  const { aUser } = useContext(Context);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const findReport = async () => {
@@ -21,33 +24,44 @@ const AdminEachReport = () => {
 
   const confirmReport = async () => {
     const res = await axios.patch('/api/reports/' + params.id, {
-      status: 'Confirmed'
+      status: 'Confirmed',
+      userType: aUser.data.user.userType,
+      username: aUser.data.user.username
     });
-    console.log(res);
+    setRedirect(true);
   };
 
   const cancelReport = async () => {
     const res = await axios.patch('/api/reports/' + params.id, {
-      status: 'Cancelled'
+      status: 'Cancelled',
+      userType: aUser.data.user.userType,
+      username: aUser.data.user.username
     });
-    console.log(res);
+    setRedirect(true);
   }
 
   const resolveReport = async () => {
     const res = await axios.patch('/api/reports/' + params.id, {
-      status: 'Resolved'
+      status: 'Resolved',
+      userType: aUser.data.user.userType,
+      username: aUser.data.user.username
     });
-    console.log(res);
+    setRedirect(true);
   }
 
   const deleteReport = async () => {
-    const res = await axios.delete('/api/reports/' + params.id);
-    console.log('Delete Reports');
+    const admin = {
+      username: aUser.data.user.username,
+      userType: aUser.data.user.userType
+    }
+    const res = await axios.delete('/api/reports/' + params.id, {data: admin});
+    window.location.replace('/admin-reports');
   }
 
   //console.log(currentReport);
   return (
     <AdminLayout>
+      { redirect && (<Redirect to = '/admin-reports' />) }
       <div className={classes.AdminEachReport}>
         <CardHeader>
           <h2 className={classes.Text}>Reports</h2>

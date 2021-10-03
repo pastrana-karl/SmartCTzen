@@ -27,7 +27,7 @@ projectsRouter
     .patch(projectsController.patchProject);
 
 projectsRouter
-    .route("/update-projects/:id")
+    .route("/projects/update-projects/:id")
     .put(projectsController.updateProject);
 
 module.exports = projectsRouter;

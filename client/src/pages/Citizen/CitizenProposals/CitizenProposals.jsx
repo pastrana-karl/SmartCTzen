@@ -9,12 +9,12 @@ import { Context } from '../../../context/Context';
 
 
 const CitizenProposals = () => {
-    const user = useContext(Context)
+    const {user} = useContext(Context)
     const [proposals, setProposals] = useState([]);
+    const currentCitizenUser = user.data.user.firstname + " " + user.data.user.lastname;
     // const [proposals, setProposals] = useState([]);
     // const [proposals, setProposals] = useState([]);
     // const [proposals, setProposals] = useState([]);
-
 
     useEffect(() => {
         const sendRequest = async () => {
@@ -28,7 +28,11 @@ const CitizenProposals = () => {
 
     const deleteProposal = async (proposalId) => {
         console.log(proposalId);
-        const response = await axios.delete(`/api/proposals/${proposalId}`);
+        const citizen = {
+            username: currentCitizenUser,
+            usertype: user.data.user.userType
+        }
+        const response = await axios.delete(`/api/proposals/${proposalId}`, {data: citizen});
         const refresh = await fetch('/api/proposals');
         const responseData = await refresh.json();
         setProposals(responseData.data.proposals);
@@ -82,7 +86,7 @@ const CitizenProposals = () => {
         // const responseData = await response.json();
         // // console.log(responseData)
         // setProposals(responseData.data.proposals);
-        const response = await axios.get(`/api/proposals/self/${user.user.data.user._id}`);
+        const response = await axios.get(`/api/proposals/self/${user.data.user._id}`);
         // // const responseData = await response.json();
         // console.log(response.data);
         setProposals(response.data);
@@ -92,7 +96,7 @@ const CitizenProposals = () => {
     //const categoryOwn = async (userId) =>{}
     //dito icocompare mo ang userId mo sa lahat ng userIds na meron sa proposals
     //if nag true ididisplay
-    console.log(user.user.data.user._id);
+    console.log(user.data.user._id);
 
     return(
         <Container className="proposalsContainer">
@@ -177,7 +181,7 @@ const CitizenProposals = () => {
                                 <div className="proposalsBody">
                                     <i className="fas fa-thumbs-up"/>{proposal.upvote.length ? proposal.upvote.length : 0}
                                     <i className="fas fa-thumbs-down"/>{proposal.downvote.length ? proposal.downvote.length : 0}
-                                    <i onClick={()=> deleteProposal(proposal._id)} className="fas fa-trash"></i>
+                                    {proposal.userName === currentCitizenUser && <i style = {{cursor: 'pointer'}} onClick={()=> deleteProposal(proposal._id)} className="fas fa-trash"></i>}
                                 </div>
                                 {proposal.status === "Rejected" ?  
                                 null

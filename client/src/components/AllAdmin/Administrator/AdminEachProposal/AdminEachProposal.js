@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, Redirect } from "react-router-dom";
 import axios from "axios";
-
+import { Context } from "../../../../context/Context";
 import CardHeader from "../../../UI/Cards/CardHeader/CardHeader";
 import AdminLayout from "../AdminLayout/AdminLayout";
 import classes from "./AdminEachProposal.module.css";
 
 const AdminEachProposal = () => {
   const [currentProposal, setCurrentProposal] = useState([]);
-
+  const { aUser } = useContext(Context);
   const params = useParams();
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const findProposal = async () => {
@@ -20,23 +21,36 @@ const AdminEachProposal = () => {
     }
     findProposal();
   }, []);
-
   
   const approveProposal = () => {
-    axios.patch('/api/proposals/' + params.id, {
-      status: 'Approved'
+    axios.put('/api/proposals/' + params.id, {
+      status: 'Approved',
+      userType: aUser.data.user.userType,
+      username: aUser.data.user.username
     });
+
+    setRedirect(true);
   };
 
   const rejectProposal = () => {
-    axios.patch('/api/proposals/' + params.id, {
-      status: 'Rejected'
+    axios.put('/api/proposals/' + params.id, {
+      status: 'Rejected',
+      userType: aUser.data.user.userType,
+      username: aUser.data.user.username
     });
+
+    setRedirect(true);
   };
 
   const deleteProposal = () => {
-    axios.delete('/api/proposals/' + params.id);
-    console.log('Delete')
+    const admin = {
+      username: aUser.data.user.username,
+      usertype: aUser.data.user.userType
+    }
+
+    axios.delete('/api/proposals/' + params.id, {data: admin});
+
+    window.location.replace('/admin-proposals');
   };
 
   const upVoteProposal = () => {
@@ -52,6 +66,7 @@ const AdminEachProposal = () => {
 
   return (
     <AdminLayout>
+      { redirect && (<Redirect to = '/admin-proposals' />) }
       <div className={classes.AdminEachProposals}>
         <CardHeader>
           <h2 className={classes.Text}>Proposals</h2>

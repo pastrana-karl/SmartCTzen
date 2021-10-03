@@ -115,8 +115,6 @@ const CitizenProfile = () => {
             try {
                 const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
                 updateAccount.profilePic = res.data.secure_url;
-
-                console.log(file.name);
                 try {
                     const res = await axios.put("/api/citizen/" + user.data.user._id, updateAccount);
                     dispatch({ type: "UPDATE_SUCCESS", payload: res.data });

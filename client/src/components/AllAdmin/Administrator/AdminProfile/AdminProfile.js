@@ -1,14 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useFormik } from 'formik';
-import { Row, Col, Form, Container, Button } from 'react-bootstrap';
-import * as Yup from 'yup';
+import { Row, Col, Form, Button } from 'react-bootstrap';
+import * as ReactBootStrap from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { Context } from '../../../../context/Context';
 import AdminLayout from '../AdminLayout/AdminLayout';
 import AdminProfileButton from '../../../UI/Buttons/AdminProfileButton/AdminProfileButton';
-import ProfileInput from '../../../UI/Input/ProfileInput/ProfileInput';
-import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
-import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
 import { Link } from 'react-router-dom';
 import classes from './AdminProfile.module.css';
 import axios from 'axios';
@@ -21,6 +17,7 @@ const AdminProfile = () => {
     const [logs, setLogs] = useState([]);
     const [newPassword, setNewPassword] = useState("");
     const [oldPassword, setOldPassword] = useState("");
+    const [loading, setLoading] =  useState(true);
 
     useEffect(() => {
         const fetchLogs = async () => {
@@ -38,7 +35,7 @@ const AdminProfile = () => {
             html: `${
                 logs.map((L) => {
                 const date = new Date(L.createdAt).toLocaleDateString();
-                return "<p style ='text-align: justify'>Timestamp: " + date + " Reason: " + L.reason + " By: " + L.user + "<br/></p>";
+                return "<p style ='text-align: justify'>Timestamp: " + date + " Reason: " + L.reason + " Done By: Admin " + L.user + "<br/></p>";
             }).join('')}`,
         });
     }
@@ -58,6 +55,7 @@ const AdminProfile = () => {
         }
 
         if (file) {
+            setLoading(false);
             const data = new FormData();
             const filename = Date.now() + file.name;
             data.append("name", filename);
@@ -78,13 +76,16 @@ const AdminProfile = () => {
                         text: 'Profile Picture Changed',
                     });
 
+                    setLoading(true);
                     setIconUpload(false);
                 } catch (err) {
                     console.log(err);
+                    setLoading(true);
                     dispatch({ type: "AUPDATE_FAILURE" })
                 }
             } catch (err) {
-                console.log(err)
+                console.log(err);
+                setLoading(true);
             }
         } else {
             Swal.fire({
@@ -94,6 +95,7 @@ const AdminProfile = () => {
             });
             setIconUpload(false);
             setProfilePic("");
+            setLoading(true);
         }
     }
 
@@ -150,6 +152,8 @@ const AdminProfile = () => {
     }
 
     return (
+        <>
+            {loading ? (
             <AdminLayout>
                 <div className={classes.Content}>
                     <div className={classes.AdminProfile}>
@@ -178,7 +182,7 @@ const AdminProfile = () => {
                             </div>
                         }
 
-                        <Form className={classes.AdminProfileEdit} onSubmit={ uploadPhotoHandler }>
+                        <Form onSubmit={ uploadPhotoHandler }>
                             <Form.Group>
                                 <Form.Control
                                     id="iconImg"
@@ -190,8 +194,7 @@ const AdminProfile = () => {
                             </Form.Group>
                             <Button id="btnImg" type='submit' style={{display:'none'}}></Button>
                         </Form>
-
-                        <h3>{aUser.data.user.username}</h3>
+                        
                         <h2>Summary</h2>
                         <div className={classes.ButtonDiv}>
                             <Link to = "/admin-summary/reports">
@@ -208,15 +211,15 @@ const AdminProfile = () => {
                             <div className={classes.AdminProfileFormDiv}>
                                 <div>
                                     <div className={classes.InputDiv}>
-                                        <label htmlFor="city_municipality">City/Municipality</label>
+                                        <label htmlFor="region">Administrator username</label>
                                         <div className={classes.PseudoInput}>
-                                            {aUser.data.user.city}
+                                            {aUser.data.user.username}
                                         </div>
                                     </div>
                                     <div className={classes.InputDiv}>
-                                        <label htmlFor="region">Region</label>
+                                        <label htmlFor="city_municipality">City/Municipality</label>
                                         <div className={classes.PseudoInput}>
-                                            {aUser.data.user.region}
+                                            {aUser.data.user.location}
                                         </div>
                                     </div>
                                 </div>
@@ -249,16 +252,60 @@ const AdminProfile = () => {
                                     />
                                 </Form.Group>
                                 
-                                <Row className='citizenPassUpdate-BtnContainer'>
-                                    <Col className='BtnContainerCenter'>
-                                        <Button className = 'citizenPassUpdate-Btn' variant = "danger" type = 'submit'>Change</Button>
+                                <Row
+                                style = {{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    padding: '20px',
+                                }}
+                                >
+                                    <Col
+                                    style = {{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                    }}
+                                    >
+                                        <Button
+                                        style ={{
+                                            padding: '15px 45px 15px 45px',
+                                            border: 'hidden',
+                                            background: '#FF5039',
+                                            borderRadius: '30px',
+                                            color: '#ffffff',
+                                            textDecoration: 'none',
+                                            justifyContent: 'center',
+                                        }}
+                                        variant = "danger"
+                                        type = 'submit'
+                                        >
+                                            Change
+                                        </Button>
                                     </Col>
                                 </Row>
                             </Form>
                         </div>
                     </div>
                 </div>
-            </AdminLayout>
+                </AdminLayout>
+                ) : (
+                    <div style = {{
+                        color: '#777',
+                        textAlign: 'center',
+                    }}>
+                      <h2 style = {{marginTop: '10%'}}>Processing Please Wait</h2>
+                      <div>
+                        <ReactBootStrap.Spinner animation="grow" variant="primary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="secondary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="success" />
+                        <ReactBootStrap.Spinner animation="grow" variant="danger" />
+                        <ReactBootStrap.Spinner animation="grow" variant="warning" />
+                        <ReactBootStrap.Spinner animation="grow" variant="info" />
+                        <ReactBootStrap.Spinner animation="grow" variant="light" />
+                        <ReactBootStrap.Spinner animation="grow" variant="dark" />
+                      </div>
+                    </div>
+                )}
+            </>
 
     );
 }

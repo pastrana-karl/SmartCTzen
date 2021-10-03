@@ -1,26 +1,21 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import { useFormik, Formik, Form, Field, ErrorMessage } from 'formik';
+import * as ReactBootStrap from 'react-bootstrap';
+import { Redirect, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import * as Yup from 'yup';
 import axios from 'axios';
 import Swal from "sweetalert2";
-
 import AdminLayout from '../AdminLayout/AdminLayout';
-import Input from '../../../UI/Input/Input';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
-import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
-import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
 import { Context } from '../../../../context/Context';
 import classes from './AdminUpdateProject.module.css';
 
 
 const AdminUpdateProject = () => {
     const { aUser } = useContext(Context);
-    
     const [currentProject, setCurrentProject] = useState([]);
-
     const params = useParams();
+    const [redirect, setRedirect] = useState(false);
+    const [loading, setLoading] =  useState(true);
 
     useEffect(() => {
         const findProject = async () => {
@@ -61,14 +56,16 @@ const AdminUpdateProject = () => {
 
         const updateProject = {
             // userId: aUser.data.user.userId,
-            // userName: aUser.data.user.userName,
-            // userType: aUser.data.user.userType,
+            userName: aUser.data.user.username,
+            userType: aUser.data.user.userType,
             title: data.title,
             description: data.description,
             location: data.location,
+            status: currentProject.status,
             coverImage
         };
 
+        setLoading(false);
         const formData = new FormData();
         const filename = Date.now() + data.coverImage[0].name;
         formData.append('name', filename);
@@ -81,28 +78,33 @@ const AdminUpdateProject = () => {
             updateProject.coverImage = res.data.secure_url;
 
             try {
-                const res = await axios.put(`/api/update-projects/${params.id}`, updateProject);
+                const res = await axios.put(`/api/projects/update-projects/${params.id}`, updateProject);
                 Swal.fire({
                     icon: 'success',
-                    title: 'Updated',
-                    text: 'Proposal submitted'
+                    title: 'Updated!',
+                    text: 'Project updated . . .'
                 });
+                
+                setLoading(true);
+                setRedirect(true);
             } catch (err) {
                 console.log(err);
+                setLoading(true);
             }
 
         } catch (err) {
             console.log (err);
+            setLoading(true);
         }
-
-        console.log(updateProject);
-
         // await axios.post('/api/proposals', formData);
         // console.log(data.coverImage[0].name);
     }
 
     // console.log(currentProject);
     return (
+        <>
+        { redirect && (<Redirect to = '/admin-projects' />) }
+        {loading ? (
         <AdminLayout>
             <div className={classes.AdminProjects}>
                 <CardHeader>
@@ -121,7 +123,7 @@ const AdminUpdateProject = () => {
                                 name='title'
                                 placeholder='Project Title'
                                 defaultValue={defaultValues.title}
-                                ref={register({ required: "Required!" })}
+                                readOnly
                             />
                             {errors.title && <p className={classes.InputValidation}>{errors.title.message}</p>}
                         </div>
@@ -174,6 +176,25 @@ const AdminUpdateProject = () => {
                 </form>
             </div>
         </AdminLayout>
+          ) : (
+                    <div style = {{
+                        color: '#777',
+                        textAlign: 'center',
+                    }}>
+                      <h2 style = {{marginTop: '10%'}}>Processing Please Wait</h2>
+                      <div>
+                        <ReactBootStrap.Spinner animation="grow" variant="primary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="secondary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="success" />
+                        <ReactBootStrap.Spinner animation="grow" variant="danger" />
+                        <ReactBootStrap.Spinner animation="grow" variant="warning" />
+                        <ReactBootStrap.Spinner animation="grow" variant="info" />
+                        <ReactBootStrap.Spinner animation="grow" variant="light" />
+                        <ReactBootStrap.Spinner animation="grow" variant="dark" />
+                      </div>
+                    </div>
+            )}
+        </>
     );
 }
 

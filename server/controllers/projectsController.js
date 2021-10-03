@@ -54,6 +54,15 @@ exports.getProject = catchAsync(async (req, res, next) => {
 exports.postProjects = catchAsync(async (req, res, next) => {
     const newProject = await Projects.create(req.body);
 
+    const newProjectHist = new diffCollection({
+        collectionName: 'Project',
+        userType: newProject.userType,
+        user: newProject.userName,
+        reason: 'Created new project',
+    });
+
+    await newProjectHist.save()
+
     res.status(201).json({
         status: 'success',
         data: {
@@ -92,17 +101,55 @@ exports.patchProject = catchAsync(async (req, res, next) => {
 });
 
 exports.updateProject = catchAsync(async (req, res, next) => {
-    const project = await Projects.findByIdAndUpdate(req.params.id, req.body, {
+    if(req.body.description) {
+        const projectUpdate = await Projects.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
+
+        const newProjectHist = new diffCollection({
+            collectionName: 'Proposal',
+            userType: req.body.userType,
+            user: req.body.userName,
+            reason: 'A project entitled "' + projectUpdate.title + '"' + ' is updated',
+        });
+    
+        await newProjectHist.save()
+    
+        res.status(200).json({
+            status: "success",
+            data: {
+                projectUpdate
+            }
+        });
+    }
+
+    const project = await Projects.findByIdAndUpdate(req.params.id, {status: req.body.status}, {
         new: true,
         runValidators: true
     });
 
-    res.status(200).json({
-        status: "success",
-        data: {
-            project
-        }
-    });
+    if(project.status === 'Accomplished') {
+        const newProjectHist = new diffCollection({
+            collectionName: 'Proposal',
+            userType: req.body.userType,
+            user: req.body.username,
+            reason: 'A project entitled "' + project.title + '"' + ' is updated to status "Accomplished"',
+        });
+    
+        await newProjectHist.save()
+    }
+
+    if(project.status === 'Ongoing') {
+        const newProjectHist = new diffCollection({
+            collectionName: 'Proposal',
+            userType: req.body.userType,
+            user: req.body.username,
+            reason: 'A project entitled "' + project.title + '"' + ' is updated to status "Ongoing"',
+        });
+    
+        await newProjectHist.save()
+    }
 });
 
 exports.deleteProject = catchAsync(async (req, res, next) => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
+import * as ReactBootStrap from 'react-bootstrap';
 import * as Yup from 'yup';
 import { Redirect } from 'react-router-dom';
 import { Row, Col, Container } from 'react-bootstrap';
@@ -16,6 +17,7 @@ const CitizenSubmitReport = () => {
     const citizenUser = useContext(Context);
     const [userId, setUserId] = useState();
     const [redirect, setRedirect] = useState(false);
+    const [loading, setLoading] =  useState(true);
     const [file, setFile] = useState(null);
     const userType = citizenUser.user.data.user.userType;
 
@@ -61,6 +63,7 @@ const CitizenSubmitReport = () => {
         }
 
         if (file) {
+            setLoading(false);
             const data = new FormData();
             const filename = Date.now() + file.name;
             data.append("name", filename);
@@ -76,12 +79,21 @@ const CitizenSubmitReport = () => {
                         console.log('Error: ', err.res.data);
                     });
                     
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Report Created!',
+                        text: 'Your report is been posted . . .'
+                    });
+
+                    setLoading(true);
                     setRedirect(true);
                 } catch (err) {
                     console.log(err)
+                    setLoading(true);
                 }
             } catch (err) {
                 console.log(err)
+                setLoading(true);
             }
         } else {
             Swal.fire({
@@ -89,6 +101,7 @@ const CitizenSubmitReport = () => {
                 title: 'Photo is requried!',
                 text: 'Upload a photo',
             });
+            setLoading(true);
         }
     };
     
@@ -100,8 +113,9 @@ const CitizenSubmitReport = () => {
     });
 
     return(
-        <React.Fragment>
+        <>
             { redirect && (<Redirect to = '/citizen-reports' />) }
+            {loading ? (
             <Container className="citizenSubmitReport-container">
                 <Row>
                     <div className="citizen-header">
@@ -199,7 +213,25 @@ const CitizenSubmitReport = () => {
                     </Formik>  
                 </Row>
             </Container>
-        </React.Fragment>
+            ) : (
+                    <div style = {{
+                        color: '#777',
+                        textAlign: 'center',
+                    }}>
+                      <h2 style = {{marginTop: '10%'}}>Processing Please Wait</h2>
+                      <div>
+                        <ReactBootStrap.Spinner animation="grow" variant="primary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="secondary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="success" />
+                        <ReactBootStrap.Spinner animation="grow" variant="danger" />
+                        <ReactBootStrap.Spinner animation="grow" variant="warning" />
+                        <ReactBootStrap.Spinner animation="grow" variant="info" />
+                        <ReactBootStrap.Spinner animation="grow" variant="light" />
+                        <ReactBootStrap.Spinner animation="grow" variant="dark" />
+                      </div>
+                    </div>
+            )}
+        </>
     );
 };
 

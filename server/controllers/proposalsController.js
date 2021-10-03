@@ -105,12 +105,14 @@ exports.getProposal = catchAsync(async (req, res, next) => {
 exports.postProposal = catchAsync(async (req, res, next) => {
     const newProposal = await Proposals.create(req.body);
 
-    // const newProposalHist = new diffCollection({
-    //     collectionName: 'Proposal',
-    //     userType: newProposal.userType,
-    //     user: newProposal.userName,
-    //     reason: 'Created new proposal',
-    // });
+    const newProposalHist = new diffCollection({
+        collectionName: 'Proposal',
+        userType: newProposal.userType,
+        user: newProposal.userName,
+        reason: 'Created new proposal',
+    });
+
+    await newProposalHist.save()
 
     const proposal = await newProposal.save();
     res.status(201).json({
@@ -122,10 +124,32 @@ exports.postProposal = catchAsync(async (req, res, next) => {
 });
 
 exports.updateProposal = catchAsync(async (req, res, next) => {
-    const proposal = await Proposals.findByIdAndUpdate(req.params.id, req.body, {
+    const proposal = await Proposals.findByIdAndUpdate(req.params.id, {status: req.body.status}, {
         new: true,
         runValidators: true
     });
+
+    if(proposal.status === 'Approved') {
+        const newProposalHist = new diffCollection({
+            collectionName: 'Proposal',
+            userType: req.body.userType,
+            user: req.body.username,
+            reason: 'Approved a proposal entitled "' + proposal.title + '"',
+        });
+    
+        await newProposalHist.save()
+    }
+
+    if(proposal.status === 'Rejected') {
+        const newProposalHist = new diffCollection({
+            collectionName: 'Proposal',
+            userType: req.body.userType,
+            user: req.body.username,
+            reason: 'Rejected a proposal entitled "' + proposal.title + '"',
+        });
+    
+        await newProposalHist.save()
+    }
 
     res.status(200).json({
         status: "success",
@@ -379,7 +403,18 @@ exports.patchProposal = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteProposal = catchAsync(async (req, res, next) => {
-    const proposal = await Proposals.findByIdAndDelete(req.params.id);
+    const proposal = await Proposals.findById(req.params.id);
+
+    const adminDeleteProposal = new diffCollection({
+        collectionName: 'Proposal',
+        userType: req.body.usertype,
+        user: req.body.username,
+        reason: 'Deleted a proposal entitled : "' + proposal.title + '"',
+    });
+    
+    await adminDeleteProposal.save();
+
+    await proposal.delete();
 
     if (!proposal) {
         return next(new AppError('No proposal found with that ID', 404));
