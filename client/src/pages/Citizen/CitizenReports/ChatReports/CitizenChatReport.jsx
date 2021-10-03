@@ -23,7 +23,7 @@ const CitizenChatReport = ( props ) => {
     const scrollRef = useRef();
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8900");
+        socket.current = io("ws://localhost:8800");
         socket.current.on("getMessage", data => {
             setArrivalMessage({
                 sender: data.senderId,
@@ -57,7 +57,7 @@ const CitizenChatReport = ( props ) => {
         };
 
         getConversations();
-    }, [user.data?.user?._id]);
+    }, [user.data]);
 
     useEffect(() => {
         const getMessages = async () => {
@@ -81,10 +81,10 @@ const CitizenChatReport = ( props ) => {
             conversationId: currentChat._id
         }
 
-        const receiverId = currentChat.members.find(member => member !== user.data.user._id);
+        const receiverId = currentChat.members.find(member => member !== user.data?.user?._id);
 
         socket.current.emit("sendMessage", {
-            senderId: user.data.user._id,
+            senderId: user.data?.user?._id,
             receiverId,
             text: newMessage 
         });
@@ -97,16 +97,16 @@ const CitizenChatReport = ( props ) => {
         }
     };
 
+    
     // const createConversation = async (e) => {
     //     e.preventDefault();
-    //     e.preventDefault();
-
     //     const message = {
     //         sender: user.data.user._id,
     //         text: newMessage,
     //         conversationId: currentChat._id
     //     }
 
+    //     const currentSender = user.data.user._id;
     //     const receiverId = currentChat.members.find(member => member !== user.data.user._id);
 
     //     socket.current.emit("sendMessage", {
@@ -115,7 +115,11 @@ const CitizenChatReport = ( props ) => {
     //         text: newMessage 
     //     });
 
+        
+
     //     try {
+    //         const resConvo = await axios.post('/api/conversations/', {currentSender, receiverId});
+    //         console.log(resConvo);
 
     //     } catch (err){
     //         console.log(err);
