@@ -50,7 +50,7 @@ const CitizenChatReport = ( props ) => {
             try {
                 const res = await axios.get("/api/conversations/" + user.data?.user?._id);
                 setConversations(res.data);
-                console.log(res);
+                // console.log(res);
             } catch(err) {
                 console.log(err);
             }
@@ -97,6 +97,31 @@ const CitizenChatReport = ( props ) => {
         }
     };
 
+    // const createConversation = async (e) => {
+    //     e.preventDefault();
+    //     e.preventDefault();
+
+    //     const message = {
+    //         sender: user.data.user._id,
+    //         text: newMessage,
+    //         conversationId: currentChat._id
+    //     }
+
+    //     const receiverId = currentChat.members.find(member => member !== user.data.user._id);
+
+    //     socket.current.emit("sendMessage", {
+    //         senderId: user.data.user._id,
+    //         receiverId,
+    //         text: newMessage 
+    //     });
+
+    //     try {
+
+    //     } catch (err){
+    //         console.log(err);
+    //     }
+    // }
+
     // console.log(user.data.user._id);
     
     return(
@@ -122,8 +147,11 @@ const CitizenChatReport = ( props ) => {
                     </div>
                     {/* Chatbox */}
                     <div className={classes.AdminChat}>
+                        
                         <div className={classes.AdminChatWrapper}>
-                            <div className={classes.AdminChatBoxTop}>
+                            { currentChat ?
+                                <>
+                                <div className={classes.AdminChatBoxTop}>
                                 {
                                     chatMessages.map(m => (
                                         <div>
@@ -131,17 +159,24 @@ const CitizenChatReport = ( props ) => {
                                         </div>
                                     ))
                                 }
-                            </div>
-                            <div className={classes.AdminChatBoxBottom}>
-                                <textarea
-                                    className={classes.ChatMessageInput}
-                                    placeholder="Write something..."
-                                    onChange={(e) => setNewMessage(e.target.value)}
-                                    value={newMessage}
-                                ></textarea>
-                                <button className={classes.ChatSubmitButton} onClick={handleSubmit}>Send</button>
-                            </div>
-                        </div>
+                                </div>
+                                <div className={classes.AdminChatBoxBottom}>
+                                    <textarea
+                                        className={classes.ChatMessageInput}
+                                        placeholder="Write something..."
+                                        onChange={(e) => setNewMessage(e.target.value)}
+                                        value={newMessage}
+                                    ></textarea>
+                                    <button className={classes.ChatSubmitButton} onClick={handleSubmit}>Send</button>
+                                </div>
+                                </> 
+                                : 
+                                <div className={classes.EmptyConvo}>
+                                    <p className={classes.EmptyConvoText}>Open a conversation</p>
+                                </div>
+                            }
+                        </div> 
+                        
                     </div>
                     {/* Admins */}
                     <div className={classes.AdminList}>

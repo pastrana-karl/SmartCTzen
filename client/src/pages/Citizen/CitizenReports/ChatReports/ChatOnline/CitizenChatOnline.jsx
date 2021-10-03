@@ -11,16 +11,17 @@ const CitizenChatOnline = ({currentId, setCurrentChat}) => {
             const response = await fetch('/api/admin');
             const responseData = await response.json();
             setAllAdmins(responseData);
-            //console.log(responseData)
+            // console.log(responseData.data)
         }
         sendRequest();
     }, []);
 
     const handleClick = async (user) => {
         try {
-            const res = await fetch(`/api/conversations/${currentId}/${user._id}` );
-            //setCurrentChat(res)
-            console.log(res);
+            const res = await axios.get(`/api/conversations/${currentId}/${user._id}` );
+            //const resData = await res.json();
+            setCurrentChat(res)
+            console.log(res.data);
         } catch (err) {
             console.log(err);
         }
