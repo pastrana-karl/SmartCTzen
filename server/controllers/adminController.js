@@ -320,13 +320,16 @@ exports.changeAdminPassword = (req, res, next) => {
     });
 };
 
-// exports.getAllAdmins = catchAsync(async (req, res, next) => {
-//     const admin = await Admin.find();
+//Compare Password
+exports.PassWordCompare = catchAsync(async (req, res, next) => {
+    const administrator = await Admin.findById(req.body.userId);
 
-//     res.status(200).json({
-//         status: 'success',
-//         data: {
-//             admin
-//         }
-//     });
-// })
+    const validated = await bcrypt.compare(req.body.oldPassword, administrator.password);
+
+    if(!validated)
+    {
+        return res.status(400).json("Your Old Password is Wrong!!");
+    }
+    
+    res.status(200).json("Correct Password!");
+});
