@@ -33,12 +33,14 @@
 }
 
 .PseudoInput {
-    background: #F0F0F3;
-    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
-    border-radius: 10px;
-    padding: 15px;
-    font-size: 16px;
-    width: auto;
+    background: #F0F0F3 !important;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2) !important;
+    border-radius: 10px !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+    width: auto !important;
+    outline: none !important;
+    border: white !important;
 }
 
 .FormikInput {
@@ -97,6 +99,10 @@
 .AdminProfileChangeImg {
     padding: 0px 30px;
     font-size: 32px;
+}
+
+.AdminProfileChangeImg i {
+    cursor: pointer;
 }
 
 .AdminProfileEdit {

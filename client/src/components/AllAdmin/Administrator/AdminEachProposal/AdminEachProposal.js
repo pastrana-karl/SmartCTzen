@@ -35,20 +35,34 @@ const AdminEachProposal = () => {
   //console.log(comments);
   
   const approveProposal = () => {
-    axios.patch('/api/proposals/' + params.id, {
-      status: 'Approved'
+    axios.put('/api/proposals/' + params.id, {
+      status: 'Approved',
+      userType: aUser.data.user.userType,
+      username: aUser.data.user.username
     });
+
+    setRedirect(true);
   };
 
   const rejectProposal = () => {
-    axios.patch('/api/proposals/' + params.id, {
-      status: 'Rejected'
+    axios.put('/api/proposals/' + params.id, {
+      status: 'Rejected',
+      userType: aUser.data.user.userType,
+      username: aUser.data.user.username
     });
+
+    setRedirect(true);
   };
 
   const deleteProposal = () => {
-    axios.delete('/api/proposals/' + params.id);
-    console.log('Delete')
+    const admin = {
+      username: aUser.data.user.username,
+      usertype: aUser.data.user.userType
+    }
+
+    axios.delete('/api/proposals/' + params.id, {data: admin});
+
+    window.location.replace('/admin-proposals');
   };
 
   const upVoteProposal = () => {
@@ -83,6 +97,7 @@ const AdminEachProposal = () => {
 
   return (
     <AdminLayout>
+      { redirect && (<Redirect to = '/admin-proposals' />) }
       <div className={classes.AdminEachProposals}>
         <CardHeader>
           <h2 className={classes.Text}>Proposals</h2>

@@ -29,23 +29,7 @@ const adminSchema = new mongoose.Schema(
     city: {
       type: String,
     },
-
-    region: {
-      type: String,
-    },
-    // passwordConfirm: {
-    //     type: String,
-    //     required: [true, "This field is required"],
-    //     validate: {
-    //         validator: function(el) {
-    //             return el === this.password;
-    //         },
-    //         message: "Passwords are not the same"
-    //     }
-    // },
-
-    // passwordChangedAt: Date,
-
+    
     resetToken: {
       type: String,
     },

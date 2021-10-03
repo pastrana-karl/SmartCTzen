@@ -57,10 +57,43 @@ exports.postReports = catchAsync(async (req, res, next) => {
 });
 
 exports.patchReports = catchAsync(async (req, res, next) => {
-    const report = await Reports.findByIdAndUpdate(req.params.id, req.body, {
+    const report = await Reports.findByIdAndUpdate(req.params.id, {status:req.body.status}, {
         new: true,
         runValidators: true
     });
+
+    if(report.status === "Confirmed") {
+        const newReportHist = new diffCollection({
+            collectionName: 'Reports',
+            userType: req.body.userType,
+            user: req.body.username,
+            reason: 'Confirmed a report entitled : "' + report.title + '"',
+        });
+        
+        await newReportHist.save();
+    }
+
+    if(report.status === "Cancelled") {
+        const newReportHist = new diffCollection({
+            collectionName: 'Reports',
+            userType: req.body.userType,
+            user: req.body.username,
+            reason: 'Cancelled a report entitled : "' + report.title + '"',
+        });
+        
+        await newReportHist.save();
+    }
+
+    if(report.status === "Resolved") {
+        const newReportHist = new diffCollection({
+            collectionName: 'Reports',
+            userType: req.body.userType,
+            user: req.body.username,
+            reason: 'Resolved a report entitled : "' + report.title + '"',
+        });
+        
+        await newReportHist.save();
+    }
 
     res.status(200).json({
         status: "success",
@@ -71,7 +104,18 @@ exports.patchReports = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteReports = catchAsync(async (req, res, next) => {
-    const report = await Reports.findByIdAndDelete(req.params.id);
+    const report = await Reports.findById(req.params.id);
+
+    const newReportHist = new diffCollection({
+        collectionName: 'Reports',
+        userType: req.body.userType,
+        user: req.body.username,
+        reason: 'Deleted a report entitled : "' + report.title + '"',
+    });
+    
+    await newReportHist.save();
+
+    await report.delete();
 
     if (!report) {
         return next(new AppError('No report found with that ID', 404));

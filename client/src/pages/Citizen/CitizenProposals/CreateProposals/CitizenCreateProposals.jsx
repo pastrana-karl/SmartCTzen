@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
+import * as ReactBootStrap from 'react-bootstrap';
 import * as Yup from 'yup';
 import { Redirect } from 'react-router';
 import { Row, Col, Container } from 'react-bootstrap';
@@ -16,6 +17,7 @@ const CitizenCreateProposal = () => {
     const citizenUser = useContext(Context);
     const [userId, setUserId] = useState();
     const [redirect, setRedirect] = useState(false);
+    const [loading, setLoading] =  useState(true);
     const [file, setFile] = useState(null);
     const userType = citizenUser.user.data.user.userType;
 
@@ -61,6 +63,7 @@ const CitizenCreateProposal = () => {
         }
 
         if (file) {
+            setLoading(false);
             const data = new FormData();
             const filename = Date.now() + file.name;
             data.append("name", filename);
@@ -75,13 +78,22 @@ const CitizenCreateProposal = () => {
                     const res = await axios.post('/api/proposals', proposalData).catch(err => {
                         console.log('Error: ', err.res.data);
                     });
-                    
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Proposal Created!',
+                        text: 'Your proposal is been posted . . .'
+                    });
+
+                    setLoading(true);
                     setRedirect(true);
                 } catch (err) {
                     console.log(err)
+                    setLoading(true);
                 }
             } catch (err) {
                 console.log(err)
+                setLoading(true);
             }
         } else {
             Swal.fire({
@@ -89,6 +101,7 @@ const CitizenCreateProposal = () => {
                 title: 'Photo is requried!',
                 text: 'Upload a photo',
             });
+            setLoading(true);
         }
     };
     
@@ -102,6 +115,7 @@ const CitizenCreateProposal = () => {
     return(
         <>
             { redirect && (<Redirect to = '/citizen-proposals' />) }
+            {loading ? (
             <Container className={classes.CitizenCreateProposalContentContainer}>
                 {/* <div className = 'col-lg-10 offset-lg-1'> */}
                 <Row>
@@ -226,6 +240,24 @@ const CitizenCreateProposal = () => {
                 </Row>
                 {/* </div> */}
             </Container>
+            ) : (
+                    <div style = {{
+                        color: '#777',
+                        textAlign: 'center',
+                    }}>
+                      <h2 style = {{marginTop: '10%'}}>Processing Please Wait</h2>
+                      <div>
+                        <ReactBootStrap.Spinner animation="grow" variant="primary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="secondary" />
+                        <ReactBootStrap.Spinner animation="grow" variant="success" />
+                        <ReactBootStrap.Spinner animation="grow" variant="danger" />
+                        <ReactBootStrap.Spinner animation="grow" variant="warning" />
+                        <ReactBootStrap.Spinner animation="grow" variant="info" />
+                        <ReactBootStrap.Spinner animation="grow" variant="light" />
+                        <ReactBootStrap.Spinner animation="grow" variant="dark" />
+                      </div>
+                    </div>
+            )}
         </>
 
     //  {/* <React.Fragment> */}
