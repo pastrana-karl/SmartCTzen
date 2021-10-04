@@ -35,16 +35,6 @@ const CitizenChatReport = ( props ) => {
         });
     }, []);
 
-    // useEffect(() => {
-    //     const sendRequest = async () => {
-    //         const response = await fetch('/api/admin');
-    //         const responseData = await response.json();
-    //         setAllAdmins(responseData);
-    //        // console.log(responseData)
-    //     }
-    //     sendRequest();
-    // }, []);
-
     useEffect(() => {
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
         setMessages(prev => [...prev, arrivalMessage]);
@@ -52,8 +42,8 @@ const CitizenChatReport = ( props ) => {
 
     useEffect(() => {
         socket.current.emit("addUser", user.data.user._id);
-        socket.current.on("getUsers", users => {
-            console.log(users);
+        socket.current.on("getUsers", user => {
+            console.log(user);
         });
     }, [user]);
 
@@ -156,10 +146,10 @@ const CitizenChatReport = ( props ) => {
                 {/* List of chats */}
                 <div className={classes.Messenger}>
                     <div className={classes.AdminChatMenu}>
-                        <input
+                        {/* <input
                             placeholder="Search messages"
                             className={classes.AdminChatMenuSearch}
-                        />
+                        /> */}
                         {conversations.map(c => (
                             <div onClick={() => setCurrentChat(c)}>
                                 <CitizenConversations conversation={c} currentUser={user.data?.user}  />
