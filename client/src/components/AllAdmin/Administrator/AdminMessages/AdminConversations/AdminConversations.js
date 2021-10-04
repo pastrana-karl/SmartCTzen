@@ -30,9 +30,9 @@ const AdminConversations = ({conversation, currentUser}) => {
         <div className={classes.AdminConversations}>
             <img 
                 className={classes.AdminConversationsImg} 
-                src={citizenUser?.profilePic}
+                src={citizenUser?.profilePic ? citizenUser?.profilePic : 'https://res.cloudinary.com/karlstorage/image/upload/v1633331543/free-img/nmcibwr00fuip3xo4pvr.png'}
                 alt="sample-image" />
-            <span className={classes.ConversationName}>{citizenUser?.firstname + ' ' + citizenUser?.lastname}</span>
+            <span className={classes.ConversationName}>{citizenUser?.firstname ? citizenUser?.firstname + ' ' + citizenUser?.lastname : <span>No longer available</span>}</span>
         </div>
     );
 }

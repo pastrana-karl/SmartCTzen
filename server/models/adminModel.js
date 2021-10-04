@@ -9,14 +9,17 @@ const adminSchema = new mongoose.Schema(
       type: String,
       default:'https://www.pinclipart.com/picdir/big/157-1578186_user-profile-default-image-png-clipart.png'
     },
+    
     username: {
       type: String,
       unique: true,
     },
+
     userType:{
       type: String,
       default: "Admin",
     },
+
     email: {
       type: String,
       unique: true,
@@ -48,6 +51,10 @@ const adminSchema = new mongoose.Schema(
       type: String,
       default: "Administrator",
     },
+
+    onlineStatus: {
+      type: String,
+    }
   },
   { timestamps: true }
 );

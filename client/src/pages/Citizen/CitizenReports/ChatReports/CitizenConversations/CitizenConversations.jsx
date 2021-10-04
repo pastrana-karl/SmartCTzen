@@ -29,10 +29,10 @@ const CitizenConversations = ({conversation, currentUser}) => {
         <div className={classes.CitizenConversations}>
             <img 
                 className={classes.CitizenConversationsImg}
-                src={adminUser?.profilePic}
+                src={adminUser?.profilePic ? adminUser?.profilePic : 'https://res.cloudinary.com/karlstorage/image/upload/v1633331543/free-img/nmcibwr00fuip3xo4pvr.png'}
                 alt="sample-image"
             />
-            <span className={classes.ConversationName}>{adminUser?.username}</span>
+            <span className={classes.ConversationName}>{adminUser?.username ? adminUser?.username : <span> No longer available</span>}</span>
         </div>
     );
 }

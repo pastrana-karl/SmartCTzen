@@ -54,7 +54,7 @@ exports.registerAdmin = catchAsync(async (req, res, next) => {
         email: req.body.email,
         password: hashedPass,
         location: req.body.location,
-        profilePic: req.body.profilePic,
+        onlineStatus: false,
     });
 
     transporter.sendMail({
@@ -151,7 +151,23 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
     }
 
     //3) Check of everything ok, send token to client
+    const adminStatus = await Admin.findOne({ email });
+    await Admin.findByIdAndUpdate(adminStatus._id, {
+        $set: { 'onlineStatus': true }
+    });
     createSendToken(adminUser, 201, res);
+});
+
+exports.AdminLogout = catchAsync(async (req, res, next) => {
+    try {
+        await Admin.findByIdAndUpdate(req.body.adminID, {
+            $set: { 'onlineStatus': false }
+        });
+    
+        res.status(200).json('Admin logged out . . .');
+    } catch (err) {
+        res.status(500).json(err)
+    }
 });
 
 exports.updateAdmin = catchAsync(async (req, res, next) => {

@@ -9,7 +9,7 @@ const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
 
     useEffect(() => {
         const sendRequest = async () => {
-            const response = await fetch('/api/admin');
+            const response = await fetch('/api/admin/?onlineStatus=true');
             const responseData = await response.json();
             setAllAdmins(responseData);
            // console.log(responseData)
