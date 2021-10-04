@@ -24,13 +24,13 @@ const AdminConversations = ({conversation, currentUser}) => {
         getUser();
     }, [currentUser, conversation]);
 
-    //console.log(citizenUser);
+    console.log(citizenUser);
     //console.log(citizenUser._id);
     return(
         <div className={classes.AdminConversations}>
             <img 
                 className={classes.AdminConversationsImg} 
-                src="https://images.pexels.com/photos/1165999/pexels-photo-1165999.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" 
+                src={citizenUser?.profilePic}
                 alt="sample-image" />
             <span className={classes.ConversationName}>{citizenUser?.firstname + ' ' + citizenUser?.lastname}</span>
         </div>

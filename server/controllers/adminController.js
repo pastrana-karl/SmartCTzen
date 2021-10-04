@@ -11,6 +11,7 @@ const bcrypt = require("bcryptjs");
 const diffHistory = require('mongoose-audit-trail');
 
 //Sendgrid key
+
 exports.getMe = catchAsync(async (req, res, next) => {
     req.params.id = req.user.id;
     next();

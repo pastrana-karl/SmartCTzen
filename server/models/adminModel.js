@@ -26,7 +26,7 @@ const adminSchema = new mongoose.Schema(
       type: String,
     },
 
-    city: {
+    location: {
       type: String,
     },
     

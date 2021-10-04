@@ -46,7 +46,7 @@ const AdminUsers = () => {
                                 <Row key={A._id}>
                                     <Col className='acceptedUsers-searchResult'><h4>{A.lastname}</h4></Col>
                                     <Col className='acceptedUsers-searchResult'><h4>{A.firstname}</h4></Col>
-                                    <Col className='acceptedUsers-searchResult'><h4>Approved</h4></Col>
+                                    <Col className='acceptedUsers-searchResult'><h4>{A.status === 'Banned' ? A.status : <h4>Good</h4>}</h4></Col>
                                     <Col className='acceptedUsers-searchResult' id = 'acceptedUserEmail'><h4>{A.email}</h4></Col>
                                     <Col className='acceptedUsers-searchResult'><h4><Link to = {`/Admin-viewUsers/${A._id}`}><i className="fas fa-external-link-alt"></i></Link></h4></Col>
                                 </Row>

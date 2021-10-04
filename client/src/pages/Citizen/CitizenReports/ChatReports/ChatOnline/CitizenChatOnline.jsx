@@ -37,9 +37,7 @@ const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
         } catch (err) {
             console.log(err);
         }
-    } 
-
-   
+    }
 
     return ( 
         <div className={classes.ChatOnline}>
@@ -48,7 +46,7 @@ const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
                 <div className={classes.ChatOnlineImageContainer}>
                 <img 
                     className={classes.ChatOnlineImage}
-                    src="https://images.pexels.com/photos/7322511/pexels-photo-7322511.jpeg?cs=srgb&dl=pexels-koolshooters-7322511.jpg&fm=jpg" 
+                    src={admin.profilePic} 
                 />
                 <div className={classes.ChatOnlineBadge}></div>
                 </div>

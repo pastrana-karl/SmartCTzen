@@ -107,6 +107,11 @@ const CitizenChatReport = ( props ) => {
         } catch(err) {
             console.log(err);
         }
+
+        Array.from(document.querySelectorAll("textarea")).forEach(
+            input => (input.value = ""),
+            setNewMessage(''),
+        );
     };
 
     
@@ -157,7 +162,7 @@ const CitizenChatReport = ( props ) => {
                         />
                         {conversations.map(c => (
                             <div onClick={() => setCurrentChat(c)}>
-                                <CitizenConversations conversation={c} currentUser={user}  />
+                                <CitizenConversations conversation={c} currentUser={user.data?.user}  />
                             </div>
                         ))}
                     </div>

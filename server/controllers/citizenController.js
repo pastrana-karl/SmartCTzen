@@ -190,6 +190,8 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
     // } else {
     if(citizenUser.status === 'false') {
         return next(new AppError("This account is not yet verefied by the administrator . . .", 403));
+    } else if (citizenUser.status === 'Banned') {
+        return next(new AppError("This account has been banned by the administrator . . .", 403));
     } else {
         if (!citizenUser || !(await citizenUser.correctPassword(password, citizenUser.password))) {
             return next(new AppError("Incorrect email or password", 401));
@@ -335,7 +337,7 @@ exports.applicants = catchAsync(async (req, res, next) => {
             let citizenUser;
     
             if(applicantStatus) {
-                citizenUser = await Citizen.find({ status:applicantStatus }).collation({locale: "en", strength: 2})
+                citizenUser = await Citizen.find({ status: { $nin: false } }).collation({locale: "en", strength: 2})
             } else {
                 res.status(404).json("There are no users...");
             }
@@ -347,165 +349,407 @@ exports.applicants = catchAsync(async (req, res, next) => {
     }
 });
 
-//ACCEPT APPLICANTS
-exports.acceptApplicant = catchAsync(async (req, res, next) => {
-    try{
-        const acceptApplicant = await Citizen.findByIdAndUpdate(req.params.id,{
-            $set: { "status": true }
-        });
+//HANDLE USERS
+exports.handleUsers = catchAsync(async (req, res, next) => {
 
-        const adminAcceptApplicant = new diffCollection({
-            collectionName: 'Admin',
-            userType: req.body.usertype,
-            user: req.body.username,
-            reason: 'Accepted Applicant ' + acceptApplicant.firstname + ' ' + acceptApplicant.lastname,
-        });
-        
-        await adminAcceptApplicant.save();
-
-        transporter.sendMail({
-            to:acceptApplicant.email,
-            from:"smartct.management@gmail.com",
-            subject:"Registration Confirmation",
-            html:`
-            <html lang="en">
-            <head>
-                <meta charset="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </head>
-            <body style = "
-                padding: 50px;
-                margin: 0;
-            ">
-                <div style = "
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+    if(req.body.status === true) {
+        try{
+            const acceptApplicant = await Citizen.findByIdAndUpdate(req.params.id,{
+                $set: { "status": true }
+            });
+    
+            const adminAcceptApplicant = new diffCollection({
+                collectionName: 'Admin',
+                userType: req.body.usertype,
+                user: req.body.username,
+                reason: 'Accepted applicant ' + acceptApplicant.firstname + ' ' + acceptApplicant.lastname,
+            });
+            
+            await adminAcceptApplicant.save();
+    
+            transporter.sendMail({
+                to:acceptApplicant.email,
+                from:"smartct.management@gmail.com",
+                subject:"Registration Confirmation",
+                html:`
+                <html lang="en">
+                <head>
+                    <meta charset="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </head>
+                <body style = "
+                    padding: 50px;
+                    margin: 0;
                 ">
                     <div style = "
-                        box-sizing: border-box;
-                        padding: 50px;
-                        background: #F0F0F3;
-                        box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
-                        border-radius: 20px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
                     ">
-                        <h3 style = "
-                            font-weight: bold;
-                            color: #fe5138;
-                            text-align: center;
+                        <div style = "
+                            box-sizing: border-box;
+                            padding: 50px;
+                            background: #F0F0F3;
+                            box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                            border-radius: 20px;
                         ">
-                            Welcome!
-                        </h3>
-    
-                        <p style = "
-                            font-weight: bold;
-                            text-align: center;
-                            color: black;
-                        ">
-                            Your registration is Approved.
-                        </p>
+                            <h3 style = "
+                                font-weight: bold;
+                                color: #fe5138;
+                                text-align: center;
+                            ">
+                                Welcome!
+                            </h3>
+        
+                            <p style = "
+                                font-weight: bold;
+                                text-align: center;
+                                color: black;
+                            ">
+                                Your registration is Approved.
+                            </p>
+                        </div>
                     </div>
-                </div>
-                
-                <p style = "
-                    font-weight: bold;
-                    color: black;
-                ">
-                    <br></br><br></br>
-                    From: Your SmartCTzen Administrator
-                    <br></br>
-                    "Be a Smart Citizen!"
-                </p>
-            </body>
-            </html>
-            `
-        })
-
-        const { password, ...others } = acceptApplicant._doc;
-        res.status(200).json(others);
-    }catch(err){
-        res.status(500).json(err);
+                    
+                    <p style = "
+                        font-weight: bold;
+                        color: black;
+                    ">
+                        <br></br><br></br>
+                        From: Your SmartCTzen Administrator
+                        <br></br>
+                        "Be a Smart Citizen!"
+                    </p>
+                </body>
+                </html>
+                `
+            })
+    
+            const { password, ...others } = acceptApplicant._doc;
+            res.status(200).json(others);
+        }catch(err){
+            res.status(500).json(err);
+        }
     }
 
+    if(req.body.status === 'Banned') {
+        try{
+            const banUser = await Citizen.findByIdAndUpdate(req.params.id,{
+                $set: { "status": 'Banned' }
+            });
+    
+            const adminBanUser = new diffCollection({
+                collectionName: 'Admin',
+                userType: req.body.usertype,
+                user: req.body.username,
+                reason: 'Banned a user ' + banUser.firstname + ' ' + banUser.lastname,
+            });
+            
+            await adminBanUser.save();
+    
+            transporter.sendMail({
+                to:banUser.email,
+                from:"smartct.management@gmail.com",
+                subject:"Account Banned",
+                html:`
+                <html lang="en">
+                <head>
+                    <meta charset="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </head>
+                <body style = "
+                    padding: 50px;
+                    margin: 0;
+                ">
+                    <div style = "
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    ">
+                        <div style = "
+                            box-sizing: border-box;
+                            padding: 50px;
+                            background: #F0F0F3;
+                            box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                            border-radius: 20px;
+                        ">
+                            <h3 style = "
+                                font-weight: bold;
+                                color: #fe5138;
+                                text-align: center;
+                            ">
+                                Sorry . . .
+                            </h3>
+        
+                            <p style = "
+                                font-weight: bold;
+                                text-align: center;
+                                color: black;
+                            ">
+                                Your account is found violating some rules.<br></br>
+                                As a result you are banned by your administrator.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <p style = "
+                        font-weight: bold;
+                        color: black;
+                    ">
+                        <br></br><br></br>
+                        From: Your SmartCTzen Administrator
+                        <br></br>
+                        "Be a Smart Citizen!"
+                    </p>
+                </body>
+                </html>
+                `
+            })
+    
+            const { password, ...others } = banUser._doc;
+            res.status(200).json(others);
+        }catch(err){
+            res.status(500).json(err);
+        }
+    }
+
+    if(req.body.status === 'Unbanned') {
+        try{
+            const unBanUser = await Citizen.findByIdAndUpdate(req.params.id,{
+                $set: { "status": 'Unbanned' }
+            });
+    
+            const adminUnBanUser = new diffCollection({
+                collectionName: 'Admin',
+                userType: req.body.usertype,
+                user: req.body.username,
+                reason: 'Unbanned a user ' + unBanUser.firstname + ' ' + unBanUser.lastname,
+            });
+            
+            await adminUnBanUser.save();
+    
+            transporter.sendMail({
+                to:unBanUser.email,
+                from:"smartct.management@gmail.com",
+                subject:"Account Unbanned",
+                html:`
+                <html lang="en">
+                <head>
+                    <meta charset="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </head>
+                <body style = "
+                    padding: 50px;
+                    margin: 0;
+                ">
+                    <div style = "
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    ">
+                        <div style = "
+                            box-sizing: border-box;
+                            padding: 50px;
+                            background: #F0F0F3;
+                            box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                            border-radius: 20px;
+                        ">
+                            <h3 style = "
+                                font-weight: bold;
+                                color: #fe5138;
+                                text-align: center;
+                            ">
+                                Welcome back!
+                            </h3>
+        
+                            <p style = "
+                                font-weight: bold;
+                                text-align: center;
+                                color: black;
+                            ">
+                                Your account ban is been lifted by your administrators.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <p style = "
+                        font-weight: bold;
+                        color: black;
+                    ">
+                        <br></br><br></br>
+                        From: Your SmartCTzen Administrator
+                        <br></br>
+                        "Be a Smart Citizen!"
+                    </p>
+                </body>
+                </html>
+                `
+            })
+    
+            const { password, ...others } = unBanUser._doc;
+            res.status(200).json(others);
+        }catch(err){
+            res.status(500).json(err);
+        }
+    }
 });
 
 //REJECT APPLICANTS
-exports.rejectApplicant = catchAsync(async (req, res, next) => {
-    try {
-        const rejectApplicant = await Citizen.findById(req.params.id);
-
-        const adminRejectApplicant = new diffCollection({
-            collectionName: 'Admin',
-            userType: req.body.usertype,
-            user: req.body.username,
-            reason: 'Rejected Applicant ' + rejectApplicant.firstname + ' ' + rejectApplicant.lastname,
-        });
-        
-        await adminRejectApplicant.save();
-
-        await rejectApplicant.delete();
-
-        transporter.sendMail({
-            to:rejectApplicant.email,
-            from:"smartct.management@gmail.com",
-            subject:"Registration Rejected",
-            html:`
-            <html lang="en">
-            <head>
-                <meta charset="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </head>
-            <body style = "
-                padding: 50px;
-                margin: 0;
-            ">
-                <div style = "
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+exports.deleteUser = catchAsync(async (req, res, next) => {
+    if(req.body.user === 'Deleted') {
+        try {
+            const deleteUser = await Citizen.findById(req.params.id);
+    
+            const adminDeleteUser = new diffCollection({
+                collectionName: 'Admin',
+                userType: req.body.usertype,
+                user: req.body.username,
+                reason: 'Rejected Applicant ' + deleteUser.firstname + ' ' + deleteUser.lastname,
+            });
+            
+            await adminDeleteUser.save();
+    
+            await deleteUser.delete();
+    
+            transporter.sendMail({
+                to:deleteUser.email,
+                from:"smartct.management@gmail.com",
+                subject:"Registration Rejected",
+                html:`
+                <html lang="en">
+                <head>
+                    <meta charset="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </head>
+                <body style = "
+                    padding: 50px;
+                    margin: 0;
                 ">
                     <div style = "
-                        box-sizing: border-box;
-                        padding: 50px;
-                        background: #F0F0F3;
-                        box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
-                        border-radius: 20px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
                     ">
-                        <h3 style = "
-                            font-weight: bold;
-                            color: #fe5138;
-                            text-align: center;
+                        <div style = "
+                            box-sizing: border-box;
+                            padding: 50px;
+                            background: #F0F0F3;
+                            box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                            border-radius: 20px;
                         ">
-                            Sorry . . .
-                        </h3>
-
-                        <p style = "
-                            font-weight: bold;
-                            text-align: center;
-                            color: black;
-                        ">
-                            Your registration is rejected.
-                        </p>
+                            <h3 style = "
+                                font-weight: bold;
+                                color: #fe5138;
+                                text-align: center;
+                            ">
+                                Sorry . . .
+                            </h3>
+    
+                            <p style = "
+                                font-weight: bold;
+                                text-align: center;
+                                color: black;
+                            ">
+                                Your registration is rejected.
+                            </p>
+                        </div>
                     </div>
-                </div>
-                
-                <p style = "
-                    font-weight: bold;
-                    color: black;
+                    
+                    <p style = "
+                        font-weight: bold;
+                        color: black;
+                    ">
+                        <br></br><br></br>
+                        From: Your SmartCTzen Administrator
+                        <br></br>
+                        "Be a Smart Citizen!"
+                    </p>
+                </body>
+                </html>
+                `
+            })
+    
+            res.status(200).json("Citizen has been deleted...");
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    } else {
+        try {
+            const rejectApplicant = await Citizen.findById(req.params.id);
+    
+            const adminRejectApplicant = new diffCollection({
+                collectionName: 'Admin',
+                userType: req.body.usertype,
+                user: req.body.username,
+                reason: 'Rejected Applicant ' + rejectApplicant.firstname + ' ' + rejectApplicant.lastname,
+            });
+            
+            await adminRejectApplicant.save();
+    
+            await rejectApplicant.delete();
+    
+            transporter.sendMail({
+                to:rejectApplicant.email,
+                from:"smartct.management@gmail.com",
+                subject:"Registration Rejected",
+                html:`
+                <html lang="en">
+                <head>
+                    <meta charset="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </head>
+                <body style = "
+                    padding: 50px;
+                    margin: 0;
                 ">
-                    <br></br><br></br>
-                    From: Your SmartCTzen Administrator
-                    <br></br>
-                    "Be a Smart Citizen!"
-                </p>
-            </body>
-            </html>
-            `
-        })
-
-        res.status(200).json("Citizen has been rejected...");
-    } catch (err) {
-        res.status(500).json(err);
+                    <div style = "
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    ">
+                        <div style = "
+                            box-sizing: border-box;
+                            padding: 50px;
+                            background: #F0F0F3;
+                            box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+                            border-radius: 20px;
+                        ">
+                            <h3 style = "
+                                font-weight: bold;
+                                color: #fe5138;
+                                text-align: center;
+                            ">
+                                Sorry . . .
+                            </h3>
+    
+                            <p style = "
+                                font-weight: bold;
+                                text-align: center;
+                                color: black;
+                            ">
+                                Your registration is rejected.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <p style = "
+                        font-weight: bold;
+                        color: black;
+                    ">
+                        <br></br><br></br>
+                        From: Your SmartCTzen Administrator
+                        <br></br>
+                        "Be a Smart Citizen!"
+                    </p>
+                </body>
+                </html>
+                `
+            })
+    
+            res.status(200).json("Citizen has been rejected...");
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 });
 

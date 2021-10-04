@@ -45,6 +45,7 @@ const SingleApplicants = () => {
     
     const handleAccept = async () => {
         const admin = {
+            status: true,
             username: aUser.data.user.username,
             usertype: aUser.data.user.userType
         }
@@ -259,8 +260,8 @@ const SingleApplicants = () => {
                             <Button variant="danger" onClick = { handleReject }>
                                 Reject
                             </Button>
-                        </div>
-                        <Link to = '/Applicants' className = 'ApplicantVerificationLink'>Back</Link>
+                    </div>
+                    <Link to = '/Applicants' className = 'ApplicantVerificationLink'>Back</Link>
                 </div>
             </Container>
         </>
