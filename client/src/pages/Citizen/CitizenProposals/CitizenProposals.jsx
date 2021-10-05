@@ -109,11 +109,9 @@ const CitizenProposals = () => {
                         <li className='citizenproposals-catbar-item' onClick={() => categoryOwn()}>My Proposals</li>
                     </ul>
                 </div>
-                {/* <div className="proposalsCreateBtnContainer"> */}
                         <NavLink to="/citizen-create-proposals">
                             <button className="proposalCreate">Create Proposal</button>
                         </NavLink>
-                {/* </div> */}
 
             {proposals && proposals.map(proposal => (
                 <Col className="proposalShortContainer" key={proposal._id}>
@@ -144,7 +142,7 @@ const CitizenProposals = () => {
                                 <div className="proposalsBody">
                                     <i className="fas fa-thumbs-up"/>{proposal.upvote.length ? proposal.upvote.length : 0}
                                     <i className="fas fa-thumbs-down"/>{proposal.downvote.length ? proposal.downvote.length : 0}
-                                    {proposal.userId === user.user.data.user._id ?
+                                    {proposal.userId === user.data.user._id ?
                                     null
                                     :
                                     <i onClick={()=> deleteProposal(proposal._id)} style = {{cursor: 'pointer'}} className="fas fa-trash"></i>
@@ -160,7 +158,7 @@ const CitizenProposals = () => {
                             </div>
                             <div className="proposalShortImgContainer">
                                 <div className="proposalShortImgFrame">
-                                    <img src={proposal.images ? proposal.images : "https://westsiderc.org/wp-content/uploads/2019/08/Image-Not-Available-225x300.png"} alt="" className="proposalImg" />
+                                    <img src={proposal.coverImage ? proposal.coverImage : "https://westsiderc.org/wp-content/uploads/2019/08/Image-Not-Available-225x300.png"} alt="" className="proposalImg" />
                                 </div>
                             </div>
                         </div>
