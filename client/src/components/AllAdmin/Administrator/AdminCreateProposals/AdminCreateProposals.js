@@ -102,8 +102,8 @@ const AdminCreateProposals = () => {
                         </div>
                         <div className={classes.AdminCreateProposalsFormInput}>
                             <label>Description</label>
-                            <input
-                                className={classes.Input}
+                            <textarea
+                                className={classes.Textarea}
                                 type='text'
                                 id='description'
                                 name='description'
