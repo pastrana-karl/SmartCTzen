@@ -219,7 +219,7 @@ const CitizenViewProposal = () => {
                     </Col> 
                     
                         <Col className='citizenViewProposal-img-frame'>
-                            <img src={proposal.images}  className='citizenViewProposal-img' alt='Proposal'/>
+                            <img src={proposal.coverImage}  className='citizenViewProposal-img' alt='Proposal'/>
                         </Col>
                     
                     <Col className='citizenViewProposal-auth'>
