@@ -2,7 +2,7 @@
     margin: 13% auto;
 }
 
-i{
+.proposalsBody i{
     margin-right: 5px;
 }
 .proposalsMain {
@@ -166,7 +166,7 @@ i{
     margin-right: 5px;
 }
 
-i {
+.proposalsBody i {
     margin-right: 10px;
     margin-left: 10px;
 }
@@ -361,7 +361,7 @@ i {
         font-size: 18px;
     }
     
-    i{
+    .proposalsBody i{
         font-size: 20px !important;
     }
 }
