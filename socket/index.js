@@ -7,6 +7,7 @@ const io = require("socket.io")(8800, {
 let users = [];
 
 const addUser = (userId, socketId) => {
+    // console.log("This is from addUser sender user: ",userId)
     !users.some((user) => user.userId === userId) &&
     users.push({ userId, socketId });
     //console.log(userId);
@@ -17,8 +18,16 @@ const removeUser = (socketId) => {
 };
 
 const getUser = (userId) => {
-    //console.log(userId);
-    return users.find((user) => user.userId === userId);
+    const test = users.find((user) => user.userId === userId);
+    
+    // console.log("This is from getUser",test)
+    //yung nasa baba array from kausap yung user id nila tapos yung socket id kung saan kayo nag uusap
+    // console.log("Trying to get users ", users) 
+    //ito yung id mo
+    // console.log("Trying to get sender, if not the same with previous sender, one of the users dced: ", userId)
+    //kaya magkaiba ng userid sa userid ng users kasi ibang tao
+    //Refresh page for both users when making edits to this page
+    return test
 };
 
 io.on("connection", (socket) => {
@@ -32,22 +41,22 @@ io.on("connection", (socket) => {
     });
 
     //send and get message
+    
     socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-            const user = getUser(receiverId);
-            // io.to(user.socketId).emit("getMessage", {
-            //     senderId,
-            //     text
-            //     });
-        try {
-            io.to(user.socketId).emit("getMessage", {
+        const user = getUser(receiverId);
+        // console.log("This is from sendMessage recieverId: ",receiverId);
+        // console.log(user);
+        try{//Will send an error to console but does not disrupt running of application
+        io.to(user.socketId).emit("getMessage", {
             senderId,
             text
-            });
-        } catch (err) {
-            console.log('One of the user is not connected');
+        });
+        console.log("This is from sendMessage",text)
+        }catch(err){
+            console.log("One of the users are not connected")
         }
-        // console.log(receiverId.socketId);
     });
+    
 
     //when disconnect
     socket.on("disconnect", () => {

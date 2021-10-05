@@ -100,60 +100,23 @@ const CitizenProposals = () => {
 
     return(
         <Container className="proposalsContainer">
-            <div className="proposalsMain">
-                <Row className='citizenproposals-catbar-container'>
-                    <Col className='citizenproposals-catbar'> 
-                        <button className='citizenproposals-catbar-item' onClick={() => categoryAll()}>All</button> 
-                        <button className='citizenproposals-catbar-item' onClick={() => categoryApproved()}>Approved</button>
-                        <button className='citizenproposals-catbar-item' onClick={() => categoryRejected()}>Rejected</button>
-                        <button className='citizenproposals-catbar-item' onClick={() => categoryOwn()}>My Proposals</button>
-                    </Col>
-                </Row>
+            <Row className="proposalsMain">
+                <div className='citizenproposals-catbar-container'>
+                    <ul className='citizenproposals-catbar'> 
+                        <li className='citizenproposals-catbar-item' onClick={() => categoryAll()}>All</li> 
+                        <li className='citizenproposals-catbar-item' onClick={() => categoryApproved()}>Approved</li>
+                        <li className='citizenproposals-catbar-item' onClick={() => categoryRejected()}>Rejected</li>
+                        <li className='citizenproposals-catbar-item' onClick={() => categoryOwn()}>My Proposals</li>
+                    </ul>
+                </div>
                 {/* <div className="proposalsCreateBtnContainer"> */}
                         <NavLink to="/citizen-create-proposals">
                             <button className="proposalCreate">Create Proposal</button>
                         </NavLink>
                 {/* </div> */}
 
-            {/* <div className="proposalShortContainer">
-                <div className="proposalShort">
-                    <div className="proposalTitleContainer">
-                        <div className="proposalTitle">
-                            <h2>Lorem Ipsum</h2>
-                        </div>
-                        <div className="proposalAuthImg">
-                            <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Author"/>
-                        </div>
-                        <div className="proposalAuth">
-                            Juan Carlos
-                        </div>
-                    </div>
-                    <div className="proposalContent">
-                        <div className="proposalShortInfo">
-                            <h2>Lorem ipsum</h2>
-                            <div className="proposalAuthContainer">
-                                <div className="proposalAuthImg">
-                                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Author"/>
-                                </div>
-                                <div className="proposalAuth">
-                                    Juan Carlos
-                                </div>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis efficitur orci et interdum vulputate. 
-                                Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut vel euismod leo. Ut varius a magna 
-                                eu vulputate. </p>
-                            <p>Upvote: 14 </p><p> Downvote: 3</p>
-                        </div>
-                        <div className="proposalShortImgContainer">
-                            <div className="proposalShortImgFrame">
-                                <img src="https://th.bing.com/th/id/R.b647d58e6001e77b9471b110f44c2641?rik=Kariecnl8cUg1g&riu=http%3a%2f%2ffilipinoaustralianjournal.com.au%2fwp-content%2fuploads%2f2016%2f03%2fphilippine-tricycles.jpg&ehk=%2fECLwkRpQ1vL3g8sFPsT8JnrucAFmfXhwjRaYgXJmxw%3d&risl=&pid=ImgRaw&r=0" alt="" className="proposalImg" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             {proposals && proposals.map(proposal => (
-                <div className="proposalShortContainer" key={proposal._id}>
+                <Col className="proposalShortContainer" key={proposal._id}>
                     <div className="proposalShort">
                         <div className="proposalTitleContainer">
                             <div className="proposalTitle">
@@ -181,7 +144,11 @@ const CitizenProposals = () => {
                                 <div className="proposalsBody">
                                     <i className="fas fa-thumbs-up"/>{proposal.upvote.length ? proposal.upvote.length : 0}
                                     <i className="fas fa-thumbs-down"/>{proposal.downvote.length ? proposal.downvote.length : 0}
-                                    {proposal.userName === currentCitizenUser && <i style = {{cursor: 'pointer'}} onClick={()=> deleteProposal(proposal._id)} className="fas fa-trash"></i>}
+                                    {proposal.userId === user.user.data.user._id ?
+                                    null
+                                    :
+                                    <i onClick={()=> deleteProposal(proposal._id)} style = {{cursor: 'pointer'}} className="fas fa-trash"></i>
+                                    }
                                 </div>
                                 {proposal.status === "Rejected" ?  
                                 null
@@ -193,60 +160,17 @@ const CitizenProposals = () => {
                             </div>
                             <div className="proposalShortImgContainer">
                                 <div className="proposalShortImgFrame">
-                                    <img src={proposal.images} alt="" className="proposalImg" />
+                                    <img src={proposal.images ? proposal.images : "https://westsiderc.org/wp-content/uploads/2019/08/Image-Not-Available-225x300.png"} alt="" className="proposalImg" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </Col>
             ))}
-        </div>      
+        </Row>      
     </Container>
     );
 }
 
 export default CitizenProposals;
 
-
-//Backup code
-{/* <Row className="proposalShortContainer"> gawing citizenproposals-shorts-container  dito lahat nakalagay
-
-
-        <Row className="proposalShort">           citizenproposals-mobile-shortinfo
-            <Row className="proposalTitleContainer">   delete
-                <Row className="proposalTitle">          
-                    <h2>Lorem Ipsum</h2>               citizenproposal-mobile-shortinfo > h2
-                </Row>
-                <Col className="proposalAuthImg">      citizenproposal-mobile-shortinfo > img
-                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Author"/>
-                </Col>
-                <Row className="proposalAuth">Juan Carlos</Row>      citizenproposal-mobile-shortinfo > p
-            </Row>
-        </Row>
-
-
-
-    <Row className="proposalContent">                   citizenproposals-shortinfo
-        <Row className="proposalShortInfo">             delete
-            <h2>Lorem ipsum</h2>                        citizenproposals-shortinfo > h2
-            <div className="proposalAuthContainer">     delete
-                <div className="proposalAuthImg">       delete   citizenproposals-shortinfo > h2
-                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Author"/>
-                </div>
-                <div className="proposalAuth">          delete citizenproposals-shortinfo > h5
-                    <h5>Juan Carlos</h5>
-                </div>
-            </div>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis efficitur orci et interdum vulputate. 
-                Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut vel euismod leo. Ut varius a magna 
-                eu vulputate. </p>
-            <p>Upvote: 14 </p><p> Downvote: 3</p>       citizenproposals-shortinfo > p
-        </div>
-        <div className="proposalShortImgContainer">     citizenproposals-shortinfo-img-frame
-            <div className="proposalShortImgFrame">     citizenproposals-shortinfo-img-frame > img   
-                <img src="https://th.bing.com/th/id/R.b647d58e6001e77b9471b110f44c2641?rik=Kariecnl8cUg1g&riu=http%3a%2f%2ffilipinoaustralianjournal.com.au%2fwp-content%2fuploads%2f2016%2f03%2fphilippine-tricycles.jpg&ehk=%2fECLwkRpQ1vL3g8sFPsT8JnrucAFmfXhwjRaYgXJmxw%3d&risl=&pid=ImgRaw&r=0" alt="" className="proposalImg" />
-            </div>
-        </div>
-    </div>
-</Row> */}

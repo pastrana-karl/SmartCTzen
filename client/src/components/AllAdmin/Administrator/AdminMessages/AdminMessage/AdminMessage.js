@@ -4,7 +4,7 @@ import { format } from 'timeago.js';
 import classes from './AdminMessage.module.css';
 
 const AdminMessage = ({messages, own }) => {
-   // console.log(messages);
+    // console.log(messages);
     
     return (
         <div className={own ? classes.MessageOwn : classes.Message }>

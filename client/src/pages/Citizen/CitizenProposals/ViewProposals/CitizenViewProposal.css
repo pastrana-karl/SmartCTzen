@@ -75,6 +75,7 @@ p{
 
 .citizenViewProposal-status{
     margin-bottom: 10px;
+    font-size: 18px;
 }
 
 .citizenViewProposal-btn-container{
@@ -187,6 +188,53 @@ p{
     text-align: justify;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    flex:85%
+    padding: 15px;
+    flex:85%;
+    overflow: auto;
+    overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 992px) {
+    .citizenViewProposal-auth {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .citizenViewProposal-long{
+        padding: 20px;
+    }
+    .citizenViewProposal-title{
+        font-size: 15px !important;
+    }
+
+    .citizenViewProposal-btn-container{
+        display: flex;
+        align-items: center;
+        flex-direction: column !important;
+    }
+
+    .citizenViewProposal-inputcomment-container form{
+        display: flex;
+        align-items: center;
+        flex-direction: column !important;
+    }
+
+    .citizenViewProposal-writecomment{
+        font-size: 15px;
+    }
+
+    .buttonContainer{
+        margin-bottom: 20px;
+    }
+
+    .citizenViewProposal-comment{
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .citizenViewProposal-comment-img{
+        flex: 35%;
+    }
 }

@@ -3,7 +3,7 @@ import { Formik, Form, ErrorMessage, Field } from 'formik';
 import * as ReactBootStrap from 'react-bootstrap';
 import * as Yup from 'yup';
 import { Redirect } from 'react-router';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 import FormikInput from '../../../../components/UI/Input/FormikInput/FormikInput';
 import SubmitButton from '../../../../components/UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../../components/UI/Buttons/CancelButton/CancelButton';
@@ -117,7 +117,6 @@ const CitizenCreateProposal = () => {
             { redirect && (<Redirect to = '/citizen-proposals' />) }
             {loading ? (
             <Container className={classes.CitizenCreateProposalContentContainer}>
-                {/* <div className = 'col-lg-10 offset-lg-1'> */}
                 <Row>
                     <div className={classes.QuoteDiv}>
                         <h1>Go create your proposal and make an impact!</h1>
@@ -129,8 +128,8 @@ const CitizenCreateProposal = () => {
                     >
                         <Form className={classes.CitizenCreateProposalForm}>
                             <Col>
-                                <Row>
-                                    <Col sm={6}>
+                                <Row className={classes.CitizenCreateProposalFormTopRow}>
+                                    <Col className={classes.CitizenCreateProposalFormTopRow2}>
                                         <Row className={classes.CitizenCreateProposalFormInput}>
                                             <label>Proposal Title</label>
                                             <FormikInput 
@@ -157,35 +156,13 @@ const CitizenCreateProposal = () => {
                                                 }
                                             </ErrorMessage>
                                         </Row>
-                                        {/* <Row className={classes.CitizenCreateProposalFormInput}>
-                                            <FormikInput 
-                                                type="text"
-                                                placeholder="userName"
-                                                id="userName"
-                                                name="userName"
-                                            />
-                                        </Row> */}
                                     </Col>
-                                    <Col className={classes.CitizenCreateProposalHeader} sm={6}>
+                                    <Col className={classes.CitizenCreateProposalHeader}>
                                             <h2>Pursue your calling </h2>
                                     </Col>
                                 </Row>
-                                <Row >
-                                    {/* <Col className={classes.CitizenCreateProposalFormInput}>
-                                        <label>When to Start Hopefully</label>
-                                        <FormikInput 
-                                        type="text"
-                                        placeholder="Date of Start hopefully"
-                                        id="date"
-                                        name="date"
-                                        />
-                                        <ErrorMessage name="date">
-                                            {
-                                                errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-                                            }
-                                        </ErrorMessage>
-                                    </Col> */}
-                                    <Col className={classes.CitizenCreateProposalFormInput}>
+                                <Row>
+                                    <Col className={classes.CitizenCreateProposalFormInput} >
                                         <label>Where</label>
                                         <FormikInput 
                                             type="text"
@@ -199,16 +176,16 @@ const CitizenCreateProposal = () => {
                                             }
                                         </ErrorMessage>
                                     </Col>
+                                    {/* <Col></Col> */}
                                 </Row>
-                                <Row className={classes.citizensubmitreportphotoinput}>
-                                    <Col className={classes.CitizenCreateProposalFormInput} >
-                                        <label style={{textAlign: 'center', marginTop: '5%'}}>Photo</label>
-
-                                        <div className = 'CitizenCreateProposalImg'>
+                                <Row className={classes.CitizenSubmitProposalPhotoInputContainer}>
+                                    <label style={{textAlign: 'center', marginTop: '5%'}}>Photo</label>
+                                    <Col className={classes.CitizenCreateProposalPhotoInput}>
+                                        <div className={classes.CitizenCreateProposalImg}>
                                             {file && <img src = { (URL.createObjectURL(file)) } alt = '' onClick={()=> window.open(URL.createObjectURL(file), "_blank")}/>}
                                         </div>
 
-                                        <label  htmlFor="images"><i className="fas fa-image"></i></label>
+                                        <label  htmlFor="images"><i className="icon fas fa-image"></i></label>
 
                                         <Field 
                                             type="file"
@@ -223,22 +200,21 @@ const CitizenCreateProposal = () => {
                                             }
                                         </ErrorMessage>
                                     </Col>
-                                    
+
+                                    {/* <Col></Col> */}
                                 </Row>
                                 <Row>
                                     <Col>
                                         <div className={classes.ButtonDiv}>
                                             <SubmitButton />
-                                            <CancelButton />
+                                            <button type="reset" className={classes.CitizenCreateProposalClearBtn}>Clear</button>
                                         </div>
                                     </Col>
                                 </Row>
                             </Col>
-                            
                         </Form>
                     </Formik>    
                 </Row>
-                {/* </div> */}
             </Container>
             ) : (
                     <div style = {{

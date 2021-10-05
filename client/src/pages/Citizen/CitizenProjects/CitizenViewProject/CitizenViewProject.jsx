@@ -32,8 +32,9 @@ const CitizenViewProject = () => {
                 <Row className='citizenViewProject-long'>
                     <Col className='citizenViewProject-title'>
                         <h1>{project.title}</h1>
-
-                        <i className="fas fa-eye"/> <span>{project.viewCount}</span>
+                        <Row>
+                            <i className="fas fa-eye"/> <span>{project.viewCount}</span>
+                        </Row>
                     </Col>
 
                     <Col className='citizenViewProject-description'>

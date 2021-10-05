@@ -49,13 +49,19 @@
 }
 
 .citizenprojects-short {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: row;
     padding: 50px;
     margin: 50px 0px;
-    max-height: 600px;
+    max-height: 600px; */
+    display: flex;
+    margin: 50px 0px;
+    border: hidden;
+    padding: 40px;
+    height: 500px;
+    width: 800px auto;
 
     /*Neumorphism Magic*/
     border-radius: 40px;
@@ -104,6 +110,11 @@
     text-align: justify;
     margin-bottom: 10px;
     padding-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
 }
 
 .citizenprojects-shortinfo-status{
@@ -137,118 +148,107 @@
 }
 
 .citizenprojects-shortinfo-img-container{
-    display: flex;
+    /* display: flex;
     height: 450px;
     width: auto;
 
-    padding: 10px 0px 10px 0px;
-}
-
-.citizenprojects-shortinfo-img-frame{
+    padding: 10px 0px 10px 0px; */
+    display: flex;
+    flex: 50%;
     padding: 20px;
-    /*Neumorphism Magic*/
-    background: #F0F0F3;
+    max-height: 500px;
+    max-width: 510px;
+    justify-content: center;
+    background: #FFFFFF;
     box-shadow:  inset 5px 5px 10px #d4d4d4,
                 inset -5px -5px 10px #ffffff;
     border-radius: 40px;
+    overflow: hidden;
 }
 
-.citizenprojects-shortinfo-img-frame img{
+.citizenprojects-shortinfo-img-frame{
+    /* padding: 20px; */
+    display: flex;
+    max-width: inherit;
+    max-height: inherit;
+}
+
+.citizen-project-image{
     border-radius: 40px;
+    display: flex;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    object-fit: cover;
 }
+.citizen-project-image img{
+    /* border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; */
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+
 
 
 
 @media screen and (max-width: 992px) {
+    .citizenprojects-container {
+        margin: 14%;
+    }
+    .citizenprojects-catbar-container{
+        display: flex;
+        justify-content: center;
+        margin: 0px;
+    }
     
     .citizenprojects-short{
-        display: flex;
+        display: flex !important;
         flex-direction: column-reverse;
-        height: auto;
-        
-    }
-
-    .citizenprojects-shortinfo-auth{
-        display: flex;
-        flex-direction: row;
-    }
-
-    .citizenprojects-shortinfo-auth h2{
-        margin-right: 10px;
     }
 
     .citizenprojects-shortinfo-desc{
-        display: none !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
     }
 
-    .citizenprojects-shortinfo-img-container{
-        display: flex;
-        justify-content: center;
-        max-height: 100%;
+    .citizenprojects-shortinfo-auth h2{
+        font-size: 20px;
     }
-
-    .citizenprojects-shortinfo-img-frame{
-        width: 100%;
-    }
-
-    /* hide title on click/tap*/
-    .citizenprojects-short:hover .proposalTitleContainer{
-        display: none;
-    }
-
-    .citizenprojects-shortinfo-auth{
-        display: flex;
-        padding: 5px;
-        margin-bottom: 5px;
-    }
-
-    .proposalTitle{
-        display: flex;
-        align-items: center;
-        margin-right: 10px;
-    }
-    .proposalTitle h2{
-        margin-bottom: 0px;
-    }
-
-    .proposalContent{
-        display: flex;
-        flex-direction: column-reverse;
-    }
-
-    .proposalShort{
-        padding: 15px;
-        margin: 20px 0px;
-        height: 400px;
-        transition: 0.5s;
-    }
-    .proposalShort:hover{
-        height: fit-content;
-    }
-    .proposalShort:hover .proposalShortInfo{
-        display: inline-block;
-        padding: 20px;
-        visibility: visible;
-    }
-
-    .proposalShortImgContainer{
-        display: flex;
-        padding: 20px;
-        max-height: 300px;
-    }
-    
-    .proposalShort .proposalShortInfo{
-        height: 0px;
-        visibility: hidden;
-        transition: 0.1ms;
-    }
-
 }
 
 @media screen and (max-width: 600px) {
+    .citizenprojects-catbar-container{
+        height: 250px;
+        width: 100%;
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+
+    .citizenprojects-catbar{
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+        padding: 0px;
+        max-height: inherit !important;
+        max-width: 500px !important;
+        background: none;
+        box-shadow: none;
+        border-radius: none;
+    }
+
+    .citizenprojects-catbar-item{
+        margin: 5px 0px !important;
+        width: 100%;
+    }
+
     .proposalShortImgContainer{
         display: flex;
         padding: 20px;

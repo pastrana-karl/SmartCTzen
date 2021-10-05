@@ -1,0 +1,110 @@
+.CitizenSubmitReportsContentContainer{
+    margin: 13%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.CitizenSubmitReportsQuotesDiv{
+    margin-top: 5%;
+    display: flex;
+    color: #FF5039;
+}
+.CitizenSubmitReportForm{
+    display: grid;
+    width: 100%;
+    row-gap: 100px;
+}
+.CitizenSubmitReportFormInput{
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    overflow-wrap: break-word;
+}
+.CitizenSubmitReportHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.CitizenSubmitReportHeader span{
+    color: #FF5039;
+}
+.CitizenSubmitReportPhotoInputContainer{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    flex-direction: column;
+    overflow-wrap: break-word;
+}
+.CitizenSubmitReportImg{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    height: 80%;
+}
+.CitizenSubmitReportImg img{
+    border-radius: 40px; 
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.CitizenSubmitReportPhotoInput{
+    display: flex;
+    padding: 20px;
+    flex-direction: column !important;
+    align-items: center !important;
+    max-width: 800px !important;
+    max-height: 900px !important;
+    overflow-wrap: break-word;
+    background: #F0F0F3;
+    box-shadow:  inset 5px 5px 10px #d4d4d4,
+                inset -5px -5px 10px #ffffff;
+    border-radius: 40px;
+}
+.CitizenSubmitReportButtonDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    margin: 40px;
+}
+.InputValidation {
+    margin-top: 10px;
+    color: red;
+}
+.CitizenSubmitReportClearBtn{
+    border: hidden;
+    background-color: #F0F0F3;
+    color: #FF5039;
+    box-shadow: -10px -10px 30px rgba(255, 255, 255, 0.7), 10px 10px 30px rgba(174, 174, 192, 0.4);
+    border-radius: 50px;
+    height: 50px;
+    width: 200px;
+    font-size: 16px;
+}
+.CitizenSubmitReportClearBtn:hover{
+    background-color: #F0F0F3;
+    color: #FF5039
+}
+@media screen and (max-width: 992px) {
+    .CitizenSubmitReportsQuotesDiv h1{
+        font-size: 20px !important;
+    }
+    .CitizenSubmitReportHeader{
+        display: flex;
+        flex: 0%;
+        width: 0%;
+        margin: 0px;
+        padding: 0px;
+        display: none;
+    }
+    .CitizenSubmitReportButtonDiv{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+        margin: 40px;
+        font-size: 15px;
+    }
+}

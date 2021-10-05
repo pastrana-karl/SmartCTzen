@@ -9,9 +9,10 @@ import SubmitButton from '../../../../components/UI/Buttons/SubmitButton/SubmitB
 import CancelButton from '../../../../components/UI/Buttons/CancelButton/CancelButton';
 import Swal from 'sweetalert2';
 import { Context } from '../../../../context/Context';
-import classes from '../../CitizenProposals/CreateProposals/CitizenCreateProposals.module.css';
 import axios from 'axios';
-import './CitizenSubmitReport.css';
+// import classes from '../../CitizenProposals/CreateProposals/CitizenCreateProposals.module.css';
+// import './CitizenSubmitReport.css';
+import classes from './CitizenSubmitReport.module.css';
 
 const CitizenSubmitReport = () => {
     const citizenUser = useContext(Context);
@@ -116,21 +117,21 @@ const CitizenSubmitReport = () => {
         <>
             { redirect && (<Redirect to = '/citizen-reports' />) }
             {loading ? (
-            <Container className="citizenSubmitReport-container">
+            <Container className={classes.CitizenSubmitReportsContentContainer}>
                 <Row>
-                    <div className="citizen-header">
-                        <h1>Found a Problem? Go Submit a Report</h1>
+                    <div className={classes.CitizenSubmitReportsQuotesDiv}>
+                        <h1>Found a problem? Go submit a report</h1>
                     </div>
                     <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchema}
-                        onSubmit={onSubmit}
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
                     >
-                        <Form className="citizenSubmitReport-edit">
+                        <Form className={classes.CitizenSubmitReportForm}>
                             <Col>
                                 <Row>
-                                    <Col sm={6}>
-                                        <Row className="citizenSubmitReport-input">
+                                    <Col>
+                                        <Row className={classes.CitizenSubmitReportFormInput}>
                                             <label>Report Title</label>
                                             <FormikInput 
                                             type="text"
@@ -139,8 +140,10 @@ const CitizenSubmitReport = () => {
                                             name="title"
                                             />
                                             <ErrorMessage name="title">
-                                                {errorMsg => <div className="InputValidation">{errorMsg}</div>}
+                                                {errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>}
                                             </ErrorMessage>
+                                        </Row>
+                                        <Row className={classes.CitizenSubmitReportFormInput}>
                                             <label>Description</label>
                                             <FormikInput 
                                                 type="text"
@@ -150,17 +153,17 @@ const CitizenSubmitReport = () => {
                                             />
                                             <ErrorMessage name="description">
                                                 {
-                                                    errorMsg => <div className="InputValidation">{errorMsg}</div>
+                                                    errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
                                                 }
                                             </ErrorMessage>
                                         </Row>
                                     </Col>
-                                    <Col className="citizenSubmitReportQuote">
-                                        <h2>Reporting a problem or an issue is your <span className="text-highlight">ambag</span></h2>
+                                    <Col className={classes.CitizenSubmitReportHeader}>
+                                        <h2>Reporting a problem or an issue is your <span className={classes.texthighlight}>ambag</span></h2>
                                     </Col>
                                 </Row>
-                                <Row >
-                                    <Col className="citizenSubmitReport-input">
+                                <Row>
+                                    <Col className={classes.CitizenSubmitReportFormInput}>
                                         <label>Location</label>
                                         <FormikInput 
                                             type="text"
@@ -170,21 +173,18 @@ const CitizenSubmitReport = () => {
                                         />
                                         <ErrorMessage name="location">
                                             {
-                                                errorMsg => <div className="InputValidation">{errorMsg}</div>
+                                                errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
                                             }
                                         </ErrorMessage>
                                     </Col>
                                 </Row>
-                                <Row className={classes.CitizenCreateProposalPhotoInput}>
-                                    <Col className={classes.CitizenCreateProposalFormInput} >
-                                        <label style={{textAlign: 'center', marginTop: '5%'}}>Photo</label>
-
-                                        <div className = 'CitizenCreateProposalImg'>
+                                <Row className={classes.CitizenSubmitReportPhotoInputContainer}>
+                                    <label style={{textAlign: 'center', marginTop: '5%'}}>Photo</label>
+                                    <Col className={classes.CitizenSubmitReportPhotoInput}>
+                                        <div className={classes.CitizenSubmitReportImg}>
                                             {file && <img src = { (URL.createObjectURL(file)) } alt = '' onClick={()=> window.open(URL.createObjectURL(file), "_blank")}/>}
                                         </div>
-
                                         <label  htmlFor="images"><i className="fas fa-image"></i></label>
-
                                         <Field 
                                             type="file"
                                             id="images"
@@ -201,36 +201,35 @@ const CitizenSubmitReport = () => {
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <div className="ButtonDiv">
+                                        <div className={classes.CitizenSubmitReportButtonDiv}>
                                             <SubmitButton />
-                                            <CancelButton />
+                                            <button type="reset" className={classes.CitizenSubmitReportClearBtn}>Clear</button>
                                         </div>
                                     </Col>
                                 </Row>
                             </Col>
-                            
                         </Form>
-                    </Formik>  
+                    </Formik>
                 </Row>
             </Container>
             ) : (
-                    <div style = {{
-                        color: '#777',
-                        textAlign: 'center',
-                    }}>
-                      <h2 style = {{marginTop: '10%'}}>Processing Please Wait</h2>
-                      <div>
-                        <ReactBootStrap.Spinner animation="grow" variant="primary" />
-                        <ReactBootStrap.Spinner animation="grow" variant="secondary" />
-                        <ReactBootStrap.Spinner animation="grow" variant="success" />
-                        <ReactBootStrap.Spinner animation="grow" variant="danger" />
-                        <ReactBootStrap.Spinner animation="grow" variant="warning" />
-                        <ReactBootStrap.Spinner animation="grow" variant="info" />
-                        <ReactBootStrap.Spinner animation="grow" variant="light" />
-                        <ReactBootStrap.Spinner animation="grow" variant="dark" />
-                      </div>
-                    </div>
-            )}
+                <div style = {{
+                    color: '#777',
+                    textAlign: 'center',
+                }}>
+                  <h2 style = {{marginTop: '10%'}}>Processing Please Wait</h2>
+                  <div>
+                    <ReactBootStrap.Spinner animation="grow" variant="primary" />
+                    <ReactBootStrap.Spinner animation="grow" variant="secondary" />
+                    <ReactBootStrap.Spinner animation="grow" variant="success" />
+                    <ReactBootStrap.Spinner animation="grow" variant="danger" />
+                    <ReactBootStrap.Spinner animation="grow" variant="warning" />
+                    <ReactBootStrap.Spinner animation="grow" variant="info" />
+                    <ReactBootStrap.Spinner animation="grow" variant="light" />
+                    <ReactBootStrap.Spinner animation="grow" variant="dark" />
+                  </div>
+                </div>
+        )}
         </>
     );
 };

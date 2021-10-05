@@ -10,6 +10,7 @@ const FormikInput = ( props ) => (
         name={props.name} 
         className={classes.FormikInput}
         component={props.component}
+        rows={props.rows}
     />
 );
 

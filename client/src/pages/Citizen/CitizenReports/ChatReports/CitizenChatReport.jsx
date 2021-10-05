@@ -166,7 +166,7 @@ const CitizenChatReport = ( props ) => {
                                 {
                                     chatMessages.map(m => (
                                         <div>
-                                            <CitizenMessage messages={m} own={m.sender === user.data?.user?._id} />
+                                            <CitizenMessage messages={m} own={m.sender === user.data?.user?._id} key={m._id}/>
                                         </div>
                                     ))
                                 }

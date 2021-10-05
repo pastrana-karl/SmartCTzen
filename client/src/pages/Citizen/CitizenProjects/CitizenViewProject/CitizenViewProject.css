@@ -106,3 +106,22 @@ p{
     flex:85%
 }
 
+
+@media screen and (max-width: 600px) {
+    .citizenViewProject-long{
+        padding: 15px;
+    }
+    .citizenViewProject-title{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .citizenViewProject-title h1{
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .citizenViewProject-title i{
+        display: flex;
+    }
+}

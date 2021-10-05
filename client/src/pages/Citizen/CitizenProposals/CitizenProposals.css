@@ -16,7 +16,7 @@ i{
 .citizenproposals-catbar-container{
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 1000px;
     max-height: 100%;
     margin-bottom: 30px;
 }
@@ -27,7 +27,8 @@ i{
     justify-content: center;
     align-items: center;
     margin: 10px 50% 0px 50%;
-    max-height: 80px;   
+    max-height: 80px;
+    max-width: 700px;   
     background: #F0F0F3;
     box-shadow:  inset 5px 5px 10px #d4d4d4,
                 inset -5px -5px 10px #ffffff;
@@ -82,7 +83,11 @@ i{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0% 10%;
+    margin: auto;
+    /* padding: 0px 100px; */
+    /* width: 1000px;
+    max-width: 1000px;
+    max-height: 700px; */
 }
 
 .proposalShort {
@@ -91,7 +96,7 @@ i{
     border: hidden;
     padding: 40px;
     height: 600px;
-    max-width: 840px;
+    width: 800px auto;
     /* max-height: 600px; */
     transition: 1s;
     /* //neumorphism magic */
@@ -135,6 +140,7 @@ i{
 
 .proposalContent{
     display: flex;
+    width: 100%;
 }
 
 .proposalShortInfo {
@@ -147,10 +153,10 @@ i{
     text-align: justify;
     padding: 5px;
     overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 4;
-   -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
 }
 
 .proposalsBody{
@@ -168,6 +174,7 @@ i {
 .proposalsViewMore{
     color: #FFFFFF;
     padding: 12px;
+    text-align: center;
     border-radius: 40px;
     background: #FF5039;
 }
@@ -181,11 +188,13 @@ i {
     flex: 50%;
     padding: 20px;
     max-height: 500px;
+    max-width: 510px;
     justify-content: center;
     background: #FFFFFF;
     box-shadow:  inset 5px 5px 10px #d4d4d4,
                 inset -5px -5px 10px #ffffff;
     border-radius: 40px;
+    overflow: hidden;
 }
 
 .proposalShortImgFrame{
@@ -194,12 +203,18 @@ i {
     max-height: inherit;
 }
 
-
 .proposalImg {
     border-radius: 40px;
-    object-fit: cover;
+    display: flex;
+    justify-content: center;
     width: 100%;
-    height: auto;
+    height: 100%;
+}
+.proposalImg img{
+    border-radius: 40px; 
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
 }
 
 @media screen and (max-width: 992px) {
@@ -207,6 +222,25 @@ i {
     .proposalShort{
         display: flex;
         flex-direction: column;
+        align-items: center;
+    }
+
+    .citizenproposals-catbar-container{
+        display: flex;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .citizenproposals-catbar{
+        flex-direction: row;
+        width: 100%;
+    }
+    
+    .citizenprojects-shortinfo-auth{
+        display: flex;
+        flex-direction: column-reverse;
+        height: auto;
     }
 
     /* hide title on click/tap*/
@@ -227,11 +261,14 @@ i {
     }
     .proposalTitle h2{
         margin-bottom: 0px;
+        font-size: 25px
     }
 
     .proposalContent{
         display: flex;
         flex-direction: column-reverse;
+        align-items: center;
+        width: 100%;
     }
 
     .proposalShort{
@@ -244,37 +281,48 @@ i {
         height: fit-content;
     }
     .proposalShort:hover .proposalShortInfo{
-        display: inline-block;
+        display: flex;
+        flex-direction: column;
         padding: 20px;
         visibility: visible;
     }
 
     .proposalShortImgContainer{
-        display: inline-block;
+        /* display: flex; */
         padding: 20px;
         max-height: 300px;
+        width: 100%;
+    }
+
+    .proposalShort:hover .proposalShortImgFrame{
+        display: flex;
+        max-width: inherit;
+        max-height: inherit;
     }
     
+    .proposalShort:hover .proposalImg {
+         border-radius: 40px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .proposalShort:hover .proposalImg img{
+        border-radius: 40px; 
+        width: 500px;
+        height: 300px;
+        object-fit: cover;
+    }
+
+
     .proposalShort .proposalShortInfo{
         height: 0px;
         visibility: hidden;
         transition: 0.1ms;
+        width: 100%;
     }
-
     
-    .citizenproposals-catbar-container{
-        display: block;
-
-    }
-
-
-    .citizenproposals-catbar{
-        max-width: 600px;
-        display: block;
-        /* overflow-x:hidden;
-        overflow-y: scroll; */
-        white-space: break-spaces;
-    }
 }
 
 @media screen and (max-width: 600px) {
@@ -283,6 +331,37 @@ i {
         padding: 20px;
         max-height: 200px;
     }
-    
 
+    .citizenproposals-catbar-container{
+        height: 250px;
+        width: 100%;
+    }
+
+    .citizenproposals-catbar{
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+        max-height: inherit !important;
+        max-width: 500px !important;
+        background: none;
+        box-shadow: none;
+        border-radius: none;
+    }
+
+    .citizenproposals-catbar-item{
+        margin: 5px 0px !important;
+        width: 100%;
+    }
+
+    .proposalCreate{
+        padding: 10px;
+    }
+
+    .proposalTitle h2{
+        font-size: 18px;
+    }
+    
+    i{
+        font-size: 20px !important;
+    }
 }

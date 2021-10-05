@@ -7,6 +7,8 @@ const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
     const [allAdmins, setAllAdmins] = useState([]);
     const [selectedAdmin, setSelectedAdmin] = useState([]);
 
+
+    //Gets all admins
     useEffect(() => {
         const sendRequest = async () => {
             const response = await fetch('/api/admin/?onlineStatus=true');
@@ -41,7 +43,8 @@ const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
 
     return ( 
         <div className={classes.ChatOnline}>
-            {allAdmins.map((admin) => (
+            {/* Display Admins */}
+            {allAdmins && allAdmins.map((admin) => (
             <div className={classes.ChatOnlineAdmin} key={admin._id}  onClick={() => handleClick(admin)}> 
                 <div className={classes.ChatOnlineImageContainer}>
                 <img 

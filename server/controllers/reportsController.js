@@ -47,11 +47,11 @@ exports.postReports = catchAsync(async (req, res, next) => {
     });
     
     await newReportHist.save();
-
+    const report = await newReport.save();
     res.status(201).json({
         status: 'success',
         data: {
-            report: newReport
+            report: report
         }
     });
 });

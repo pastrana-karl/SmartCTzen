@@ -13,17 +13,18 @@ const CitizenReports = () => {
         const sendRequest = async () => {
             const response = await fetch('/api/reports');
             const responseData = await response.json();
+            console.log(responseData);
             setReports(responseData);
         };
         sendRequest();
     }, []);
 
-    const deletereport = async (reportlId) => {
-        console.log(reportlId);
-        const response = await axios.delete(`/api/reports/${reportlId}`);
-        const refresh = await fetch('/api/reports');
-        const responseData = await refresh.json();
-        setReports(responseData.data.report);
+    const deletereport = async (reportId) => {
+        console.log(reportId);
+    //     const response = await axios.delete(`/api/reports/${reportId}`);
+    //     const refresh = await fetch('/api/reports');
+    //     const responseData = await refresh.json();
+    //     setReports(responseData.data.report);
     }
 
     const categoryAll = async () => {
@@ -113,6 +114,7 @@ const CitizenReports = () => {
                             </Col>
                             <Col className='citizenreports-info-status-container'>
                                 <span className='reportInfo'>Status: {report.status}</span>
+                                <button onClick={()=> window.open(report.images, "_blank")}>View Photo</button>
                             </Col>
                         </Row>
                     </Col>

@@ -183,17 +183,11 @@ const CitizenViewProposal = () => {
 
     const validationSchema = Yup.object({
         user: Yup.string(),
-        message:  Yup.string().required("Required")
+        message:  Yup.string().required("Please enter a comment")
+
     });
 
     const onSubmit = async (values) => {
-        // console.log('Form values', values);
-
-        // const username = user.data.user.firstname+" "+user.data.user.lastname;
-        // const comment = {
-        //     user:username,
-        //     values
-        // };
         console.log(values)
         const res = await axios.patch(`/api/proposals/comments/${proposalId}`, values).catch(err => {
             console.log('Error: ', err.res.values);
@@ -225,23 +219,22 @@ const CitizenViewProposal = () => {
                     </Col> 
                     
                         <Col className='citizenViewProposal-img-frame'>
-                            <img src='https://imgur.com/7pFJPjg.png'  className='citizenViewProposal-img' alt='Proposal'/>
+                            <img src={proposal.images}  className='citizenViewProposal-img' alt='Proposal'/>
                         </Col>
                     
                     <Col className='citizenViewProposal-auth'>
                             <p>Proposed by: {proposal.userName}</p>
                             <p>Proposed on: {proposal.createdAt}</p>
-                            <p>Status: {proposal.status}</p>
                     </Col>
                     <Col className='citizenViewProposal-status'>Status: {proposal.status}</Col>
                     <Col className='citizenViewProposal-btn-container'>
                         <Row className='citizenViewProposal-btn-frame'>
                             {/* Set button to disabled when current user upvoted propopsal onClick={() => castUpVote(proposal._id, user.data.user._id)} {proposal.upvote.length ? proposal.upvote.length : 0}*/}
-                            <Button disabled={ upvoteclicked } onClick={() => castUpVote(proposal._id, user.data.user._id)} className='citizenViewProposal-btn'>Upvote: </Button>
+                            <Button disabled={ upvoteclicked } onClick={() => castUpVote(proposal._id, user.data.user._id)} className='citizenViewProposal-btn'>Upvote </Button>
                         </Row>
                         <Row  className='citizenViewProposal-btn-frame'>
                             {/* Set button to disabled when current user downvoted propopsal  onClick={() => castDownVote(proposal._id, user.data.user._id)} {proposal.downvote.length ? proposal.downvote.length : 0}*/}
-                            <Button disabled={ downclicked } onClick={() => castDownVote(proposal._id, user.data.user._id)} className='citizenViewProposal-btn'>Downvote: </Button>
+                            <Button disabled={ downclicked } onClick={() => castDownVote(proposal._id, user.data.user._id)} className='citizenViewProposal-btn'>Downvote </Button>
                         </Row>
                     </Col>
                 </Row>
@@ -256,12 +249,14 @@ const CitizenViewProposal = () => {
                             <Field
                                 className='citizenViewProposal-writecomment'
                                 type='text'
-                                placeholder='write a comment'
-                                id='message'
+                                placeholder='Comment Your Thoughts'
+                                //idk what this is
+                                id='comment'
+                                //Goes to Validation schema
                                 name='message'/>
-                            {/* <ErrorMessage name="comments">
+                                <ErrorMessage name='comment'>
                                     {errorMsg => <div className="InputValidation">{errorMsg}</div>}
-                                </ErrorMessage> */}
+                                </ErrorMessage>
                                 <div className='buttonContainer'>
                                     <SubmitButton />
                                 </div>
@@ -299,7 +294,7 @@ const CitizenViewProposal = () => {
                     </Col> */}
                     {comments && comments.map(comment => (
                     <Col className='citizenViewProposal-comment' key={comment._id}>
-                        <Row className='citizenViewProposal-comment-img' c={9}>
+                        <Row className='citizenViewProposal-comment-img'>
                             <img src='https://imgur.com/urZfDtd.png'/>
                         </Row>
                         <Row className='citizenViewProposal-comment-body'>
