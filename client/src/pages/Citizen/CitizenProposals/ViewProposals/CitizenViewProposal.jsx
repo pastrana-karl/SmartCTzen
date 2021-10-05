@@ -23,7 +23,7 @@ const CitizenViewProposal = () => {
     // const name = comments.user;
     // const msg = comments.message;
     
-
+    // Proposal
     useEffect(() => {
         const sendRequest = async () => {
             // console.log(proposalId)

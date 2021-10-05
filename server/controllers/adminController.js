@@ -11,6 +11,7 @@ const bcrypt = require("bcryptjs");
 const diffHistory = require('mongoose-audit-trail');
 
 //Sendgrid key
+
 exports.getMe = catchAsync(async (req, res, next) => {
     req.params.id = req.user.id;
     next();
@@ -53,7 +54,7 @@ exports.registerAdmin = catchAsync(async (req, res, next) => {
         email: req.body.email,
         password: hashedPass,
         location: req.body.location,
-        profilePic: req.body.profilePic,
+        onlineStatus: false,
     });
 
     transporter.sendMail({
@@ -129,6 +130,7 @@ exports.registerAdmin = catchAsync(async (req, res, next) => {
 //         email: req.body.email,
 //         password: req.body.password,
 //         location: req.body.location,
+//         onlineStatus: false
 //     });
 
 //     createSendToken(newAdmin, 201, res);
@@ -150,7 +152,23 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
     }
 
     //3) Check of everything ok, send token to client
+    const adminStatus = await Admin.findOne({ email });
+    await Admin.findByIdAndUpdate(adminStatus._id, {
+        $set: { 'onlineStatus': true }
+    });
     createSendToken(adminUser, 201, res);
+});
+
+exports.AdminLogout = catchAsync(async (req, res, next) => {
+    try {
+        await Admin.findByIdAndUpdate(req.body.adminID, {
+            $set: { 'onlineStatus': false }
+        });
+    
+        res.status(200).json('Admin logged out . . .');
+    } catch (err) {
+        res.status(500).json(err)
+    }
 });
 
 exports.updateAdmin = catchAsync(async (req, res, next) => {
@@ -320,13 +338,16 @@ exports.changeAdminPassword = (req, res, next) => {
     });
 };
 
-// exports.getAllAdmins = catchAsync(async (req, res, next) => {
-//     const admin = await Admin.find();
+//Compare Password
+exports.PassWordCompare = catchAsync(async (req, res, next) => {
+    const administrator = await Admin.findById(req.body.userId);
 
-//     res.status(200).json({
-//         status: 'success',
-//         data: {
-//             admin
-//         }
-//     });
-// })
+    const validated = await bcrypt.compare(req.body.oldPassword, administrator.password);
+
+    if(!validated)
+    {
+        return res.status(400).json("Your Old Password is Wrong!!");
+    }
+    
+    res.status(200).json("Correct Password!");
+});

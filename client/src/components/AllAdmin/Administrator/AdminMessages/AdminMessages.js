@@ -100,6 +100,11 @@ const AdminMessages = ( props ) => {
         } catch(err) {
             console.log(err);
         }
+
+        Array.from(document.querySelectorAll("textarea")).forEach(
+            input => (input.value = ""),
+            setNewMessage(''),
+        );
     };
 
     // useEffect(() => {

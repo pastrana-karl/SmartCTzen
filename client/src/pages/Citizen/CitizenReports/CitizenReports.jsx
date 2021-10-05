@@ -30,7 +30,7 @@ const CitizenReports = () => {
     const categoryAll = async () => {
         const response = await fetch('/api/reports');
         const responseData = await response.json();
-        console.log(responseData)
+        // console.log(responseData)
         setReports(responseData);
     }
 

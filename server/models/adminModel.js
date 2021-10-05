@@ -9,14 +9,17 @@ const adminSchema = new mongoose.Schema(
       type: String,
       default:'https://www.pinclipart.com/picdir/big/157-1578186_user-profile-default-image-png-clipart.png'
     },
+    
     username: {
       type: String,
       unique: true,
     },
+
     userType:{
       type: String,
       default: "Admin",
     },
+
     email: {
       type: String,
       unique: true,
@@ -24,28 +27,14 @@ const adminSchema = new mongoose.Schema(
 
     password: {
       type: String,
+      required:true,
+      minlength: 8,
     },
 
-    city: {
+    location: {
       type: String,
     },
-
-    region: {
-      type: String,
-    },
-    // passwordConfirm: {
-    //     type: String,
-    //     required: [true, "This field is required"],
-    //     validate: {
-    //         validator: function(el) {
-    //             return el === this.password;
-    //         },
-    //         message: "Passwords are not the same"
-    //     }
-    // },
-
-    // passwordChangedAt: Date,
-
+    
     resetToken: {
       type: String,
     },
@@ -64,6 +53,10 @@ const adminSchema = new mongoose.Schema(
       type: String,
       default: "Administrator",
     },
+
+    onlineStatus: {
+      type: String,
+    }
   },
   { timestamps: true }
 );

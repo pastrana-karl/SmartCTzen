@@ -44,11 +44,11 @@ router
 //Reject Applicants
 router
     .route("/:id")
-    .delete(citizenController.rejectApplicant);
+    .delete(citizenController.deleteUser);
 
-//Accept Applicants
+//Handle Users
 router
     .route("/:id")
-    .post(citizenController.acceptApplicant);
+    .post(citizenController.handleUsers);
 
 module.exports = router;

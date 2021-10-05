@@ -5,6 +5,27 @@ const Admin = require('../models/adminModel');
 
 router.get('/me', adminController.getMe, adminController.getAdmin);
 
+//DISPLAY ALL ADMIN
+router.get("/", async (req, res) => {
+    const adminName = req.query.user;
+    const adminOnline = req.query.onlineStatus;
+    try{
+        let admins;
+
+        if(adminName) {
+            admins = await Admin.find({ username:adminName }).collation({locale: "en", strength: 2});
+        } else if (adminOnline) {
+            admins = await Admin.find({ onlineStatus:adminOnline }).sort({username:1});
+        } else {
+            admins = await Admin.find().sort({username:1});
+        }
+
+        res.status(200).json(admins);
+    }catch(err){
+         res.status(500).json(err);
+    }
+});
+
 //REGISTER
 router
     .route("/register")
@@ -25,32 +46,25 @@ router
     .route("/new-password")
     .post(adminController.changeAdminPassword);
 
-router.patch('/:id', adminController.updateAdmin);
+//COMPARE PASSWORD
+router
+    .route("/password-adminCompare")
+    .post(adminController.PassWordCompare);
+
+//CHANGE STATUS ON LOGOUT
+router
+    .route("/adminLogout")
+    .post(adminController.AdminLogout);
+
+router
+    .route('/:id')
+    .put(adminController.updateAdmin);
 
 //GET SPECIFIC ADMIN
 router.get("/:id", async (req, res) => {
     try{
         const admin = await Admin.findById(req.params.id);
         res.status(200).json(admin);
-    }catch(err){
-         res.status(500).json(err);
-    }
-});
-
-//DISPLAY ALL ADMIN
-router.get("/", async (req, res) => {
-    const adminName = req.query.user;
-
-    try{
-        let admins;
-
-        if(adminName) {
-            admins = await Admin.find({ username:adminName }).collation({locale: "en", strength: 2});
-        } else {
-            admins = await Admin.find().sort({username:1});
-        }
-
-        res.status(200).json(admins);
     }catch(err){
          res.status(500).json(err);
     }

@@ -41,11 +41,11 @@ const SAAddFeaturedMember = () => {
                 const filename = Date.now() + file.name;
                 data.append("name", filename);
                 data.append("file", file);
-                data.append("upload_preset", "dev_prac");
-                data.append("cloud_name", "karlstorage");
+                data.append("upload_preset", "SmartCTzen");
+                data.append("cloud_name", "smartct-media");
     
                 try {
-                    const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
+                    const res = await axios.post("https://api.cloudinary.com/v1_1/smartct-media/image/upload", data);
                     newFeaturedMember.profilePic = res.data.secure_url;
                 } catch (err) {
                     console.log(err)

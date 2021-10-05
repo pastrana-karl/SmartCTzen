@@ -1,19 +1,27 @@
 import React, { useContext } from 'react';
-
 import Toolbar from '../../../UI/Navigation/Toolbar/Toolbar';
 import NavigationItems from '../../../UI/Navigation/NavigationItems/NavigationItems';
 import NavigationItem from '../../../UI/Navigation/NavigationItems/NavigationItem/NavigationItem';
-
 import classes from './AdminLayout.module.css';
 import { Context } from '../../../../context/Context';
+import axios from 'axios';
 
 
 const AdminLayout = ( props ) => {
 
-    const { dispatch } = useContext(Context);
+    const { aUser, dispatch } = useContext(Context);
 
-    const handleLogout = () => {
-        dispatch({ type: "ALOGOUT" })
+    const handleLogout = async () => {
+        const onlineStatus = {
+            adminID: aUser.data.user._id,
+        }
+
+        try {
+            await axios.post('/api/admin/adminLogout', onlineStatus);
+            dispatch({ type: "ALOGOUT" });
+        } catch (err) {
+            console.log(err.response);
+        }
     }
     
     return (

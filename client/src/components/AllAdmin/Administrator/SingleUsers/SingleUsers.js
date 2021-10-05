@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Form, Container, Button } from 'react-bootstrap';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { Link, useLocation, Redirect } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import { Context } from '../../../../context/Context';
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
-import Swal from 'sweetalert2';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import './SingleUsers.css';
 
 const SingleUsers = () => {
@@ -23,7 +23,7 @@ const SingleUsers = () => {
 
     const location = useLocation();
     const path = location.pathname.split("/")[2];
-    const [applicant, setApplicant] = useState([]);
+    const [citizenUser, setCitizenUser] = useState([]);
     const [validID, setValidID] = useState([]);
     const [birthCert, setBirthCert] = useState([]);
     const [residency, setResidency] = useState([]);
@@ -31,27 +31,28 @@ const SingleUsers = () => {
     const { aUser } = useContext(Context); 
 
     useEffect(() => {
-        const getApplicant = async ()=>{
+        const getCitizenUser = async ()=>{
             const res = await axios.get("/api/citizen/" + path)
-            setApplicant(res.data)
+            setCitizenUser(res.data)
             setValidID(res.data.validIDPic)
             setResidency(res.data.residencyPic)
             setBirthCert(res.data.birthCertPic)
         }
 
-        getApplicant();
+        getCitizenUser();
 
     }, [path]);
-    
-    const handleAccept = async () => {
+
+    const handleBan = async () => {
         const admin = {
-            username: aUser.user.username,
-            usertype: aUser.user.userType
+            status: 'Banned',
+            username: aUser.data.user.username,
+            usertype: aUser.data.user.userType
         }
 
         try {
             await axios.post("/api/citizen/" + path, admin);
-            Swal.fire('Applicant Accepted', "You've successfuly accepted an applicant.", 'success').then(
+            Swal.fire('User banned!', "You've successfuly banned a user.", 'success').then(
                 (result) => {
                   if (result.isConfirmed || result.isDismissed) {
                     setRedirect(true);
@@ -68,15 +69,42 @@ const SingleUsers = () => {
         }
     }
 
-    const handleReject = async () => {
+    const handleUnban = async () => {
         const admin = {
-            username: aUser.user.username,
-            usertype: aUser.user.userType
+            status: 'Unbanned',
+            username: aUser.data.user.username,
+            usertype: aUser.data.user.userType
+        }
+
+        try {
+            await axios.post("/api/citizen/" + path, admin);
+            Swal.fire('User unbanned!', "You've successfuly unbanned a user.", 'success').then(
+                (result) => {
+                  if (result.isConfirmed || result.isDismissed) {
+                    setRedirect(true);
+                   }
+                }
+            );
+        } catch (err) {
+            console.log(err.response)
+            Swal.fire({
+                icon: 'error',
+                title: `${err.response.status}`,
+                text: `${err.response.data.error}`,
+            });
+        }
+    }
+
+    const handleDelete = async () => {
+        const admin = {
+            status: 'Deleted',
+            username: aUser.data.user.username,
+            usertype: aUser.data.user.userType
         }
 
         try {
             await axios.delete(`/api/citizen/${path}`, { data: admin });
-            Swal.fire('Applicant Rejected', "You've rejected an applicant.", 'success').then(
+            Swal.fire('User deleted', "You've deleted a user.", 'success').then(
                 (result) => {
                   if (result.isConfirmed || result.isDismissed) {
                     setRedirect(true);
@@ -95,20 +123,20 @@ const SingleUsers = () => {
 
     return (
         <>
-            { redirect && (<Redirect to = '/Applicants' />) }
-            <Container className = 'Applicant-verificationContainer'>
-                <div  className = 'ApplicantVerification-header'>
+            { redirect && (<Redirect to = '/admin-users' />) }
+            <Container className = 'acceptedUser-Container'>
+                <div  className = 'acceptedSingleUsers-header'>
                     <h1>SmartCTzen User</h1>
                 </div>
 
-                <div className = 'ApplicantVerification-body'>
-                    <Form className="ApplicantVerification-form">
+                <div className = 'acceptedSingleUsers-body'>
+                    <Form className="acceptedSingleUsers-form">
                         <Form.Group>
                         <Form.Label>First name</Form.Label>
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.firstname}
+                            placeholder= {citizenUser.firstname}
                             disabled
                         />
                         </Form.Group>
@@ -118,7 +146,7 @@ const SingleUsers = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.lastname}
+                            placeholder= {citizenUser.lastname}
                             disabled
                         />
                         </Form.Group>
@@ -128,7 +156,7 @@ const SingleUsers = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.middlename}
+                            placeholder= {citizenUser.middlename}
                             disabled
                         />
                         </Form.Group>
@@ -138,7 +166,7 @@ const SingleUsers = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.suffix === "" ? "N/A" : applicant.suffix }
+                            placeholder= {citizenUser.suffix === "" ? "N/A" : citizenUser.suffix }
                             disabled
                         />
                         </Form.Group>
@@ -148,7 +176,7 @@ const SingleUsers = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.sex}
+                            placeholder= {citizenUser.sex}
                             disabled
                         />
                         </Form.Group>
@@ -158,7 +186,7 @@ const SingleUsers = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.birthdate}
+                            placeholder= {citizenUser.birthdate}
                             disabled
                         />
                         </Form.Group>
@@ -168,7 +196,7 @@ const SingleUsers = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.street + ' ' + applicant.barangay + ' ' + applicant.city}
+                            placeholder= {citizenUser.street + ' ' + citizenUser.barangay + ' ' + citizenUser.city}
                             disabled
                         />
                         </Form.Group>
@@ -178,7 +206,7 @@ const SingleUsers = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.region}
+                            placeholder= {citizenUser.region}
                             disabled
                         />
                         </Form.Group>
@@ -188,7 +216,7 @@ const SingleUsers = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.province}
+                            placeholder= {citizenUser.province}
                             disabled
                         />
                         </Form.Group>
@@ -198,16 +226,16 @@ const SingleUsers = () => {
                         <Form.Control
                             type="text"
                             name="email"
-                            placeholder= {applicant.zipcode}
+                            placeholder= {citizenUser.zipcode}
                             disabled
                         />
                         </Form.Group>
                         
-                        <div  className = 'ApplicantVerification-header'>
+                        <div  className = 'acceptedSingleUsers-header'>
                             <h1>Valid ID</h1>
                         </div>
 
-                        <div className = 'applicantDocumentsImg'>
+                        <div className = 'acceptedUsersDocumentsImg'>
                                 <Slider {...settings}>
                                     {validID.map((pic) => (
                                         <div key={pic}>
@@ -217,12 +245,12 @@ const SingleUsers = () => {
                                 </Slider>
                         </div>
 
-                        <div  className = 'ApplicantVerification-header'>
+                        <div  className = 'acceptedSingleUsers-header'>
                             <h1>Proof of Residency</h1>
                         </div>
 
                         
-                        <div className = 'applicantDocumentsImg'>
+                        <div className = 'acceptedUsersDocumentsImg'>
                                 <Slider {...settings}>
                                     {residency.map((pic) => (
                                         <div key={pic}>
@@ -234,12 +262,12 @@ const SingleUsers = () => {
 
                         {birthCert[0] !== undefined &&
                             <> 
-                                <div  className = 'ApplicantVerification-header'>
+                                <div  className = 'acceptedSingleUsers-header'>
                                     <h1>Birth Certificate</h1>
                                 </div>
 
                                 
-                                <div className = 'applicantDocumentsImg'>
+                                <div className = 'acceptedUsersDocumentsImg'>
                                     <Slider {...settings}>
                                         {birthCert.map((pic) => (
                                             <div key={pic}>
@@ -252,7 +280,22 @@ const SingleUsers = () => {
                         }
                     </Form>
 
-                    <Link to = '/admin-users' className = 'ApplicantVerificationLink'>Back</Link>
+                    <div className = "applicantverification-buttonMargin">
+                        {citizenUser.status !== 'Banned' ? 
+                            <Button variant="danger" onClick = { handleBan }>
+                                Ban User
+                            </Button>
+                        :
+                            <Button variant="danger" onClick = { handleUnban }>
+                                Unban User
+                            </Button>
+                        }
+                            <Button variant="danger" onClick = { handleDelete }>
+                                Delete User
+                            </Button>
+                    </div>
+
+                    <Link to = '/admin-users' className = 'acceptedSingleUsersLink'>Back</Link>
                 </div>
             </Container>
         </>

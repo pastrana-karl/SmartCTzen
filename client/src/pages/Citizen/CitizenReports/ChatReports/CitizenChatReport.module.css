@@ -47,6 +47,8 @@
     box-shadow: -10px -10px 10px rgba(255, 255, 255, 0.7), 10px 10px 10px rgba(174, 174, 192, 0.2);
     border-radius: 30px;
     margin-right: 50px;
+    padding: 20px 10px;
+    overflow: scroll;
 }
 
 .AdminChatMenuSearch {
@@ -93,3 +95,18 @@
 .AdminList {
     flex: 2
 }
+
+.EmptyConvo {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+}
+
+.EmptyConvoText {
+    font-size: 20px;
+    color:rgb(146, 146, 146)
+}
+
+/* .Scroll {
+    overflow: scroll;
+} */

@@ -18,6 +18,8 @@ const CitizenChatReport = ( props ) => {
     const [chatMessages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [allAdmins, setAllAdmins] = useState([]);
+    const [admin, setAdmin] = useState([]);
     const socket = useRef();
     const { user } = useContext(Context);
     const scrollRef = useRef();
@@ -41,7 +43,7 @@ const CitizenChatReport = ( props ) => {
     useEffect(() => {
         socket.current.emit("addUser", user.data.user._id);
         socket.current.on("getUsers", user => {
-           console.log(user);
+            console.log(user);
         });
     }, [user]);
 
@@ -50,14 +52,14 @@ const CitizenChatReport = ( props ) => {
             try {
                 const res = await axios.get("/api/conversations/" + user.data?.user?._id);
                 setConversations(res.data);
-                console.log(res);
+                // console.log(res);
             } catch(err) {
                 console.log(err);
             }
         };
 
         getConversations();
-    }, [user.data?.user?._id]);
+    }, [user.data]);
 
     useEffect(() => {
         const getMessages = async () => {
@@ -81,10 +83,10 @@ const CitizenChatReport = ( props ) => {
             conversationId: currentChat._id
         }
 
-        const receiverId = currentChat.members.find(member => member !== user.data.user._id);
+        const receiverId = currentChat.members.find(member => member !== user.data?.user?._id);
 
         socket.current.emit("sendMessage", {
-            senderId: user.data.user._id,
+            senderId: user.data?.user?._id,
             receiverId,
             text: newMessage 
         });
@@ -95,7 +97,41 @@ const CitizenChatReport = ( props ) => {
         } catch(err) {
             console.log(err);
         }
+
+        Array.from(document.querySelectorAll("textarea")).forEach(
+            input => (input.value = ""),
+            setNewMessage(''),
+        );
     };
+
+    
+    // const createConversation = async (e) => {
+    //     e.preventDefault();
+    //     const message = {
+    //         sender: user.data.user._id,
+    //         text: newMessage,
+    //         conversationId: currentChat._id
+    //     }
+
+    //     const currentSender = user.data.user._id;
+    //     const receiverId = currentChat.members.find(member => member !== user.data.user._id);
+
+    //     socket.current.emit("sendMessage", {
+    //         senderId: user.data.user._id,
+    //         receiverId,
+    //         text: newMessage 
+    //     });
+
+        
+
+    //     try {
+    //         const resConvo = await axios.post('/api/conversations/', {currentSender, receiverId});
+    //         console.log(resConvo);
+
+    //     } catch (err){
+    //         console.log(err);
+    //     }
+    // }
 
     // console.log(user.data.user._id);
     
@@ -110,20 +146,23 @@ const CitizenChatReport = ( props ) => {
                 {/* List of chats */}
                 <div className={classes.Messenger}>
                     <div className={classes.AdminChatMenu}>
-                        <input
+                        {/* <input
                             placeholder="Search messages"
                             className={classes.AdminChatMenuSearch}
-                        />
+                        /> */}
                         {conversations.map(c => (
                             <div onClick={() => setCurrentChat(c)}>
-                                <CitizenConversations conversation={c} currentUser={user}  />
+                                <CitizenConversations conversation={c} currentUser={user.data?.user}  />
                             </div>
                         ))}
                     </div>
                     {/* Chatbox */}
                     <div className={classes.AdminChat}>
+                        
                         <div className={classes.AdminChatWrapper}>
-                            <div className={classes.AdminChatBoxTop}>
+                            { currentChat ?
+                                <>
+                                <div className={classes.AdminChatBoxTop}>
                                 {
                                     chatMessages.map(m => (
                                         <div>
@@ -131,27 +170,35 @@ const CitizenChatReport = ( props ) => {
                                         </div>
                                     ))
                                 }
-                            </div>
-                            <div className={classes.AdminChatBoxBottom}>
-                                <textarea
-                                    className={classes.ChatMessageInput}
-                                    placeholder="Write something..."
-                                    onChange={(e) => setNewMessage(e.target.value)}
-                                    value={newMessage}
-                                ></textarea>
-                                <button className={classes.ChatSubmitButton} onClick={handleSubmit}>Send</button>
-                            </div>
-                        </div>
+                                </div>
+                                <div className={classes.AdminChatBoxBottom}>
+                                    <textarea
+                                        className={classes.ChatMessageInput}
+                                        placeholder="Write something..."
+                                        onChange={(e) => setNewMessage(e.target.value)}
+                                        value={newMessage}
+                                    ></textarea>
+                                    <button className={classes.ChatSubmitButton} onClick={handleSubmit}>Send</button>
+                                </div>
+                                </> 
+                                : 
+                                <div className={classes.EmptyConvo}>
+                                    <p className={classes.EmptyConvoText}>Open a conversation</p>
+                                </div>
+                            }
+                        </div> 
+                        
                     </div>
                     {/* Admins */}
                     <div className={classes.AdminList}>
                         <CitizenChatOnline
+                            admin={admin}
                             currentId={user.data.user._id}
                             setCurrentChat={setCurrentChat}
                         />
                     </div>
                 </div>
-            </div>
+            </div> 
         </React.Fragment>
     );
 

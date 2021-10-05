@@ -1,13 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { Redirect } from 'react-router-dom';
+import * as ReactBootStrap from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-
 import AdminLayout from '../AdminLayout/AdminLayout';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
-import Input from '../../../UI/Input/Input';
 import SubmitButton from '../../../UI/Buttons/SubmitButton/SubmitButton';
 import CancelButton from '../../../UI/Buttons/CancelButton/CancelButton';
 import { Context } from '../../../../context/Context';
@@ -17,6 +15,8 @@ import classes from './AdminCreateProjects.module.css';
 const AdminCreateProjects = () => {
     const { aUser } = useContext(Context);
     const { register, handleSubmit, errors } = useForm();
+    const [redirect, setRedirect] = useState(false);
+    const [loading, setLoading] =  useState(true);
 
     const onSubmit = async (data) => {
         const coverImage = '';
@@ -26,9 +26,11 @@ const AdminCreateProjects = () => {
             title: data.title,
             description: data.description,
             location: data.location,
+            userType: aUser.data.user.userType,
             coverImage
         };
 
+        setLoading(false);
         const formData = new FormData();
         const filename = Date.now() + data.coverImage[0].name;
         formData.append('name', filename);
@@ -44,14 +46,19 @@ const AdminCreateProjects = () => {
                 const res = await axios.post('/api/projects', createProject);
                 Swal.fire({
                     icon: 'success',
-                    title: 'Updated',
-                    text: 'Proposal submitted'
+                    title: 'Project Created!',
+                    text: 'Project is been posted . . .'
                 });
+
+                setLoading(true);
+                setRedirect(true);
             } catch (err) {
+                setLoading(true);
                 console.log(err);
             }
 
         } catch (err) {
+            setLoading(true);
             console.log (err);
         }
 
@@ -60,6 +67,9 @@ const AdminCreateProjects = () => {
     }
 
     return (
+        <>
+        { redirect && (<Redirect to = '/admin-projects' />) }
+        {loading ? (
         <AdminLayout>
             <div className={classes.AdminCreateProjectsHeader}>
                 <CardHeader>
@@ -77,7 +87,9 @@ const AdminCreateProjects = () => {
                                 id='userName'
                                 name='userName'
                                 placeholder='Username'
-                                ref={register({ required: "Required!" })}
+                                defaultValue={aUser.data.user.username}
+                                readOnly
+                                ref={register}
                             />
                             {errors.userName && <p className={classes.InputValidation}>{errors.userName.message}</p>}
                         </div>
@@ -88,16 +100,16 @@ const AdminCreateProjects = () => {
                                 type='text'
                                 id='title'
                                 name='title'
-                                placeholder='Proposal Title'
+                                placeholder='Project Title'
                                 ref={register({ required: "Required!" })}
                             />
                             {errors.title && <p className={classes.InputValidation}>{errors.title.message}</p>}
                         </div>
                         <div className={classes.AdminCreateProjectsFormInput}>
                             <label>Description</label>
-                            <input
-                                className={classes.Input}
-                                type='text'
+                            <textarea
+                                className={classes.Textarea}
+                                type='textfield'
                                 id='description'
                                 name='description'
                                 placeholder='Description'
@@ -139,6 +151,25 @@ const AdminCreateProjects = () => {
                 </div>
             </div>
         </AdminLayout>
+        ) : (
+                <div style = {{
+                    color: '#777',
+                    textAlign: 'center',
+                }}>
+                  <h2 style = {{marginTop: '10%'}}>Processing Please Wait</h2>
+                  <div>
+                    <ReactBootStrap.Spinner animation="grow" variant="primary" />
+                    <ReactBootStrap.Spinner animation="grow" variant="secondary" />
+                    <ReactBootStrap.Spinner animation="grow" variant="success" />
+                    <ReactBootStrap.Spinner animation="grow" variant="danger" />
+                    <ReactBootStrap.Spinner animation="grow" variant="warning" />
+                    <ReactBootStrap.Spinner animation="grow" variant="info" />
+                    <ReactBootStrap.Spinner animation="grow" variant="light" />
+                    <ReactBootStrap.Spinner animation="grow" variant="dark" />
+                  </div>
+                </div>
+        )}
+    </>
     )
 }
 

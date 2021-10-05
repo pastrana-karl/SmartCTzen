@@ -3,32 +3,43 @@ import React, { useEffect, useState } from 'react';
 
 import classes from './CitizenChatOnline.module.css';
 
-const CitizenChatOnline = ({currentId, setCurrentChat}) => {
-    const [allAdmins, setAllAdmins] = useState();
+const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
+    const [allAdmins, setAllAdmins] = useState([]);
+    const [selectedAdmin, setSelectedAdmin] = useState([]);
 
 
     //Gets all admins
     useEffect(() => {
         const sendRequest = async () => {
-            const response = await fetch('/api/admin');
+            const response = await fetch('/api/admin/?onlineStatus=true');
             const responseData = await response.json();
             setAllAdmins(responseData);
-            //console.log(responseData)
+           // console.log(responseData)
         }
         sendRequest();
     }, []);
 
     const handleClick = async (user) => {
         try {
-            const res = await fetch(`/api/conversations/${currentId}/${user._id}` );
-            //setCurrentChat(res)
-            console.log(res);
+            const res = await axios.get(`/api/conversations/${currentId}/${user._id}` );
+            setCurrentChat(res.data);
+            console.log(res.data);
+
+            if (res.data !== null) {
+                return;
+            } else {
+                const newConvo = await axios.post('/api/conversations/', {
+                    senderID: currentId,
+                    receiverID: user._id
+                });
+                console.log(newConvo.data.savedConversation);
+            }
+
+
         } catch (err) {
             console.log(err);
         }
     }
-
-   //console.log(allAdmins);
 
     return ( 
         <div className={classes.ChatOnline}>
@@ -38,7 +49,7 @@ const CitizenChatOnline = ({currentId, setCurrentChat}) => {
                 <div className={classes.ChatOnlineImageContainer}>
                 <img 
                     className={classes.ChatOnlineImage}
-                    src="https://images.pexels.com/photos/7322511/pexels-photo-7322511.jpeg?cs=srgb&dl=pexels-koolshooters-7322511.jpg&fm=jpg" 
+                    src={admin.profilePic} 
                 />
                 <div className={classes.ChatOnlineBadge}></div>
                 </div>

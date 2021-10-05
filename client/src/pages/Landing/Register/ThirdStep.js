@@ -36,7 +36,7 @@ const ThirdStep = (props) => {
             ref={register({
               required: 'Blk/Lot/Street is required.',
               pattern: {
-                value: /[a-zA-Z.\s]+$/,
+                value: /[a-zA-Z.\0-9\s]+$/,
                 message: 'Input should contain only Blk/Lot/Street number, characters, and period.'
               }
             })}

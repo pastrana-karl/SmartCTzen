@@ -22,6 +22,8 @@ const CitizenProfile = () => {
     
     const citizen = user.data.user.firstname + " " + user.data.user.lastname;
 
+    console.log(citizen)
+
     useEffect(() => {
         const fetchLogs = async () => {
             const res = await axios.get(`/api/history/citizens/?user=${citizen}`);
@@ -113,8 +115,6 @@ const CitizenProfile = () => {
             try {
                 const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
                 updateAccount.profilePic = res.data.secure_url;
-
-                console.log(file.name);
                 try {
                     const res = await axios.put("/api/citizen/" + user.data.user._id, updateAccount);
                     dispatch({ type: "UPDATE_SUCCESS", payload: res.data });

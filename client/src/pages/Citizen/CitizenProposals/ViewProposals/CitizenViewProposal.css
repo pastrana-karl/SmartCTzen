@@ -160,6 +160,8 @@ p{
     color: red;
 }
 .citizenViewProposal-comment{
+    display: flex;
+    max-height: 600px;
     margin: 0px 0px 30px 0px;
     padding: 30px;
     font-size: 20px;
@@ -168,10 +170,6 @@ p{
     box-shadow: 7px 7px 7px #bababc, -7px -7px 7px #f6f6fa;
 }
 
-.citizenViewProposal-comment{
-    display: flex;
-    max-height: 600px;
-}
 .citizenViewProposal-comment-img{
     display: flex;
     align-items: center;

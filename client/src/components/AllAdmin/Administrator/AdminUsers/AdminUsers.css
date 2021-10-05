@@ -1,0 +1,72 @@
+.AdminUsers {
+    display: flex;
+    justify-content: center;
+}
+
+.Text {
+    display: flex;
+    justify-content: center;
+    color: #FF5039;
+}
+
+.acceptedUsers-header {
+    width: 80%;
+    margin: 5rem auto;
+    margin-top: 0rem;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #F0F0F3;
+    box-shadow: 10px 10px 30px #aeaec066, -10px -10px 30px #FFFFFF;
+    border-radius: 20px;
+    display: grid;
+    row-gap: 20px;
+}
+
+.acceptedUsers-header h1 {
+    color: #fe5139;
+    text-align: center;
+    font-weight: bold;
+}
+
+#acceptedUsers-body {
+    border: hidden;
+    background: #F0F0F3;
+    box-shadow: inset -10px -10px 10px rgba(255, 255, 255, 0.7), inset 10px 10px 10px rgba(174, 174, 192, 0.2);
+    border-radius: 10px;
+    padding: 50px;
+    font-size: 18px;
+    margin: 50px auto;
+}
+
+div.acceptedUsers-searchTitle.col {
+    padding-right: 0 !important;
+}
+
+.acceptedUsers-searchTitle h4 {
+    text-align: center;
+}
+
+div.acceptedUsers-searchResult.col {
+    padding-right: 0 !important;
+}
+
+.acceptedUsers-searchResult h4{
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.acceptedUsers-searchResult i {
+    color: black;
+}
+
+@media screen and (max-width: 1200px) {
+    .acceptedUsers-searchTitle h4 {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    #acceptedUserEmail {
+        display: none;
+    }
+}

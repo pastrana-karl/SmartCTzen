@@ -29,8 +29,8 @@ exports.getConvoWithId = catchAsync(async (req, res, next) => {
     // const conversation = await Conversations.find({
     //     members: { $in: [req.params.firstUserId] }
     // });
-    const conversation = await Conversations.find({
-        members: { $in: [req.params.firstUserId, req.params.secondUserId] },
+    const conversation = await Conversations.findOne({
+        members: { $all: [req.params.firstUserId, req.params.secondUserId] },
     });
     res.status(200).json(conversation);
 });

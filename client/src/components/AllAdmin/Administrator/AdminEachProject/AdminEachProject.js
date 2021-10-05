@@ -1,14 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useLocation, useParams, Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 import CardHeader from "../../../UI/Cards/CardHeader/CardHeader";
 import AdminLayout from "../AdminLayout/AdminLayout";
 import classes from "./AdminEachProject.module.css";
+import { Context } from "../../../../context/Context";
 
 const AdminEachProject = () => {
   const [currentProject, setCurrentProject] = useState([]);
   const [disable, setDisable] = useState(false);
-
+  const { aUser } = useContext(Context);
+  const [redirect, setRedirect] = useState(false);
   const params = useParams();
 
   useEffect(() => {
@@ -20,24 +22,28 @@ const AdminEachProject = () => {
     }
     findProject();
   }, []);
- 
 
   const accomplished = async () => {
-    const response = await axios.patch('/api/projects/' + params.id, {
-      status: 'Accomplished'
+    axios.put('/api/projects/update-projects/' + params.id, {
+      status: 'Accomplished',
+      userType: aUser.data.user.userType,
+      username: aUser.data.user.username
     });
-    console.log(response);
+    setRedirect(true);
   };
 
   const ongoing = async () => {
-    const response = await axios.patch('/api/projects/' + params.id, {
-      status: 'Ongoing'
+    axios.put('/api/projects/update-projects/' + params.id, {
+      status: 'Ongoing',
+      userType: aUser.data.user.userType,
+      username: aUser.data.user.username
     });
-    console.log(response);
+    setRedirect(true);
   };
   
-  console.log(currentProject.coverImage);
   return (
+    <>
+    { redirect && (<Redirect to = '/admin-projects' />) }
     <AdminLayout>
       <div className={classes.AdminEachProject}>
         <CardHeader>
@@ -58,13 +64,14 @@ const AdminEachProject = () => {
         </div>
       </div>
       <div className={classes.ButtonDiv}>
-          <button className={classes.Button} onClick={ongoing} disabled={disable}>Ongoing</button>
+          <button className={classes.Button} onClick={ongoing}>Ongoing</button>
           <button className={classes.Button} onClick={accomplished}>Accomplished</button>
           <Link to={'/admin-update-project/' + params.id}>
             <button className={classes.Button}>Update</button>
           </Link>
       </div>
     </AdminLayout>
+    </>
   );
 };
 

@@ -24,15 +24,15 @@ const AdminConversations = ({conversation, currentUser}) => {
         getUser();
     }, [currentUser, conversation]);
 
-    //console.log(citizenUser);
+    console.log(citizenUser);
     //console.log(citizenUser._id);
     return(
         <div className={classes.AdminConversations}>
             <img 
                 className={classes.AdminConversationsImg} 
-                src="https://images.pexels.com/photos/1165999/pexels-photo-1165999.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" 
+                src={citizenUser?.profilePic ? citizenUser?.profilePic : 'https://res.cloudinary.com/karlstorage/image/upload/v1633331543/free-img/nmcibwr00fuip3xo4pvr.png'}
                 alt="sample-image" />
-            <span className={classes.ConversationName}>{citizenUser?.firstname + ' ' + citizenUser?.lastname}</span>
+            <span className={classes.ConversationName}>{citizenUser?.firstname ? citizenUser?.firstname + ' ' + citizenUser?.lastname : <span>No longer available</span>}</span>
         </div>
     );
 }

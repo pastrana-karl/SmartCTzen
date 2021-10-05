@@ -80,6 +80,7 @@ const CitizenLogin = () => {
                     name="password"
                     placeholder="Enter your password"
                     required
+                    minlength="8"
                     ref = { passwordRef }
                     autoComplete="off"
                   />

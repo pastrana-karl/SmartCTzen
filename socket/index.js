@@ -10,6 +10,7 @@ const addUser = (userId, socketId) => {
     // console.log("This is from addUser sender user: ",userId)
     !users.some((user) => user.userId === userId) &&
     users.push({ userId, socketId });
+    //console.log(userId);
 };
 
 const removeUser = (socketId) => {
