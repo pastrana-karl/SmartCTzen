@@ -130,6 +130,7 @@ exports.registerAdmin = catchAsync(async (req, res, next) => {
 //         email: req.body.email,
 //         password: req.body.password,
 //         location: req.body.location,
+//         onlineStatus: false
 //     });
 
 //     createSendToken(newAdmin, 201, res);
