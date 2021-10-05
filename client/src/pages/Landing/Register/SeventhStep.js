@@ -23,7 +23,11 @@ const SeventhStep = (props) => {
   useEffect(() => {
     const fetchEula = async () => {
         const res = await axios.get('/api/eula');
-        setAgreement(res.data[0].message);
+        if(res.data[0] === undefined) {
+          setAgreement('');
+        } else {
+          setAgreement(res.data[0].message);
+        }
     }
 
     fetchEula();
@@ -235,8 +239,8 @@ const SeventhStep = (props) => {
             ref={register({
               required: 'Password is required.',
               minLength: {
-                value: 6,
-                message: 'Password should have at-least 6 characters.'
+                value: 8,
+                message: 'Password should have at-least 8 characters.'
               }
             })}
             className={`${errors.password ? 'input-error' : ''}`}

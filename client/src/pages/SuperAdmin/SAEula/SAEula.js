@@ -14,8 +14,13 @@ const SAEula = () => {
     useEffect(() => {
         const fetchEula = async () => {
             const res = await axios.get('/api/eula');
-            setEulaID(res.data[0]._id);
-            setAgreement(res.data[0].message);
+            if (res.data[0] === undefined) {
+                setEulaID('');
+                setAgreement('');
+            } else {
+                setEulaID(res.data[0]._id);
+                setAgreement(res.data[0].message);
+            }
         }
 
         fetchEula();

@@ -68,6 +68,7 @@ const SALogin = () => {
                     placeholder="Choose a password"
                     ref = { passwordRef }
                     required
+                    minlength="8"
                     autoComplete="off"
                   />
                 </Form.Group>
