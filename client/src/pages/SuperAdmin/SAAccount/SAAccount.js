@@ -211,6 +211,7 @@ const SAAccount = () => {
                             type="password"
                             name="oldPassword"
                             required
+                            minlength="8"
                             onChange = {e => setOldPassword(e.target.value)}
                             autoComplete="off"
                         />
@@ -222,6 +223,7 @@ const SAAccount = () => {
                             type="password"
                             name="newPassword"
                             required
+                            minlength="8"
                             onChange = {e => setNewPassword(e.target.value)}
                             autoComplete="off"
                         />

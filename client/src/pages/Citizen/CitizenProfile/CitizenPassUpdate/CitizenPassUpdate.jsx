@@ -82,6 +82,7 @@ const CitizenPassUpdate = () => {
                                 name="cpass"
                                 autoComplete="off"
                                 required
+                                minlength="8"
                                 onChange = {e => setOldPassword(e.target.value)}
                             />
                         </Form.Group>
@@ -93,6 +94,7 @@ const CitizenPassUpdate = () => {
                                 name="cpass"
                                 autoComplete="off"
                                 required
+                                minlength="8"
                                 onChange = {e => setNewPassword(e.target.value)}
                             />
                         </Form.Group>

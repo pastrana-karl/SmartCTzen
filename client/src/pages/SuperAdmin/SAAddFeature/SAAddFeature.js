@@ -39,11 +39,11 @@ const SAAddFeature = () => {
                 const filename = Date.now() + file.name;
                 data.append("name", filename);
                 data.append("file", file);
-                data.append("upload_preset", "dev_prac");
-                data.append("cloud_name", "karlstorage");
+                data.append("upload_preset", "SmartCTzen");
+                data.append("cloud_name", "smartct-media");
     
                 try {
-                    const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
+                    const res = await axios.post("https://api.cloudinary.com/v1_1/smartct-media/image/upload", data);
                     newFeature.featurePic = res.data.secure_url;
                 } catch (err) {
                     console.log(err)
@@ -108,7 +108,7 @@ const SAAddFeature = () => {
 
                             <Form.Group>
                             <div className="SAContent-addFeatureUploadIcons">
-                                <Form.Label htmlFor="fileInput"><i className="writeIcon fas fa-image"></i></Form.Label>
+                                <Form.Label htmlFor="fileInput"><i className="fas fa-image"></i></Form.Label>
                             </div>
                             <input
                                 type="file"
@@ -124,7 +124,7 @@ const SAAddFeature = () => {
                             <Form.Control
                                 className='ContentAddFeature-input'
                                 type="text"
-                                name="email"
+                                name="Title"
                                 required
                                 onChange = {e => setTitle(e.target.value)}
                                 autoComplete="off"
@@ -135,8 +135,9 @@ const SAAddFeature = () => {
                             <Form.Label>Content</Form.Label>
                             <Form.Control
                                 className='ContentAddFeature-input'
-                                type="text"
-                                name="email"
+                                as="textarea" 
+                                rows={10}
+                                name="Content"
                                 required
                                 onChange = {e => setContents(e.target.value)}
                                 autoComplete="off"

@@ -92,7 +92,8 @@ const AdminLogin = () => {
                 <Input
                     type="password"
                     placeholder="Password"
-                    onChange = {e => setPassword(e.target.value)} 
+                    onChange = {e => setPassword(e.target.value)}
+                    minlength="8"
                     id="password"
 
                 />

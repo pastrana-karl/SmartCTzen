@@ -71,6 +71,7 @@ const SAEmail = () => {
                     placeholder="Enter your new password"
                     autoComplete="off"
                     required
+                    minlength="8"
                     onChange = {(e) => {setNewPassword(e.target.value)}}
                   />
                 </Form.Group>
@@ -83,6 +84,7 @@ const SAEmail = () => {
                     placeholder="Retype your new password"
                     autoComplete="off"
                     required
+                    minlength="8"
                     onChange = {(e) => {setRNewPassword(e.target.value)}}
                   />
                 </Form.Group>

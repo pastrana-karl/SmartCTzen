@@ -77,6 +77,10 @@
     justify-content: center;
 }
 
+.SAContent-addFeatureUploadIcons i {
+    cursor: pointer;
+}
+
 .addFeatureLink {
     text-decoration: none !important;
     display: flex;
