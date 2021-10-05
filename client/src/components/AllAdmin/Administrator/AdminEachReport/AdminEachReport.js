@@ -75,7 +75,6 @@ const AdminEachReport = () => {
               {currentReport.description}
             </p>
           </div>
-          <p>Image Source</p>
         </div>
         <div className={classes.Gallery}>
             <h5>Image Placeholder</h5>
