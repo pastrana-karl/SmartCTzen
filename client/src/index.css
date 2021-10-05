@@ -15,7 +15,7 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5%;
+  margin: 5% 0;
   background: #fe5139;
   padding: 15px 45px 15px 45px;
   border: hidden;

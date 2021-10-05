@@ -38,6 +38,13 @@ const projectsSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    updates:[
+        {
+            user:{type: String},
+            message:{type: String},
+            date:{type: String},
+        }
+    ]
 }, { timestamps: true });
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()

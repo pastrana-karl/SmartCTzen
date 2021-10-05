@@ -307,7 +307,7 @@ const CitizenViewProposal = () => {
                             <Col>{comment.message}</Col>
                         </Row>
                     </Col>
-                    ))};
+                    ))}
                 </Row>
         </Container>
     );

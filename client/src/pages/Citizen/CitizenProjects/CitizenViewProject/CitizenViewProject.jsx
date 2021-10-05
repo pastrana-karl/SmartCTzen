@@ -8,6 +8,7 @@ const CitizenViewProject = () => {
     const location = useLocation();
     const path = location.pathname.split("/")[2];
     const [project, setProject] = useState([]);
+    const [followUps, setFollowUps] = useState();
     const [viewCount, setViewCount] = useState();
     const projectId = localStorage.getItem('projectid');
 
@@ -16,6 +17,7 @@ const CitizenViewProject = () => {
             const response = await fetch(`/api/projects/${path}`);
             const responseData = await response.json();
             setProject(responseData.data.project);
+            setFollowUps(responseData.data.project.updates)
         };
         sendRequest();
     },[]);
@@ -52,6 +54,16 @@ const CitizenViewProject = () => {
                 <Link className = 'citizen-backButton' to = '/citizen-projects'>
                     Back
                 </Link>
+
+                {followUps && followUps.map(followUp => (
+                    <Col className='citizenViewProject-followUps' key={followUp._id}>
+                        <Row className='citizenViewProject-followUps-body'>
+                            <Col style={{fontWeight:'bold'}}>{followUp.user}</Col>
+                            <Col>Posted on: {followUp.date}</Col>
+                            <Col>{followUp.message}</Col>
+                        </Row>
+                    </Col>
+                ))}
         </Container>
     );
 };

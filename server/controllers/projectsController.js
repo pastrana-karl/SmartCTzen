@@ -164,3 +164,34 @@ exports.deleteProject = catchAsync(async (req, res, next) => {
         data: null
     });
 });
+
+exports.postProjectFollowUps = catchAsync(async (req, res, next) => {
+    const project = req.params.id;
+    const followUps = {
+        user:req.body.user,
+        message:req.body.message,
+        date:new Date().toLocaleDateString(),
+    }
+
+    console.log(followUps);
+
+    const result = Projects.findByIdAndUpdate(
+        project,
+        { $push : { updates : [
+            followUps
+        ]}},
+        { new:true },
+        function(err,project){
+            if(err){
+                console.log(err);
+            }else{
+                res.status(200).json({
+                    status: "success",
+                    data: {
+                        project
+                    }
+                })
+            }
+        }
+    )
+});

@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const citizenController = require("../controllers/citizenController");
 
+//Get Applicants
+router
+    .route("/")
+    .get(citizenController.applicants);
+    
 //REGISTER
 router
     .route("/register")
@@ -35,11 +40,6 @@ router
 router
     .route("/:id")
     .get(citizenController.getCitizen);
-    
-//Get Applicants
-router
-    .route("/")
-    .get(citizenController.applicants);
 
 //Reject Applicants
 router

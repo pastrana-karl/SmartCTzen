@@ -12,7 +12,6 @@ const bcrypt = require("bcrypt");
 
 
 //Sendgrid key
-
 /**
  * 
  * The catchAsync() function will be our error handler so you don't
@@ -318,7 +317,7 @@ exports.UpdateCitizen = catchAsync(async (req, res, next) => {
 //GET ALL USERS/APPLICANTS
 exports.applicants = catchAsync(async (req, res, next) => {
     const applicantStatus = req.query.status;
-    if(applicantStatus === false) {
+    if(applicantStatus === 'false') {
         try{
             let citizenUser;
     

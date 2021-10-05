@@ -52,7 +52,6 @@ proposalsRouter
     .route("/proposals/comments/:id")
     .patch(proposalsController.postProposalComment);
 
-
 proposalsRouter
     .route("/proposals/:id")
     .get(proposalsController.getProposal)
