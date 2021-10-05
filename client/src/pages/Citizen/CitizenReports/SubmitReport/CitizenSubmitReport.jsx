@@ -8,9 +8,10 @@ import SubmitButton from '../../../../components/UI/Buttons/SubmitButton/SubmitB
 import CancelButton from '../../../../components/UI/Buttons/CancelButton/CancelButton';
 import Swal from 'sweetalert2';
 import { Context } from '../../../../context/Context';
-import classes from '../../CitizenProposals/CreateProposals/CitizenCreateProposals.module.css';
 import axios from 'axios';
-import './CitizenSubmitReport.css';
+// import classes from '../../CitizenProposals/CreateProposals/CitizenCreateProposals.module.css';
+// import './CitizenSubmitReport.css';
+import classes from './CitizenSubmitReport.module.css';
 
 const CitizenSubmitReport = () => {
     const citizenUser = useContext(Context);
@@ -102,10 +103,106 @@ const CitizenSubmitReport = () => {
     return(
         <React.Fragment>
             { redirect && (<Redirect to = '/citizen-reports' />) }
-            <Container className="citizenSubmitReport-container">
+            <Container className={classes.CitizenSubmitReportsContentContainer}>
+                <Row>
+                    <div className={classes.CitizenSubmitReportsQuotesDiv}>
+                        <h1>Found a problem? Go submit a report</h1>
+                    </div>
+                    <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
+                    >
+                        <Form className={classes.CitizenSubmitReportForm}>
+                            <Col>
+                                <Row>
+                                    <Col>
+                                        <Row className={classes.CitizenSubmitReportFormInput}>
+                                            <label>Report Title</label>
+                                            <FormikInput 
+                                            type="text"
+                                            placeholder="Report Title"
+                                            id="title"
+                                            name="title"
+                                            />
+                                            <ErrorMessage name="title">
+                                                {errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>}
+                                            </ErrorMessage>
+                                        </Row>
+                                        <Row className={classes.CitizenSubmitReportFormInput}>
+                                            <label>Description</label>
+                                            <FormikInput 
+                                                type="text"
+                                                placeholder="Description"
+                                                id="description"
+                                                name="description"
+                                            />
+                                            <ErrorMessage name="description">
+                                                {
+                                                    errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                                }
+                                            </ErrorMessage>
+                                        </Row>
+                                    </Col>
+                                    <Col className={classes.CitizenSubmitReportHeader}>
+                                        <h2>Reporting a problem or an issue is your <span className={classes.texthighlight}>ambag</span></h2>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col className={classes.CitizenSubmitReportFormInput}>
+                                        <label>Location</label>
+                                        <FormikInput 
+                                            type="text"
+                                            placeholder="Location"
+                                            id="location"
+                                            name="location"
+                                        />
+                                        <ErrorMessage name="location">
+                                            {
+                                                errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                            }
+                                        </ErrorMessage>
+                                    </Col>
+                                </Row>
+                                <Row className={classes.CitizenSubmitReportPhotoInputContainer}>
+                                    <label style={{textAlign: 'center', marginTop: '5%'}}>Photo</label>
+                                    <Col className={classes.CitizenSubmitReportPhotoInput}>
+                                        <div className={classes.CitizenSubmitReportImg}>
+                                            {file && <img src = { (URL.createObjectURL(file)) } alt = '' onClick={()=> window.open(URL.createObjectURL(file), "_blank")}/>}
+                                        </div>
+                                        <label  htmlFor="images"><i className="fas fa-image"></i></label>
+                                        <Field 
+                                            type="file"
+                                            id="images"
+                                            name="images"
+                                            style={{display: 'none'}}
+                                            onChange = {(e) => setFile(e.target.files[0])}
+                                        />
+                                        <ErrorMessage name="images">
+                                            {
+                                                errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
+                                            }
+                                        </ErrorMessage>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <div className={classes.CitizenSubmitReportButtonDiv}>
+                                            <SubmitButton />
+                                            <button type="reset" className={classes.CitizenSubmitReportClearBtn}>Clear</button>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Form>
+                    </Formik>
+                </Row>
+            </Container>
+
+            {/* <Container className="citizenSubmitReport-container">
                 <Row>
                     <div className="citizen-header">
-                        <h1>Found a Problem? Go Submit a Report</h1>
+                        <h1>Found a problem? Go submit a report</h1>
                     </div>
                     <Formik
                         initialValues={initialValues}
@@ -114,8 +211,8 @@ const CitizenSubmitReport = () => {
                     >
                         <Form className="citizenSubmitReport-edit">
                             <Col>
-                                <Row>
-                                    <Col sm={6}>
+                                <Row className="citizenSubmitReportFormTopRow">
+                                    <Col className="citizenSubmitReportFormTopRow2">
                                         <Row className="citizenSubmitReport-input">
                                             <label>Report Title</label>
                                             <FormikInput 
@@ -194,11 +291,10 @@ const CitizenSubmitReport = () => {
                                     </Col>
                                 </Row>
                             </Col>
-                            
                         </Form>
                     </Formik>  
                 </Row>
-            </Container>
+            </Container> */}
         </React.Fragment>
     );
 };

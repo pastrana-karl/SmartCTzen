@@ -56,7 +56,7 @@ const CitizenProjects = () => {
 
 
     return (
-        <div className='citizenprojects-container' >
+        <Container className='citizenprojects-container' >
             <Row className='citizenprojects-catbar-container'>
                 <Col className='citizenprojects-catbar'>
                     <button className='citizenprojects-catbar-item' onClick={() => categoryAll()}>All</button>
@@ -66,36 +66,35 @@ const CitizenProjects = () => {
             </Row> 
             {projects && projects.map(project =>(
                 <Row  className='citizenprojects-short' key={project._id}>
-                <Col className='citizenprojects-shortinfo'>
-                    <Row className='citizenprojects-shortinfo-auth'>
-                        <h2>{project.title}</h2>
-                        <Col className='citizenprojects-auth-container'>
-                            <div className='citizenprojects-auth'>{project.userId}</div>
-                        </Col>
-                    </Row>
-                    <Row className='citizenprojects-shortinfo-desc'>
-                        {project.description}
-                    </Row>
-                    <Row className='citizenprojects-shortinfo-status'>
-                        <p>Status: {project.status}</p>
-                        <div className='citizenprojects-shortinfo-status-views'>
-                            <i className="fas fa-eye"/> <span>{project.viewCount}</span>
-                        </div>
-                    </Row>
-                    {/* onClick{()=> viewCountUp(project._id)}  */}
-                    <Link className='citizenprojects-viewmore' onClick = { () => getProjectId(project._id) } to={`/citizen-view-project/${project._id}`} >
-                        View More
-                    </Link>
-                </Col>
+                    <Col className='citizenprojects-shortinfo'>
+                        <Row className='citizenprojects-shortinfo-auth'>
+                            <h2>{project.title}</h2>
+                            <Col className='citizenprojects-auth-container'>
+                                <div className='citizenprojects-auth'>{project.userId}</div>
+                            </Col>
+                        </Row>
+                        <Row className='citizenprojects-shortinfo-desc'>
+                            {project.description}
+                        </Row>
+                        <Row className='citizenprojects-shortinfo-status'>
+                            <p>Status: {project.status}</p>
+                            <div className='citizenprojects-shortinfo-status-views'>
+                                <i className="fas fa-eye"/> <span>{project.viewCount}</span>
+                            </div>
+                        </Row>
+                        <Link className='citizenprojects-viewmore' onClick = { () => getProjectId(project._id) } to={`/citizen-view-project/${project._id}`} >
+                            View More
+                        </Link>
+                    </Col>
 
-                <Col className='citizenprojects-shortinfo-img-container'>
-                    <div className='citizenprojects-shortinfo-img-frame'>
-                        <img src={project.coverImage}/>
-                    </div>
-                </Col>
-            </Row>
+                    <Col className='citizenprojects-shortinfo-img-container'>
+                        <div className='citizenprojects-shortinfo-img-frame'>
+                        <img src={project.coverImage ? project.coverImage : "https://westsiderc.org/wp-content/uploads/2019/08/Image-Not-Available-225x300.png"} alt="" className='citizen-project-image'/>
+                        </div>
+                    </Col>
+                </Row>
             ))}
-        </div>
+        </Container>
     );
 }
 export default CitizenProjects;

@@ -23,7 +23,7 @@ const CitizenChatReport = ( props ) => {
     const scrollRef = useRef();
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8900");
+        socket.current = io("ws://localhost:8800");
         socket.current.on("getMessage", data => {
             setArrivalMessage({
                 sender: data.senderId,
@@ -127,7 +127,7 @@ const CitizenChatReport = ( props ) => {
                                 {
                                     chatMessages.map(m => (
                                         <div>
-                                            <CitizenMessage messages={m} own={m.sender === user.data?.user?._id} />
+                                            <CitizenMessage messages={m} own={m.sender === user.data?.user?._id} key={m._id}/>
                                         </div>
                                     ))
                                 }

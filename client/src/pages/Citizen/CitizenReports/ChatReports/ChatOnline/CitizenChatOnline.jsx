@@ -6,6 +6,8 @@ import classes from './CitizenChatOnline.module.css';
 const CitizenChatOnline = ({currentId, setCurrentChat}) => {
     const [allAdmins, setAllAdmins] = useState();
 
+
+    //Gets all admins
     useEffect(() => {
         const sendRequest = async () => {
             const response = await fetch('/api/admin');
@@ -30,6 +32,7 @@ const CitizenChatOnline = ({currentId, setCurrentChat}) => {
 
     return ( 
         <div className={classes.ChatOnline}>
+            {/* Display Admins */}
             {allAdmins && allAdmins.map((admin) => (
             <div className={classes.ChatOnlineAdmin} key={admin._id}  onClick={() => handleClick(admin)}> 
                 <div className={classes.ChatOnlineImageContainer}>

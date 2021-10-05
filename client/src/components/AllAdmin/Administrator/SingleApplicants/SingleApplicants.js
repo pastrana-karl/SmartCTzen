@@ -45,8 +45,8 @@ const SingleApplicants = () => {
     
     const handleAccept = async () => {
         const admin = {
-            username: aUser.user.username,
-            usertype: aUser.user.userType
+            username: aUser.data.user.username,
+            usertype: aUser.data.user.userType
         }
 
         try {

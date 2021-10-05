@@ -156,18 +156,17 @@
 .citizenreports-img-container{
     display: flex;
     padding: 0px !important;
+    height: 100px;
     width: 100%;
-    height: auto;
     justify-content: center;
-    /* object-fit: cover; */
-    overflow: hidden;
+    object-fit: cover;
 }
 
 .citizenreports-img {
-    /* object-fit: cover; */
-    object-fit: cover;
     width: 100%;
-    height: 250px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0px !important;
     
 }
 
@@ -197,7 +196,74 @@
     flex-direction: column;
     align-items: flex-end;
 }
+.citizenreports-info-status-container button{
+    border-width: 0px;
+    color: #FFFFFF;
+    padding: 12px;
+    border-radius: 40px;
+    background: #FF5039;
+}
 
 .citizenreports-details {
     padding: 35px;
+}
+
+@media screen and (max-width: 992px) {
+    .citizenreports-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 0px !important;
+        
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .citizenreports-img-container{
+        display: none !important;
+    }
+    .citizenreports-Container{
+        align-items: center;
+        justify-content: center;
+    }
+    .citizenreports-catbar-container{
+        height: 250px;
+        width: 100%;
+        align-items: center;
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+
+    .citizenreports-catbar{
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+        max-height: inherit !important;
+        max-width: 500px !important;
+        background: none;
+        box-shadow: none;
+        border-radius: none;
+    }
+
+    .citizenreports-catbar-item{
+        margin: 5px 0px !important;
+        width: 100%;
+    }
+
+    .citizenreports-title-container{
+        height: 50px;
+        font-size: 18px;
+    }
+    .citizenreports-title{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .citizenreports-title h2{
+        align-items: center;
+        font-size: 18px;
+    }
+    .citizenreports-details{
+        padding: 10px;
+    }
 }
