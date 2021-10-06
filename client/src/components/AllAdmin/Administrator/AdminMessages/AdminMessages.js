@@ -134,7 +134,7 @@ const AdminMessages = ( props ) => {
                         />
                         {
                             conversations.map(c => (
-                                <div onClick={() => setCurrentChat(c)}>
+                                <div key = {c._id} onClick={() => setCurrentChat(c)}>
                                     <AdminConversations conversation={c} currentUser={aUser.data?.user}  />
                                 </div>
                             ))
@@ -147,7 +147,7 @@ const AdminMessages = ( props ) => {
                                 <>
                                     <div className={classes.AdminChatBoxTop}>
                                         {chatMessages.map(m => (
-                                            <div ref={scrollRef}>
+                                            <div key = {m._id} ref={scrollRef}>
                                                 <AdminMessage messages={m} own={m.sender === aUser.data.user?._id} />
                                             </div>
                                         ))}

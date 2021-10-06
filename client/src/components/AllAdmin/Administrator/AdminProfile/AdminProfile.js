@@ -170,7 +170,7 @@ const AdminProfile = () => {
                                 </div>
 
                                 <div className={classes.AdminProfileChangeImg}>
-                                    <Form.Label ><i class="fas fa-history" onClick = { showLogs }></i></Form.Label>
+                                    <Form.Label ><i className="fas fa-history" onClick = { showLogs }></i></Form.Label>
                                 </div>
                             </>
                         }
