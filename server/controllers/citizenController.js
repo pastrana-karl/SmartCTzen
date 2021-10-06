@@ -9,9 +9,17 @@ const sendgridTransport = require("nodemailer-sendgrid-transport");
 const catchAsync = require('../utils/catchAsync');
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
 
-
+dotenv.config({ path: "../config.env" });
+const app = require("./app");
 //Sendgrid key
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth:{
+        api_key: process.env.KEY
+    }
+}))
 
 /**
  * 
