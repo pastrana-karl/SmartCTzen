@@ -9,8 +9,17 @@ const sendgridTransport = require("nodemailer-sendgrid-transport");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const diffHistory = require('mongoose-audit-trail');
+const dotenv = require("dotenv");
 
+dotenv.config({ path: "../config.env" });
+const app = require("./app");
 //Sendgrid key
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth:{
+        api_key: process.env.KEY
+    }
+}))
 
 exports.getMe = catchAsync(async (req, res, next) => {
     req.params.id = req.user.id;

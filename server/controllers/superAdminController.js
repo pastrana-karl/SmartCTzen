@@ -7,8 +7,17 @@ const sendgridTransport = require("nodemailer-sendgrid-transport");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 
+dotenv.config({ path: "../config.env" });
+const app = require("./app");
 //Sendgrid key
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth:{
+        api_key: process.env.KEY
+    }
+}))
 
 const signToken = id => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
