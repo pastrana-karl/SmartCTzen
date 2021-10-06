@@ -60,11 +60,11 @@ const AdminProfile = () => {
             const filename = Date.now() + file.name;
             data.append("name", filename);
             data.append("file", file);
-            data.append("upload_preset", "dev_prac");
-            data.append("cloud_name", "karlstorage");
+            data.append("upload_preset", "SmartCTzen");
+            data.append("cloud_name", "smartct-media");
 
             try {
-                const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
+                const res = await axios.post("https://api.cloudinary.com/v1_1/smartct-media/image/upload", data);
                 updateAccount.profilePic = res.data.secure_url;
 
                 try {
@@ -237,7 +237,7 @@ const AdminProfile = () => {
                                         name="cpass"
                                         autoComplete="off"
                                         required
-                                        minlength="8"
+                                        minLength="8"
                                         onChange = {e => setOldPassword(e.target.value)}
                                     />
                                 </Form.Group>
@@ -249,7 +249,7 @@ const AdminProfile = () => {
                                         name="cpass"
                                         autoComplete="off"
                                         required
-                                        minlength="8"
+                                        minLength="8"
                                         onChange = {e => setNewPassword(e.target.value)}
                                     />
                                 </Form.Group>

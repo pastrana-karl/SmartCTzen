@@ -34,11 +34,11 @@ const AdminCreateProposals = () => {
         const filename = Date.now() + data.coverImage[0].name;
         formData.append('name', filename);
         formData.append('file', data.coverImage[0]);
-        formData.append("upload_preset", "dev_prac");
-        formData.append("cloud_name", "karlstorage");
+        formData.append("upload_preset", "SmartCTzen");
+        formData.append("cloud_name", "smartct-media");
 
         try {
-            const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", formData);
+            const res = await axios.post("https://api.cloudinary.com/v1_1/smartct-media/image/upload", formData);
             createProposal.coverImage = res.data.secure_url;
 
             try {

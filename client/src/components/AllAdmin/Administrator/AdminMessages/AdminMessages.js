@@ -21,7 +21,7 @@ const AdminMessages = ( props ) => {
     const scrollRef = useRef();
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8800");
+        socket.current = io("ws://localhost:8080");
         socket.current.on("getMessage", data => {
             setArrivalMessage({
                 sender: data.senderId,
