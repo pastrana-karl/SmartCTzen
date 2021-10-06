@@ -93,7 +93,7 @@ const AdminLogin = () => {
                     type="password"
                     placeholder="Password"
                     onChange = {e => setPassword(e.target.value)}
-                    minlength="8"
+                    minLength="8"
                     id="password"
 
                 />

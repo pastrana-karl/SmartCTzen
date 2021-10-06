@@ -83,7 +83,7 @@ const CitizenEmail = () => {
                     placeholder="Enter your new password"
                     autoComplete="off"
                     required
-                    minlength="8"
+                    minLength="8"
                     onChange = {(e) => setNewPassword(e.target.value)}
                   />
                 </Form.Group>
@@ -96,7 +96,7 @@ const CitizenEmail = () => {
                     placeholder="Retype your new password"
                     autoComplete="off"
                     required
-                    minlength="8"
+                    minLength="8"
                     onChange = {(e) => setRNewPassword(e.target.value)}
                   />
                 </Form.Group>
