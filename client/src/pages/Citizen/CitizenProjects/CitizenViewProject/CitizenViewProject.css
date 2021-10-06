@@ -30,7 +30,8 @@ p{
 }
 
 .citizenViewProject-title h1{
-    margin-right: 10px;
+    margin-right: 20px;
+    font-size: 35px;
 }
 
 .citizenViewProject-title i{
@@ -118,7 +119,7 @@ p{
 
     .citizenViewProject-title h1{
         margin-right: 10px;
-        font-size: 18px;
+        font-size: 25px;
     }
 
     .citizenViewProject-title i{

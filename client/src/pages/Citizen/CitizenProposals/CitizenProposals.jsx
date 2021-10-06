@@ -158,7 +158,7 @@ const CitizenProposals = () => {
                             </div>
                             <div className="proposalShortImgContainer">
                                 <div className="proposalShortImgFrame">
-                                    <img src={proposal.coverImage ? proposal.coverImage : "https://westsiderc.org/wp-content/uploads/2019/08/Image-Not-Available-225x300.png"} alt="" className="proposalImg" />
+                                    <img src={proposal.images ? proposal.images : "https://westsiderc.org/wp-content/uploads/2019/08/Image-Not-Available-225x300.png"} alt="" className="proposalImg" />
                                 </div>
                             </div>
                         </div>
