@@ -157,7 +157,7 @@ const CitizenChatReport = ( props ) => {
                             className={classes.AdminChatMenuSearch}
                         /> */}
                         {conversations.map(c => (
-                            <div onClick={() => setCurrentChat(c)}>
+                            <div key = {c._id} onClick={() => setCurrentChat(c)}>
                                 <CitizenConversations conversation={c} currentUser={user.data?.user}  />
                             </div>
                         ))}
@@ -171,8 +171,8 @@ const CitizenChatReport = ( props ) => {
                                 <div className={classes.AdminChatBoxTop}>
                                 {
                                     chatMessages.map(m => (
-                                        <div ref={scrollRef}>
-                                            <CitizenMessage messages={m} own={m.sender === user.data?.user?._id} key={m._id}/>
+                                        <div key={m._id} ref={scrollRef}>
+                                            <CitizenMessage messages={m} own={m.sender === user.data?.user?._id} />
                                         </div>
                                     ))
                                 }
