@@ -29,9 +29,6 @@ const proposalsSchema = new mongoose.Schema({
     coverImage: {
         type: String
     },
-    images: { 
-        type: String,
-    },
     upvote:[
         {type: String}
     ],

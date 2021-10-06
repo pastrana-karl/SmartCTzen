@@ -49,7 +49,7 @@ const CitizenCreateProposal = () => {
 
         const userName = values.userName.replace('',userId)
         const newValues = {...values, userName, userType}
-        const images = "";
+        const coverImage = "";
 
         const proposalData = {
             description: newValues.description,
@@ -59,7 +59,7 @@ const CitizenCreateProposal = () => {
             userId: newValues.userId,
             userName: newValues.userName,
             userType: newValues.userType,
-            images,
+            coverImage,
         }
 
         if (file) {
@@ -72,7 +72,7 @@ const CitizenCreateProposal = () => {
             data.append("cloud_name", "karlstorage");
             try {
                 const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
-                proposalData.images = res.data.secure_url;
+                proposalData.coverImage = res.data.secure_url;
 
                 try {
                     const res = await axios.post('/api/proposals', proposalData).catch(err => {
@@ -185,16 +185,16 @@ const CitizenCreateProposal = () => {
                                             {file && <img src = { (URL.createObjectURL(file)) } alt = '' onClick={()=> window.open(URL.createObjectURL(file), "_blank")}/>}
                                         </div>
 
-                                        <label  htmlFor="images"><i className="icon fas fa-image"></i></label>
+                                        <label  htmlFor="coverImage"><i className="icon fas fa-image"></i></label>
 
                                         <Field 
                                             type="file"
-                                            id="images"
-                                            name="images"
+                                            id="coverImage"
+                                            name="coverImage"
                                             style={{display: 'none'}}
                                             onChange = {(e) => setFile(e.target.files[0])}
                                         />
-                                        <ErrorMessage name="images">
+                                        <ErrorMessage name="coverImage">
                                             {
                                                 errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
                                             }

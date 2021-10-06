@@ -177,12 +177,23 @@ const AdminEachProposal = () => {
             }
           }
         );
-
         const addUserVote = {
           downvote: userId
         }
 
         const response2 = await axios
+          .patch(`/api/proposals/downVote/${proposalId}`, addUserVote)
+          .then((result) => {
+            if (result) {
+              console.log(result);
+              window.location.reload(false);
+            }
+          });
+      } else{
+        const addUserVote = {
+          downvote: userId,
+        };
+        const response = await axios
           .patch(`/api/proposals/downVote/${proposalId}`, addUserVote)
           .then((result) => {
             if (result) {
@@ -218,8 +229,8 @@ const AdminEachProposal = () => {
   };
   //console.log(currentProposal.coverImage);
 
-  console.log(params.id);
-  console.log(aUser);
+  // console.log(params.id);
+  // console.log(aUser);
 
   return (
     <AdminLayout>
