@@ -3,10 +3,9 @@ import { Formik, Form, ErrorMessage, Field } from 'formik';
 import * as ReactBootStrap from 'react-bootstrap';
 import * as Yup from 'yup';
 import { Redirect } from 'react-router';
-import { Row, Col, Container, Button } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import FormikInput from '../../../../components/UI/Input/FormikInput/FormikInput';
 import SubmitButton from '../../../../components/UI/Buttons/SubmitButton/SubmitButton';
-import CancelButton from '../../../../components/UI/Buttons/CancelButton/CancelButton';
 import Swal from 'sweetalert2';
 import { Context } from '../../../../context/Context';
 import classes from './CitizenCreateProposals.module.css';
@@ -30,9 +29,8 @@ const CitizenCreateProposal = () => {
             setUserId(username);
         }
         getUserId();
-    },[]);
+    },[citizenUser]);
 
-    console.log(userId);  
     const initialValues = {
         userId: citizenUser.user.data.user._id,
         userName: '',
@@ -45,7 +43,6 @@ const CitizenCreateProposal = () => {
     
     
     const onSubmit = async (values) => {
-        console.log('Form values', values);
 
         const userName = values.userName.replace('',userId)
         const newValues = {...values, userName, userType}
@@ -75,7 +72,7 @@ const CitizenCreateProposal = () => {
                 proposalData.coverImage = res.data.secure_url;
 
                 try {
-                    const res = await axios.post('/api/proposals', proposalData).catch(err => {
+                    await axios.post('/api/proposals', proposalData).catch(err => {
                         console.log('Error: ', err.res.data);
                     });
 
@@ -111,7 +108,6 @@ const CitizenCreateProposal = () => {
         description: Yup.string().required('Required'),
         location: Yup.string().required("Required"),
     });
-    // console.log(citizenUser.user.data.user._id);
     return(
         <>
             { redirect && (<Redirect to = '/citizen-proposals' />) }
@@ -235,83 +231,6 @@ const CitizenCreateProposal = () => {
                     </div>
             )}
         </>
-
-    //  {/* <React.Fragment> */}
-    //          {/* <div className={classes.CitizenCreateProposalContentDiv}> */}
-    //              {/* <div className={classes.QuoteDiv}> */}
-    //                  {/* <h1>Go create your proposal and make an impact!</h1> */}
-    //              {/* </div> */}
-
-    //              {/* <Formik */}
-    //                 {/* //  initialValues={initialValues}
-    //                 //  validationSchema={validationSchema}
-    //                 //  onSubmit={onSubmit}
-    //             //  > */}
-    //                  {/* <Form className={classes.CitizenCreateProposalForm}> */}
-    //                      {/* <div className={classes.CitizenCreateProposalFormDiv}> */}
-    //                          {/* <div className={classes.CitizenCreateProposalFormInput}> */}
-    //                              {/* <label>Proposal Title</label> */}
-    //                              {/* <FormikInput  */}
-    //                                 {/* //  type="text"
-    //                                 //  placeholder="Proposal Title"
-    //                                 //  id="title"
-    //                                 //  name="title"
-    //                             //  /> */}
-    //                              {/* <ErrorMessage name="title"> */}
-    //                                  {/* {errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>} */}
-    //                              {/* </ErrorMessage> */}
-    //                          {/* </div> */}
-    //                          {/* <div className={classes.CitizenCreateProposalFormInput}> */}
-    //                              {/* <label>Description</label> */}
-    //                              {/* <FormikInput  */}
-    //                                 {/* //  type="text"
-    //                                 //  placeholder="Description"
-    //                                 //  id="description"
-    //                                 //  name="description"
-    //                             //  /> */}
-    //                              {/* <ErrorMessage name="name"> */}
-    //                                  {/* { */}
-    //                                     {/* //  errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-    //                                 //  } */}
-    //                              {/* </ErrorMessage> */}
-    //                          {/* </div> */}
-    //                          {/* <div className={classes.CitizenCreateProposalFormInput}> */}
-    //                              {/* <label>When</label> */}
-    //                              {/* <FormikInput  */}
-    //                                 {/* //  type="text"
-    //                                 //  placeholder="When"
-    //                                 //  id="date"
-    //                                 //  name="date"
-    //                             //  /> */}
-    //                              {/* <ErrorMessage name="date"> */}
-    //                                  {/* { */}
-    //                                     {/* //  errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-    //                                 //  } */}
-    //                              {/* </ErrorMessage> */}
-    //                          {/* </div> */}
-    //                          {/* <div className={classes.CitizenCreateProposalFormInput}> */}
-    //                              {/* <label>Where</label> */}
-    //                              {/* <FormikInput  */}
-    //                                 {/* //  type="text"
-    //                                 //  placeholder="Where"
-    //                                 //  id="location"
-    //                                 //  name="location"
-    //                             //  /> */}
-    //                              {/* <ErrorMessage name="location"> */}
-    //                                  {/* { */}
-    //                                     {/* //  errorMsg => <div className={classes.InputValidation}>{errorMsg}</div>
-    //                                 //  } */}
-    //                              {/* </ErrorMessage> */}
-    //                          {/* </div> */}
-    //                      {/* </div> */}
-    //                      {/* <div className={classes.ButtonDiv}> */}
-    //                          {/* <SubmitButton /> */}
-    //                          {/* <CancelButton /> */}
-    //                      {/* </div> */}
-    //                  {/* </Form> */}
-    //              {/* </Formik> */}
-    //          {/* </div> */}
-    //      {/* </React.Fragment> */}
     );
 };
 

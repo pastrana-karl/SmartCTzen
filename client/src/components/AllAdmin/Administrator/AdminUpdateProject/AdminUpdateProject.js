@@ -21,11 +21,10 @@ const AdminUpdateProject = () => {
         const findProject = async () => {
           const response = await fetch('/api/projects/' + params.id);
           const responseData = await response.json();
-          //console.log(responseData);
           setCurrentProject(responseData.data.project);
         }
         findProject();
-    }, []);
+    }, [params.id]);
 
     const defaultValues = {
         title: currentProject.title,
@@ -34,24 +33,9 @@ const AdminUpdateProject = () => {
         coverImage: currentProject.coverImage
     }
 
-    //console.log(currentProject.coverImage);
-
-    const { register, handleSubmit, errors, reset, control } = useForm({ defaultValues });
-    //console.log(currentProject);
-    // const preloadedValues = {
-    //     title: currentProject.title,
-    //     description: currentProject.description,
-    //     location: currentProject.location,
-    //     coverImage: currentProject.coverImage
-    // }
-
-
-    // const { register, handleSubmit, errors } = useForm({
-    //     defaultValue: preloadedValues
-    // });
+    const { register, handleSubmit, errors, reset } = useForm({ defaultValues });
 
       const onSubmit = async (data) => {
-        console.log(data);
         const coverImage = '';
 
         const updateProject = {
@@ -78,7 +62,7 @@ const AdminUpdateProject = () => {
             updateProject.coverImage = res.data.secure_url;
 
             try {
-                const res = await axios.put(`/api/projects/update-projects/${params.id}`, updateProject);
+                await axios.put(`/api/projects/update-projects/${params.id}`, updateProject);
                 Swal.fire({
                     icon: 'success',
                     title: 'Updated!',
@@ -96,11 +80,8 @@ const AdminUpdateProject = () => {
             console.log (err);
             setLoading(true);
         }
-        // await axios.post('/api/proposals', formData);
-        // console.log(data.coverImage[0].name);
     }
 
-    // console.log(currentProject);
     return (
         <>
         { redirect && (<Redirect to = '/admin-projects' />) }
@@ -199,126 +180,3 @@ const AdminUpdateProject = () => {
 }
 
 export default AdminUpdateProject;
-
-// const AdminUpdateProject = () => {
-//     const { aUser } = useContext(Context);
-//     const [userId, setUserId] = useState();
-//     const [redirect, setRedirect] = useState(false);
-//     const [file, setFile] = useState(null);
-//     const userType = aUser.data.user.userType;
-
-//     const [currentProject, setCurrentProject] = useState([]);
-//     const [formValues, setFormValues] = useState(null);
-
-//     const params = useParams();
-
-//     useEffect(() => {
-//         const findProject = async () => {
-//           const response = await fetch('/api/projects/' + params.id);
-//           const responseData = await response.json();
-//           console.log(responseData);
-//           setCurrentProject(responseData.data.project);
-//         }
-//         findProject();
-//     }, []);
-
-//     const initialValues = {
-//         userId: aUser.data.user._id,
-//         userName: aUser.data.user.username,
-//         title: '',
-//         description: '',
-//         location: ''
-//     };
-    
-//     const validationSchema = Yup.object({
-//         title: Yup.string().required('Required!'),
-//         description: Yup.string().required('Required!'),
-//         location: Yup.string().required('Required!')
-//     });
-
-//     const onSubmit = values => {
-//         // console.log('Form values', values);
-//         // console.log('ID: ', values._id)
-
-//         console.log(values);
-
-//         //axios.patch('/api/projects/' + params.id, values);
-
-//     }
-   
-//     return (
-//         <AdminLayout>
-//             <div className={classes.AdminProjects}>
-//                 <CardHeader>
-//                     <h2 className={classes.Text}>Projects</h2>
-//                 </CardHeader>
-//             </div>
-//             <div className={classes.AdminUpdateProjectsContentDiv}>
-//                 <Formik
-//                     initialValues={formValues || initialValues}
-//                     validationSchema={validationSchema}
-//                     onSubmit={onSubmit}
-//                     enableReinitialize>
-//                     <Form className={classes.AdminUpdateProjectsForm}>
-//                         <div className={classes.AdminUpdateProjectsFormDiv}>
-//                             <div className={classes.AdminUpdateProjectsFormInput}>
-//                                 <label>Project Title</label>
-//                                 <Field
-//                                     className={classes.Input}
-//                                     type='text'
-//                                     id='title'
-//                                     name='title'
-//                                     placeholder='Project Title'
-//                                 />
-//                                 <ErrorMessage name='title' />
-//                             </div>
-//                             <div className={classes.AdminUpdateProjectsFormInput}>
-//                                 <label>Description</label>
-//                                 <Field
-//                                     className={classes.Textarea}
-//                                     type='text'
-//                                     component='textarea'
-//                                     rows={4}
-//                                     id='description'
-//                                     name='description'
-//                                     placeholder='Description'
-//                                 />
-//                                 <ErrorMessage name='description' />
-//                             </div>
-//                             <div className={classes.AdminUpdateProjectsFormInput}>
-//                                 <label>Location</label>
-//                                 <Field
-//                                     className={classes.FormikInput}
-//                                     type='text'
-//                                     id='location'
-//                                     name='location'
-//                                     placeholder='Location'
-//                                 />
-//                                 <ErrorMessage name='location' />
-//                             </div>
-//                             <div className={classes.AdminUpdateProjectsFormInput}>
-//                                 <label>Location</label>
-//                                 <Field
-//                                     type='file'
-//                                     id='file'
-//                                     name='file'
-//                                     placeholder='File'
-//                                 />
-//                                 <ErrorMessage name='file' />
-//                             </div>
-//                         </div>
-//                         <div className={classes.ButtonDiv}>
-//                             <button className={classes.UpdateButton} type="submit" >Update</button>
-//                             <button className={classes.LoadButton} type="button" onClick={() => {
-//                                 console.log('Button');
-//                                 setFormValues(currentProject);
-//                             }}>Load Data</button>
-//                         </div>
-//                     </Form>
-//                 </Formik>
-//             </div>
-//         </AdminLayout>
-//     );
-// }
-
-// export default AdminUpdateProject;

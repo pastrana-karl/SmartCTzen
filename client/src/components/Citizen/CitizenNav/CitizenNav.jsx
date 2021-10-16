@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import './CitizenNav.css';
 import { Context } from '../../../context/Context';
 import { Nav } from 'react-bootstrap';
+import axios from 'axios';
 
 const CitizenNav = ({ location: { pathname } }) => {
   const isCitizenProfile = pathname === '/citizen-profile';
@@ -17,10 +18,19 @@ const CitizenNav = ({ location: { pathname } }) => {
   const isCitizenPassUpdate = pathname === '/citizen-pass-update';
   const isCitizenChatReport = pathname === '/citizen-chat-report';
 
-  const { dispatch } = useContext(Context);
+  const { user, dispatch } = useContext(Context);
 
-  const handleLogout = () => {
-    dispatch({ type: "LOGOUT" })
+  const handleLogout = async () => {
+    const onlineStatus = {
+      citizenID: user.data.user._id,
+    }
+
+    try {
+      await axios.post('/api/citizen/citizenLogout', onlineStatus);
+      dispatch({ type: "LOGOUT" });
+    } catch (err) {
+        console.log(err.response);
+    }
   }
 
   return (

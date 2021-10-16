@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
-
 import AdminLayout from '../AdminLayout/AdminLayout';
 import CardSummary from '../../../UI/Cards/CardDashboard/CardSummary';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import CardGraph from '../../../UI/Cards/CardDashboard/CardGraph/CardGraph';
-
 import classes from './AdminReportsDashboard.module.css';
 
 const AdminReportsDashboard = () => {
@@ -127,11 +125,6 @@ const AdminReportsDashboard = () => {
                         </div>
                     </CardGraph>
                 </div>
-                    {/* <CardSummary></CardSummary>
-                    <CardSummary></CardSummary>
-                    <CardGraph>Insert Graph</CardGraph>
-                    <CardSummary></CardSummary>
-                    <CardSummary></CardSummary> */}
             </div>
         </AdminLayout>
     );

@@ -37,8 +37,6 @@ exports.getReport = catchAsync(async (req, res, next) => {
 exports.postReports = catchAsync(async (req, res, next) => {
     const newReport = await Reports.create(req.body);
 
-    console.log(newReport)
-
     const newReportHist = new diffCollection({
         collectionName: 'Reports',
         userType: newReport.userType,

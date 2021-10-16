@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Tables from '../../../UI/Tables/Tables';
 import AdminLayout from '../AdminLayout/AdminLayout';
-
-import { Context } from '../../../../context/Context';
-
 import classes from './AdminProposals.module.css';
 
 const AdminProposals = () => {
@@ -22,8 +19,6 @@ const AdminProposals = () => {
         };
         sendRequest();
     }, []);
-
-    const string = 'watch?v=S_mgSHCWCmA';
 
     return (
         <React.Fragment>

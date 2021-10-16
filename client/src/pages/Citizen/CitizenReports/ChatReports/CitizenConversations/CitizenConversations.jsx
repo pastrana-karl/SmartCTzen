@@ -8,13 +8,11 @@ const CitizenConversations = ({conversation, currentUser}) => {
 
     useEffect(() => {
         const adminId = conversation.members.find(m => m !== currentUser._id);
-        //console.log("current user " + adminId);
 
         const getAdminUser = async () => {
             try {
                 const res = await axios.get('/api/admin/' + adminId);
                 setAdminUser(res.data);
-                // console.log(res.data);
             } catch(err) {
                 console.log(err);
             }
@@ -22,15 +20,13 @@ const CitizenConversations = ({conversation, currentUser}) => {
         getAdminUser();
     }, [currentUser, conversation]);
 
-    
-    console.log(adminUser);
 
     return(
         <div className={classes.CitizenConversations}>
             <img 
                 className={classes.CitizenConversationsImg}
                 src={adminUser?.profilePic ? adminUser?.profilePic : 'https://res.cloudinary.com/karlstorage/image/upload/v1633331543/free-img/nmcibwr00fuip3xo4pvr.png'}
-                alt="sample-image"
+                alt="sample"
             />
             <span className={classes.ConversationName}>{adminUser?.username ? adminUser?.username : <span> No longer available</span>}</span>
         </div>

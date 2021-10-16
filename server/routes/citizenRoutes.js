@@ -16,6 +16,12 @@ router
     .route("/login")
     .post(citizenController.loginCitizen);
 
+//CHANGE STATUS ON LOGOUT
+router
+    .route("/citizenLogout")
+    .post(citizenController.CitizenLogout);
+
+
 //COMPARE PASSWORD
 router
     .route("/password-citizenCompare")

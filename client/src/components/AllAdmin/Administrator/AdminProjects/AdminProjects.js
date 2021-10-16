@@ -1,16 +1,13 @@
-import React, { useEffect, useState, useParams } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'timeago.js';
-
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Tables from '../../../UI/Tables/Tables';
 import AdminLayout from '../AdminLayout/AdminLayout';
-
 import classes from './AdminProjects.module.css';
 
 const AdminProjects = ( props ) => {
     const [projects, setProjects] = useState();    
-    // const { handle } = useParams();
 
     useEffect(() => {
         const sendRequest = async () => {
@@ -21,8 +18,6 @@ const AdminProjects = ( props ) => {
         sendRequest();
     }, []);
 
-    //const string = 'watch?v=S_mgSHCWCmA';
-    console.log(projects);
     return (
         <React.Fragment>
             <AdminLayout>

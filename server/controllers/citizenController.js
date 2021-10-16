@@ -192,12 +192,12 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
     }
 
     //2 Check if user exists && password is valid
-    const citizenUser = await Citizen.findOne({ email }).select('+password');
+    const citizenUser = await Citizen.findOne({ email }).collation({locale: "en", strength: 2}).select('+password');
     // if(citizenUser.status === 'false') {
 
     // } else {
     if(citizenUser.status === 'false') {
-        return next(new AppError("This account is not yet verefied by the administrator . . .", 403));
+        return next(new AppError("This account is not yet verified by the administrator . . .", 403));
     } else if (citizenUser.status === 'Banned') {
         return next(new AppError("This account has been banned by the administrator . . .", 403));
     } else {
@@ -206,7 +206,23 @@ exports.loginCitizen = catchAsync(async (req, res, next) => {
         }
     
         //3) Check if everything is ok, send token to client
+        const citizenStatus = await Citizen.findOne({ email }).collation({locale: "en", strength: 2});
+        await Citizen.findByIdAndUpdate(citizenStatus._id, {
+            $set: { 'onlineStatus': true }
+        });
         createSendToken(citizenUser, 201, res);
+    }
+});
+
+exports.CitizenLogout = catchAsync(async (req, res, next) => {
+    try {
+        await Citizen.findByIdAndUpdate(req.body.citizenID, {
+            $set: { 'onlineStatus': false }
+        });
+    
+        res.status(200).json('Citizen logged out . . .');
+    } catch (err) {
+        res.status(500).json(err)
     }
 });
 

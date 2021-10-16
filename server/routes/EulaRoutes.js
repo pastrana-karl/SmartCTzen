@@ -3,16 +3,16 @@ const Eula = require("../models/EulaModel");
 
 //CREATE EULA
 
-router.post('/agreement', async (req, res) => {
-    const eula = new Eula(req.body);
+// router.post('/agreement', async (req, res) => {
+//     const eula = new Eula(req.body);
 
-    try {
-        const saveEula = await eula.save();
-        res.status(200).json(saveEula);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+//     try {
+//         const saveEula = await eula.save();
+//         res.status(200).json(saveEula);
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
 
 //GET EULA
 router.get('/', async (req, res) => {

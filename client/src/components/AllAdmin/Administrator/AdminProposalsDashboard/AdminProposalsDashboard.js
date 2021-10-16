@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-
 import AdminLayout from '../AdminLayout/AdminLayout';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import CardSummary from '../../../UI/Cards/CardDashboard/CardSummary';
-
 import classes from './AdminProposalsDashboard.module.css';
-import Tables from '../../../UI/Tables/Tables';
 
 const AdminProposalsDashboard = () => {
     const [topProposals, setTopProposals] = useState([]);
@@ -53,11 +50,6 @@ const AdminProposalsDashboard = () => {
 
         fetchRejected();
     }, []);
-
-    console.log(topProposals);
-    console.log(accepted);
-    console.log(rejected);
-
     
     return (
         <AdminLayout>

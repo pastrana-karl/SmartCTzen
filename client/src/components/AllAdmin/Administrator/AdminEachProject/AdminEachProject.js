@@ -11,7 +11,6 @@ import { useForm } from 'react-hook-form';
 const AdminEachProject = () => {
   const [currentProject, setCurrentProject] = useState([]);
   const [followUps, setFollowUps] = useState();
-  const [disable, setDisable] = useState(false);
   const { aUser } = useContext(Context);
   const [redirect, setRedirect] = useState(false);
   const params = useParams();
@@ -21,14 +20,11 @@ const AdminEachProject = () => {
     const findProject = async () => {
       const response = await fetch('/api/projects/' + params.id);
       const responseData = await response.json();
-      //console.log(responseData);
       setCurrentProject(responseData.data.project);
       setFollowUps(responseData.data.project.updates);
     }
     findProject();
-  }, []);
-
-  console.log(followUps)
+  }, [params.id]);
 
   const accomplished = async () => {
     axios.put('/api/projects/update-projects/' + params.id, {
@@ -49,21 +45,16 @@ const AdminEachProject = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     
     const values = {
       user: aUser.data.user.username,
       message: data.updates
     }
 
-    console.log(values)
-
-    const res = await axios.patch(`/api/projects/follow-ups/${currentProject._id}`, values)
+    await axios.patch(`/api/projects/follow-ups/${currentProject._id}`, values)
       .catch(err => {
         console.log(err);
       });
-      //setComments(responseData.data.proposal.comments);
-      //console.log(values);
       window.location.reload(false);
   }
   
@@ -85,7 +76,7 @@ const AdminEachProject = () => {
             </p>
           </div>
           <div className={classes.Gallery}>
-            <img src={currentProject.coverImage} className={classes.Image} />
+            <img src={currentProject.coverImage} className={classes.Image} alt =""/>
           </div>
         </div>
       </div>

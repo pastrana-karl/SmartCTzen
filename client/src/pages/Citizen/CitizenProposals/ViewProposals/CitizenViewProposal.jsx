@@ -1,43 +1,30 @@
 import React, {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
-import { Row, Col, Button, Container, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { Formik, Form, ErrorMessage, Field, validateYupSchema } from 'formik';
-import { Link, Redirect } from 'react-router-dom';
+import { Row, Col, Button, Container } from 'react-bootstrap';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
 import './CitizenViewProposal.css';
-import FormikInput from '../../../../components/UI/Input/FormikInput/FormikInput';
 import SubmitButton from '../../../../components/UI/Buttons/SubmitButton/SubmitButton';
 import { Context } from '../../../../context/Context';
 import * as Yup from 'yup';
-
 const CitizenViewProposal = () => {
     const [proposal, setProposal] = useState([]);
     const [comments, setComments] = useState();
     const [upvoteclicked, upvotesetClicked] = useState(false);
     const [downclicked, downsetClicked] = useState(false);
-    const { user, dispatch } = useContext(Context);
-    const [disable, setDisable] = useState(false);
-    const [arrEmpty, setarrEmpty] = useState();
-    let count = 0;
+    const { user } = useContext(Context);
     
     const proposalId = localStorage.getItem('proposalid');
-    // const name = comments.user;
-    // const msg = comments.message;
-    
+
     // Proposal
     useEffect(() => {
         const sendRequest = async () => {
-            // console.log(proposalId)
             const response = await fetch(`/api/proposals/${proposalId}`);
-            // console.log(response)
             const responseData = await response.json();
-            // console.log(responseData)
-            // const newResponseData = JSON.stringify(responseData.data);
-            // console.log(newResponseData);
             setProposal(responseData.data.proposal);
             setComments(responseData.data.proposal.comments)
         };
         sendRequest();
-    },[]);
+    },[proposalId]);
 
     useEffect(()=>{
         if(proposal.upvote){
@@ -49,10 +36,8 @@ const CitizenViewProposal = () => {
                 //Compare the two
                 const upvotes = proposal.upvote;
                 const result = upvotes.includes(test);
-
-                // console.log(result); // true
                 //if true Disable Button
-                if(result==true){
+                if(result===true){
                     upvotesetClicked(true)
                 }else{
                     upvotesetClicked(false)
@@ -60,7 +45,7 @@ const CitizenViewProposal = () => {
             };
             checkUser();
         }
-    },[proposal])
+    },[proposal, user.data.user._id])
 
     useEffect(()=>{
         if(proposal.downvote){
@@ -73,9 +58,8 @@ const CitizenViewProposal = () => {
                 const upvotes = proposal.downvote;
                 const result = upvotes.includes(test);
 
-                // console.log(result); // true
                 //if true Disable Button
-                if(result==true){
+                if(result===true){
                     downsetClicked(true)
                 }else{
                     downsetClicked(false)
@@ -83,7 +67,7 @@ const CitizenViewProposal = () => {
             };
             checkUser();
         }
-    },[proposal])
+    },[proposal, user.data.user._id])
 
     const castUpVote = async (proposalId, userId) =>{
         upvotesetClicked(true);
@@ -92,9 +76,8 @@ const CitizenViewProposal = () => {
         }
         try{
             if(downclicked){
-                const response = await axios.patch(`/api/proposals/removeDownVote/${proposalId}`, removeVote).then((result)=>{
+                await axios.patch(`/api/proposals/removeDownVote/${proposalId}`, removeVote).then((result)=>{
                         if (result) {
-                            console.log(result)
                             window.location.reload(false);
                         }
                     }
@@ -102,9 +85,8 @@ const CitizenViewProposal = () => {
                 const addUserVote = {
                     upvote:userId
                 };
-                const response2 = await axios.patch(`/api/proposals/upVote/${proposalId}`, addUserVote).then((result)=>{
+                await axios.patch(`/api/proposals/upVote/${proposalId}`, addUserVote).then((result)=>{
                     if (result) {
-                        console.log(result)
                         window.location.reload(false);
                         }
                     }
@@ -114,9 +96,8 @@ const CitizenViewProposal = () => {
                 const addUserVote = {
                     upvote:userId
                 };
-                const response = await axios.patch(`/api/proposals/upVote/${proposalId}`, addUserVote).then((result)=>{
+                await axios.patch(`/api/proposals/upVote/${proposalId}`, addUserVote).then((result)=>{
                         if (result) {
-                            console.log(result)
                             window.location.reload(false);
                         }
                     }
@@ -137,9 +118,8 @@ const CitizenViewProposal = () => {
         try{
             if(upvoteclicked){
                 
-                    const response = await axios.patch(`/api/proposals/removeUpVote/${proposalId}`, removeVote).then((result)=>{
+                    await axios.patch(`/api/proposals/removeUpVote/${proposalId}`, removeVote).then((result)=>{
                             if (result) {
-                                console.log(result)
                                 window.location.reload(false);
                             }
                         }
@@ -148,9 +128,8 @@ const CitizenViewProposal = () => {
                         downvote:userId
                     };
                     // Add userId to proposals upvote array
-                    const response2 = await axios.patch(`/api/proposals/downVote/${proposalId}`, addUserVote).then((result)=>{
+                    await axios.patch(`/api/proposals/downVote/${proposalId}`, addUserVote).then((result)=>{
                             if (result) {
-                                console.log(result)
                                 window.location.reload(false);
                             }
                         }
@@ -161,9 +140,8 @@ const CitizenViewProposal = () => {
                     downvote:userId
                 };
                 //Add userId to proposals upvote array
-                const response = await axios.patch(`/api/proposals/downVote/${proposalId}`, addUserVote).then((result)=>{
+                await axios.patch(`/api/proposals/downVote/${proposalId}`, addUserVote).then((result)=>{
                         if (result) {
-                            console.log(result)
                             window.location.reload(false);
                         }
                     }
@@ -174,7 +152,6 @@ const CitizenViewProposal = () => {
             console.log(err)
         }
     }
-    // const postComment = async (proposalId,userId)
 
     const initialValues = {
         user:user.data.user.firstname+" "+user.data.user.lastname,
@@ -188,23 +165,12 @@ const CitizenViewProposal = () => {
     });
 
     const onSubmit = async (values) => {
-        console.log(values)
-        const res = await axios.patch(`/api/proposals/comments/${proposalId}`, values).catch(err => {
+        await axios.patch(`/api/proposals/comments/${proposalId}`, values).catch(err => {
             console.log('Error: ', err.res.values);
         });
         window.location.reload(false);
-        // const {...data} = newValues;
-        // const res = await axios.patch('/api/proposals/comments/', data).catch(err => {
-        //     console.log('Error: ', err.res.data);
-        // });
-
-        // setRedirect(true);
     };
-    let test = proposal.comments
-    console.log(test);
-    // for(a=1; a < comments.length(), a++){
 
-    // };
     return(
         <Container className='citizenViewProposal-container'>
                 <Row className='citizenViewProposal-long'>
@@ -264,34 +230,6 @@ const CitizenViewProposal = () => {
                     </Formik>
                 </Row>
                 <Row className='citizenViewProposal-writecomment-container'>
-                    {/* <Col className='citizenViewProposal-comment'>
-                        <Row className='citizenViewProposal-comment-img'>
-                            <img src='https://imgur.com/82XUVjV.png'/>
-                        </Row>
-                        <Row className='citizenViewProposal-comment-body'>
-                            <Col>Kevin Gojocco</Col>
-                            <Col>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-                            anim id est laborum.</Col>
-                        </Row>
-                    </Col>
-                    <Col className='citizenViewProposal-comment'>
-                        <Row className='citizenViewProposal-comment-img' c={9}>
-                            <img src='https://imgur.com/urZfDtd.png'/>
-                        </Row>
-                        <Row className='citizenViewProposal-comment-body'>
-                            <Col>John Doe</Col>
-                            <Col>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-                            anim id est laborum.</Col>
-                        </Row>
-                    </Col> */}
                     {comments && comments.map(comment => (
                     <Col className='citizenViewProposal-comment' key={comment._id}>
                         <Row className='citizenViewProposal-comment-body'>

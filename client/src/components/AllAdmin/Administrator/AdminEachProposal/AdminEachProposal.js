@@ -21,8 +21,6 @@ const AdminEachProposal = () => {
 
   const params = useParams();
 
-  //console.log(aUser.data.user.username);
-
   useEffect(() => {
     const findProposal = async () => {
       const response = await fetch("/api/proposals/" + params.id);
@@ -32,7 +30,7 @@ const AdminEachProposal = () => {
       setComments(responseData.data.proposal.comments);
     };
     findProposal();
-  }, []);
+  }, [params.id]);
 
   useEffect(() => {
     if (currentProposal.upvote) {
@@ -45,9 +43,8 @@ const AdminEachProposal = () => {
         const upvotes = currentProposal.upvote;
         const result = upvotes.includes(test);
 
-        // console.log(result); // true
         //if true Disable Button
-        if (result == true) {
+        if (result === true) {
           setupvoteClick(true);
         } else {
           setupvoteClick(false);
@@ -55,7 +52,7 @@ const AdminEachProposal = () => {
       };
       checkUser();
     }
-  }, [currentProposal]);
+  }, [currentProposal, aUser.data.user._id]);
 
   useEffect(() => {
     if (currentProposal.downvote) {
@@ -68,9 +65,8 @@ const AdminEachProposal = () => {
         const upvotes = currentProposal.downvote;
         const result = upvotes.includes(test);
 
-        // console.log(result); // true
         //if true Disable Button
-        if (result == true) {
+        if (result === true) {
           setdownvoteClick(true);
         } else {
           setdownvoteClick(false);
@@ -78,7 +74,7 @@ const AdminEachProposal = () => {
       };
       checkUser();
     }
-  }, [currentProposal]);
+  }, [currentProposal, aUser.data.user._id]);
 
 
   const approveProposal = () => {
@@ -120,11 +116,10 @@ const AdminEachProposal = () => {
 
     try {
       if (downvoteClick) {
-        const response = await axios
+        await axios
           .patch(`/api/proposals/removeDownVote/${proposalId}`, removeVote)
           .then((result) => {
             if (result) {
-              console.log(result);
               window.location.reload(false);
             }
           });
@@ -133,11 +128,10 @@ const AdminEachProposal = () => {
           upvote: userId,
         };
 
-        const response2 = await axios
+        await axios
           .patch(`/api/proposals/upVote/${proposalId}`, addUserVote)
           .then((result) => {
             if (result) {
-              console.log(result);
               window.location.reload(false);
             }
           });
@@ -146,11 +140,10 @@ const AdminEachProposal = () => {
           upvote: userId,
         };
 
-        const response = await axios
+        await axios
           .patch(`/api/proposals/upVote/${proposalId}`, addUserVote)
           .then((result) => {
             if (result) {
-              console.log(result);
               window.location.reload(false);
             }
           });
@@ -168,11 +161,10 @@ const AdminEachProposal = () => {
 
     try {
       if (upvoteClick) {
-        const response = await axios
+        await axios
           .patch(`/api/proposals/removeUpVote/${proposalId}`, removeVote)
           .then((result) => {
             if (result) {
-              console.log(result);
               window.location.reload(false);
             }
           }
@@ -181,11 +173,10 @@ const AdminEachProposal = () => {
           downvote: userId
         }
 
-        const response2 = await axios
+       await axios
           .patch(`/api/proposals/downVote/${proposalId}`, addUserVote)
           .then((result) => {
             if (result) {
-              console.log(result);
               window.location.reload(false);
             }
           });
@@ -193,11 +184,10 @@ const AdminEachProposal = () => {
         const addUserVote = {
           downvote: userId,
         };
-        const response = await axios
+        await axios
           .patch(`/api/proposals/downVote/${proposalId}`, addUserVote)
           .then((result) => {
             if (result) {
-              console.log(result);
               window.location.reload(false);
             }
           });
@@ -218,19 +208,14 @@ const AdminEachProposal = () => {
 
     console.log(values);
 
-    const res = await axios
+    await axios
       .patch(`/api/proposals/comments/${currentProposal._id}`, values)
       .catch((err) => {
         console.log(err);
       });
-    //setComments(responseData.data.proposal.comments);
-    //console.log(values);
     window.location.reload(false);
   };
-  //console.log(currentProposal.coverImage);
 
-  // console.log(params.id);
-  // console.log(aUser);
 
   return (
     <AdminLayout>
@@ -249,7 +234,7 @@ const AdminEachProposal = () => {
             </p>
           </div>
           <div className={classes.Gallery}>
-            <img src={currentProposal.coverImage} className={classes.Image} />
+            <img src={currentProposal.coverImage} className={classes.Image} alt =""/>
           </div>
         </div>
       </div>

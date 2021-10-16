@@ -173,8 +173,6 @@ exports.postProjectFollowUps = catchAsync(async (req, res, next) => {
         date:new Date().toLocaleDateString(),
     }
 
-    console.log(followUps);
-
     const result = Projects.findByIdAndUpdate(
         project,
         { $push : { updates : [

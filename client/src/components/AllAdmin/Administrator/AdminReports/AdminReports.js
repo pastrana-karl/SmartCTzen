@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import AdminLayout from '../AdminLayout/AdminLayout';
 import CardHeader from '../../../UI/Cards/CardHeader/CardHeader';
 import Tables from '../../../UI/Tables/Tables';
-
 import classes from './AdminReports.module.css';
 
 const AdminReports = () => {
@@ -20,7 +18,6 @@ const AdminReports = () => {
         sendRequest();
     }, []);
 
-    console.log(reports);
     return (
         <React.Fragment>
             <AdminLayout>

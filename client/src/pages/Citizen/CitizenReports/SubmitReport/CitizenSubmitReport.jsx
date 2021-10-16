@@ -6,12 +6,9 @@ import { Redirect } from 'react-router-dom';
 import { Row, Col, Container } from 'react-bootstrap';
 import FormikInput from '../../../../components/UI/Input/FormikInput/FormikInput';
 import SubmitButton from '../../../../components/UI/Buttons/SubmitButton/SubmitButton';
-import CancelButton from '../../../../components/UI/Buttons/CancelButton/CancelButton';
 import Swal from 'sweetalert2';
 import { Context } from '../../../../context/Context';
 import axios from 'axios';
-// import classes from '../../CitizenProposals/CreateProposals/CitizenCreateProposals.module.css';
-// import './CitizenSubmitReport.css';
 import classes from './CitizenSubmitReport.module.css';
 
 const CitizenSubmitReport = () => {
@@ -31,9 +28,8 @@ const CitizenSubmitReport = () => {
             setUserId(username);
         }
         getUserId();
-    },[]);
+    },[citizenUser]);
 
-    console.log(userId);  
     const initialValues = {
         userId: citizenUser.user.data.user._id,
         userName: '',
@@ -46,7 +42,6 @@ const CitizenSubmitReport = () => {
     
     
     const onSubmit = async (values) => {
-        console.log('Form values', values);
 
         const userName = values.userName.replace('',userId)
         const newValues = {...values, userName, userType}
@@ -76,7 +71,7 @@ const CitizenSubmitReport = () => {
                 reportData.images = res.data.secure_url;
 
                 try {
-                    const res = await axios.post('/api/reports', reportData).catch(err => {
+                    await axios.post('/api/reports', reportData).catch(err => {
                         console.log('Error: ', err.res.data);
                     });
                     

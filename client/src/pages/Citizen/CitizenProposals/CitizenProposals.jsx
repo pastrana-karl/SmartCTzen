@@ -4,7 +4,6 @@ import './CitizenProposals.css';
 import { Row, Col, Container} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import { Context } from '../../../context/Context';
 
 
@@ -12,44 +11,36 @@ const CitizenProposals = () => {
     const {user} = useContext(Context)
     const [proposals, setProposals] = useState([]);
     const currentCitizenUser = user.data.user.firstname + " " + user.data.user.lastname;
-    // const [proposals, setProposals] = useState([]);
-    // const [proposals, setProposals] = useState([]);
-    // const [proposals, setProposals] = useState([]);
 
     useEffect(() => {
         const sendRequest = async () => {
             const response = await fetch('/api/proposals');
             const responseData = await response.json();
-            // console.log(responseData)
             setProposals(responseData.data.proposals);
         };
         sendRequest();
     }, []);
 
     const deleteProposal = async (proposalId) => {
-        console.log(proposalId);
         const citizen = {
             username: currentCitizenUser,
             usertype: user.data.user.userType
         }
-        const response = await axios.delete(`/api/proposals/${proposalId}`, {data: citizen});
+        await axios.delete(`/api/proposals/${proposalId}`, {data: citizen});
         const refresh = await fetch('/api/proposals');
         const responseData = await refresh.json();
         setProposals(responseData.data.proposals);
     }
 
     const getProposalId = async (proposalId) => {
-        console.log(proposalId);
         localStorage.setItem('proposalid', proposalId);
     }
     
     
     //ALL Category
-    //onClick={() => categoryAll(status:lahat ng status na meron)}  initialize nalang ng local array na ["Pending","Approved","Rejected"] 
     const categoryAll = async () => {
         const response = await fetch('/api/proposals');
         const responseData = await response.json();
-        // console.log(responseData)
         setProposals(responseData.data.proposals);
     }
     
@@ -60,43 +51,19 @@ const CitizenProposals = () => {
     const categoryApproved = async () => {
         const response = await fetch('/api/proposals/approved');
         const responseData = await response.json();
-        // console.log(responseData)
         setProposals(responseData);
-        // console.log(responseData)
     }
 
     const categoryRejected = async () => {
         const response = await axios.get('/api/proposals/rejected');
-        // const responseData = await response.json();
-        // console.log(response.data)
         setProposals(response.data);
     }
-    //APPROVED/REJECTED Category
-    //onClick={() => categoryApproved/Rejected(status:Approved/Rejected)}
-    //const categoryApproved/Rejected = async (status) =>{}
-    // dito icocompare mo yung Approved/Rejected na status to all proposals
-    // if nag true ididsplay natin
-
+ 
     const categoryOwn = async () => {
-        // const currentuserid = user.user.data.user._id;
-        // const useridfilter = {
-        //     citizenId: currentuserid,
-        // }
-        // const response = await fetch('/api/proposals', userId);
-        // const responseData = await response.json();
-        // // console.log(responseData)
-        // setProposals(responseData.data.proposals);
         const response = await axios.get(`/api/proposals/self/${user.data.user._id}`);
-        // // const responseData = await response.json();
-        // console.log(response.data);
+
         setProposals(response.data);
     }
-    //OWN Category
-    //onClick={() => categoryOwn(user.data.user._id)}
-    //const categoryOwn = async (userId) =>{}
-    //dito icocompare mo ang userId mo sa lahat ng userIds na meron sa proposals
-    //if nag true ididisplay
-    console.log(user);
 
     return(
         <Container className="proposalsContainer">
@@ -135,13 +102,6 @@ const CitizenProposals = () => {
                             <div className="proposalShortInfo">
                                 <h2>{proposal.title}</h2>
                                 <div className="proposalAuthContainer">
-                                    <div className="proposalAuthImg">
-                                    {/* {proposal.userId === user.data.user._id ?
-                                    <img src={user.data.user.profilePic} alt="Author"/> 
-                                    :
-                                    null
-                                    } */}
-                                    </div>
                                     <div className="proposalAuth">
                                         {proposal.userName}
                                     </div>

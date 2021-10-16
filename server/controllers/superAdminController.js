@@ -56,7 +56,7 @@ exports.registerSuperAdmin = catchAsync(async (req, res, next) => {
 });
 
 exports.loginSuperAdmin = catchAsync(async (req, res, next) => {
-    const superadmin = await SuperAdmin.findOne({ email: req.body.email });
+    const superadmin = await SuperAdmin.findOne({ email: req.body.email }).collation({locale: "en", strength: 2});
 
     if(!superadmin)
     {

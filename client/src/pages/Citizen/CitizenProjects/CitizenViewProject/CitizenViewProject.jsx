@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import { Row, Col, Button, Container } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import './CitizenViewProject.css';
 
@@ -9,8 +8,6 @@ const CitizenViewProject = () => {
     const path = location.pathname.split("/")[2];
     const [project, setProject] = useState([]);
     const [followUps, setFollowUps] = useState();
-    const [viewCount, setViewCount] = useState();
-    const projectId = localStorage.getItem('projectid');
 
     useEffect(() => {
         const sendRequest = async () => {
@@ -20,13 +17,10 @@ const CitizenViewProject = () => {
             setFollowUps(responseData.data.project.updates)
         };
         sendRequest();
-    },[]);
+    },[path]);
 
     const date = new Date(project.createdAt).toLocaleDateString()
 
-    console.log(project)
-
-    // console.log(viewCount)
     return(
         <Container className='citizenViewProject-container'>
                 <Row className='citizenViewProject-long'>

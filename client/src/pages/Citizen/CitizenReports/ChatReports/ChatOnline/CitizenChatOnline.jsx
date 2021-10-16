@@ -5,7 +5,6 @@ import classes from './CitizenChatOnline.module.css';
 
 const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
     const [allAdmins, setAllAdmins] = useState([]);
-    const [selectedAdmin, setSelectedAdmin] = useState([]);
 
 
     //Gets all admins
@@ -14,7 +13,6 @@ const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
             const response = await fetch('/api/admin/?onlineStatus=true');
             const responseData = await response.json();
             setAllAdmins(responseData);
-           // console.log(responseData)
         }
         sendRequest();
     }, []);
@@ -23,16 +21,14 @@ const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
         try {
             const res = await axios.get(`/api/conversations/${currentId}/${user._id}` );
             setCurrentChat(res.data);
-            console.log(res.data);
 
             if (res.data !== null) {
                 return;
             } else {
-                const newConvo = await axios.post('/api/conversations/', {
+                await axios.post('/api/conversations/', {
                     senderID: currentId,
                     receiverID: user._id
                 });
-                console.log(newConvo.data.savedConversation);
             }
 
 
@@ -50,6 +46,7 @@ const CitizenChatOnline = ({admin, currentId, setCurrentChat}) => {
                 <img 
                     className={classes.ChatOnlineImage}
                     src={admin.profilePic} 
+                    alt =""
                 />
                 <div className={classes.ChatOnlineBadge}></div>
                 </div>

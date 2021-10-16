@@ -20,10 +20,10 @@ const AdminEachReport = () => {
       setCurrentReport(responseData.data.report);
     }
     findReport();
-  }, []);
+  }, [params.id]);
 
   const confirmReport = async () => {
-    const res = await axios.patch('/api/reports/' + params.id, {
+    await axios.patch('/api/reports/' + params.id, {
       status: 'Confirmed',
       userType: aUser.data.user.userType,
       username: aUser.data.user.username
@@ -32,7 +32,7 @@ const AdminEachReport = () => {
   };
 
   const cancelReport = async () => {
-    const res = await axios.patch('/api/reports/' + params.id, {
+    await axios.patch('/api/reports/' + params.id, {
       status: 'Cancelled',
       userType: aUser.data.user.userType,
       username: aUser.data.user.username
@@ -41,7 +41,7 @@ const AdminEachReport = () => {
   }
 
   const resolveReport = async () => {
-    const res = await axios.patch('/api/reports/' + params.id, {
+    await axios.patch('/api/reports/' + params.id, {
       status: 'Resolved',
       userType: aUser.data.user.userType,
       username: aUser.data.user.username
@@ -54,11 +54,10 @@ const AdminEachReport = () => {
       username: aUser.data.user.username,
       userType: aUser.data.user.userType
     }
-    const res = await axios.delete('/api/reports/' + params.id, {data: admin});
+    await axios.delete('/api/reports/' + params.id, {data: admin});
     window.location.replace('/admin-reports');
   }
 
-  //console.log(currentReport);
   return (
     <AdminLayout>
       { redirect && (<Redirect to = '/admin-reports' />) }

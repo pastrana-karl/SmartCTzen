@@ -32,7 +32,6 @@ exports.getRejectedProposals = async (req, res, next) => {
 };
 
 exports.getOwnProposals = async (req, res, next) => {
-    console.log(req.params.id);
     try {
         const ownProposals = await Proposals.find({userId:req.params.id});
         res.status(200).json(ownProposals);
@@ -303,7 +302,6 @@ exports.postProposalComment = catchAsync(async (req, res, next) => {
         message:req.body.message
     }
 
-    console.log(comment);
 
     const result = Proposals.findByIdAndUpdate(
         proposal,

@@ -1,12 +1,11 @@
 import "./CitizenProjects.css";
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Col, Column, Row, Container } from 'react-bootstrap'
-import { Link, NavLink } from "react-router-dom";
+import { Col, Row, Container } from 'react-bootstrap'
+import { Link } from "react-router-dom";
 
 const CitizenProjects = () => {
     const [projects, setProjects] = useState();
-    const [views, setViews] = useState(0);
 
     useEffect(() => {
         const sendRequest = async () => {
@@ -20,21 +19,18 @@ const CitizenProjects = () => {
     const categoryAll = async () => {
         const response = await fetch('/api/projects');
         const responseData = await response.json();
-        // console.log(responseData)
         setProjects(responseData.data.projects);
     }
     
     const categoryAccomplished = async () => {
         const response = await fetch('/api/projects/accomplished');
         const responseData = await response.json();
-        // console.log(responseData)
         setProjects(responseData);   
     }
 
     const categoryOngoing = async () => {
         const response = await fetch('/api/projects/ongoing');
         const responseData = await response.json();
-        // console.log(responseData)
         setProjects(responseData);   
     }
     
@@ -45,15 +41,6 @@ const CitizenProjects = () => {
             console.log(err.response)
         }
     }
-
-    // console.log(projects)
-    //Accomplished/Ongoing Category
-    //onClick={() => categoryAccomplished/Ongoing(status:Accomplished/Ongoing)}
-    //const categoryAccomplished/Ongoing = async (status) =>{}
-    // dito icocompare mo yung Accomplished/Ongoing na status to all proposals
-    // if nag true ididsplay natin
-
-
 
     return (
         <Container className='citizenprojects-container' >

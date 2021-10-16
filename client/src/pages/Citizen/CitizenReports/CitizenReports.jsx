@@ -1,10 +1,7 @@
 import "./CitizenReports.css";
 import React, {useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
-import axios from "axios";
-import ReportsNav from "../../../components/Citizen/ReportsNav/ReportsNav";
-import { Row, Col, Form, Button, Container} from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { Row, Col, Container} from 'react-bootstrap';
 
 const CitizenReports = () => {
     const [reports, setReports] = useState([]);
@@ -13,45 +10,32 @@ const CitizenReports = () => {
         const sendRequest = async () => {
             const response = await fetch('/api/reports');
             const responseData = await response.json();
-            console.log(responseData);
             setReports(responseData);
         };
         sendRequest();
     }, []);
 
-    const deletereport = async (reportId) => {
-        console.log(reportId);
-    //     const response = await axios.delete(`/api/reports/${reportId}`);
-    //     const refresh = await fetch('/api/reports');
-    //     const responseData = await refresh.json();
-    //     setReports(responseData.data.report);
-    }
-
     const categoryAll = async () => {
         const response = await fetch('/api/reports');
         const responseData = await response.json();
-        // console.log(responseData)
         setReports(responseData);
     }
 
     const categoryConfirmed = async () => {
         const response = await fetch('/api/reports/confirmed');
         const responseData = await response.json();
-        // console.log(responseData)
         setReports(responseData);   
     }
 
     const categoryCancelled = async () => {
         const response = await fetch('/api/reports/cancelled');
         const responseData = await response.json();
-        // console.log(responseData)
         setReports(responseData);   
     }
     
     const categoryResolved = async () => {
         const response = await fetch('/api/reports/resolved');
         const responseData = await response.json();
-        // console.log(responseData)
         setReports(responseData);   
     }
 
@@ -72,28 +56,7 @@ const CitizenReports = () => {
                     <Link className='far fa-comment citizenreports-btn-chat' to='/citizen-chat-report'/>
                 </Col>
             </Row>
-            {/*
-            <Row className='citizenreports-short'>
-                <Col className='citizenreports-img-container'>
-                    <img className='citizenreports-img' alt='citizenreports-img'src="https://th.bing.com/th/id/OIP.YLpvvCgXD0sI6X5dg0i6UgHaE7?pid=ImgDet&rs=1"/>
-                </Col>
-
-                <Col>
-                    <Row className='citizenreports-title-container'>
-                        <span className='citizenreports-title'><h2>Road Damage</h2></span>
-                    </Row>
-                    <Row className='citizenreports-details'>
-                        <Col className='citizenreports-info-container'>
-                            <span className='reportInfo'>Where: Cainta Rizal</span>
-                            <span className='reportInfo'>Reported by: John Doe</span>
-                            <span className='reportInfo'>Date Submitted: September 17, 2021 11:17am</span>
-                        </Col>
-                        <Col className='citizenreports-info-status-container'>
-                            <span className='reportInfo'>Status: Confirmed</span>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row> */}
+         
             {reports && reports.map(report => (
                 <Row className='citizenreports-short' key={report._id}>
                     <Col className='citizenreports-img-container'>
@@ -121,45 +84,6 @@ const CitizenReports = () => {
                 </Row>
             ))}
         </Container>
-        // <div className="reportsContainer">
-        //      <div className="reportsMain">
-        //          <div className="category">
-        //              <React.Fragment>
-        //                     <ReportsNav/> 
-        //             </React.Fragment> 
-        //         </div>
-        //         <div className="citizenreports-btn-container">
-        //             <NavLink to="/citizen-submit-reports">
-        //                 <button className="citizenreports-submitreport-btn">Create A Report</button>
-        //                 </NavLink>
-        //             <NavLink to="/citizen-chat-report">
-        //                 <div className='chat-icon'>
-        //                     <i class="far fa-comment"></i>
-        //                 </div>
-        //             </NavLink>
-        //         </div>
-        //         <Row className="citizenreportShort">
-        //                 <Col className="citizenreportimg-container">
-        //                     <img className="reportImg" alt="reportimg"src="https://th.bing.com/th/id/OIP.YLpvvCgXD0sI6X5dg0i6UgHaE7?pid=ImgDet&rs=1"/>
-        //                 </Col>
-        //                 <Col>
-        //                     <Row className='citizenreport-reportTitleContainer'>
-        //                         <span className="citizenreport-reportTitle"><h2>Road Damage</h2></span>
-        //                     </Row>
-        //                     <Row className="reportDetails">
-        //                         <Col className='reportInfo-container'>
-        //                             <span className="reportInfo">Where: Cainta Rizal</span>
-        //                             <span className="reportInfo">Reported by: John Doe</span>
-        //                             <span className="reportInfo">Date Submitted: September 17, 2021 11:17am</span>
-        //                         </Col>
-        //                         <Col className='reportInfo-container'>
-        //                             <span className="reportInfo">Status: Confirmed</span>
-        //                         </Col>
-        //                     </Row>
-        //                 </Col>
-        //         </Row>
-        //     </div>
-        // </div>
     );
 }
 

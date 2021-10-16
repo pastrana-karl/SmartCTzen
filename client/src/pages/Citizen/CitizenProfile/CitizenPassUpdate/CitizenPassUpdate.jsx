@@ -20,8 +20,6 @@ const CitizenPassUpdate = () => {
             oldPassword,
         }
 
-        console.log(checkPass)
-
         try {
             await axios.post("/api/citizen/password-citizenCompare", checkPass)
 

@@ -1,8 +1,7 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import CardForm from '../../../UI/Cards/CardForm/CardForm';
 import Input from '../../../UI/Input/Input';
 import LoginButton from '../../../UI/Buttons/LoginButton/LoginButton';
-import { loginCall } from '../../../../api_calls/adminApiCall';
 import { Context } from '../../../../context/Context';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -25,7 +24,7 @@ const AdminLogin = () => {
 //KD's code
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { aUser, dispatch, isFetching } = useContext(Context);
+  const { dispatch } = useContext(Context);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

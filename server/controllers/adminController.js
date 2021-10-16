@@ -154,14 +154,14 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
     }
 
     //2) Check if user exists && password is valid
-    const adminUser = await Admin.findOne({ email }).select('+password');
+    const adminUser = await Admin.findOne({ email }).collation({locale: "en", strength: 2}).select('+password');
 
     if (!adminUser || !(await adminUser.correctPassword(password, adminUser.password))) {
         return next(new AppError("Incorrect email or password", 401));
     }
 
     //3) Check of everything ok, send token to client
-    const adminStatus = await Admin.findOne({ email });
+    const adminStatus = await Admin.findOne({ email }).collation({locale: "en", strength: 2});
     await Admin.findByIdAndUpdate(adminStatus._id, {
         $set: { 'onlineStatus': true }
     });

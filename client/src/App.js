@@ -41,12 +41,9 @@ import AdminCreateProjects from './components/AllAdmin/Administrator/AdminCreate
 import CitizenPassUpdate from './pages/Citizen/CitizenProfile/CitizenPassUpdate/CitizenPassUpdate';
 import CitizenCreateProposal from './pages/Citizen/CitizenProposals/CreateProposals/CitizenCreateProposals';
 import CitizenViewProposal from './pages/Citizen/CitizenProposals/ViewProposals/CitizenViewProposal';
-import CitizenViewReport from './pages/Citizen/CitizenReports/ViewReports/CitizenViewReport';
 import CitizenSubmitReport from './pages/Citizen/CitizenReports/SubmitReport/CitizenSubmitReport';
 import CitizenChatReport from './pages/Citizen/CitizenReports/ChatReports/CitizenChatReport';
 import CitizenViewProject from './pages/Citizen/CitizenProjects/CitizenViewProject/CitizenViewProject';
-import ProposalNav from './components/Citizen/ProposalNav/ProposalNav';
-import ReportsNav from './components/Citizen/ReportsNav/ReportsNav';
 
 import SANavBar from './components/SuperAdmin/SaSideBar';
 import SALogin from './pages/SuperAdmin/SALogin/SALogin';
@@ -87,7 +84,6 @@ const App = () => {
   //Citizen User...
   const { user } = useContext(Context);
 
-  // console.log(user);
 
   //Super Administrator User...
   const { saUser } = useContext(Context);
@@ -200,10 +196,6 @@ const App = () => {
 
           <Route path="/citizen-reports">
             {user ? <CitizenReports /> : <Redirect to="/" />}
-          </Route> 
-
-          <Route path="/citizen-view-reports">
-            {user ? <CitizenViewReport /> : <Redirect to="/" />}
           </Route> 
 
           <Route path="/citizen-submit-reports">
