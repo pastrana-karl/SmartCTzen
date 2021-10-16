@@ -106,6 +106,7 @@ const AdminEachProject = () => {
               name='updates'
               placeholder='Update this project?'
               ref={register({ maxLength: 500 })}
+              required="true"
               />
               {errors.updates && <p className={classes.InputValidation}>500 characters only</p>}
             

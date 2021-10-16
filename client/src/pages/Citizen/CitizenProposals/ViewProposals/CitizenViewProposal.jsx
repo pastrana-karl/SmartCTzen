@@ -294,9 +294,6 @@ const CitizenViewProposal = () => {
                     </Col> */}
                     {comments && comments.map(comment => (
                     <Col className='citizenViewProposal-comment' key={comment._id}>
-                        <Row className='citizenViewProposal-comment-img'>
-                            <img src='https://imgur.com/urZfDtd.png'/>
-                        </Row>
                         <Row className='citizenViewProposal-comment-body'>
                             <Col>{comment.user}</Col>
                             <Col>{comment.message}</Col>
