@@ -39,6 +39,7 @@ const AdminMessages = ( props ) => {
     useEffect(() => {
         socket.current.emit("addUser", aUser.data.user._id);
         socket.current.on("getUsers", aUser => {
+            return aUser;
             console.log(aUser);
         });
     }, [aUser]);

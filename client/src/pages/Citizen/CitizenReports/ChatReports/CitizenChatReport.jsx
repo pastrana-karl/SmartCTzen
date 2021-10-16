@@ -43,6 +43,7 @@ const CitizenChatReport = ( props ) => {
     useEffect(() => {
         socket.current.emit("addUser", user.data.user._id);
         socket.current.on("getUsers", user => {
+            return user;
             console.log(user);
         });
     }, [user]);
