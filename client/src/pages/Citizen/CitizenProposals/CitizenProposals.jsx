@@ -96,7 +96,7 @@ const CitizenProposals = () => {
     //const categoryOwn = async (userId) =>{}
     //dito icocompare mo ang userId mo sa lahat ng userIds na meron sa proposals
     //if nag true ididisplay
-    console.log(proposals);
+    console.log(user);
 
     return(
         <Container className="proposalsContainer">
@@ -121,7 +121,11 @@ const CitizenProposals = () => {
                                 <h2>{proposal.title}</h2>
                             </div>
                             <div className="proposalAuthImg">
-                                <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Author"/>
+                                {proposal.userId === user.data.user._id ?
+                                <img src={user.data.user.profilePic} alt="Author"/>
+                                :
+                                null
+                                }
                             </div>
                             <div className="proposalAuth">
                                 {proposal.userName}
@@ -132,7 +136,11 @@ const CitizenProposals = () => {
                                 <h2>{proposal.title}</h2>
                                 <div className="proposalAuthContainer">
                                     <div className="proposalAuthImg">
-                                        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Author"/>
+                                    {/* {proposal.userId === user.data.user._id ?
+                                    <img src={user.data.user.profilePic} alt="Author"/> 
+                                    :
+                                    null
+                                    } */}
                                     </div>
                                     <div className="proposalAuth">
                                         {proposal.userName}
@@ -143,9 +151,9 @@ const CitizenProposals = () => {
                                     <i className="fas fa-thumbs-up"/>{proposal.upvote.length ? proposal.upvote.length : 0}
                                     <i className="fas fa-thumbs-down"/>{proposal.downvote.length ? proposal.downvote.length : 0}
                                     {proposal.userId === user.data.user._id ?
-                                    null
-                                    :
                                     <i onClick={()=> deleteProposal(proposal._id)} style = {{cursor: 'pointer'}} className="fas fa-trash"></i>
+                                    :
+                                    null
                                     }
                                 </div>
                                 {proposal.status === "Rejected" ?  

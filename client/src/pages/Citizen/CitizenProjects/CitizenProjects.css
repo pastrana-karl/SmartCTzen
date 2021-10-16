@@ -1,5 +1,5 @@
 .citizenprojects-container {
-    margin: 13%;
+    margin-top: 13%;
 }
 
 .citizenprojects-catbar-container{
@@ -156,7 +156,7 @@
     display: flex;
     flex: 50%;
     padding: 20px;
-    max-height: 500px;
+    max-height: 400px;
     max-width: 510px;
     justify-content: center;
     background: #FFFFFF;
@@ -221,6 +221,7 @@
 
     .citizenprojects-shortinfo-auth h2{
         font-size: 20px;
+        padding-top: 10px;
     }
 }
 

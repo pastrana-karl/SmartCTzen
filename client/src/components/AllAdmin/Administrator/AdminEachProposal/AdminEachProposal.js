@@ -282,6 +282,7 @@ const AdminEachProposal = () => {
               name="comment"
               placeholder="Comment your thoughts..."
               ref={register({ maxLength: 500 })}
+              required="true"
             />
             {errors.comment && (
               <p className={classes.InputValidation}>500 characters only</p>

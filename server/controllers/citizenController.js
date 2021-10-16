@@ -12,7 +12,7 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 
 dotenv.config({ path: "../config.env" });
-const app = require("./app");
+// const app = require("./app");
 //Sendgrid key
 
 const transporter = nodemailer.createTransport(sendgridTransport({

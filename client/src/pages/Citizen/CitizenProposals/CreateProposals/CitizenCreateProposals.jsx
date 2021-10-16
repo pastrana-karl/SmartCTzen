@@ -71,7 +71,7 @@ const CitizenCreateProposal = () => {
             data.append("upload_preset", "SmartCTzen");
             data.append("cloud_name", "smartct-media");
             try {
-                const res = await axios.post("https://api.cloudinary.com/v1_1/karlstorage/image/upload", data);
+                const res = await axios.post("https://api.cloudinary.com/v1_1/smartct-media/image/upload", data);
                 proposalData.coverImage = res.data.secure_url;
 
                 try {
