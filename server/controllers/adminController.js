@@ -15,11 +15,11 @@ dotenv.config({ path: "../config.env" });
 // const app = require("./app");
 //Sendgrid key
 
-const transporter = nodemailer.createTransport(sendgridTransport({
-    auth:{
-        api_key: process.env.KEY
-    }
-}))
+// const transporter = nodemailer.createTransport(sendgridTransport({
+//     auth:{
+//         api_key: process.env.KEY
+//     }
+// }))
 
 exports.getMe = catchAsync(async (req, res, next) => {
     req.params.id = req.user.id;

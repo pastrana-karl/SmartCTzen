@@ -129,10 +129,6 @@ const AdminMessages = ( props ) => {
                 </div>
                 <div className={classes.Messenger}>
                     <div className={classes.AdminChatMenu}>
-                        <input
-                            placeholder="Search messages"
-                            className={classes.AdminChatMenuSearch}
-                        />
                         {
                             conversations.map(c => (
                                 <div key = {c._id} onClick={() => setCurrentChat(c)}>
