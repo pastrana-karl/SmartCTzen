@@ -297,9 +297,6 @@ const AdminEachProposal = () => {
       {comments &&
         comments.map((comment) => (
           <div className={classes.AdminViewProposalComment} key={comment._id}>
-            <div className={classes.AdminViewProposalCommentDivImg}>
-              <img src="https://imgur.com/urZfDtd.png" />
-            </div>
             <div className={classes.AdminViewProposalCommentBody}>
               <div>{comment.user}</div>
               <div>{comment.message}</div>
